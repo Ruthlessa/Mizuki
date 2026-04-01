@@ -1,0 +1,132 @@
+---
+interface Props {
+	id?: string;
+	src: string;
+	class?: string;
+	alt?: string;
+	position?: string;
+	basePath?: string;
+	loading?: "eager" | "lazy";
+	fetchpriority?: "high" | "low" | "auto";
+	widths?: number[];
+	sizes?: string;
+}
+
+import { Image as AstroImage } from "astro:assets";
+
+import { url } from "../../../utils/url-utils";
+
+const {
+	id,
+	src,
+	alt,
+	position = "center",
+	basePath = "/",
+	loading = "lazy",
+	fetchpriority,
+	widths,
+	sizes,
+} = Astro.props;
+const className = Astro.props.class;
+
+const isLocal = !(
+	src.startsWith("/") ||
+	src.startsWith("http") ||
+	src.startsWith("https") ||
+	src.startsWith("data:")
+);
+const isPublic = src.startsWith("/");
+
+// TODO temporary workaround for images dynamic import
+// https://github.com/withastro/astro/issues/3373
+// biome-ignore lint/suspicious/noImplicitAnyLet: <check later>
+let img: ImageMetadata | undefined;
+if (isLocal) {
+	const files = import.meta.glob<ImageMetadata>("../../../**", {
+		import: "default",
+	});
+	// 使用字符串操作替代 path.normalize 和 path.join
+	const normalizedPath = normalizePath(`../../../${basePath}/${src}`);
+	const file = files[normalizedPath];
+	if (!file) {
+		console.error(
+			`\n[ERROR] Image file not found: ${normalizedPath.replace("../../../", "src/")}`,
+		);
+	} else {
+		img = await file();
+	}
+}
+
+const imageClass = "w-full h-full object-cover";
+const imageStyle = `object-position: ${position}`;
+
+// 检查是否是 Bilibili 图片
+const isBilibiliImage = !isLocal && src.includes("hdslb.com");
+// 对于外部图片（特别是 Bilibili），需要设置 referrerpolicy 避免 403 错误
+const referrerPolicy = !isLocal && isBilibiliImage ? "no-referrer" : undefined;
+
+// 简单的路径规范化函数，替代 path.normalize
+function normalizePath(path: string): string {
+	// 将反斜杠替换为正斜杠
+	path = path.replace(/\\/g, "/");
+
+	// 处理 ../ 和 ./
+	const parts = path.split("/");
+	const result: string[] = [];
+
+	for (const part of parts) {
+		if (part === ".." && result.length > 0 && result[result.length - 1] !== "..") {
+			result.pop();
+		} else if (part !== "." && part !== "") {
+			result.push(part);
+		}
+	}
+
+	// 保留开头的 ../
+	const prefixParts: string[] = [];
+	for (const part of parts) {
+		if (part === "..") {
+			prefixParts.push(part);
+		} else if (part !== "." && part !== "") {
+			break;
+		}
+	}
+
+	return [...prefixParts, ...result].join("/");
+}
+---
+
+<div id={id} class:list={[className, "overflow-hidden relative"]}>
+	<div
+		class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"
+	>
+	</div>
+	{
+		isLocal && img && (
+			<AstroImage
+				src={img}
+				alt={alt || ""}
+				class={imageClass}
+				style={imageStyle}
+				loading={loading}
+				fetchpriority={fetchpriority}
+				widths={widths}
+				sizes={sizes}
+			/>
+		)
+	}
+	{
+		!isLocal && (
+			<img
+				src={isPublic ? url(src) : src}
+				alt={alt || ""}
+				class={imageClass}
+				style={imageStyle}
+				loading={loading}
+				referrerpolicy={referrerPolicy}
+				crossorigin={isBilibiliImage ? "anonymous" : undefined}
+				fetchpriority={fetchpriority}
+			/>
+		)
+	}
+</div>
