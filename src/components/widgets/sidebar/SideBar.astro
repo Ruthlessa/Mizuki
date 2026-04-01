@@ -1,0 +1,160 @@
+---
+import type { MarkdownHeading } from "astro";
+
+import SidebarColumn from "@/components/layout/SidebarColumn.astro";
+import { widgetManager } from "@/utils/widget-manager";
+
+interface Props {
+	class?: string;
+	headings?: MarkdownHeading[];
+}
+
+const { class: className, headings } = Astro.props;
+
+const mobileTopComponents = widgetManager.getComponentsByPosition(
+	"top",
+	"left",
+	"mobile",
+);
+const mobileStickyComponents = widgetManager.getComponentsByPosition(
+	"sticky",
+	"left",
+	"mobile",
+);
+const tabletTopComponents = widgetManager.getComponentsByPosition(
+	"top",
+	"left",
+	"tablet",
+);
+const tabletStickyComponents = widgetManager.getComponentsByPosition(
+	"sticky",
+	"left",
+	"tablet",
+);
+---
+
+<SidebarColumn
+	side="left"
+	containerId="sidebar"
+	stickyId="sidebar-sticky"
+	rootClass={`${className ?? ""} w-full sidebar-root`}
+	headings={headings}
+	showMobile={false}
+	showTablet={true}
+	showDesktop={true}
+/>
+
+<style>
+	@media (max-width: 768px) {
+		#sidebar {
+			display: none;
+		}
+	}
+
+	@media (min-width: 769px) and (max-width: 1279px) {
+		#sidebar {
+			display: var(--sidebar-tablet-display, block);
+		}
+	}
+
+	@media (min-width: 1280px) {
+		#sidebar {
+			display: var(--sidebar-desktop-display, block);
+		}
+	}
+</style>
+
+<script
+	is:inline
+	define:vars={{
+		breakpoints: widgetManager.getBreakpoints(),
+		mobileShowSidebar: widgetManager.shouldShowSidebar("mobile"),
+		tabletShowSidebar: widgetManager.shouldShowSidebar("tablet"),
+		desktopShowSidebar: widgetManager.shouldShowSidebar("desktop"),
+		hasMobileComponents:
+			mobileTopComponents.length > 0 || mobileStickyComponents.length > 0,
+		hasTabletComponents:
+			tabletTopComponents.length > 0 || tabletStickyComponents.length > 0,
+	}}
+>
+	// 只在客户端执行
+	if (typeof window !== "undefined") {
+		const SIDEBAR_MANAGER_KEY = "__mizukiSidebarManagerInitialized";
+
+		class SidebarManager {
+			constructor() {
+				this.init();
+			}
+
+			init() {
+				this.updateResponsiveDisplay();
+				if (!window.__mizukiSidebarResizeHandler) {
+					window.__mizukiSidebarResizeHandler = () =>
+						this.updateResponsiveDisplay();
+					window.addEventListener(
+						"resize",
+						window.__mizukiSidebarResizeHandler,
+					);
+				}
+
+				if (
+					window.swup &&
+					!window.__mizukiSidebarSwupHooked
+				) {
+					window.__mizukiSidebarSwupHooked = true;
+					window.swup.hooks.on("content:replace", () => {
+						setTimeout(() => {
+							this.updateResponsiveDisplay();
+						}, 100);
+					});
+				}
+			}
+
+			updateResponsiveDisplay() {
+				const width = window.innerWidth;
+
+				let deviceType;
+				let hasComponents = false;
+				let showConfig = false;
+
+				if (width < breakpoints.mobile) {
+					deviceType = "mobile";
+					hasComponents = hasMobileComponents;
+					showConfig = mobileShowSidebar;
+				} else if (width < breakpoints.tablet) {
+					deviceType = "tablet";
+					hasComponents = hasTabletComponents;
+					showConfig = tabletShowSidebar;
+				} else {
+					deviceType = "desktop";
+					hasComponents = hasTabletComponents;
+					showConfig = desktopShowSidebar;
+				}
+
+				const shouldShow = showConfig && hasComponents;
+				const sidebar = document.getElementById("sidebar");
+
+				if (sidebar) {
+					sidebar.style.setProperty(
+						`--sidebar-${deviceType}-display`,
+						shouldShow ? "block" : "none",
+					);
+				}
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => {
+				if (!window[SIDEBAR_MANAGER_KEY]) {
+					window[SIDEBAR_MANAGER_KEY] = true;
+					new SidebarManager();
+				}
+			});
+		} else {
+			if (!window[SIDEBAR_MANAGER_KEY]) {
+				window[SIDEBAR_MANAGER_KEY] = true;
+				new SidebarManager();
+			}
+		}
+	}
+</script>

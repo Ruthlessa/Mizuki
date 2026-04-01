@@ -1,0 +1,44 @@
+---
+import { profileConfig, siteConfig } from "../../../config";
+import { url } from "../../../utils/url-utils";
+
+const currentYear = new Date().getFullYear();
+const siteStartYear = siteConfig.siteStartDate ? new Date(siteConfig.siteStartDate).getFullYear() : currentYear;
+const yearRange = siteStartYear === currentYear ? String(currentYear) : `${siteStartYear} - ${currentYear}`;
+---
+
+<div class="transition text-50 text-sm text-center p-6">
+	&copy; <span id="copyright-year">{yearRange}</span>
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href={profileConfig.links?.find(l => l.name === "GitHub")?.url || "#"}>
+		{profileConfig.name}
+	</a>
+	，采用
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+	许可
+	<br>
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url("rss.xml")}>RSS</a> /
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url("sitemap.xml")}>网站地图</a> /
+	<a class="transition link text-[var(--primary)] font-medium" href="#" id="open_preferences_center">更新您的Cookie</a>
+	<br>
+	由
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a>
+	和
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/MCQA2580/Mizuki">Mizuki</a>
+	强力驱动
+	<br>
+	感谢
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://www.cloudflare.com/">Cloudflare</a>
+	提供的 CDN 与 DDoS 防护服务
+	<br>
+	本网站代码
+	<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/MCQA2580/Mizuki">已开源</a>
+</div>
+
+<style>
+	.text-50 {
+		color: rgba(0, 0, 0, 0.5);
+	}
+	.dark .text-50 {
+		color: rgba(255, 255, 255, 0.5);
+	}
+</style>
