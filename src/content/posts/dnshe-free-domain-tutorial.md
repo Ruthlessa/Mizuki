@@ -2,7 +2,6 @@
 title: DNSHE 免费域名注册教程：白嫖 5 个免费域名并托管到 CloudFlare
 published: 2026-04-02
 description: 2026年最新 DNSHE 免费域名注册教程，单账号可白嫖 5 个域名，完美支持 CloudFlare 托管
-image: https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=free%20domain%20registration%20tutorial%20with%20CloudFlare%20integration&image_size=landscape_16_9
 tags: ["教程", "域名", "CloudFlare", "免费资源"]
 category: "技术"
 ---

@@ -3,7 +3,6 @@ title: Markdown 扩展功能
 published: 2024-05-01
 updated: 2024-11-29
 description: '了解 Mizuki 中的 Markdown 功能'
-image: ''
 tags: [演示, 示例, Markdown, Mizuki]
 category: '示例'
 draft: false 

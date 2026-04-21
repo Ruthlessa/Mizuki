@@ -2,7 +2,6 @@
 title: OneNav 个人网址导航网站详解
 published: 2026-04-15
 description: 一个功能丰富的个人网址导航网站，收录了开发工具、在线工具、学习资源、设计素材、前端技术等多个类别的优质网站
-image: https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20url%20navigation%20website%20with%20dark%20mode%20support%20and%20category%20tabs&image_size=landscape_16_9
 tags: ["项目", "工具", "前端", "导航"]
 category: "技术"
 ---

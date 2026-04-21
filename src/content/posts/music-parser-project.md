@@ -2,7 +2,6 @@
 title: 音乐解析器项目详解
 published: 2026-04-01
 description: 一个功能完整的音乐解析网站，支持音乐搜索、解析和下载功能
-image: https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20music%20player%20website%20interface%20with%20search%20functionality%20and%20download%20buttons&image_size=landscape_16_9
 tags: ["项目", "音乐", "前端", "后端"]
 category: "技术"
 ---

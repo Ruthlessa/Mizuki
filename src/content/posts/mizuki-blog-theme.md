@@ -2,7 +2,6 @@
 title: Mizuki 博客主题详解
 published: 2026-04-02
 description: 一个现代化、功能丰富的静态博客模板，使用 Astro 构建，具有先进的功能和美丽的设计
-image: https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20blog%20theme%20with%20Material%20Design%203%20aesthetics%20and%20clean%20interface&image_size=landscape_16_9
 tags: ["项目", "博客", "前端", "Astro"]
 category: "技术"
 ---
