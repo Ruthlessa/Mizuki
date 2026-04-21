@@ -719,7 +719,7 @@ async function collectText() {
 				// 单引号字符串
 				/'([^'\\]|\\.|\\n|\\t)*'/g,
 				// 模板字符串
-				/`([^`\\]|\\.|\\n|\\t)*`/g,
+				/`(?:[^`\\]|\\.)*`/g,
 			];
 
 			patterns.forEach((pattern) => {
