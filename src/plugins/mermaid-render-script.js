@@ -13,6 +13,42 @@
 	// 记录当前主题状态，避免不必要的重新渲染
 	let currentTheme = null;
 	let isRendering = false; // 防止并发渲染
+
+	function sanitizeSvgString(svgText) {
+		if (typeof svgText !== "string" || !svgText.trim()) {
+			return "";
+		}
+
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(svgText, "image/svg+xml");
+		const svgRoot = doc.documentElement;
+
+		if (!svgRoot || svgRoot.nodeName.toLowerCase() !== "svg") {
+			return "";
+		}
+
+		// 移除高风险节点
+		doc.querySelectorAll("script, foreignObject").forEach((node) => {
+			node.remove();
+		});
+
+		// 移除事件处理属性和 javascript: 链接
+		doc.querySelectorAll("*").forEach((node) => {
+			for (const attr of Array.from(node.attributes)) {
+				const name = attr.name.toLowerCase();
+				const value = (attr.value || "").trim().toLowerCase();
+				if (
+					name.startsWith("on") ||
+					((name === "href" || name === "xlink:href") &&
+						value.startsWith("javascript:"))
+				) {
+					node.removeAttribute(attr.name);
+				}
+			}
+		});
+
+		return new XMLSerializer().serializeToString(svgRoot);
+	}
 	let retryCount = 0;
 	const MAX_RETRIES = 3;
 	const RETRY_DELAY = 1000; // 1秒
@@ -576,9 +612,13 @@
 									code,
 								);
 
+								const safeSvg = sanitizeSvgString(svg);
+								if (!safeSvg) {
+									throw new Error("Invalid or unsafe SVG output");
+								}
 								const parser = new DOMParser();
 								const doc = parser.parseFromString(
-									svg,
+									safeSvg,
 									"image/svg+xml",
 								);
 								const svgElement = doc.documentElement;
@@ -623,14 +663,27 @@
 										`Failed to render Mermaid diagram after ${maxAttempts} attempts:`,
 										error,
 									);
-									element.innerHTML = `
-										<div class="mermaid-error">
-											<p>Failed to render diagram after ${maxAttempts} attempts.</p>
-											<button onclick="location.reload()" style="margin-top: 8px; padding: 4px 8px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-												Retry Page
-											</button>
-										</div>
-									`;
+									element.innerHTML = "";
+									const errorWrapper = document.createElement("div");
+									errorWrapper.className = "mermaid-error";
+
+									const errorText = document.createElement("p");
+									errorText.textContent = `Failed to render diagram after ${maxAttempts} attempts.`;
+
+									const retryButton = document.createElement("button");
+									retryButton.textContent = "Retry Page";
+									retryButton.style.marginTop = "8px";
+									retryButton.style.padding = "4px 8px";
+									retryButton.style.background = "var(--primary)";
+									retryButton.style.color = "white";
+									retryButton.style.border = "none";
+									retryButton.style.borderRadius = "4px";
+									retryButton.style.cursor = "pointer";
+									retryButton.addEventListener("click", () => location.reload());
+
+									errorWrapper.appendChild(errorText);
+									errorWrapper.appendChild(retryButton);
+									element.appendChild(errorWrapper);
 								} else {
 									// 等待一段时间后重试
 									await new Promise((resolve) =>
