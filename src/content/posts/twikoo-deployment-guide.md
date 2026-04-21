@@ -81,7 +81,239 @@ mongodb+srv://username:password@cluster0.mongodb.net/twikoo
 https://your-twikoo-project.vercel.app
 ```
 
-## 第五步：在博客中配置
+## 第五步：状态检查
+
+部署完成后，需要检查 Twikoo 是否正常运行。
+
+### 方法一：浏览器访问检查
+
+1. 打开浏览器
+2. 访问您的 Twikoo 地址：`https://your-twikoo-project.vercel.app`
+3. 查看是否显示 Twikoo 界面
+
+**✅ 正常状态：** 显示 Twikoo 评论框或管理后台界面
+
+**❌ 异常状态：** 页面报错或显示空白
+
+### 方法二：API 接口检查
+
+在浏览器控制台执行以下命令：
+
+```javascript
+// 检查 Twikoo API 状态
+fetch('https://your-twikoo-project.vercel.app/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ event: 'GET' })
+})
+.then(res => res.json())
+.then(console.log)
+.catch(console.error);
+```
+
+**✅ 正常响应示例：**
+```json
+{
+  "status": 0,
+  "data": {
+    "version": "1.6.x"
+  }
+}
+```
+
+### 方法三：Vercel 日志检查
+
+1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+2. 选择您的 Twikoo 项目
+3. 点击「Logs」查看部署日志
+4. 检查是否有错误信息
+
+**✅ 正常日志：** 显示 `Twikoo started successfully` 或类似信息
+
+**❌ 异常日志：** 显示 MongoDB 连接错误、环境变量缺失等
+
+### 常见状态码
+
+| 状态码 | 含义 | 解决方案 |
+|--------|------|----------|
+| `status: 0` | 正常运行 | ✅ 无需处理 |
+| `status: 10001` | 数据库连接失败 | 检查 MongoDB URI |
+| `status: 10002` | 环境变量缺失 | 检查环境变量配置 |
+| `status: 10003` | 权限验证失败 | 检查 TWIKOO_SECRET |
+| `status: 500` | 服务器内部错误 | 查看 Vercel 日志 |
+
+### 网站活动检查
+
+部署完成后，除了检查 Twikoo 本身的状态，还需要检查您的网站是否正常运行。
+
+#### 1. 检查博客评论功能
+
+在博客文章页面执行以下检查：
+
+```javascript
+// 在浏览器控制台执行
+// 检查评论框是否加载
+const commentBox = document.querySelector('#twikoo-container');
+console.log('评论容器:', commentBox ? '✅ 已找到' : '❌ 未找到');
+
+// 检查 Twikoo 脚本是否加载
+console.log('Twikoo 脚本:', typeof twikoo !== 'undefined' ? '✅ 已加载' : '❌ 未加载');
+```
+
+#### 2. 检查评论发送功能
+
+1. 打开博客文章页面
+2. 滚动到评论区
+3. 填写评论内容（昵称、邮箱、评论）
+4. 点击提交按钮
+5. 查看是否成功提交
+
+**✅ 正常状态：** 显示评论内容，提示提交成功
+
+**❌ 异常状态：** 显示错误信息，或评论不显示
+
+#### 3. 检查评论管理后台
+
+1. 访问 Twikoo 管理后台：`https://your-twikoo-project.vercel.app`
+2. 登录管理员账号
+3. 查看是否能看到刚才的评论
+
+**✅ 正常状态：** 评论列表中显示新提交的评论
+
+#### 4. 博客评论状态检测脚本
+
+在浏览器控制台执行以下脚本，检查博客评论功能是否正常：
+
+```javascript
+// 博客评论功能检测脚本
+(async () => {
+    const TWIKOO_ENV_ID = 'https://your-twikoo-project.vercel.app';
+
+    console.log('🔍 开始检测博客评论功能...\n');
+
+    // 检查 1：Twikoo 容器
+    const container = document.querySelector('#twikoo-container');
+    console.log('1. 评论容器:', container ? '✅ 存在' : '❌ 不存在');
+
+    // 检查 2：Twikoo 脚本
+    const scriptLoaded = typeof twikoo !== 'undefined';
+    console.log('2. Twikoo 脚本:', scriptLoaded ? '✅ 已加载' : '❌ 未加载');
+
+    // 检查 3：评论框
+    const commentBox = document.querySelector('#tcomment');
+    console.log('3. 评论框:', commentBox ? '✅ 已渲染' : '❌ 未渲染');
+
+    // 检查 4：API 连接
+    try {
+        const response = await fetch(TWIKOO_ENV_ID, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'GET' })
+        });
+        const data = await response.json();
+        console.log('4. API 连接:', data.status === 0 ? '✅ 正常' : '❌ 异常');
+        console.log('   Twikoo 版本:', data.data?.version || '未知');
+    } catch (e) {
+        console.log('4. API 连接:', '❌ 失败 -', e.message);
+    }
+
+    // 检查 5：评论数量
+    try {
+        const response = await fetch(TWIKOO_ENV_ID, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event: 'COMMENT_LIST',
+                url: window.location.pathname,
+                pageSize: 10
+            })
+        });
+        const data = await response.json();
+        if (data.status === 0) {
+            console.log('5. 评论数量:', `✅ 共 ${data.data.commentList?.length || 0} 条评论`);
+        }
+    } catch (e) {
+        console.log('5. 评论数量:', '❌ 获取失败');
+    }
+
+    console.log('\n✨ 检测完成');
+})();
+```
+
+将 `TWIKOO_ENV_ID` 替换为您的 Twikoo 环境 ID。
+
+#### 5. 常见博客评论问题排查
+
+| 问题 | 可能原因 | 解决方案 |
+|------|----------|----------|
+| 评论框不显示 | Twikoo 脚本加载失败 | 检查网络连接，确认 envId 正确 |
+| 评论提交失败 | CORS 跨域问题 | 检查 Vercel 部署配置 |
+| 评论不保存 | 数据库连接问题 | 检查 MongoDB 连接字符串 |
+| 评论显示空白 | 页面 JS 错误 | 打开控制台查看错误信息 |
+| 管理后台看不到评论 | 页面 URL 不匹配 | 检查评论的 URL 配置 |
+
+#### 6. Vercel 监控检查
+
+1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+2. 选择您的 Twikoo 项目
+3. 查看以下指标：
+   - **Requests**：请求数量
+   - **Bandwidth**：带宽使用
+   - **Function Duration**：函数执行时间
+   - **Errors**：错误数量
+
+**✅ 正常状态：** Requests 有请求，Errors 为 0 或很少
+
+**❌ 异常状态：** Errors 数量持续增加，Function Duration 过长
+
+#### 7. 设置监控告警（推荐）
+
+为了及时发现问题，建议设置 Vercel 告警：
+
+1. 进入项目 Settings → Notifications
+2. 配置邮件通知
+3. 设置错误阈值告警
+4. 开启部署失败通知
+
+### 自动检测脚本
+
+创建一个 HTML 文件用于检测 Twikoo 状态：
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twikoo 状态检测</title>
+</head>
+<body>
+    <h1>Twikoo 状态检测</h1>
+    <div id="result">检测中...</div>
+    <script>
+        const TWIKOO_URL = 'https://your-twikoo-project.vercel.app';
+        fetch(TWIKOO_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'COMMENT_LIST', pageSize: 1 })
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('result').innerHTML =
+                data.status === 0
+                    ? '✅ Twikoo 运行正常！'
+                    : '❌ Twikoo 异常: ' + JSON.stringify(data);
+        })
+        .catch(err => {
+            document.getElementById('result').innerHTML =
+                '❌ 连接失败: ' + err.message;
+        });
+    </script>
+</body>
+</html>
+```
+
+将 `TWIKOO_URL` 替换为您的 Twikoo 地址，然后在浏览器中打开此文件即可检测状态。
+
+## 第六步：在博客中配置
 
 打开您的博客配置文件（`src/config.ts`），找到评论配置部分：
 
@@ -98,7 +330,7 @@ export const commentConfig: CommentConfig = {
 
 将 `envId` 修改为您的 Twikoo 部署地址。
 
-## 第六步：配置 Twikoo 管理后台
+## 第七步：配置 Twikoo 管理后台
 
 ### 1. 登录管理后台
 
