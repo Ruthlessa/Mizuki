@@ -91,7 +91,7 @@ function checkPerformanceRegression(currentMetrics, baselineMetrics, thresholds)
  * 主函数
  */
 async function main() {
-  const baselinePath = join(process.cwd(), "performance-baseline.json");
+  const baselinePath = join(process.cwd(), "src/config/performance-baseline.json");
   const lhciDir = join(process.cwd(), ".lighthouseci");
 
   console.log("Loading baseline...");

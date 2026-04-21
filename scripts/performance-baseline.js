@@ -87,7 +87,7 @@ async function main() {
   const args = process.argv.slice(2);
   const updateMode = args.includes("--update");
 
-  const baselinePath = join(process.cwd(), "performance-baseline.json");
+  const baselinePath = join(process.cwd(), "src/config/performance-baseline.json");
   const lhciDir = join(process.cwd(), ".lighthouseci");
 
   console.log("Loading baseline...");
