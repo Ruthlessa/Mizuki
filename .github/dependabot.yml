@@ -3,20 +3,33 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     groups:
-      patch-updates:
+      astro-ecosystem:
+        patterns:
+          - "@astrojs/*"
+          - "astro"
+          - "astro-*"
+      ui-frameworks:
+        patterns:
+          - "@tailwindcss/*"
+          - "tailwindcss"
+          - "@sveltejs/*"
+          - "svelte"
+      expressive-code:
+        patterns:
+          - "@expressive-code/*"
+      icon-packages:
+        patterns:
+          - "@iconify/*"
+      other-dependencies:
         patterns:
           - "*"
         update-types:
           - "patch"
-      minor-updates:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
     pull-request-branch-name:
       separator: "-"
+    open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
