@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync, execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -43,7 +43,7 @@ if (!fs.existsSync(CONTENT_DIR)) {
 
 	try {
 		console.log(`正在克隆内容仓库：${CONTENT_REPO_URL}`);
-		execSync(`git clone --depth 1 ${CONTENT_REPO_URL} ${CONTENT_DIR}`, {
+		execFileSync("git", ["clone", "--depth", "1", CONTENT_REPO_URL, CONTENT_DIR], {
 			stdio: "inherit",
 			cwd: rootDir,
 		});
