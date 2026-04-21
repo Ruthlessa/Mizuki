@@ -102,14 +102,22 @@ export function showShareComponents(): void {
 	}
 }
 
+const SESSION_UNLOCKED_MARKER = "UNLOCKED";
+
 export function savePassword(password: string): void {
 	const key = "page-password-" + window.location.pathname;
-	sessionStorage.setItem(key, password);
+	// Do not store cleartext secrets in Web Storage.
+	// Preserve session "unlocked" state with a non-sensitive marker only.
+	void password;
+	sessionStorage.setItem(key, SESSION_UNLOCKED_MARKER);
 }
 
 export function getSavedPassword(): string | null {
 	const key = "page-password-" + window.location.pathname;
-	return sessionStorage.getItem(key);
+	const storedValue = sessionStorage.getItem(key);
+	return storedValue === SESSION_UNLOCKED_MARKER
+		? SESSION_UNLOCKED_MARKER
+		: null;
 }
 
 export function removeSavedPassword(): void {
