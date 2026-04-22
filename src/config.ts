@@ -260,7 +260,7 @@ export const navBarConfig: NavBarConfig = {
 			children: [
 				{
 					name: "GitHub",
-					url: "https://github.com/MCQA2580/Mizuki",
+					url: "https://github.com/Ruthlessa/Mizuki",
 					external: true,
 					icon: "fa7-brands:github",
 				},
@@ -353,7 +353,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "GitHub",
 			icon: "fa7-brands:github",
-			url: "https://github.com/MCQA2580/Mizuki",
+			url: "https://github.com/Ruthlessa/Mizuki",
 		},
 	],
 };
@@ -637,7 +637,7 @@ export const pioConfig: import("./types/config").PioConfig = {
 		home: "点击这里返回首页~", // 首页提示
 		skin: ["想看我的新衣服吗？", "新衣服看起来很棒~"], // 换装提示
 		close: "QWQ 下次见~", // 关闭提示
-		link: "https://github.com/MCQA2580/Mizuki", // 关于链接
+		link: "https://github.com/Ruthlessa/Mizuki", // 关于链接
 	},
 };
 

@@ -8,7 +8,7 @@ category: "技术"
 
 ## 项目简介
 
-[Mizuki](https://github.com/MCQA2580/Mizuki) 是一个现代化、功能丰富的静态博客模板，使用 Astro 构建，具有先进的功能和美丽的设计。该项目采用 Material Design 3 设计语言，提供了完整的博客功能和丰富的自定义选项。
+[Mizuki](https://github.com/Ruthlessa/Mizuki) 是一个现代化、功能丰富的静态博客模板，使用 Astro 构建，具有先进的功能和美丽的设计。该项目采用 Material Design 3 设计语言，提供了完整的博客功能和丰富的自定义选项。
 
 ## 核心特性
 
@@ -81,7 +81,7 @@ category: "技术"
 
 ```bash
 # 克隆仓库
-git clone https://github.com/MCQA2580/Mizuki.git
+git clone https://github.com/Ruthlessa/Mizuki.git
 cd Mizuki
 
 # 安装依赖

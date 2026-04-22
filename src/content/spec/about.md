@@ -1,7 +1,7 @@
 
-本网站使用 **Astro** 框架构建，采用 [Mizuki](https://github.com/MCQA2580/Mizuki) 主题。
+本网站使用 **Astro** 框架构建，采用 [Mizuki](https://github.com/Ruthlessa/Mizuki) 主题。
 
-::github{repo="MCQA2580/Mizuki"}
+::github{repo="Ruthlessa/Mizuki"}
 
 ## 🌟 主题特性
 

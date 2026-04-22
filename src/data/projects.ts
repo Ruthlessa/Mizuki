@@ -29,7 +29,7 @@ export const projectsData: Project[] = [
 		category: "web",
 		techStack: ["Astro", "TypeScript", "Tailwind CSS", "Svelte"],
 		status: "completed",
-		sourceCode: "https://github.com/MCQA2580/Mizuki",
+		sourceCode: "https://github.com/Ruthlessa/Mizuki",
 		visitUrl: "https://mizuki.mysqil.com",
 		startDate: "2024-01-01",
 		endDate: "2024-06-01",
