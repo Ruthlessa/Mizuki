@@ -1,0 +1,16 @@
+name = "mizuki-admin-api"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "mizuki-admin-api"
+route = "api.mizuki.dev/*"
+workers_dev = false
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "mizuki-admin"
+database_id = "your-database-id-here"
+
+[vars]
+JWT_SECRET = "change-this-in-production"
