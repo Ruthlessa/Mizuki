@@ -345,6 +345,18 @@ enum I18nKey {
 	noMatchingProjects = "noMatchingProjects",
 	noMatchingSkills = "noMatchingSkills",
 	noMatchingTimelineItems = "noMatchingTimelineItems",
+
+	// 时间线页面
+	timelineFilterAll = "timelineFilterAll",
+
+	// 技能页面
+	skillsFilterAll = "skillsFilterAll",
+
+	// 项目页面
+	projectsFilterAll = "projectsFilterAll",
+
+	// 日记页面
+	diaryFilterAll = "diaryFilterAll",
 }
 
 export default I18nKey;

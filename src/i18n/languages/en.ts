@@ -368,4 +368,16 @@ export const en: Translation = {
 	[Key.noMatchingProjects]: "No matching projects",
 	[Key.noMatchingSkills]: "No matching skills",
 	[Key.noMatchingTimelineItems]: "No matching items",
+
+	// Timeline page
+	[Key.timelineFilterAll]: "All",
+
+	// Skills page
+	[Key.skillsFilterAll]: "All",
+
+	// Projects page
+	[Key.projectsFilterAll]: "All",
+
+	// Diary page
+	[Key.diaryFilterAll]: "All",
 };

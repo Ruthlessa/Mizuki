@@ -355,4 +355,16 @@ export const zh_CN: Translation = {
 	[Key.noMatchingProjects]: "没有匹配的项目",
 	[Key.noMatchingSkills]: "没有匹配的技能",
 	[Key.noMatchingTimelineItems]: "没有匹配的内容",
+
+	// 时间线页面
+	[Key.timelineFilterAll]: "全部",
+
+	// 技能页面
+	[Key.skillsFilterAll]: "全部",
+
+	// 项目页面
+	[Key.projectsFilterAll]: "全部",
+
+	// 日记页面
+	[Key.diaryFilterAll]: "全部",
 };
