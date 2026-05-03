@@ -14,6 +14,7 @@
 		"update-bangumi": "node scripts/update-bangumi.mjs",
 		"update-bilibili": "node scripts/update-bilibili.mjs",
 		"build": "node scripts/update-anime.mjs && astro build && pagefind --site dist && node scripts/compress-fonts.js",
+		"build:analyze": "npm run build && npm run analyze-bundle",
 		"submit": "node scripts/indexnow-submit.js",
 		"preview": "astro preview",
 		"astro": "astro",
@@ -27,7 +28,8 @@
 		"lhci": "lhci",
 		"lighthouse": "lighthouse",
 		"performance:baseline": "node scripts/performance-baseline.js",
-		"performance:check": "node scripts/performance-check.js"
+		"performance:check": "node scripts/performance-check.js",
+		"analyze-bundle": "node scripts/analyze-bundle.js"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.9",

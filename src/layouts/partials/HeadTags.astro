@@ -107,6 +107,15 @@ const favicons: Favicon[] =
 <link rel="preload" href="/assets/font/ZenMaruGothic-Medium.ttf" as="font" type="font/ttf" crossorigin />
 <link rel="preload" href="/assets/font/loli.ttf" as="font" type="font/ttf" crossorigin />
 
+<!-- 预加载关键脚本（仅在需要时启用） -->
+<link rel="preload" href="/assets/vendor.js" as="script" />
+
+<!-- 预热 DNS 查询用于分析和第三方服务 -->
+<link rel="dns-prefetch" href="https://cdn.example.com" />
+
+<!-- 可选: 预连接重要的 API 端点 -->
+<link rel="preconnect" href="https://api.example.com" />
+
 <!-- Set the theme before the page is rendered to avoid a flash -->
 <script
 	is:inline

@@ -56,7 +56,21 @@ export default defineConfig({
 			containers: ["main"],
 			smoothScrolling: false, // 禁用平滑滚动以提升性能，避免与锚点导航冲突
 			cache: true,
-			preload: false, // 禁用预加载以提升性能
+			preload: true, // 启用智能预加载
+			preloadCondition: (linkEl) => {
+				// 排除外部链接、PDF等资源
+				if (linkEl.origin !== window.location.origin) {
+					return false;
+				}
+				const href = linkEl.getAttribute("href") || "";
+				const excludeExts = [".pdf", ".zip", ".tar", ".gz"];
+				if (excludeExts.some((ext) => href.endsWith(ext))) {
+					return false;
+				}
+				// 只预加载可见的链接（在视口内）
+				const rect = linkEl.getBoundingClientRect();
+				return rect.top < window.innerHeight * 2; // 提前两倍视口高度预加载
+			},
 			accessibility: true,
 			updateHead: process.env.NODE_ENV === "production",
 			updateBodyClass: false,
@@ -197,6 +211,10 @@ export default defineConfig({
 			minify: "esbuild",
 			// 进一步优化 chunk 大小
 			chunkSizeWarningLimit: 1000,
+			// 启用资源源映射用于生产环境调试
+			sourcemap: false,
+			// 优化 Rollup 输出
+			reportCompressedSize: false, // 加快构建速度
 			rollupOptions: {
 				onwarn(warning, warn) {
 					if (
@@ -234,10 +252,21 @@ export default defineConfig({
 				process.env.NODE_ENV === "production"
 					? ["console", "debugger"]
 					: [],
+			// 启用 JavaScript 压缩
+			minify: true,
 		},
-		// 优化依赖预构建
+		// 优化依赖预构建 - 改进的列表
 		optimizeDeps: {
-			include: ["astro-icon", "astro-expressive-code"],
+			include: [
+				"astro-icon",
+				"astro-expressive-code",
+				"@swup/astro",
+				"axios",
+			],
+			// 排除不需要预构建的依赖
+			exclude: [
+				"@astrojs/svelte",
+			],
 		},
 	},
 });
