@@ -30,6 +30,14 @@ updates:
     pull-request-branch-name:
       separator: "-"
     open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+      - "automerge"
+    reviewers:
+      - "Ruthlessa"
