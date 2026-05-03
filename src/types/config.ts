@@ -166,6 +166,7 @@ export interface SiteConfig {
 			subtitle?: string | string[]; // 副标题，支持单个字符串或字符串数组
 			typewriter?: {
 				enable: boolean; // 是否启用打字机效果
+				mobileDisable?: boolean; // 移动端禁用
 				speed: number; // 打字速度（毫秒）
 				deleteSpeed: number; // 删除速度（毫秒）
 				pauseTime: number; // 完整显示后的暂停时间（毫秒）
@@ -400,6 +401,7 @@ export interface SidebarLayoutConfig {
 	};
 	defaultAnimation: {
 		enable: boolean; // 是否启用默认动画
+		mobileDisable?: boolean; // 移动端禁用
 		baseDelay: number; // 基础延迟时间（毫秒）
 		increment: number; // 每个组件递增的延迟时间（毫秒）
 	};

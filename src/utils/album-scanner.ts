@@ -19,7 +19,7 @@ export async function scanAlbums(): Promise<AlbumGroup[]> {
 	for (const [path, module] of Object.entries(albumModules)) {
 		// 从路径中提取相册文件夹名
 		const match = path.match(/\/public\/images\/albums\/([^/]+)\/info\.json$/);
-		if (!match) continue;
+		if (!match) {continue;}
 
 		const folderName = match[1];
 		const album = await processAlbumFolder(folderName, module.default);
@@ -109,7 +109,7 @@ function scanPhotos(
 
 	// 创建 WebP 映射
 	const fileWebpMap = new Map<string, string>();
-	for (const [path, metadata] of imageFiles) {
+	for (const [path] of imageFiles) {
 		const fileName = path.split("/").pop() || "";
 		const baseName = fileName.replace(/\.(jpg|jpeg|png|gif|webp)$/i, "");
 		const ext = fileName.split(".").pop()?.toLowerCase();
@@ -122,7 +122,7 @@ function scanPhotos(
 		}
 	}
 
-	imageFiles.forEach(([path, metadata], index) => {
+	imageFiles.forEach(([path], index) => {
 		const fileName = path.split("/").pop() || "";
 		const { baseName, tags } = parseFileName(fileName);
 

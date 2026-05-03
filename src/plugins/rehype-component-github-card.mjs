@@ -1,6 +1,7 @@
 /// <reference types="mdast" />
-import { h } from "hastscript";
 import { randomBytes } from "node:crypto";
+
+import { h } from "hastscript";
 
 /**
  * Creates a GitHub Card component.

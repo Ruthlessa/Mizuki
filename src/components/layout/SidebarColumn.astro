@@ -95,7 +95,7 @@ function getComponentType(type: string): ComponentType | null {
 					{mobileTopComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
@@ -123,7 +123,7 @@ function getComponentType(type: string): ComponentType | null {
 					{tabletTopComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
@@ -151,7 +151,7 @@ function getComponentType(type: string): ComponentType | null {
 					{desktopTopComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
@@ -187,7 +187,7 @@ function getComponentType(type: string): ComponentType | null {
 					{mobileStickyComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
@@ -215,7 +215,7 @@ function getComponentType(type: string): ComponentType | null {
 					{tabletStickyComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
@@ -243,7 +243,7 @@ function getComponentType(type: string): ComponentType | null {
 					{desktopStickyComponents.map((component, index) => {
 						const props = buildComponentProps(component, index, headings);
 						const type = getComponentType(component.type);
-						if (!type) return null;
+						if (!type) {return null;}
 						
 						return (
 							<>
