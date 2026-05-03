@@ -340,6 +340,11 @@ enum I18nKey {
 	randomPosts = "randomPosts",
 	smartRecommend = "smartRecommend",
 	randomRecommend = "randomRecommend",
+
+	// 页面无结果提示
+	noMatchingProjects = "noMatchingProjects",
+	noMatchingSkills = "noMatchingSkills",
+	noMatchingTimelineItems = "noMatchingTimelineItems",
 }
 
 export default I18nKey;

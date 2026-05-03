@@ -350,4 +350,9 @@ export const zh_CN: Translation = {
 	[Key.randomPosts]: "随机文章",
 	[Key.smartRecommend]: "智能推荐",
 	[Key.randomRecommend]: "随机推荐",
+
+	// 页面无结果提示
+	[Key.noMatchingProjects]: "没有匹配的项目",
+	[Key.noMatchingSkills]: "没有匹配的技能",
+	[Key.noMatchingTimelineItems]: "没有匹配的内容",
 };

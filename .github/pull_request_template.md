@@ -1,37 +1,37 @@
-## Type of change
+## 变更类型
 
-- [ ] Bug fix (a non-breaking change that fixes an issue)
-- [ ] New feature (a non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Other (please describe):
+- [ ] Bug 修复（不破坏现有功能的修复）
+- [ ] 新功能（不破坏现有功能的新增功能）
+- [ ] 重大变更（可能导致现有功能无法正常工作的修复或功能）
+- [ ] 其他（请描述）：
 
-## Checklist
+## 检查清单
 
-- [ ] I have read the [**CONTRIBUTING**](https://github.com/saicaca/fuwari/blob/main/CONTRIBUTING.md) document.
-- [ ] I have checked to ensure that this Pull Request is not for personal changes.
-- [ ] I have performed a self-review of my own code.
-- [ ] My changes generate no new warnings.
+- [ ] 我已阅读 [**贡献指南**](https://github.com/Ruthlessa/Mizuki/blob/main/CONTRIBUTING.md)。
+- [ ] 我已确认此 Pull Request 不是用于个人变更。
+- [ ] 我已对自己的代码进行了自我审查。
+- [ ] 我的更改不会产生新的警告。
 
-## Related Issue
+## 相关问题
 
-<!-- Please link to the issue that this pull request addresses. e.g. #123 -->
-
-
-## Changes
-
-<!-- Please describe the changes you made in this pull request. -->
+<!-- 请链接到此 Pull Request 解决的问题。例如：#123 -->
 
 
-## How To Test
+## 变更说明
 
-<!-- Please describe how you tested your changes. -->
-
-
-## Screenshots (if applicable)
-
-<!-- If you made any UI changes, please include screenshots. -->
+<!-- 请描述您在此 Pull Request 中所做的更改。 -->
 
 
-## Additional Notes
+## 测试方法
 
-<!-- Any additional information that you want to share with the reviewer. -->
+<!-- 请描述您如何测试您的更改。 -->
+
+
+## 截图（如适用）
+
+<!-- 如果您做了任何 UI 更改，请附上截图。 -->
+
+
+## 附加说明
+
+<!-- 任何您想与审查者分享的额外信息。 -->

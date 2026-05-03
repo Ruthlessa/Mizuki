@@ -1119,7 +1119,7 @@ import { Button, Card, Input } from '@components/atoms'
 />
 ```
 
-## Props
+## 属性 (Props)
 
 - `playlist`: 播放列表
 - `autoplay`: 是否自动播放

@@ -115,12 +115,12 @@ flaredrive-rev1/
 
 漫画专用的阅读布局。
 
-## License
+## 许可证
 
 MIT License
 
-- Copyright (c) 2022 Siyu Long (before f82ffdc)
-- Copyright (c) 2025 Dragon Fish (remastered version)
+- Copyright (c) 2022 Siyu Long (f82ffdc 之前的版本)
+- Copyright (c) 2025 Dragon Fish (重制版)
 
 ## 相关链接
 

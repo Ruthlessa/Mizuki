@@ -363,4 +363,9 @@ export const en: Translation = {
 	[Key.randomPosts]: "Random Posts",
 	[Key.smartRecommend]: "Smart",
 	[Key.randomRecommend]: "Random",
+
+	// Empty state messages
+	[Key.noMatchingProjects]: "No matching projects",
+	[Key.noMatchingSkills]: "No matching skills",
+	[Key.noMatchingTimelineItems]: "No matching items",
 };
