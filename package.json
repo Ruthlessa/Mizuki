@@ -37,7 +37,7 @@
 		"@expressive-code/core": "^0.41.7",
 		"@expressive-code/plugin-collapsible-sections": "^0.41.7",
 		"@expressive-code/plugin-line-numbers": "^0.41.7",
-		"@fancyapps/ui": "^6.1.12",
+		"@fancyapps/ui": "^6.1.14",
 		"@fontsource-variable/jetbrains-mono": "^5.2.8",
 		"@fontsource/roboto": "^5.2.10",
 		"@iconify/svelte": "^5.2.1",
@@ -86,7 +86,7 @@
 		"@iconify-json/fa7-solid": "^1.2.4",
 		"@iconify-json/material-symbols": "^1.2.69",
 		"@iconify-json/mdi": "^1.2.3",
-		"@iconify-json/simple-icons": "^1.2.79",
+		"@iconify-json/simple-icons": "^1.2.80",
 		"@lhci/cli": "^0.15.1",
 		"@rollup/plugin-yaml": "^4.1.2",
 		"@types/hast": "^3.0.4",
@@ -109,7 +109,7 @@
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
 		"svelte-eslint-parser": "^1.6.0",
-		"typescript-eslint": "^8.59.0"
+		"typescript-eslint": "^8.59.1"
 	},
 	"engines": {
 		"node": ">=24.12.0"
