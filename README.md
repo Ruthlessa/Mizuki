@@ -376,7 +376,6 @@ pnpm run sync-content
 - **[Yukina](https://github.com/WhitePaper233/yukina)** - 感谢提供设计灵感和创意，帮助塑造了这个项目。Yukina 是一个优雅的博客模板，展示了优秀的设计原则和用户体验。
 - **[Firefly](https://github.com/CuteLeaf/Firefly)** - 感谢提供优秀的布局设计思路。双侧边栏布局、文章双列网格布局以及一些小部件设计和实现丰富了 Mizuki 的界面。
 - **[Twilight](https://github.com/spr-aachen/Twilight)** - 感谢提供灵感和技术支持。Twilight 的动态壁纸模式切换系统、响应式设计和过渡效果极大地增强了 Mizuki 的用户体验。
-<<<<<<< HEAD
 
 ## 🍀 贡献者
 
@@ -391,6 +390,3 @@ pnpm run sync-content
 [![Star History Chart](https://api.star-history.com/svg?repos=Ruthlessa/Mizuki&type=Date)](https://star-history.com/#Ruthlessa/Mizuki&Date)
 
 ⭐ 如果您觉得这个项目有帮助，请考虑给它一个星标！
-=======
-# Test PR for CodeQL fix
->>>>>>> 99575d24797e1691286ba2e7119e813aab539fb7
