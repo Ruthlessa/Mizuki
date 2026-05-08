@@ -1,0 +1,106 @@
+name: PR Automation
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  automate-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add labels based on files changed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { data: prData } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const labelsToAdd = new Set();
+
+            // Determine labels based on file changes
+            files.forEach(file => {
+              if (file.filename.includes('README') || file.filename.includes('.md')) {
+                labelsToAdd.add('documentation');
+              }
+              if (file.filename.startsWith('src/') && file.filename.endsWith('.ts') || file.filename.endsWith('.tsx')) {
+                labelsToAdd.add('code');
+              }
+              if (file.filename.startsWith('src/styles/') || file.filename.endsWith('.css')) {
+                labelsToAdd.add('styling');
+              }
+              if (file.filename.includes('.github/workflows')) {
+                labelsToAdd.add('ci/cd');
+              }
+              if (file.filename.includes('package.json') || file.filename.includes('pnpm-lock.yaml')) {
+                labelsToAdd.add('dependencies');
+              }
+            });
+
+            // Add labels if any
+            if (labelsToAdd.size > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: Array.from(labelsToAdd),
+              });
+              console.log('Added labels:', Array.from(labelsToAdd));
+            }
+
+      - name: Assign PR to author
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: [context.payload.pull_request.user.login],
+            });
+
+      - name: Add welcome comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const comment = `## 🎉 Welcome to Mizuki!
+
+Thank you for your contribution, @${pr.user.login}!
+
+**Checklist for reviewers:**
+- [ ] Code follows project standards
+- [ ] Tests are included/updated
+- [ ] Documentation is updated
+- [ ] No breaking changes
+
+We'll review your PR shortly. Feel free to reach out if you have any questions!`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment,
+            });
