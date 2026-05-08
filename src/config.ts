@@ -331,6 +331,11 @@ export const navBarConfig: NavBarConfig = {
 					url: "/timeline/",
 					icon: "material-symbols:timeline",
 				},
+				{
+					name: "管理",
+					url: "/admin/",
+					icon: "material-symbols:admin-panel-settings",
+				},
 			],
 		},
 	],
