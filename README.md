@@ -1,20 +1,19 @@
-# 🌸 Mizuki 
+# 🌸 Mizuki
 <img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
 一个现代化、功能丰富的静态博客模板，使用 [Astro](https://astro.build) 构建，具有先进的功能和美丽的设计。
 
-[![Node.js >= 24](https://img.shields.io/badge/node.js-%3E%3D24-brightgreen)](https://nodejs.org/)
-[![pnpm >= 10](https://img.shields.io/badge/pnpm-%3E%3D10-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-6.0.4-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
 
+[**🖥️ 在线演示**](https://mizuki.pages.dev/) | [**📝 用户文档**](https://docs.mizuki.mysqil.com/)
 
-[**🖥️ 在线演示**](https://mizuki.pages.dev/) | [**📝 文档**](https://docs.mizuki.mysqil.com/)
-
-🌏 **README 语言：**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+🌏 **README 语言:**
+[**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 通过我们全面的文档快速开始。无论您是自定义主题、配置功能还是部署到生产环境，文档都涵盖了成功启动博客所需的一切。
 
@@ -40,8 +39,8 @@
 > **🎯 自动分辨率算法** - 智能根据设备屏幕分辨率调整内容布局，为所有设备提供最佳观看体验
 
 🌏 README 语言
-[**English**](./README.md) /
-[**中文**](./README.zh.md) /
+[**English**](./README.zh.md) /
+[**中文**](./README.md) /
 [**日本語**](./README.ja.md) /
 [**中文繁体**](./README.tw.md) /
 
@@ -346,7 +345,6 @@ pnpm run sync-content
 
 ## ✏️ 贡献
 
-
 欢迎贡献！随时提交问题和拉取请求。
 
 1. Fork 仓库
@@ -378,3 +376,17 @@ pnpm run sync-content
 - **[Yukina](https://github.com/WhitePaper233/yukina)** - 感谢提供设计灵感和创意，帮助塑造了这个项目。Yukina 是一个优雅的博客模板，展示了优秀的设计原则和用户体验。
 - **[Firefly](https://github.com/CuteLeaf/Firefly)** - 感谢提供优秀的布局设计思路。双侧边栏布局、文章双列网格布局以及一些小部件设计和实现丰富了 Mizuki 的界面。
 - **[Twilight](https://github.com/spr-aachen/Twilight)** - 感谢提供灵感和技术支持。Twilight 的动态壁纸模式切换系统、响应式设计和过渡效果极大地增强了 Mizuki 的用户体验。
+
+## 🍀 贡献者
+
+感谢以下贡献者对本项目做出的贡献，如有问题或建议，请提交 [Issue](https://github.com/Ruthlessa/Mizuki/issues) 或 [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls)。
+
+<a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
+</a>
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Ruthlessa/Mizuki&type=Date)](https://star-history.com/#Ruthlessa/Mizuki&Date)
+
+⭐ 如果您觉得这个项目有帮助，请考虑给它一个星标！

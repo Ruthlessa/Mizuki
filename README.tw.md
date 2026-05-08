@@ -1,18 +1,19 @@
 # 🌸 Mizuki
 <img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
-一個現代化、功能豐富的靜態部落格模板，基於 [Astro](https://astro.build) 構建，具有先進的功能和精美的設計。
+一個現代化、功能豐富的靜態部落格模板，使用 [Astro](https://astro.build) 構建，具有先進的功能和精美的設計。
 
 [![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
 [![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
+[![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
-[**🖥️ 線上演示**](https://mizuki.mysqil.com/) | [**📝 使用者文檔**](https://docs.mizuki.mysqil.com/)
+
+[**🖥️ 線上演示**](https://mizuki.pages.dev/) | [**📝 使用者文檔**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README 語言:**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+[**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 透過我們的綜合文檔快速開始。無論是自訂主題、配置功能，還是部署到生產環境，文檔涵蓋了您成功啟動部落格所需的所有內容。
 
@@ -33,29 +34,27 @@
   <tr>
 </table>
 
-## 🚀 NEW: 自動解析度適配
+## 🚀 新功能：自動解析度適配
 
-> **🎯 自動解析度演算法** - 智能適配內容佈局基於裝置螢幕解析度，為所有裝置提供最佳觀看體驗
+> **🎯 自動解析度演算法** - 智慧根據裝置螢幕解析度調整內容布局，為所有裝置提供最佳觀看體驗
 
 🌏 README 語言
-[**English**](./README.md) /
-[**中文**](./README.zh.md) /
+[**English**](./README.zh.md) /
+[**中文**](./README.md) /
 [**日本語**](./README.ja.md) /
 [**中文繁体**](./README.tw.md) /
 
 
-
-
 ### 🔧 元件配置系統重構
-- **統一配置架構：** 全新的模組化元件配置體系，支援動態元件管理和順序配置
+- **統一配置架構：** 全新的模組化元件配置系統，支援動態元件管理和順序配置
 - **配置驅動的元件載入：** 重構 SideBar 元件，實現完全基於配置的元件載入機制
 - **統一控制開關：** 移除音樂播放器和公告元件的獨立 enable 開關，統一由 sidebarLayoutConfig 控制
-- **響應式佈局適配：** 元件支援響應式佈局，可根據裝置類型自動調整顯示
+- **響應式布局適配：** 元件支援響應式布局，可根據裝置類型自動調整顯示
 
-### 📐 佈局系統優化
-- **側邊欄位置動態調整：** 支援左右側邊欄切換，佈局自動適配
-- **文章目錄智能定位：** 當側邊欄在右側時，文章導航自動移至左側，提供更好的閱讀體驗
-- **網格佈局改進：** 優化 CSS Grid 佈局，解決容器寬度異常問題
+### 📐 布局系統優化
+- **側邊欄位置動態調整：** 支援左右側邊欄切換，布局自動適配
+- **文章目錄智慧定位：** 當側邊欄在右側時，文章導航自動移至左側，提供更好的閱讀體驗
+- **網格布局改進：** 優化 CSS Grid 布局，解決容器寬度異常問題
 
 ### 🎛️ 配置文件格式規範
 - **標準化配置格式：** 創建統一的元件配置文件格式規範
@@ -87,7 +86,6 @@
 - [x] RSS 訂閱生成
 - [x] 閱讀時間估算
 - [x] 文章分類和標籤系統
-
 
 
 ### 📱 特色頁面
@@ -352,7 +350,7 @@ pnpm run sync-content
 
 - **[Fuwari](https://github.com/saicaca/fuwari)** by saicaca - 本專案所基於的原始模板。感謝您創建了如此漂亮且功能強大的模板。
 - **[Yukina](https://github.com/WhitePaper233/yukina)** - 感謝提供設計靈感和創意，幫助塑造了這個專案。Yukina 是一個優雅的部落格模板，展現了出色的設計原則和使用者體驗。
-- **[Firefly](https://github.com/CuteLeaf/Firefly)** - 感謝提供優秀的佈局設計思路，雙側邊欄佈局、文章雙列網格等佈局，及部分小元件的設計與實現，讓 Mizuki 的界面更加豐富。
+- **[Firefly](https://github.com/CuteLeaf/Firefly)** - 感謝提供優秀的布局設計思路，雙側邊欄布局、文章雙列網格等布局，及部分小元件的設計與實現，讓 Mizuki 的界面更加豐富。
 - **[Twilight](https://github.com/spr-aachen/Twilight)** - 感謝提供靈感和技術支持。Twilight 的動態桌布模式切換系統、響應式設計和過渡效果顯著提升了 Mizuki 的使用體驗。
 
 ## 🍀 貢獻者
