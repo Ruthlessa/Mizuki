@@ -9,7 +9,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
-
 [**🖥️ 在线演示**](https://mizuki.pages.dev/) | [**📝 用户文档**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README 语言:**
