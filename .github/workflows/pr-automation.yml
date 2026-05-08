@@ -65,7 +65,7 @@ jobs:
               console.log('Added labels:', Array.from(labelsToAdd));
             }
 
-      - name: Assign PR to author
+      - name: Assign PR to MCQA25
         uses: actions/github-script@v7
         with:
           script: |
@@ -73,7 +73,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              assignees: [context.payload.pull_request.user.login],
+              assignees: ['MCQA25'],
             });
 
       - name: Add welcome comment
