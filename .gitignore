@@ -39,6 +39,9 @@ yarn.lock
 *.iml
 .claude
 
+# pnpm store
+.pnpm-store/
+
 cache/
 fuwari/
 src/data/myself.ts
