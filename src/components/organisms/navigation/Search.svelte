@@ -39,6 +39,7 @@
 	];
 
 	const togglePanel = () => {
+		if (typeof document === "undefined") return;
 		const panel = document.getElementById("search-panel");
 		panel?.classList.toggle("float-panel-closed");
 		if (
@@ -50,6 +51,7 @@
 	};
 
 	const toggleDesktopSearch = () => {
+		if (typeof document === "undefined") return;
 		// 如果窗口刚获得焦点，不自动展开搜索框
 		if (windowJustFocused) {
 			return;
@@ -84,6 +86,7 @@
 	};
 
 	const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
+		if (typeof document === "undefined") return;
 		const panel = document.getElementById("search-panel");
 		if (!panel || !isDesktop) {
 			return;
@@ -96,6 +99,7 @@
 	};
 
 	const closeSearchPanel = (): void => {
+		if (typeof document === "undefined") return;
 		const panel = document.getElementById("search-panel");
 		if (panel) {
 			panel.classList.add("float-panel-closed");
@@ -106,17 +110,17 @@
 		result = [];
 	};
 
-	const handleResultClick = (event: Event, url: string): void => {
+	const handleResultClick = (event: Event, resultUrl: string): void => {
 		event.preventDefault();
 		closeSearchPanel();
-		navigateToPage(url);
+		navigateToPage(resultUrl);
 	};
 
 	const search = async (
-		keyword: string,
+		searchKeyword: string,
 		isDesktop: boolean,
 	): Promise<void> => {
-		if (!keyword) {
+		if (!searchKeyword) {
 			setPanelVisibility(false, isDesktop);
 			result = [];
 			return;
@@ -127,7 +131,7 @@
 		try {
 			let searchResults: SearchResult[] = [];
 			if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
-				const response = await window.pagefind.search(keyword);
+				const response = await window.pagefind.search(searchKeyword);
 				searchResults = await Promise.all(
 					response.results.map((item) => item.data()),
 				);
@@ -200,13 +204,13 @@
 
 	$effect(() => {
 		if (initialized) {
-			const keyword = keywordDesktop || keywordMobile;
+			const searchKeyword = keywordDesktop || keywordMobile;
 			const isDesktop = !!keywordDesktop || isDesktopSearchExpanded;
 
 			clearTimeout(debounceTimer);
-			if (keyword) {
+			if (searchKeyword) {
 				debounceTimer = setTimeout(() => {
-					search(keyword, isDesktop);
+					search(searchKeyword, isDesktop);
 				}, 300);
 			} else {
 				result = [];
@@ -255,6 +259,7 @@
 		}}
 		onmouseleave={collapseDesktopSearch}
 		onclick={() => {
+			if (typeof document === "undefined") return;
 			const input = document.getElementById(
 				"search-input-desktop",
 			) as HTMLInputElement;
