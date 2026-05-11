@@ -58,10 +58,6 @@ export default defineConfig({
 			cache: true,
 			preload: true, // 启用智能预加载
 			preloadCondition: (linkEl) => {
-				// 只在浏览器环境中执行
-				if (typeof window === "undefined") {
-					return false;
-				}
 				// 排除外部链接、PDF等资源
 				if (linkEl.origin !== window.location.origin) {
 					return false;
@@ -83,10 +79,6 @@ export default defineConfig({
 			resolveUrl: (url) => url,
 			animateHistoryBrowsing: false,
 			skipPopStateHandling: (event) => {
-				// 只在浏览器环境中执行
-				if (typeof window === "undefined") {
-					return false;
-				}
 				// 跳过锚点链接的处理，让浏览器原生处理
 				return (
 					event.state &&

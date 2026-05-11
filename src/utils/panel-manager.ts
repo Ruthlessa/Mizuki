@@ -22,7 +22,6 @@ class PanelManager {
 		return new Promise((resolve) => {
 			// 检查是否正在主题切换，如果是则跳过动画
 			const isThemeTransitioning =
-				typeof document !== "undefined" &&
 				document.documentElement.classList.contains(
 					"is-theme-transitioning",
 				);
@@ -65,7 +64,6 @@ class PanelManager {
 		return new Promise((resolve) => {
 			// 检查是否正在主题切换
 			const isThemeTransitioning =
-				typeof document !== "undefined" &&
 				document.documentElement.classList.contains(
 					"is-theme-transitioning",
 				);
@@ -105,9 +103,6 @@ class PanelManager {
 		panelId: PanelId,
 		forceState?: boolean,
 	): Promise<boolean> {
-		if (typeof document === "undefined") {
-			return false;
-		}
 		const panel = document.getElementById(panelId);
 		if (!panel) {
 			console.warn(`Panel ${panelId} not found`);
@@ -134,9 +129,6 @@ class PanelManager {
 	 * @param panelId 浮窗ID
 	 */
 	async closePanel(panelId: PanelId): Promise<void> {
-		if (typeof document === "undefined") {
-			return;
-		}
 		const panel = document.getElementById(panelId);
 		if (panel && !panel.classList.contains("float-panel-closed")) {
 			await this.animateOut(panel);

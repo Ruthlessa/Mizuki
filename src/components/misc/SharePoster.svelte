@@ -39,9 +39,6 @@
 	let themeColor = "#558e88";
 
 	function isDarkMode(): boolean {
-		if (typeof document === "undefined") {
-			return false;
-		}
 		return document.documentElement.classList.contains("dark");
 	}
 
@@ -65,7 +62,6 @@
 	}
 
 	onMount(() => {
-		if (typeof document === "undefined") {return;}
 		const temp = document.createElement("div");
 		temp.style.color = "var(--primary)";
 		temp.style.display = "none";
@@ -89,7 +85,6 @@
 	});
 
 	async function generatePoster() {
-		if (typeof document === "undefined") {return;}
 		showModal = true;
 		if (posterImage) {
 			return;
@@ -366,7 +361,7 @@
 		try {
 			if (navigator.clipboard?.writeText) {
 				await navigator.clipboard.writeText(url);
-			} else if (typeof document !== "undefined") {
+			} else {
 				const textarea = document.createElement("textarea");
 				textarea.value = url;
 				textarea.style.position = "fixed";
@@ -387,9 +382,7 @@
 	}
 
 	function portal(node: HTMLElement) {
-		if (typeof document !== "undefined") {
-			document.body.appendChild(node);
-		}
+		document.body.appendChild(node);
 		return {
 			destroy() {
 				if (node.parentNode) {

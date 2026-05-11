@@ -32,8 +32,8 @@ const getLocalizedName = (name: string): string => {
 };
 
 const processedLinks: ProcessedNavBarLink[] = (
-	(Astro.props as NavMenuPanelProps).links || []
-).map(
+	Astro.props as NavMenuPanelProps
+).links.map(
 	(link: NavBarLink): ProcessedNavBarLink => ({
 		...link,
 		children: link.children?.map(
@@ -43,7 +43,7 @@ const processedLinks: ProcessedNavBarLink[] = (
 				}
 				return child as ProcessedNavBarLink;
 			},
-		) || [],
+		),
 	}),
 );
 ---

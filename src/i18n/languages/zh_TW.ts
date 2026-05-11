@@ -351,22 +351,5 @@ export const zh_TW: Translation = {
 	[Key.relatedPosts]: "相關文章",
 	[Key.randomPosts]: "隨機文章",
 	[Key.smartRecommend]: "智能推薦",
-        [Key.randomRecommend]: "隨機推薦",
-
-        // 頁面無結果提示
-        [Key.noMatchingProjects]: "未找到匹配的項目",
-        [Key.noMatchingSkills]: "未找到匹配的技能",
-        [Key.noMatchingTimelineItems]: "未找到匹配的時間線項目",
-
-        // 時間線頁面
-        [Key.timelineFilterAll]: "全部",
-
-        // 技能頁面
-        [Key.skillsFilterAll]: "全部",
-
-        // 項目頁面
-        [Key.projectsFilterAll]: "全部",
-
-        // 日記頁面
-        [Key.diaryFilterAll]: "全部",
+	[Key.randomRecommend]: "隨機推薦",
 };

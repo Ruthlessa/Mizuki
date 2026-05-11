@@ -1,19 +1,6 @@
 // 动画测试工具 - 验证yukina风格的侧滑效果
 
-/**
- * 测试动画效果
- */
 export function testSlideAnimation() {
-	// 只在浏览器环境中执行
-	if (typeof window === "undefined" || typeof document === "undefined") {
-		console.log("testSlideAnimation: Not in browser environment");
-		return {
-			mainElements: 0,
-			animationElements: 0,
-			status: "Not in browser environment",
-		};
-	}
-
 	console.log("Testing slide animation effects...");
 
 	// 测试主要动画元素
@@ -40,16 +27,8 @@ export function testSlideAnimation() {
 	};
 }
 
-/**
- * 模拟页面切换动画
- */
+// 模拟页面切换动画
 export function simulatePageTransition() {
-	// 只在浏览器环境中执行
-	if (typeof window === "undefined" || typeof document === "undefined") {
-		console.log("simulatePageTransition: Not in browser environment");
-		return;
-	}
-
 	const body = document.body;
 	const html = document.documentElement;
 

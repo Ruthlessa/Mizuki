@@ -12,9 +12,7 @@
  * - 使用 content-visibility 隐藏屏幕外元素
  */
 
-// 确保只在浏览器环境中执行
-if (typeof window !== "undefined" && typeof document !== "undefined") {
-	class ThemeOptimizer {
+class ThemeOptimizer {
 	constructor() {
 		// 代码块优化相关
 		this.visibleBlocks = new Set();
@@ -555,4 +553,3 @@ const themeOptimizer = new ThemeOptimizer();
 
 // 导出到全局（统一API）
 window.themeOptimizer = themeOptimizer;
-}

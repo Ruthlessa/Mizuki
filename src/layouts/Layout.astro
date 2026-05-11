@@ -1,6 +1,5 @@
 ---
 import ConfigCarrier from "@components/misc/ConfigCarrier.astro";
-import CookieConsent from "@components/misc/CookieConsent.svelte";
 import MusicPlayer from "@components/widgets/music-player/MusicPlayer.svelte";
 import Pio from "@components/features/pio/Pio.svelte"; // 使用 Svelte 版本的 Pio 组件
 import { PageProgressBar } from "@components/control/PageProgressBar";
@@ -230,14 +229,11 @@ if (siteConfig.font) {
 		/>
 		<slot />
 
-		<!-- Music Player - 仅在客户端渲染，避免 SSR 问题 -->
-		<MusicPlayer client:only="svelte" />
+		<!-- Music Player - 核心始终加载（当enable=true），UI通过showFloatingPlayer控制 -->
+		<MusicPlayer client:idle />
 
-		<!-- Pio 看板娘组件 - 仅在客户端渲染，避免 SSR 问题 -->
-		{pioConfig.enable && <Pio client:only="svelte" />}
-
-		<!-- Cookie Consent 组件 - 仅在客户端渲染，避免 SSR 问题 -->
-		<CookieConsent client:only="svelte" />
+		<!-- Pio 看板娘组件 - 仅在进入视口时加载 -->
+		{pioConfig.enable && <Pio client:visible />}
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
@@ -315,22 +311,21 @@ if (siteConfig.font) {
 	}
 </style>
 
-<script is:inline>
-	// 确保只在浏览器环境中执行
-	if (typeof window === "undefined" || typeof document === "undefined") {
-		// 在 SSR 期间跳过初始化
-		console.log("Skipping Swup initialization during SSR");
-	} else {
-		// Swup 页面过渡管理器 - 统一入口
-		// 所有功能已重构为模块化架构，详见 src/scripts/ 目录
-		import("../scripts/swup-manager").then(({ initSwupManager }) => {
-			initSwupManager();
-		});
+<script>
+	// Swup 页面过渡管理器 - 统一入口
+	// 所有功能已重构为模块化架构，详见 src/scripts/ 目录
+	import { initSwupManager } from "../scripts/swup-manager";
 
-		// 代码块折叠功能
-		import("../scripts/code-collapse.js");
+	// 初始化 Swup 管理器
+	initSwupManager();
+</script>
 
-		// 主题切换综合性能优化器（包含代码块优化、重型元素优化、性能诊断）
-		import("../scripts/theme-optimizer.js");
-	}
+<!-- 代码块折叠功能 -->
+<script>
+	import "../scripts/code-collapse.js";
+</script>
+
+<!-- 主题切换综合性能优化器（包含代码块优化、重型元素优化、性能诊断） -->
+<script>
+	import "../scripts/theme-optimizer.js";
 </script>

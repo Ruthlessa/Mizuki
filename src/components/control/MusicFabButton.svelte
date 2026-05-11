@@ -7,24 +7,9 @@
 
 	let state: MusicPlayerState = musicPlayerStore.getState();
 	let unsubscribe: (() => void) | undefined;
-	let buttonRef: HTMLButtonElement | null = null;
 
 	function toggleControlCenter() {
 		musicPlayerStore.toggleExpanded();
-	}
-
-	function handleClickOutside(event: MouseEvent) {
-		if (typeof document === "undefined") {return;}
-		
-		const target = event.target as Node;
-		if (!buttonRef?.contains(target)) {
-			const musicPanel = document.querySelector(".music-player-fab-shell");
-			if (musicPanel && !musicPanel.contains(target)) {
-				if (state.isExpanded) {
-					musicPlayerStore.toggleExpanded();
-				}
-			}
-		}
 	}
 
 	$: currentSongTitle = state.currentSong?.title || "音乐控制中心";
@@ -39,14 +24,10 @@
 		unsubscribe = musicPlayerStore.subscribe((nextState) => {
 			state = nextState;
 		});
-		document.addEventListener("click", handleClickOutside);
 	});
 
 	onDestroy(() => {
 		unsubscribe?.();
-		if (typeof document !== "undefined") {
-			document.removeEventListener("click", handleClickOutside);
-		}
 	});
 </script>
 
@@ -59,7 +40,6 @@
 	aria-label={ariaLabel}
 	title={ariaLabel}
 	on:click={toggleControlCenter}
-	bind:this={buttonRef}
 >
 	<span class="music-fab__icon" aria-hidden="true">
 		<Icon icon={statusIcon} />

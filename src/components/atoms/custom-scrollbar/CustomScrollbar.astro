@@ -118,148 +118,143 @@ const {
 </style>
 
 <script>
-	// 确保只在浏览器环境中执行
-	if (typeof document === "undefined") {
-		console.log("CustomScrollbar: Skipping initialization during SSR");
-	} else {
-		// 获取组件元素
-		const scrollbarEl = document.currentScript?.parentElement?.querySelector(
-			".custom-scrollbar",
-		) as HTMLElement | null;
+	// 获取组件元素
+	const scrollbarEl = document.currentScript?.parentElement?.querySelector(
+		".custom-scrollbar",
+	) as HTMLElement | null;
 
-		if (scrollbarEl) {
-			const el = scrollbarEl;
-			// 创建滚动条轨道和拇指元素
-			const track = document.createElement("div");
-			const thumb = document.createElement("div");
+	if (scrollbarEl) {
+		const el = scrollbarEl;
+		// 创建滚动条轨道和拇指元素
+		const track = document.createElement("div");
+		const thumb = document.createElement("div");
 
-			// 设置轨道样式
-			track.className = "custom-track";
-			track.style.position = "absolute";
-			track.style.background = "#e5e7eb"; // 浅灰色轨道
-			track.style.borderRadius = "4px";
-			track.style.opacity = "0";
-			track.style.transition = "opacity 0.3s";
-			track.style.pointerEvents = "none";
-			track.style.zIndex = "10";
+		// 设置轨道样式
+		track.className = "custom-track";
+		track.style.position = "absolute";
+		track.style.background = "#e5e7eb"; // 浅灰色轨道
+		track.style.borderRadius = "4px";
+		track.style.opacity = "0";
+		track.style.transition = "opacity 0.3s";
+		track.style.pointerEvents = "none";
+		track.style.zIndex = "10";
 
-			// 设置拇指样式
-			thumb.className = "custom-thumb";
-			thumb.style.position = "absolute";
-			thumb.style.background = "#6366f1"; // indigo-500 主题色
-			thumb.style.borderRadius = "4px";
-			thumb.style.opacity = "0";
-			thumb.style.transition = "opacity 0.3s";
-			thumb.style.pointerEvents = "none";
-			thumb.style.zIndex = "10";
+		// 设置拇指样式
+		thumb.className = "custom-thumb";
+		thumb.style.position = "absolute";
+		thumb.style.background = "#6366f1"; // indigo-500 主题色
+		thumb.style.borderRadius = "4px";
+		thumb.style.opacity = "0";
+		thumb.style.transition = "opacity 0.3s";
+		thumb.style.pointerEvents = "none";
+		thumb.style.zIndex = "10";
 
-			// 根据方向设置轨道和拇指的位置和尺寸
-			if (el.dataset.orientation === "horizontal") {
-				track.style.bottom = "2px";
-				track.style.left = "0";
-				track.style.right = "0";
-				track.style.height = "6px";
+		// 根据方向设置轨道和拇指的位置和尺寸
+		if (el.dataset.orientation === "horizontal") {
+			track.style.bottom = "2px";
+			track.style.left = "0";
+			track.style.right = "0";
+			track.style.height = "6px";
 
-				thumb.style.bottom = "2px";
-				thumb.style.height = "6px";
-				thumb.style.minWidth = "20px";
-			} else {
-				track.style.right = "2px";
-				track.style.top = "0";
-				track.style.bottom = "0";
-				track.style.width = "6px";
+			thumb.style.bottom = "2px";
+			thumb.style.height = "6px";
+			thumb.style.minWidth = "20px";
+		} else {
+			track.style.right = "2px";
+			track.style.top = "0";
+			track.style.bottom = "0";
+			track.style.width = "6px";
 
-				thumb.style.right = "2px";
-				thumb.style.width = "6px";
-				thumb.style.minHeight = "20px";
-			}
-
-			// 添加轨道和拇指到滚动条容器
-			el.appendChild(track);
-			el.appendChild(thumb);
-
-			// 更新滚动条位置和尺寸的函数
-			function updateScrollbar() {
-				if (el.dataset.orientation === "horizontal") {
-					const scrollWidth = el.scrollWidth;
-					const clientWidth = el.clientWidth;
-					const scrollLeft = el.scrollLeft;
-
-					if (scrollWidth > clientWidth) {
-						const thumbWidth = Math.max(
-							20,
-							(clientWidth / scrollWidth) * clientWidth,
-						);
-						const thumbLeft =
-							(scrollLeft / (scrollWidth - clientWidth)) *
-							(clientWidth - thumbWidth);
-
-						thumb.style.width = `${thumbWidth}px`;
-						thumb.style.left = `${thumbLeft}px`;
-					}
-				} else {
-					const scrollHeight = el.scrollHeight;
-					const clientHeight = el.clientHeight;
-					const scrollTop = el.scrollTop;
-
-					if (scrollHeight > clientHeight) {
-						const thumbHeight = Math.max(
-							20,
-							(clientHeight / scrollHeight) * clientHeight,
-						);
-						const thumbTop =
-							(scrollTop / (scrollHeight - clientHeight)) *
-							(clientHeight - thumbHeight);
-
-						thumb.style.height = `${thumbHeight}px`;
-						thumb.style.top = `${thumbTop}px`;
-					}
-				}
-			}
-
-			// 显示滚动条的函数
-			function showScrollbar() {
-				track.style.opacity = "1";
-				thumb.style.opacity = "1";
-			}
-
-			// 隐藏滚动条的函数
-			function hideScrollbar() {
-				track.style.opacity = "0";
-				thumb.style.opacity = "0";
-			}
-
-			// 夜间模式适配
-			function updateTheme() {
-				if (document.documentElement.classList.contains("dark")) {
-					track.style.background = "#374151"; // 夜间模式轨道色
-					thumb.style.background = "#6366f1"; // indigo-500 夜间模式拇指
-				} else {
-					track.style.background = "#e5e7eb"; // 浅灰色轨道
-					thumb.style.background = "#6366f1"; // indigo-500 主题色
-				}
-			}
-
-			// 初始化
-			updateScrollbar();
-			updateTheme();
-
-			// 事件监听
-			el.addEventListener("scroll", updateScrollbar);
-			el.addEventListener("mouseenter", showScrollbar);
-			el.addEventListener("mouseleave", hideScrollbar);
-			el.addEventListener("mousedown", showScrollbar);
-			window.addEventListener("mouseup", hideScrollbar);
-
-			// 监听主题变化
-			const observer = new MutationObserver(updateTheme);
-			observer.observe(document.documentElement, {
-				attributes: true,
-				attributeFilter: ["class"],
-			});
-
-			// 监听窗口大小变化
-			window.addEventListener("resize", updateScrollbar);
+			thumb.style.right = "2px";
+			thumb.style.width = "6px";
+			thumb.style.minHeight = "20px";
 		}
+
+		// 添加轨道和拇指到滚动条容器
+		el.appendChild(track);
+		el.appendChild(thumb);
+
+		// 更新滚动条位置和尺寸的函数
+		function updateScrollbar() {
+			if (el.dataset.orientation === "horizontal") {
+				const scrollWidth = el.scrollWidth;
+				const clientWidth = el.clientWidth;
+				const scrollLeft = el.scrollLeft;
+
+				if (scrollWidth > clientWidth) {
+					const thumbWidth = Math.max(
+						20,
+						(clientWidth / scrollWidth) * clientWidth,
+					);
+					const thumbLeft =
+						(scrollLeft / (scrollWidth - clientWidth)) *
+						(clientWidth - thumbWidth);
+
+					thumb.style.width = `${thumbWidth}px`;
+					thumb.style.left = `${thumbLeft}px`;
+				}
+			} else {
+				const scrollHeight = el.scrollHeight;
+				const clientHeight = el.clientHeight;
+				const scrollTop = el.scrollTop;
+
+				if (scrollHeight > clientHeight) {
+					const thumbHeight = Math.max(
+						20,
+						(clientHeight / scrollHeight) * clientHeight,
+					);
+					const thumbTop =
+						(scrollTop / (scrollHeight - clientHeight)) *
+						(clientHeight - thumbHeight);
+
+					thumb.style.height = `${thumbHeight}px`;
+					thumb.style.top = `${thumbTop}px`;
+				}
+			}
+		}
+
+		// 显示滚动条的函数
+		function showScrollbar() {
+			track.style.opacity = "1";
+			thumb.style.opacity = "1";
+		}
+
+		// 隐藏滚动条的函数
+		function hideScrollbar() {
+			track.style.opacity = "0";
+			thumb.style.opacity = "0";
+		}
+
+		// 夜间模式适配
+		function updateTheme() {
+			if (document.documentElement.classList.contains("dark")) {
+				track.style.background = "#374151"; // 夜间模式轨道色
+				thumb.style.background = "#6366f1"; // indigo-500 夜间模式拇指
+			} else {
+				track.style.background = "#e5e7eb"; // 浅灰色轨道
+				thumb.style.background = "#6366f1"; // indigo-500 主题色
+			}
+		}
+
+		// 初始化
+		updateScrollbar();
+		updateTheme();
+
+		// 事件监听
+		el.addEventListener("scroll", updateScrollbar);
+		el.addEventListener("mouseenter", showScrollbar);
+		el.addEventListener("mouseleave", hideScrollbar);
+		el.addEventListener("mousedown", showScrollbar);
+		window.addEventListener("mouseup", hideScrollbar);
+
+		// 监听主题变化
+		const observer = new MutationObserver(updateTheme);
+		observer.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ["class"],
+		});
+
+		// 监听窗口大小变化
+		window.addEventListener("resize", updateScrollbar);
 	}
 </script>

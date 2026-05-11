@@ -1,13 +1,11 @@
-// 确保只在浏览器环境中执行
-if (typeof window !== "undefined" && typeof document !== "undefined") {
-	// 右侧边栏布局管理器
-	// 用于在网格模式下隐藏右侧边栏
+// 右侧边栏布局管理器
+// 用于在网格模式下隐藏右侧边栏
 
-	/**
-	 * 初始化页面布局
-	 * @param {string} pageType - 页面类型（projects, skills等）
-	 */
-	function initPageLayout(pageType) {
+/**
+ * 初始化页面布局
+ * @param {string} pageType - 页面类型（projects, skills等）
+ */
+function initPageLayout(pageType) {
 	// 获取布局配置
 	const defaultPostListLayout =
 		localStorage.getItem("postListLayout") || "list";
@@ -132,11 +130,10 @@ if (typeof module !== "undefined" && module.exports) {
 }
 
 // 同时也挂载到 window 对象，以便在浏览器环境中直接调用
-	if (typeof window !== "undefined") {
-		window.rightSidebarLayout = {
-			initPageLayout,
-			hideRightSidebar,
-			showRightSidebar,
-		};
-	}
+if (typeof window !== "undefined") {
+	window.rightSidebarLayout = {
+		initPageLayout,
+		hideRightSidebar,
+		showRightSidebar,
+	};
 }

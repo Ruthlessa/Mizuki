@@ -1,10 +1,4 @@
 (() => {
-	// 确保只在浏览器环境中执行
-	if (typeof window === "undefined" || typeof document === "undefined") {
-		console.log("Mermaid script: Skipping initialization during SSR");
-		return;
-	}
-
 	// 单例模式：检查是否已经初始化过
 	if (window.mermaidInitialized) {
 		// 如果已经初始化过，只确保 renderMermaidDiagrams 函数可用

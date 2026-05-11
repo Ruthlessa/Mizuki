@@ -41,13 +41,9 @@ export class SwupManager {
 	private initialized = false;
 
 	constructor() {
-		// 只在浏览器环境中访问 document
-		this.bannerEnabled =
-			typeof document !== "undefined"
-				? !!document.getElementById(
-						SWUP_SELECTORS.bannerWrapper.slice(1),
-				  )
-				: false;
+		this.bannerEnabled = !!document.getElementById(
+			SWUP_SELECTORS.bannerWrapper.slice(1),
+		);
 
 		// 初始化各个处理器
 		this.fancyboxHandler = getFancyboxHandler();
