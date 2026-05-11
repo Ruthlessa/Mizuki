@@ -27,9 +27,8 @@
 		) {
 			try {
 				if (pioContainer && pioCanvas && !pioInitialized) {
-					// 确保 canvas 可见
-					pioCanvas.style.display = "block";
-					pioContainer.style.display = "block";
+					// 清除 localStorage 中的隐藏设置，强制显示
+					localStorage.removeItem("posterGirl");
 					
 					pioInstance = new (window as any).Paul_Pio(pioOptions);
 					pioInitialized = true;
@@ -103,14 +102,6 @@
 			return;
 		}
 
-		if (
-			pioConfig.hiddenOnMobile &&
-			window.matchMedia("(max-width: 1280px)").matches
-		) {
-			console.log("Pio is hidden on mobile");
-			return;
-		}
-
 		console.log("Pio component mounted");
 		loadPioAssets();
 
@@ -144,7 +135,6 @@
 	<div
 		class={`pio-container ${pioConfig.position || "right"}`}
 		bind:this={pioContainer}
-		style="display: block;"
 	>
 		<div class="pio-action"></div>
 		<canvas
@@ -152,7 +142,6 @@
 			bind:this={pioCanvas}
 			width={pioConfig.width || 280}
 			height={pioConfig.height || 250}
-			style="display: block;"
 		></canvas>
 	</div>
 {/if}
