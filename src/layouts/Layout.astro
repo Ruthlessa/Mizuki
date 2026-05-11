@@ -315,22 +315,16 @@ if (siteConfig.font) {
 	}
 </style>
 
-<script is:inline>
-	// 确保只在浏览器环境中执行
-	if (typeof window === "undefined" || typeof document === "undefined") {
-		// 在 SSR 期间跳过初始化
-		console.log("Skipping Swup initialization during SSR");
-	} else {
-		// Swup 页面过渡管理器 - 统一入口
-		// 所有功能已重构为模块化架构，详见 src/scripts/ 目录
-		import("../scripts/swup-manager").then(({ initSwupManager }) => {
-			initSwupManager();
-		});
+<script>
+	// Swup 页面过渡管理器 - 统一入口
+	// 所有功能已重构为模块化架构，详见 src/scripts/ 目录
+	import("@/scripts/swup-manager").then(({ initSwupManager }) => {
+		initSwupManager();
+	});
 
-		// 代码块折叠功能
-		import("../scripts/code-collapse.js");
+	// 代码块折叠功能
+	import("@/scripts/code-collapse.js");
 
-		// 主题切换综合性能优化器（包含代码块优化、重型元素优化、性能诊断）
-		import("../scripts/theme-optimizer.js");
-	}
+	// 主题切换综合性能优化器（包含代码块优化、重型元素优化、性能诊断）
+	import("@/scripts/theme-optimizer.js");
 </script>
