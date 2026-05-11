@@ -279,7 +279,9 @@ function initSemifullScrollDetection() {
 
 // 将函数暴露到全局对象，供页面切换时调用
 // @ts-ignore
-window.initSemifullScrollDetection = initSemifullScrollDetection;
+if (typeof window !== "undefined") {
+	window.initSemifullScrollDetection = initSemifullScrollDetection;
+}
 </script>
 
 {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
