@@ -365,8 +365,8 @@ export const profileConfig: ProfileConfig = {
 
 export const licenseConfig: LicenseConfig = {
 	enable: true,
-	name: "CC BY-NC-SA 4.0",
-	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+	name: "Apache-2.0",
+	url: "https://www.apache.org/licenses/LICENSE-2.0",
 };
 
 // Permalink 固定链接配置
