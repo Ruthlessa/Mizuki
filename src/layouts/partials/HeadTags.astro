@@ -128,86 +128,87 @@ const favicons: Favicon[] =
 		pageScaling: siteConfig.pageScaling,
 	}}
 >
-	// Load the theme from local storage
-	const theme = localStorage.getItem("theme") || DEFAULT_THEME;
-	let isDark = false;
-	switch (theme) {
-		case LIGHT_MODE:
-			document.documentElement.classList.remove("dark");
-			isDark = false;
-			break;
-		case DARK_MODE:
-			document.documentElement.classList.add("dark");
-			isDark = true;
-			break;
-	}
-
-	// Set the theme for Expressive Code based on current mode
-	const expressiveTheme = isDark ? "github-dark" : "github-light";
-	const currentTheme = document.documentElement.getAttribute("data-theme");
-	// 只在主题不同时才更新，避免触发不必要的重绘
-	if (currentTheme !== expressiveTheme) {
-		document.documentElement.setAttribute("data-theme", expressiveTheme);
-	}
-
-	// Load the hue from local storage
-	const hue = localStorage.getItem("hue") || configHue;
-	document.documentElement.style.setProperty("--hue", hue);
-
-	// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
-	let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
-	offset = offset - (offset % 4);
-	document.documentElement.style.setProperty(
-		"--banner-height-extend",
-		`${offset}px`,
-	);
-
-	// 自动缩放逻辑 (Moved from MainGridLayout to here for earlier execution)
-	(function () {
-		if (pageScaling && pageScaling.enable) {
-			function adjustPageScale() {
-				const isTouch =
-					(window.matchMedia &&
-						(window.matchMedia("(pointer:coarse)").matches ||
-							window.matchMedia("(hover: none)").matches)) ||
-					"ontouchstart" in window;
-				const isPortrait =
-					window.matchMedia &&
-					window.matchMedia("(orientation: portrait)").matches;
-				const isTabletLike = isTouch || window.innerWidth <= 1280;
-				if (isTabletLike || isPortrait) {
-					document.documentElement.style.fontSize = "";
-					return;
-				}
-				const targetWidth = pageScaling.targetWidth || 2000;
-				const currentWidth = document.documentElement.clientWidth;
-				let scale = currentWidth / targetWidth;
-				if (scale > 1) {
-					scale = 1;
-				}
-				if (scale < 0.85) {
-					scale = 0.85;
-				}
-				document.documentElement.style.fontSize = `${scale * 100}%`;
-			}
-
-			// 立即执行一次
-			adjustPageScale();
-
-			// 监听窗口大小变化
-			window.addEventListener("resize", adjustPageScale);
-
-			// Swup 页面切换后也需要检查
-			document.addEventListener("swup:page:view", adjustPageScale);
-			window.addEventListener("orientationchange", adjustPageScale);
+	if (typeof window !== "undefined") {
+		// Load the theme from local storage
+		const theme = localStorage.getItem("theme") || DEFAULT_THEME;
+		let isDark = false;
+		switch (theme) {
+			case LIGHT_MODE:
+				document.documentElement.classList.remove("dark");
+				isDark = false;
+				break;
+			case DARK_MODE:
+				document.documentElement.classList.add("dark");
+				isDark = true;
+				break;
 		}
-	})();
+
+		// Set the theme for Expressive Code based on current mode
+		const expressiveTheme = isDark ? "github-dark" : "github-light";
+		const currentTheme = document.documentElement.getAttribute("data-theme");
+		// 只在主题不同时才更新，避免触发不必要的重绘
+		if (currentTheme !== expressiveTheme) {
+			document.documentElement.setAttribute("data-theme", expressiveTheme);
+		}
+
+		// Load the hue from local storage
+		const hue = localStorage.getItem("hue") || configHue;
+		document.documentElement.style.setProperty("--hue", hue);
+
+		// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
+		let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
+		offset = offset - (offset % 4);
+		document.documentElement.style.setProperty(
+			"--banner-height-extend",
+			`${offset}px`,
+		);
+
+		// 自动缩放逻辑 (Moved from MainGridLayout to here for earlier execution)
+		(function () {
+			if (pageScaling && pageScaling.enable) {
+				function adjustPageScale() {
+					const isTouch =
+						(window.matchMedia &&
+							(window.matchMedia("(pointer:coarse)").matches ||
+								window.matchMedia("(hover: none)").matches)) ||
+						"ontouchstart" in window;
+					const isPortrait =
+						window.matchMedia &&
+						window.matchMedia("(orientation: portrait)").matches;
+					const isTabletLike = isTouch || window.innerWidth <= 1280;
+					if (isTabletLike || isPortrait) {
+						document.documentElement.style.fontSize = "";
+						return;
+					}
+					const targetWidth = pageScaling.targetWidth || 2000;
+					const currentWidth = document.documentElement.clientWidth;
+					let scale = currentWidth / targetWidth;
+					if (scale > 1) {
+						scale = 1;
+					}
+					if (scale < 0.85) {
+						scale = 0.85;
+					}
+					document.documentElement.style.fontSize = `${scale * 100}%`;
+				}
+
+				// 立即执行一次
+				adjustPageScale();
+
+				// 监听窗口大小变化
+				window.addEventListener("resize", adjustPageScale);
+
+				// Swup 页面切换后也需要检查
+				document.addEventListener("swup:page:view", adjustPageScale);
+				window.addEventListener("orientationchange", adjustPageScale);
+			}
+		})();
+	}
 </script>
 
 <!-- Dev mode script - avoid swup replacing head styles -->
 <script is:inline define:vars={{ IS_DEV: import.meta.env.DEV }}>
-	// Dev 模式下，避免 swup 在页面切换时反复替换 head 中的样式标签，导致偶发样式丢失
-	if (IS_DEV) {
+	if (typeof window !== "undefined" && IS_DEV) {
 		document.addEventListener("swup:enable", () => {
 			if (window?.swup?.options) {
 				window.swup.options.updateHead = false;
