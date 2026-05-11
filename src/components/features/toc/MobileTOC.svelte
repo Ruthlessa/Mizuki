@@ -43,6 +43,7 @@
 	};
 
 	const updateActiveHeading = () => {
+		if (typeof document === "undefined") return;
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 		const scrollTop = window.scrollY;
 		const offset = 100;
@@ -61,6 +62,7 @@
 	};
 
 	const setupIntersectionObserver = () => {
+		if (typeof document === "undefined") return;
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
 		if (observer) {
@@ -116,7 +118,7 @@
 			});
 
 			swupListenersRegistered = true;
-		} else if (!swupListenersRegistered) {
+		} else if (!swupListenersRegistered && typeof window !== "undefined") {
 			window.addEventListener("popstate", () => {
 				setTimeout(init, 200);
 			});
@@ -125,33 +127,32 @@
 	};
 
 	const checkSwupAvailability = () => {
-		if (typeof window !== "undefined") {
-			const w = window as unknown as {
-				swup?: {
-					hooks: {
-						on: (event: string, cb: () => void) => void;
-						off: (event: string) => void;
-					};
+		if (typeof document === "undefined" || typeof window === "undefined") return;
+		const w = window as unknown as {
+			swup?: {
+				hooks: {
+					on: (event: string, cb: () => void) => void;
+					off: (event: string) => void;
 				};
 			};
-			if (w.swup) {
-				setupSwupListeners();
-			} else {
-				const checkSwup = () => {
-					if (w.swup) {
-						setupSwupListeners();
-						document.removeEventListener("swup:enable", checkSwup);
-					}
-				};
+		};
+		if (w.swup) {
+			setupSwupListeners();
+		} else {
+			const checkSwup = () => {
+				if (w.swup) {
+					setupSwupListeners();
+					document.removeEventListener("swup:enable", checkSwup);
+				}
+			};
 
-				document.addEventListener("swup:enable", checkSwup);
-				setTimeout(() => {
-					if (w.swup) {
-						setupSwupListeners();
-						document.removeEventListener("swup:enable", checkSwup);
-					}
-				}, 1000);
-			}
+			document.addEventListener("swup:enable", checkSwup);
+			setTimeout(() => {
+				if (w.swup) {
+					setupSwupListeners();
+					document.removeEventListener("swup:enable", checkSwup);
+				}
+			}, 1000);
 		}
 	};
 
