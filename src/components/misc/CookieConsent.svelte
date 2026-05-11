@@ -70,7 +70,7 @@
 	onMount(() => {
 		preferences = loadPreferences();
 
-		if (typeof document !== "undefined") {
+		if (typeof document !== "undefined" && typeof localStorage !== "undefined") {
 			const openButton = document.getElementById("open_preferences_center");
 			if (openButton) {
 				openButton.addEventListener("click", handleOpen);
