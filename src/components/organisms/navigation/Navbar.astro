@@ -264,24 +264,26 @@ if (typeof document === "undefined" || typeof window === "undefined") {
 }
 </script>
 
-{#if import.meta.env.PROD}
-<script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
-if (typeof window !== "undefined" && typeof document !== "undefined") {
+<script is:inline define:vars={{pagefindUrl: url('/pagefind/pagefind.js')}}>
+(function() {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+        return;
+    }
     window.loadPagefind = async function() {
         if (window.pagefind) { return; }
         try {
-            const response = await fetch(scriptUrl, { method: 'HEAD' });
+            const response = await fetch(pagefindUrl, { method: 'HEAD' });
             if (!response.ok) {
                 throw new Error('Pagefind script not found: ' + response.status);
             }
 
-            const pagefind = await import(scriptUrl);
+            const pagefindModule = await import(pagefindUrl);
 
-            await pagefind.options({
+            await pagefindModule.options({
                 excerptLength: 20
             });
 
-            window.pagefind = pagefind;
+            window.pagefind = pagefindModule;
 
             document.dispatchEvent(new CustomEvent('pagefindready'));
             console.log('Pagefind loaded and initialized successfully, event dispatched.');
@@ -295,6 +297,5 @@ if (typeof window !== "undefined" && typeof document !== "undefined") {
             console.log('Pagefind load error, event dispatched.');
         }
     };
-}
+})();
 </script>
-{/if}
