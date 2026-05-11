@@ -244,4 +244,17 @@
 		cursor: not-allowed;
 		opacity: 0.7;
 	}
+	
+	@media (prefers-reduced-motion: reduce) {
+		.theme-switch-btn::before,
+		.icon-transition {
+			transition: none !important;
+		}
+		.switching .icon-transition {
+			animation: none;
+		}
+		.theme-switch-btn:not(.switching):hover .icon-transition {
+			transform: none;
+		}
+	}
 </style>

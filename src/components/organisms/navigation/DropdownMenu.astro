@@ -151,6 +151,7 @@ const hasChildren = children.length > 0;
 
 	.dropdown-content {
 		@apply bg-[var(--float-panel-bg)] rounded-[var(--radius-large)] shadow-xl dark:shadow-none border border-black/5 dark:border-white/10 p-2 min-w-[12rem];
+		overscroll-behavior: contain;
 	}
 
 	.dropdown-item {
