@@ -15,7 +15,7 @@
 
 		// 监听 Swup 的内容替换事件
 		const handleContentReplace = () => {
-			if (typeof window === "undefined") return;
+			if (typeof window === "undefined") {return;}
 			// 使用 requestAnimationFrame 确保在下一帧更新状态，避免渲染冲突
 			requestAnimationFrame(() => {
 				const newMode = getStoredTheme();
@@ -49,7 +49,7 @@
 			document.addEventListener(
 				"DOMContentLoaded",
 				() => {
-					if (typeof window === "undefined") return;
+					if (typeof window === "undefined") {return;}
 					requestAnimationFrame(() => {
 						const newMode = getStoredTheme();
 						if (mode !== newMode) {

@@ -39,7 +39,7 @@
 	];
 
 	const togglePanel = () => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const panel = document.getElementById("search-panel");
 		panel?.classList.toggle("float-panel-closed");
 		if (
@@ -51,7 +51,7 @@
 	};
 
 	const toggleDesktopSearch = () => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		if (windowJustFocused) {
 			return;
 		}
@@ -83,7 +83,7 @@
 	};
 
 	const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const panel = document.getElementById("search-panel");
 		if (!panel || !isDesktop) {
 			return;
@@ -96,7 +96,7 @@
 	};
 
 	const closeSearchPanel = (): void => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const panel = document.getElementById("search-panel");
 		if (panel) {
 			panel.classList.add("float-panel-closed");
@@ -149,7 +149,7 @@
 	};
 
 	const updateNavbarState = () => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const navbar = document.getElementById("navbar");
 		if (isDesktopSearchExpanded) {
 			navbar?.classList.add("is-searching");
@@ -248,7 +248,7 @@
 		}}
 		onmouseleave={collapseDesktopSearch}
 		onclick={() => {
-			if (typeof document === "undefined") return;
+			if (typeof document === "undefined") {return;}
 			const input = document.getElementById(
 				"search-input-desktop",
 			) as HTMLInputElement;

@@ -43,7 +43,7 @@
 	};
 
 	const updateActiveHeading = () => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 		const scrollTop = window.scrollY;
 		const offset = 100;
@@ -62,7 +62,7 @@
 	};
 
 	const setupIntersectionObserver = () => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
 		if (observer) {
@@ -127,7 +127,7 @@
 	};
 
 	const checkSwupAvailability = () => {
-		if (typeof document === "undefined" || typeof window === "undefined") return;
+		if (typeof document === "undefined" || typeof window === "undefined") {return;}
 		const w = window as unknown as {
 			swup?: {
 				hooks: {
