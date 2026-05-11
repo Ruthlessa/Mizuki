@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from "svelte";
+	import { onDestroy,onMount } from "svelte";
 
 	const CONSENT_KEY = "mizuki_cookie_consent";
 

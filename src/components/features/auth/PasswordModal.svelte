@@ -10,7 +10,7 @@
 	let password = $state("");
 
 	function dispatchUnlock(pwd: string) {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const event = new CustomEvent("password:unlock", {
 			detail: { password: pwd },
 			bubbles: true,

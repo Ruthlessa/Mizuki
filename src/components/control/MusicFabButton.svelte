@@ -14,7 +14,7 @@
 	}
 
 	function handleClickOutside(event: MouseEvent) {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		
 		const target = event.target as Node;
 		if (!buttonRef?.contains(target)) {

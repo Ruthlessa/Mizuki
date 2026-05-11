@@ -119,7 +119,14 @@
 	"packageManager": "pnpm@10.22.0",
 	"pnpm": {
 		"overrides": {
-			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660"
+			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660",
+			"fast-xml-parser@<4.5.6": ">=4.5.6",
+			"fast-xml-parser@>=5.0.0 <5.3.5": ">=5.3.5",
+			"serialize-javascript@<6.0.0": ">=6.0.0",
+			"tar@<7.0.0": ">=7.0.0",
+			"tmp@<0.2.1": ">=0.2.1",
+			"yaml@<2.0.3": ">=2.0.3",
+			"@tootallnate/once@<3.0.0": ">=3.0.0"
 		}
 	}
 }

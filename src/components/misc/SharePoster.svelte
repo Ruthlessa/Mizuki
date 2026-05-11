@@ -65,7 +65,7 @@
 	}
 
 	onMount(() => {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		const temp = document.createElement("div");
 		temp.style.color = "var(--primary)";
 		temp.style.display = "none";
@@ -89,7 +89,7 @@
 	});
 
 	async function generatePoster() {
-		if (typeof document === "undefined") return;
+		if (typeof document === "undefined") {return;}
 		showModal = true;
 		if (posterImage) {
 			return;
