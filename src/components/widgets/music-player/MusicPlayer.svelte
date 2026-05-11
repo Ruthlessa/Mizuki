@@ -13,13 +13,16 @@
 	import Playlist from "./organisms/Playlist.svelte";
 	import type { RepeatMode, Song } from "./types";
 
-	let state: MusicPlayerState = musicPlayerStore.getState();
+	let state: MusicPlayerState = $state();
 	const showFloatingPlayer = musicPlayerConfig.showFloatingPlayer;
 	const floatingEntryMode = musicPlayerConfig.floatingEntryMode ?? "default";
 	const useFabEntry = floatingEntryMode === "fab";
 	const shouldRenderFloatingUi =
 		showFloatingPlayer && musicPlayerConfig.enable;
 	let unsubscribe: (() => void) | undefined;
+	
+	// 初始化状态
+	state = musicPlayerStore.getState();
 
 	function togglePlay() {
 		musicPlayerStore.toggle();
