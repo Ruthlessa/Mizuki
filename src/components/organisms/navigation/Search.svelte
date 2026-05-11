@@ -52,7 +52,6 @@
 
 	const toggleDesktopSearch = () => {
 		if (typeof document === "undefined") return;
-		// 如果窗口刚获得焦点，不自动展开搜索框
 		if (windowJustFocused) {
 			return;
 		}
@@ -77,10 +76,8 @@
 	};
 
 	const handleBlur = () => {
-		// 延迟处理以允许搜索结果的点击事件先于折叠逻辑执行
 		blurTimer = setTimeout(() => {
 			isDesktopSearchExpanded = false;
-			// 仅隐藏面板并折叠，保留搜索关键词和结果以便下次展开时查看
 			setPanelVisibility(false, true);
 		}, 200);
 	};
@@ -104,7 +101,6 @@
 		if (panel) {
 			panel.classList.add("float-panel-closed");
 		}
-		// 清空搜索关键词和结果
 		keywordDesktop = "";
 		keywordMobile = "";
 		result = [];
@@ -152,6 +148,16 @@
 		}
 	};
 
+	const updateNavbarState = () => {
+		if (typeof document === "undefined") return;
+		const navbar = document.getElementById("navbar");
+		if (isDesktopSearchExpanded) {
+			navbar?.classList.add("is-searching");
+		} else {
+			navbar?.classList.remove("is-searching");
+		}
+	};
+
 	onMount(() => {
 		const initializeSearch = () => {
 			initialized = true;
@@ -175,30 +181,33 @@
 				console.warn(
 					"Pagefind load error event received. Search functionality will be limited.",
 				);
-				initializeSearch(); // Initialize with pagefindLoaded as false
+				initializeSearch();
 			});
-			// Fallback in case events are not caught or pagefind is already loaded by the time this script runs
 			setTimeout(() => {
 				if (!initialized) {
 					console.log("Fallback: Initializing search after timeout.");
 					initializeSearch();
 				}
-			}, 2000); // Adjust timeout as needed
+			}, 2000);
 		}
 
-		// 监听窗口焦点事件，防止切换窗口时自动展开搜索框
 		const handleFocus = () => {
 			windowJustFocused = true;
 			clearTimeout(focusTimer);
 			focusTimer = setTimeout(() => {
 				windowJustFocused = false;
-			}, 500); // 500ms 后才允许 mouseenter 触发展开
+			}, 500);
 		};
 
 		window.addEventListener("focus", handleFocus);
 
 		return () => {
 			window.removeEventListener("focus", handleFocus);
+			clearTimeout(debounceTimer);
+			clearTimeout(focusTimer);
+			clearTimeout(blurTimer);
+			const navbar = document.getElementById("navbar");
+			navbar?.classList.remove("is-searching");
 		};
 	});
 
@@ -217,26 +226,6 @@
 				setPanelVisibility(false, isDesktop);
 			}
 		}
-	});
-
-	$effect(() => {
-		if (typeof document !== "undefined") {
-			const navbar = document.getElementById("navbar");
-			if (isDesktopSearchExpanded) {
-				navbar?.classList.add("is-searching");
-			} else {
-				navbar?.classList.remove("is-searching");
-			}
-		}
-	});
-
-	onDestroy(() => {
-		if (typeof document !== "undefined") {
-			const navbar = document.getElementById("navbar");
-			navbar?.classList.remove("is-searching");
-		}
-		clearTimeout(debounceTimer);
-		clearTimeout(focusTimer);
 	});
 </script>
 
