@@ -1,4 +1,6 @@
-class CodeBlockCollapser {
+// 确保只在浏览器环境中执行
+if (typeof window !== "undefined" && typeof document !== "undefined") {
+	class CodeBlockCollapser {
 	constructor() {
 		this.processedBlocks = new WeakSet();
 		this.observer = null;
@@ -377,4 +379,5 @@ if (!setupSwupHooks()) {
 	setTimeout(() => {
 		clearInterval(retryInterval);
 	}, 2000);
+}
 }
