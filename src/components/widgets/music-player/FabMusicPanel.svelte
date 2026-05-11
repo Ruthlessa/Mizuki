@@ -10,7 +10,7 @@
 	import SidebarProgress from "../music-sidebar/components/SidebarProgress.svelte";
 	import SidebarTrackInfo from "../music-sidebar/components/SidebarTrackInfo.svelte";
 
-	let state: MusicPlayerState = musicPlayerStore.getState();
+	let state: MusicPlayerState = $state(musicPlayerStore.getState());
 	let showPlaylist = $state(false);
 	let unsubscribe: (() => void) | undefined;
 
