@@ -230,14 +230,14 @@ if (siteConfig.font) {
 		/>
 		<slot />
 
-		<!-- Music Player - 核心始终加载（当enable=true），UI通过showFloatingPlayer控制 -->
-		<MusicPlayer client:idle />
+		<!-- Music Player - 仅在客户端渲染，避免 SSR 问题 -->
+		<MusicPlayer client:only="svelte" />
 
 		<!-- Pio 看板娘组件 - 仅在客户端渲染，避免 SSR 问题 -->
 		{pioConfig.enable && <Pio client:only="svelte" />}
 
-		<!-- Cookie Consent 组件 -->
-		<CookieConsent client:idle />
+		<!-- Cookie Consent 组件 - 仅在客户端渲染，避免 SSR 问题 -->
+		<CookieConsent client:only="svelte" />
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
