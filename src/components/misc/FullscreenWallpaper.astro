@@ -92,7 +92,7 @@ const renderGroups = [
 	style={`z-index: ${zIndex}; opacity: ${opacity}; transform: translateZ(0); perspective: 1000px;`}
 	data-fullscreen-wallpaper
 >
-	<script is:inline>
+	<script>
 	// 立即执行脚本：防止闪烁
 	if (typeof window !== "undefined" && typeof document !== "undefined" && typeof localStorage !== "undefined") {
 		(function() {
@@ -123,7 +123,7 @@ const renderGroups = [
 		))
 	) : (
 		<div id="wallpaper-single-container" class="w-full h-full relative">
-			<script is:inline define:vars={{ desktopImages: imageSources.desktop, mobileImages: imageSources.mobile, positionClass, blurAmount }}>
+			<script define:vars={{ desktopImages: imageSources.desktop, mobileImages: imageSources.mobile, positionClass, blurAmount }}>
 				// 只在客户端执行
 				if (typeof window !== "undefined" && typeof document !== "undefined" && typeof sessionStorage !== "undefined") {
 					(function() {
@@ -190,7 +190,7 @@ const renderGroups = [
 </div>
 
 {isCarouselEnabled && (
-	<script is:inline define:vars={{ carouselInterval }}>
+	<script define:vars={{ carouselInterval }}>
 		// 只在客户端执行
 		if (typeof window !== "undefined" && typeof document !== "undefined" && typeof sessionStorage !== "undefined") {
 			function initFullscreenWallpaperCarousel() {

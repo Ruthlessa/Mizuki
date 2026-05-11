@@ -221,7 +221,7 @@ const { headings = [] } = Astro.props;
 	}
 </style>
 
-<script is:inline>
+<script>
 	// 只在客户端执行
 	if (typeof window !== "undefined" && typeof document !== "undefined") {
 		if (!window.__floatingControlObservers) {

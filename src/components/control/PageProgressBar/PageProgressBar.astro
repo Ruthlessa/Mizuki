@@ -17,7 +17,7 @@ const { enable, height, duration } = Astro.props;
 			style={`--page-progress-bar-height: ${height}px; --page-progress-bar-duration: ${duration}ms;`}
 		/>
 
-		<script is:inline define:vars={{ enable }}>
+		<script define:vars={{ enable }}>
 			if (!enable) {
 				const el = document.getElementById("page-progress-bar");
 			if (el) {el.remove();}

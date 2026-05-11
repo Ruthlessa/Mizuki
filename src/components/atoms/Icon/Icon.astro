@@ -44,7 +44,7 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
 		loading={loading}></iconify-icon>
 </span>
 
-<script is:inline define:vars={{ iconId, icon }}>
+<script define:vars={{ iconId, icon }}>
 	(function () {
 		const container = document.querySelector(
 			`[data-icon-container="${iconId}"]`,

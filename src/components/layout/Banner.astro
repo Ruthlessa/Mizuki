@@ -148,7 +148,6 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 		/* 单图模式 */
 		<div id="banner-single-container" class="relative h-full w-full">
 			<script
-			is:inline
 			define:vars={{
 				desktopImages: bannerImages.desktop,
 				mobileImages: bannerImages.mobile,
@@ -238,7 +237,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 
 	<!-- 轮播脚本：随机起始 + 帧收集 + Ken Burns + Crossfade + 触摸/鼠标事件 -->
 	{isCarouselEnabled && (
-		<script is:inline data-swup-ignore-script>
+		<script data-swup-ignore-script>
 			// 只在客户端执行
 			if (typeof window !== "undefined") {
 				function initBannerCarousel() {

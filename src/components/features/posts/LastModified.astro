@@ -33,7 +33,7 @@ const lastModified = dayjs(updatedDate).utc().format("YYYY-MM-DDTHH:mm:ss");
 	</div>
 
 	<div class:list={["card-base p-6 mb-4", className]}>
-		<script is:inline>
+		<script>
 			function runtime() {
 				const lastModifiedElement =
 					document.getElementById("last-modified");

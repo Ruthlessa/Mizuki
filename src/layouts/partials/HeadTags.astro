@@ -118,7 +118,6 @@ const favicons: Favicon[] =
 
 <!-- Set the theme before the page is rendered to avoid a flash -->
 <script
-	is:inline
 	define:vars={{
 		DEFAULT_THEME,
 		LIGHT_MODE,
@@ -207,7 +206,7 @@ const favicons: Favicon[] =
 </script>
 
 <!-- Dev mode script - avoid swup replacing head styles -->
-<script is:inline define:vars={{ IS_DEV: import.meta.env.DEV }}>
+<script define:vars={{ IS_DEV: import.meta.env.DEV }}>
 	if (typeof window !== "undefined" && IS_DEV) {
 		document.addEventListener("swup:enable", () => {
 			if (window?.swup?.options) {

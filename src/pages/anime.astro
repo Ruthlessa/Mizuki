@@ -123,7 +123,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 		</div>
 	</div>
 
-	<script is:inline define:vars={{ hasRightSidebars }}>
+	<script define:vars={{ hasRightSidebars }}>
 		(function () {
 			const containerId = "anime-list-container";
 
@@ -319,7 +319,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 		})();
 	</script>
 
-	<script is:inline>
+	<script>
 		if (typeof window.animeFilterEventListeners === "undefined") {
 			window.animeFilterEventListeners = [];
 		}
