@@ -365,5 +365,22 @@ export const ja: Translation = {
 	[Key.relatedPosts]: "関連記事",
 	[Key.randomPosts]: "ランダム記事",
 	[Key.smartRecommend]: "スマート",
-	[Key.randomRecommend]: "ランダム",
+        [Key.randomRecommend]: "ランダム",
+
+        // ページ無結果提示
+        [Key.noMatchingProjects]: "一致するプロジェクトが見つかりません",
+        [Key.noMatchingSkills]: "一致するスキルが見つかりません",
+        [Key.noMatchingTimelineItems]: "一致するタイムラインアイテムが見つかりません",
+
+        // タイムラインページ
+        [Key.timelineFilterAll]: "すべて",
+
+        // スキルページ
+        [Key.skillsFilterAll]: "すべて",
+
+        // プロジェクトページ
+        [Key.projectsFilterAll]: "すべて",
+
+        // 日記ページ
+        [Key.diaryFilterAll]: "すべて",
 };

@@ -87,6 +87,9 @@ declare global {
 		__mizukiRightSidebarResizeHandler?: () => void;
 		__mizukiRightSidebarSwupHooked?: boolean;
 		__mizukiRightSidebarManagerInitialized?: boolean;
+
+		// Navbar scroll handler
+		semifullScrollHandler?: () => void;
 	}
 
 	interface Fancybox {
