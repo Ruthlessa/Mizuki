@@ -199,6 +199,11 @@ export default defineConfig({
 	},
 	vite: {
 		plugins: [tailwindcss()],
+		server: {
+			watch: {
+				ignored: ['**/node_modules/**', '**/.pnpm-store/**'],
+			},
+		},
 		build: {
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
