@@ -123,164 +123,167 @@ const iconWebpSrc = hasIconPngFallback ? iconSrc.replace(/\.png$/i, ".webp") : i
 </div>
 
 <script>
-// 页面加载完成后执行
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavbar);
+// 确保只在浏览器环境中执行
+if (typeof document === "undefined" || typeof window === "undefined") {
+    console.log("Navbar script: Skipping initialization during SSR");
 } else {
-    initNavbar();
-}
+    // 页面加载完成后执行
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initNavbar);
+    } else {
+        initNavbar();
+    }
 
-function initNavbar() {
-	const searchContainer = document.getElementById("search-container");
-	const navbarLinksContainer = document.getElementById("navbar-links-container");
+    function initNavbar() {
+        const searchContainer = document.getElementById("search-container");
+        const navbarLinksContainer = document.getElementById("navbar-links-container");
 
-	if (searchContainer && navbarLinksContainer) {
-		// 鼠标移入/触摸开始时隐藏导航链接
-		const hideLinks = () => {
-			if (window.matchMedia("(min-width: 1280px)").matches && window.matchMedia("(hover: hover)").matches) {
-				navbarLinksContainer.style.opacity = "0";
-			}
-		};
-
-		// 鼠标移出/触摸结束时显示导航链接
-		const showLinks = () => {
-			const navbar = document.getElementById("navbar");
-			if (navbar && !navbar.classList.contains("is-searching")) {
-				navbarLinksContainer.style.opacity = "1";
-			}
-		};
-
-		searchContainer.addEventListener("mouseenter", hideLinks);
-		searchContainer.addEventListener("mouseleave", showLinks);
-
-		// 移动端/触摸屏支持
-		searchContainer.addEventListener("touchstart", hideLinks, { passive: true });
-		searchContainer.addEventListener("touchend", showLinks);
-
-		// 监听 navbar 的 class 变化，当搜索框折叠时确保链接显示
-		const navbar = document.getElementById("navbar");
-		if (navbar) {
-			const observer = new MutationObserver((mutations) => {
-				mutations.forEach((mutation) => {
-					if (mutation.type === "attributes" && mutation.attributeName === "class") {
-						if (!navbar.classList.contains("is-searching")) {
-							// 搜索框已折叠，如果此时鼠标不在搜索容器内，强制显示链接
-							if (!searchContainer.matches(':hover')) {
-								showLinks();
-							}
-						}
-					}
-				});
-			});
-			observer.observe(navbar, { attributes: true });
-		}
-	}
-
-	loadButtonScript();
-	initSemifullScrollDetection();
-}
-
-async function loadButtonScript() {
-    try {
-        const { panelManager } = await import('../../../utils/panel-manager.js');
-        
-        const settingBtn = document.getElementById("display-settings-switch");
-        if (settingBtn) {
-            settingBtn.onclick = async function () {
-                await panelManager.togglePanel('display-setting');
-            };
-        }
-
-        const menuBtn = document.getElementById("nav-menu-switch");
-        if (menuBtn) {
-            menuBtn.onclick = async function () {
-                await panelManager.togglePanel('nav-menu-panel');
-            };
-        }
-    } catch (error) {
-        console.error('Failed to load panel manager:', error);
-        // 备用逻辑
-        const settingBtn = document.getElementById("display-settings-switch");
-        if (settingBtn) {
-            settingBtn.onclick = function () {
-                const settingPanel = document.getElementById("display-setting");
-                if (settingPanel) {
-                    settingPanel.classList.toggle("float-panel-closed");
+        if (searchContainer && navbarLinksContainer) {
+            // 鼠标移入/触摸开始时隐藏导航链接
+            const hideLinks = () => {
+                if (window.matchMedia("(min-width: 1280px)").matches && window.matchMedia("(hover: hover)").matches) {
+                    navbarLinksContainer.style.opacity = "0";
                 }
             };
-        }
 
-        const menuBtn = document.getElementById("nav-menu-switch");
-        if (menuBtn) {
-            menuBtn.onclick = function () {
-                const menuPanel = document.getElementById("nav-menu-panel");
-                if (menuPanel) {
-                    menuPanel.classList.toggle("float-panel-closed");
+            // 鼠标移出/触摸结束时显示导航链接
+            const showLinks = () => {
+                const navbar = document.getElementById("navbar");
+                if (navbar && !navbar.classList.contains("is-searching")) {
+                    navbarLinksContainer.style.opacity = "1";
                 }
             };
+
+            searchContainer.addEventListener("mouseenter", hideLinks);
+            searchContainer.addEventListener("mouseleave", showLinks);
+
+            // 移动端/触摸屏支持
+            searchContainer.addEventListener("touchstart", hideLinks, { passive: true });
+            searchContainer.addEventListener("touchend", showLinks);
+
+            // 监听 navbar 的 class 变化，当搜索框折叠时确保链接显示
+            const navbar = document.getElementById("navbar");
+            if (navbar) {
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === "attributes" && mutation.attributeName === "class") {
+                            if (!navbar.classList.contains("is-searching")) {
+                                // 搜索框已折叠，如果此时鼠标不在搜索容器内，强制显示链接
+                                if (!searchContainer.matches(':hover')) {
+                                    showLinks();
+                                }
+                            }
+                        });
+                    });
+                });
+                observer.observe(navbar, { attributes: true });
+            }
+        }
+
+        loadButtonScript();
+        initSemifullScrollDetection();
+    }
+
+    async function loadButtonScript() {
+        try {
+            const { panelManager } = await import('../../../utils/panel-manager.js');
+            
+            const settingBtn = document.getElementById("display-settings-switch");
+            if (settingBtn) {
+                settingBtn.onclick = async function () {
+                    await panelManager.togglePanel('display-setting');
+                };
+            }
+
+            const menuBtn = document.getElementById("nav-menu-switch");
+            if (menuBtn) {
+                menuBtn.onclick = async function () {
+                    await panelManager.togglePanel('nav-menu-panel');
+                };
+            }
+        } catch (error) {
+            console.error('Failed to load panel manager:', error);
+            // 备用逻辑
+            const settingBtn = document.getElementById("display-settings-switch");
+            if (settingBtn) {
+                settingBtn.onclick = function () {
+                    const settingPanel = document.getElementById("display-setting");
+                    if (settingPanel) {
+                        settingPanel.classList.toggle("float-panel-closed");
+                    }
+                };
+            }
+
+            const menuBtn = document.getElementById("nav-menu-switch");
+            if (menuBtn) {
+                menuBtn.onclick = function () {
+                    const menuPanel = document.getElementById("nav-menu-panel");
+                    if (menuPanel) {
+                        menuPanel.classList.toggle("float-panel-closed");
+                    }
+                };
+            }
         }
     }
-}
 
-// 为semifull模式添加滚动检测逻辑
-function initSemifullScrollDetection() {
-    const navbar = document.getElementById('navbar');
-    if (!navbar) {return;}
-    
-    // 移除之前的滚动事件监听器（如果存在）
-    // @ts-ignore
-    if (window.semifullScrollHandler) {
+    // 为semifull模式添加滚动检测逻辑
+    function initSemifullScrollDetection() {
+        const navbar = document.getElementById('navbar');
+        if (!navbar) {return;}
+        
+        // 移除之前的滚动事件监听器（如果存在）
         // @ts-ignore
-        window.removeEventListener('scroll', window.semifullScrollHandler);
-    }
-    
-    // 获取当前是否为首页
-    // @ts-ignore
-    const isHomePage = navbar.dataset.isHome === 'true';
-
-    // 如果不是首页，在平板/桌面端强制显示为scrolled状态
-    if (!isHomePage) {
-        navbar.classList.add('scrolled');
-        return;
-    }
-    
-    let ticking = false;
-    
-    function updateNavbarState() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const threshold = 50; // 滚动阈值，可以根据需要调整
+        if (window.semifullScrollHandler) {
+            // @ts-ignore
+            window.removeEventListener('scroll', window.semifullScrollHandler);
+        }
         
-        if (navbar && scrollTop > threshold) {
+        // 获取当前是否为首页
+        // @ts-ignore
+        const isHomePage = navbar.dataset.isHome === 'true';
+
+        // 如果不是首页，在平板/桌面端强制显示为scrolled状态
+        if (!isHomePage) {
             navbar.classList.add('scrolled');
-        } else if (navbar) {
-            navbar.classList.remove('scrolled');
+            return;
         }
         
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateNavbarState);
-            ticking = true;
+        let ticking = false;
+        
+        function updateNavbarState() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const threshold = 50; // 滚动阈值，可以根据需要调整
+            
+            if (navbar && scrollTop > threshold) {
+                navbar.classList.add('scrolled');
+            } else if (navbar) {
+                navbar.classList.remove('scrolled');
+            }
+            
+            ticking = false;
         }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateNavbarState);
+                ticking = true;
+            }
+        }
+        
+        // 保存新的事件处理器引用
+        // @ts-ignore
+        window.semifullScrollHandler = requestTick;
+        
+        // 监听滚动事件
+        window.addEventListener('scroll', requestTick, { passive: true });
+        
+        // 初始化状态
+        updateNavbarState();
     }
-    
-    // 保存新的事件处理器引用
-    // @ts-ignore
-    window.semifullScrollHandler = requestTick;
-    
-    // 监听滚动事件
-    window.addEventListener('scroll', requestTick, { passive: true });
-    
-    // 初始化状态
-    updateNavbarState();
-}
 
-// 将函数暴露到全局对象，供页面切换时调用
-// @ts-ignore
-if (typeof window !== "undefined") {
-	window.initSemifullScrollDetection = initSemifullScrollDetection;
+    // 将函数暴露到全局对象，供页面切换时调用
+    // @ts-ignore
+    window.initSemifullScrollDetection = initSemifullScrollDetection;
 }
 </script>
 
