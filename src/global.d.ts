@@ -57,6 +57,7 @@ declare global {
 		mobileTOCInit?: () => void;
 		initSemifullScrollDetection?: () => void;
 		iconifyLoaded?: boolean;
+		pagefindLoaded?: boolean;
 
 		// CardTOC manager
 		CardTOC?: {
