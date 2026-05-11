@@ -45,6 +45,10 @@ export default defineConfig({
 	trailingSlash: "always",
 
 	output: "static",
+	server: {
+		host: '0.0.0.0',
+		port: 3000,
+	},
 
 	integrations: [
 		umami({
@@ -200,6 +204,8 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		server: {
+			host: '0.0.0.0',
+			port: 3000,
 			watch: {
 				ignored: ['**/node_modules/**', '**/.pnpm-store/**'],
 			},
