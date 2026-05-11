@@ -36,6 +36,9 @@ export class TOCManager {
 	 * 优先使用实例级元素引用，避免多实例时因为重复 id 命中错误节点。
 	 */
 	private getTOCContentElement(): HTMLElement | null {
+		if (typeof document === "undefined") {
+			return null;
+		}
 		if (this.contentElement) {
 			return this.contentElement;
 		}
@@ -58,6 +61,9 @@ export class TOCManager {
 	}
 
 	private getContentContainer(): Element | null {
+		if (typeof document === "undefined") {
+			return null;
+		}
 		return (
 			document.querySelector(".custom-md") ||
 			document.querySelector(".prose") ||
@@ -356,6 +362,9 @@ export class TOCManager {
 	}
 
 	public handleClick(event: Event): void {
+		if (typeof document === "undefined" || typeof window === "undefined") {
+			return;
+		}
 		event.preventDefault();
 		const target = event.currentTarget as HTMLAnchorElement;
 		const id = decodeURIComponent(
