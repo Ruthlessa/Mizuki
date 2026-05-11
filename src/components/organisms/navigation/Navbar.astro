@@ -100,10 +100,10 @@ const iconWebpSrc = hasIconPngFallback ? iconSrc.replace(/\.png$/i, ".webp") : i
                         <Icon name="material-symbols:palette-outline" class="text-[1.25rem]"></Icon>
                     </button>
             )}
-            {modeSwitchDisplay !== "none" && (
-                <WallpaperSwitch client:only="svelte" display={modeSwitchDisplay}></WallpaperSwitch>
+            {modeSwitchDisplay !== "off" && (
+                <WallpaperSwitch client:only="svelte"></WallpaperSwitch>
             )}
-            {siteConfig.postListLayout.enable && (
+            {siteConfig.postListLayout.allowSwitch && (
                 <LayoutSwitch client:only="svelte"></LayoutSwitch>
             )}
             <ThemeSwitch client:only="svelte"></ThemeSwitch>
