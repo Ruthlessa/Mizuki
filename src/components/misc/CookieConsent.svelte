@@ -15,6 +15,9 @@
 	};
 
 	const loadPreferences = (): CookiePreferences => {
+		if (typeof localStorage === "undefined") {
+			return { analytics: false, necessary: true };
+		}
 		const saved = localStorage.getItem(CONSENT_KEY);
 		if (saved) {
 			try {
@@ -27,14 +30,16 @@
 	};
 
 	const savePreferences = (prefs: CookiePreferences) => {
-		localStorage.setItem(CONSENT_KEY, JSON.stringify(prefs));
+		if (typeof localStorage !== "undefined") {
+			localStorage.setItem(CONSENT_KEY, JSON.stringify(prefs));
+		}
 		preferences = prefs;
 		isOpen = false;
 		applyPreferences(prefs);
 	};
 
 	const applyPreferences = (prefs: CookiePreferences) => {
-		if (prefs.analytics) {
+		if (prefs.analytics && typeof document !== "undefined") {
 			loadAnalyticsScript();
 		}
 	};
@@ -65,28 +70,32 @@
 	onMount(() => {
 		preferences = loadPreferences();
 
-		const openButton = document.getElementById("open_preferences_center");
-		if (openButton) {
-			openButton.addEventListener("click", handleOpen);
-		}
+		if (typeof document !== "undefined") {
+			const openButton = document.getElementById("open_preferences_center");
+			if (openButton) {
+				openButton.addEventListener("click", handleOpen);
+			}
 
-		const savedConsent = localStorage.getItem(CONSENT_KEY);
-		if (!savedConsent) {
-			setTimeout(() => {
-				isOpen = true;
-			}, 2000);
+			const savedConsent = localStorage.getItem(CONSENT_KEY);
+			if (!savedConsent) {
+				setTimeout(() => {
+					isOpen = true;
+				}, 2000);
+			}
 		}
 	});
 
 	onDestroy(() => {
-		const openButton = document.getElementById("open_preferences_center");
-		if (openButton) {
-			openButton.removeEventListener("click", handleOpen);
+		if (typeof document !== "undefined") {
+			const openButton = document.getElementById("open_preferences_center");
+			if (openButton) {
+				openButton.removeEventListener("click", handleOpen);
+			}
 		}
 	});
 </script>
 
-{#if isOpen}
+{#if typeof document !== "undefined" && isOpen}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
 		<div class="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 shadow-2xl">
 			<div class="p-6">
