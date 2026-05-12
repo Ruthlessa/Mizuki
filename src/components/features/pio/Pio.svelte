@@ -27,6 +27,9 @@
 		) {
 			try {
 				if (pioContainer && pioCanvas && !pioInitialized) {
+					// 清除 localStorage 中的隐藏设置，强制显示
+					localStorage.removeItem("posterGirl");
+					
 					pioInstance = new (window as any).Paul_Pio(pioOptions);
 					pioInitialized = true;
 					console.log("Pio initialized successfully (Svelte)");
@@ -64,9 +67,14 @@
 		};
 
 		const loadWithIdle = () => {
+			console.log("Loading Pio assets...");
 			loadScript("/pio/static/l2d.js", "pio-l2d-script")
-				.then(() => loadScript("/pio/static/pio.js", "pio-main-script"))
 				.then(() => {
+					console.log("l2d.js loaded");
+					return loadScript("/pio/static/pio.js", "pio-main-script");
+				})
+				.then(() => {
+					console.log("pio.js loaded");
 					setTimeout(initPio, 100);
 				})
 				.catch((error) => {
@@ -74,13 +82,8 @@
 				});
 		};
 
-		if ("requestIdleCallback" in window) {
-			(window as any).requestIdleCallback(loadWithIdle, {
-				timeout: 5000,
-			});
-		} else {
-			setTimeout(loadWithIdle, 2000);
-		}
+		// 立即开始加载，不等待 idle
+		setTimeout(loadWithIdle, 500);
 	}
 
 	function handlePageTransition() {
@@ -95,16 +98,11 @@
 
 	onMount(() => {
 		if (!pioConfig.enable) {
+			console.log("Pio is disabled in config");
 			return;
 		}
 
-		if (
-			pioConfig.hiddenOnMobile &&
-			window.matchMedia("(max-width: 1280px)").matches
-		) {
-			return;
-		}
-
+		console.log("Pio component mounted");
 		loadPioAssets();
 
 		// 监听 swup 页面切换事件

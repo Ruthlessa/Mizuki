@@ -45,6 +45,10 @@ export default defineConfig({
 	trailingSlash: "always",
 
 	output: "static",
+	server: {
+		host: '0.0.0.0',
+		port: 3000,
+	},
 
 	integrations: [
 		umami({
@@ -199,6 +203,13 @@ export default defineConfig({
 	},
 	vite: {
 		plugins: [tailwindcss()],
+		server: {
+			host: '0.0.0.0',
+			port: 3000,
+			watch: {
+				ignored: ['**/node_modules/**', '**/.pnpm-store/**'],
+			},
+		},
 		build: {
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
