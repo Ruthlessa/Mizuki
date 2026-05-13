@@ -1,9 +1,12 @@
 <script lang="ts">
+	import Icon from "@iconify/svelte";
 	import { onDestroy, onMount } from "svelte";
 
 	import type { MusicPlayerState } from "@/stores/musicPlayerStore";
 	import { musicPlayerStore } from "@/stores/musicPlayerStore";
 
+	import Key from "../../../i18n/i18nKey";
+	import { i18n } from "../../../i18n/translation";
 	import SidebarControls from "../music-sidebar/components/SidebarControls.svelte";
 	import SidebarCover from "../music-sidebar/components/SidebarCover.svelte";
 	import SidebarPlaylist from "../music-sidebar/components/SidebarPlaylist.svelte";
@@ -64,6 +67,10 @@
 	function setVolume(volume: number) {
 		musicPlayerStore.setVolume(volume);
 	}
+
+	function collapse() {
+		musicPlayerStore.toggleExpanded();
+	}
 </script>
 
 <div
@@ -84,6 +91,14 @@
 			onToggleMute={toggleMute}
 			onSetVolume={setVolume}
 		/>
+		<button
+			class="collapse-btn"
+			onclick={collapse}
+			aria-label={i18n(Key.musicPlayerCollapse)}
+			title={i18n(Key.musicPlayerCollapse)}
+		>
+			<Icon icon="material-symbols:expand-more" class="text-lg" />
+		</button>
 	</div>
 
 	<SidebarProgress
@@ -133,10 +148,33 @@
 		margin-bottom: 0.75rem;
 	}
 
+	.collapse-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 0.375rem;
+		color: var(--content-meta);
+		transition: color 150ms ease, background 150ms ease;
+		flex-shrink: 0;
+		margin-left: auto;
+	}
+
+	.collapse-btn:hover {
+		color: var(--primary);
+		background: var(--btn-regular-bg);
+	}
+
 	@media (max-width: 640px) {
 		.fab-music-panel {
 			padding: 0.9rem 0.85rem 0.9rem 0.9rem;
 			border-radius: 1rem;
+		}
+
+		.collapse-btn {
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 	}
 </style>
