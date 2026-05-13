@@ -3,17 +3,18 @@
 
 [Astro](https://astro.build) で構築された現代的で機能豊富な静的ブログテンプレートで、高度な機能と美しいデザインを特徴としています。
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Node.js >= 24.12.0](https://img.shields.io/badge/node.js-%3E%3D24.12.0-brightgreen)](https://nodejs.org/)
+[![pnpm >= 10.22.0](https://img.shields.io/badge/pnpm-%3E%3D10.22.0-blue)](https://pnpm.io/)
 [![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
 
 [**🖥️ ライブデモ**](https://mizuki.pages.dev/) | [**📝 ドキュメント**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README 言語:**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+[**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 包括的なドキュメントですぐに始められます。テーマのカスタマイズ、機能の設定、本番環境へのデプロイなど、ブログの立ち上げに必要なすべての内容が網羅されています。
 
@@ -34,18 +35,20 @@
   <tr>
 </table>
 
-## 🚀 NEW: 自動解像度適応
+## 🚀 バージョン 9.0 アップデート
 
-> **🎯 自動解像度アルゴリズム** - デバイスの画面解像度に基づいてスマートにコンテンツレイアウトを調整し、すべてのデバイスで最適な閲覧体験を提供します
+> **✨ 完全なアップグレード** - Mizuki 9.0 では包括的な技術アップグレードと機能最適化が行われました
 
-🌏 README 言語
-[**English**](./README.zh.md) /
-[**中文**](./README.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+### 🔧 テックスタックのアップグレード
+- **Node.js バージョン要件**: Node.js 24.12.0 以上に更新
+- **pnpm バージョン**: pnpm 10.22.0 に更新
+- **TypeScript アップグレード**: 5.6.2 から 5.9.3 に
+- **Svelte 5 サポート**: 最新の Svelte 5.55.5 コンポーネントアーキテクチャを導入
+- **Tailwind CSS 4**: 最新の Tailwind CSS 4.3.0 を採用
+- **依存関係の完全な更新**: すべてのコア依存関係が最新の安定版に更新
 
 
-### 🔧 コンポーネント設定システムの再構築
+### 🎯 コンポーネント設定システムの再構築
 - **統一された設定アーキテクチャ:** 動的なコンポーネント管理と順序設定をサポートする新しいモジュール型コンポーネント設定システム
 - **設定駆動型コンポーネントローディング:** 完全に設定に基づいたコンポーネントローディングメカニズムを実現したリファクタリング済みの SideBar コンポーネント
 - **統一された制御スイッチ:** 音楽プレーヤーとお知らせコンポーネントの独立した有効化スイッチを削除し、sidebarLayoutConfig を介して統合的に制御
@@ -125,21 +128,25 @@
    cd Mizuki
    ```
 
-2. **依存関係をインストール:**
+2. **環境要件:**
+   - Node.js >= 24.12.0
+   - pnpm >= 10.22.0
+
+3. **依存関係をインストール:**
    ```bash
    # pnpm がインストールされていない場合
-   npm install -g pnpm
+   npm install -g pnpm@latest
    
    # プロジェクト依存関係をインストール
    pnpm install
    ```
 
-3. **ブログを設定:**
+4. **ブログを設定:**
    - `src/config.ts` を編集してブログ設定をカスタマイズ
    - サイト情報、テーマカラー、バナー画像、ソーシャルリンクを更新
    - 機能ページの設定を構成
 
-4. **開発サーバーを起動:**
+5. **開発サーバーを起動:**
    ```bash
    pnpm dev
    ```
