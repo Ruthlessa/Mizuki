@@ -3,10 +3,10 @@
 
 一個現代化、功能豐富的靜態部落格模板，使用 [Astro](https://astro.build) 構建，具有先進的功能和精美的設計。
 
-[![Node.js >= 24.12.0](https://img.shields.io/badge/node.js-%3E%3D24.12.0-brightgreen)](https://nodejs.org/)
-[![pnpm >= 10.22.0](https://img.shields.io/badge/pnpm-%3E%3D10.22.0-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24.12.0-green?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10.22.0-yellow?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/Astro-6.3.1-orange?logo=astro&logoColor=white)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
