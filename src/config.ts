@@ -296,7 +296,7 @@ export const navBarConfig: NavBarConfig = {
 		},
 		{
 			name: "关于",
-			url: "/content/",
+			url: "/about/",
 			icon: "material-symbols:info",
 			children: [
 				{
