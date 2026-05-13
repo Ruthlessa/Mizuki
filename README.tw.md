@@ -3,10 +3,11 @@
 
 一個現代化、功能豐富的靜態部落格模板，使用 [Astro](https://astro.build) 構建，具有先進的功能和精美的設計。
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Node.js >= 24.12.0](https://img.shields.io/badge/node.js-%3E%3D24.12.0-brightgreen)](https://nodejs.org/)
+[![pnpm >= 10.22.0](https://img.shields.io/badge/pnpm-%3E%3D10.22.0-blue)](https://pnpm.io/)
 [![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
 
@@ -34,18 +35,20 @@
   <tr>
 </table>
 
-## 🚀 新功能：自動解析度適配
+## 🚀 版本 9.0 更新
 
-> **🎯 自動解析度演算法** - 智慧根據裝置螢幕解析度調整內容布局，為所有裝置提供最佳觀看體驗
+> **✨ 完整升級** - Mizuki 9.0 帶來了全面的技術升級和功能優化
 
-🌏 README 語言
-[**English**](./README.zh.md) /
-[**中文**](./README.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+### 🔧 技術棧升級
+- **Node.js 版本要求**：升級至 Node.js 24.12.0 或更高版本
+- **pnpm 版本**：升級至 pnpm 10.22.0
+- **TypeScript 升級**：從 5.6.2 升級至 5.9.3
+- **Svelte 5 支持**：引入最新的 Svelte 5.55.5 元件架構
+- **Tailwind CSS 4**：採用最新的 Tailwind CSS 4.3.0
+- **依賴全面更新**：所有核心依賴都已更新到最新穩定版本
 
 
-### 🔧 元件配置系統重構
+### 🎯 元件配置系統重構
 - **統一配置架構：** 全新的模組化元件配置系統，支援動態元件管理和順序配置
 - **配置驅動的元件載入：** 重構 SideBar 元件，實現完全基於配置的元件載入機制
 - **統一控制開關：** 移除音樂播放器和公告元件的獨立 enable 開關，統一由 sidebarLayoutConfig 控制
@@ -109,25 +112,29 @@
 
 1. **克隆儲存庫：**
    ```bash
-   git clone https://github.com/matsuzaka-yuki/mizuki.git
-   cd mizuki
+   git clone https://github.com/Ruthlessa/Mizuki.git
+   cd Mizuki
    ```
 
-2. **安裝依賴：**
+2. **環境要求：**
+   - Node.js >= 24.12.0
+   - pnpm >= 10.22.0
+
+3. **安裝依賴：**
    ```bash
    # 如果沒有安裝 pnpm，先安裝
-   npm install -g pnpm
+   npm install -g pnpm@latest
    
    # 安裝專案依賴
    pnpm install
    ```
 
-3. **配置部落格：**
+4. **配置部落格：**
    - 編輯 `src/config.ts` 自定義部落格設置
    - 更新網站資訊、主題色彩、橫幅圖片和社交連結
    - 配置翻譯設置和特色頁面功能
 
-4. **啟動開發伺服器：**
+5. **啟動開發伺服器：**
    ```bash
    pnpm dev
    ```
@@ -355,14 +362,14 @@ pnpm run sync-content
 
 ## 🍀 貢獻者
 
-感謝以下貢獻者對本專案做出的貢獻，如有問題或建議，請提交 [Issue](https://github.com/matsuzaka-yuki/Mizuki/issues) 或 [Pull Request](https://github.com/matsuzaka-yuki/Mizuki/pulls)。
+感謝以下貢獻者對本專案做出的貢獻，如有問題或建議，請提交 [Issue](https://github.com/Ruthlessa/Mizuki/issues) 或 [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls)。
 
-<a href="https://github.com/matsuzaka-yuki/Mizuki/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=matsuzaka-yuki/Mizuki" />
+<a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
 </a>
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=matsuzaka-yuki/Mizuki&type=Date)](https://star-history.com/#matsuzaka-yuki/Mizuki&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Ruthlessa/Mizuki&type=Date)](https://star-history.com/#Ruthlessa/Mizuki&Date)
 
 ⭐ 如果您覺得這個專案有幫助，請考慮給它一個星標！
