@@ -135,10 +135,8 @@ export async function GET(context: APIContext) {
 		customData: `<language>${siteConfig.lang}</language>`,
 	});
 
-	// Ensure proper UTF-8 encoding
-	return new Response(await rssResult.text(), {
+	return new Response(rssResult.body, {
 		headers: {
-			...rssResult.headers,
 			"Content-Type": "application/rss+xml; charset=utf-8",
 		},
 	});
