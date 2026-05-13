@@ -86,17 +86,19 @@ jobs:
               pull_number: context.issue.number,
             });
 
-            const comment = `## 🎉 Welcome to Mizuki!
-
-Thank you for your contribution, @${pr.user.login}!
-
-**Checklist for reviewers:**
-- [ ] Code follows project standards
-- [ ] Tests are included/updated
-- [ ] Documentation is updated
-- [ ] No breaking changes
-
-We'll review your PR shortly. Feel free to reach out if you have any questions!`;
+            const comment = [
+              "## 🎉 Welcome to Mizuki!",
+              "",
+              `Thank you for your contribution, @${pr.user.login}!`,
+              "",
+              "**Checklist for reviewers:**",
+              "- [ ] Code follows project standards",
+              "- [ ] Tests are included/updated",
+              "- [ ] Documentation is updated",
+              "- [ ] No breaking changes",
+              "",
+              "We'll review your PR shortly. Feel free to reach out if you have any questions!"
+            ].join("\n");
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
