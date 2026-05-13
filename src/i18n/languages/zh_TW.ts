@@ -10,9 +10,12 @@ export const zh_TW: Translation = {
 
 	// 導航欄標題
 	[Key.navLinks]: "連結",
+	[Key.linksDescription]: "連結頁面正在建設中...",
 	[Key.navMy]: "我的",
 	[Key.navAbout]: "關於",
 	[Key.navOthers]: "其他",
+	[Key.content]: "內容",
+	[Key.contentDescription]: "內容頁面正在建設中...",
 
 	[Key.tags]: "標籤",
 	[Key.categories]: "分類",
