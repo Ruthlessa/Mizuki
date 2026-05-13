@@ -3,10 +3,11 @@
 
 一个现代化、功能丰富的静态博客模板，使用 [Astro](https://astro.build) 构建，具有先进的功能和美丽的设计。
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Node.js >= 24.12.0](https://img.shields.io/badge/node.js-%3E%3D24.12.0-brightgreen)](https://nodejs.org/)
+[![pnpm >= 10.22.0](https://img.shields.io/badge/pnpm-%3E%3D10.22.0-blue)](https://pnpm.io/)
 [![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
 [**🖥️ 在线演示**](https://mizuki.pages.dev/) | [**📝 用户文档**](https://docs.mizuki.mysqil.com/)
@@ -33,37 +34,39 @@
   <tr>
 </table>
 
-## 🚀 新功能：自动分辨率适配
+## 🚀 版本 9.0 更新
 
-> **🎯 自动分辨率算法** - 智能根据设备屏幕分辨率调整内容布局，为所有设备提供最佳观看体验
+> **✨ 全新升级** - Mizuki 9.0 带来了全面的技术升级和功能优化
 
-🌏 README 语言
-[**English**](./README.zh.md) /
-[**中文**](./README.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+### 🔧 技术栈升级
+- **Node.js 版本要求**：升级至 Node.js 24.12.0 或更高版本
+- **pnpm 版本**：升级至 pnpm 10.22.0
+- **TypeScript 升级**：从 5.6.2 升级至 5.9.3
+- **Svelte 5 支持**：引入最新的 Svelte 5.55.5 组件架构
+- **Tailwind CSS 4**：采用最新的 Tailwind CSS 4.3.0
+- **依赖全面更新**：所有核心依赖都已更新到最新稳定版本
 
-
-### 🔧 组件配置系统重构
-- **统一配置架构：** 全新的模块化组件配置系统，支持动态组件管理和顺序配置
-- **配置驱动的组件加载：** 重构的 SideBar 组件，实现完全基于配置的组件加载机制
-- **统一控制开关：** 移除了音乐播放器和公告组件的独立启用开关，通过 sidebarLayoutConfig 统一控制
-- **响应式布局适配：** 组件支持响应式布局，根据设备类型自动调整显示
+### 🎯 组件配置系统重构
+- **统一配置架构**：全新的模块化组件配置系统，支持动态组件管理和顺序配置
+- **配置驱动的组件加载**：重构的 SideBar 组件，实现完全基于配置的组件加载机制
+- **统一控制开关**：移除了音乐播放器和公告组件的独立启用开关，通过 sidebarLayoutConfig 统一控制
+- **响应式布局适配**：组件支持响应式布局，根据设备类型自动调整显示
 
 ### 📐 布局系统优化
-- **动态侧边栏位置调整：** 支持左右侧边栏切换，自动布局适配
-- **智能文章目录定位：** 当侧边栏在右侧时，文章导航自动移至左侧，提供更好的阅读体验
-- **网格布局改进：** 优化了 CSS Grid 布局，解决容器宽度异常问题
+- **动态侧边栏位置调整**：支持左右侧边栏切换，自动布局适配
+- **智能文章目录定位**：当侧边栏在右侧时，文章导航自动移至左侧，提供更好的阅读体验
+- **网格布局改进**：优化了 CSS Grid 布局，解决容器宽度异常问题
 
 ### 🎛️ 配置文件格式标准化
-- **标准化配置格式：** 创建统一的组件配置文件格式规范
-- **类型安全：** 全面的 TypeScript 类型定义确保配置类型安全
-- **可扩展性：** 支持自定义组件类型和配置选项
+- **标准化配置格式**：创建统一的组件配置文件格式规范
+- **类型安全**：全面的 TypeScript 类型定义确保配置类型安全
+- **可扩展性**：支持自定义组件类型和配置选项
 
 ### 🧹 代码优化
-- **测试文件清理：** 移除未使用的测试配置和依赖，减少项目大小
-- **代码结构优化：** 改进组件架构，增强代码可维护性
-- **性能提升：** 优化组件加载逻辑，提高页面渲染性能
+- **测试文件清理**：移除未使用的测试配置和依赖，减少项目大小
+- **代码结构优化**：改进组件架构，增强代码可维护性
+- **性能提升**：优化组件加载逻辑，提高页面渲染性能
+
 
 ---
 
@@ -124,21 +127,25 @@
    cd Mizuki
    ```
 
-2. **安装依赖：**
+2. **环境要求：**
+   - Node.js >= 24.12.0
+   - pnpm >= 10.22.0
+
+3. **安装依赖：**
    ```bash
    # 如果尚未安装 pnpm
-   npm install -g pnpm
+   npm install -g pnpm@latest
    
    # 安装项目依赖
    pnpm install
    ```
 
-3. **配置您的博客：**
+4. **配置您的博客：**
    - 编辑 `src/config.ts` 来自定义博客设置
    - 更新站点信息、主题颜色、横幅图片和社交链接
    - 配置功能页面功能
 
-4. **启动开发服务器：**
+5. **启动开发服务器：**
    ```bash
    pnpm dev
    ```
