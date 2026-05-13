@@ -1,0 +1,29 @@
+---
+import { PageHeader } from "@components/features/page-header";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+export const prerender = true;
+---
+<MainGridLayout title={i18n(I18nKey.content)}>
+	<script>
+		import("../scripts/right-sidebar-layout.js");
+	</script>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<PageHeader title={i18n(I18nKey.content) || "内容"} />
+			
+			<div class="mt-8">
+				<div class="text-center py-12">
+					<svg class="w-16 h-16 mx-auto mb-4 text-black/20 dark:text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+					</svg>
+					<p class="text-lg text-black/50 dark:text-white/50">
+						{i18n(I18nKey.contentDescription) || "内容页面正在建设中..."}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</MainGridLayout>

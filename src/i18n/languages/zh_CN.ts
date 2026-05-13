@@ -10,9 +10,12 @@ export const zh_CN: Translation = {
 
 	// 导航栏标题
 	[Key.navLinks]: "链接",
+	[Key.linksDescription]: "链接页面正在建设中...",
 	[Key.navMy]: "我的",
 	[Key.navAbout]: "关于",
 	[Key.navOthers]: "其他",
+	[Key.content]: "内容",
+	[Key.contentDescription]: "内容页面正在建设中...",
 
 	[Key.tags]: "标签",
 	[Key.categories]: "分类",

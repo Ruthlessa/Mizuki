@@ -7,9 +7,12 @@ enum I18nKey {
 
 	// 导航栏标题
 	navLinks = "navLinks",
+	linksDescription = "linksDescription",
 	navMy = "navMy",
 	navAbout = "navAbout",
 	navOthers = "navOthers",
+	content = "content",
+	contentDescription = "contentDescription",
 
 	tags = "tags",
 	categories = "categories",
