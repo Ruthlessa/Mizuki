@@ -135,9 +135,5 @@ export async function GET(context: APIContext) {
 		customData: `<language>${siteConfig.lang}</language>`,
 	});
 
-	return new Response(rssResult.body, {
-		headers: {
-			"Content-Type": "application/rss+xml; charset=utf-8",
-		},
-	});
+	return rssResult;
 }

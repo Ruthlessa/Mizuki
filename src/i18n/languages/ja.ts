@@ -7,6 +7,7 @@ export const ja: Translation = {
 	[Key.archive]: "アーカイブ",
 	[Key.search]: "検索",
 	[Key.other]: "その他",
+	[Key.links]: "リンク",
 
 	// ナビゲーションバータイトル
 	[Key.navLinks]: "リンク",
@@ -369,4 +370,21 @@ export const ja: Translation = {
 	[Key.randomPosts]: "ランダム記事",
 	[Key.smartRecommend]: "スマート",
 	[Key.randomRecommend]: "ランダム",
+
+	// ページの結果なしメッセージ
+	[Key.noMatchingProjects]: "一致するプロジェクトがありません",
+	[Key.noMatchingSkills]: "一致するスキルがありません",
+	[Key.noMatchingTimelineItems]: "一致するコンテンツがありません",
+
+	// タイムラインページ
+	[Key.timelineFilterAll]: "すべて",
+
+	// スキルページ
+	[Key.skillsFilterAll]: "すべて",
+
+	// プロジェクトページ
+	[Key.projectsFilterAll]: "すべて",
+
+	// 日記ページ
+	[Key.diaryFilterAll]: "すべて",
 };
