@@ -43,7 +43,7 @@ if (!album) {
 	</script>
 
 	<!-- Cover Banner -->
-	<div class="w-full rounded-(--radius-large) overflow-hidden relative">
+	<div class="w-full rounded-[var(--radius-large)] overflow-hidden relative">
 		{album.cover ? (
 			<div class="relative w-full aspect-[3/1] min-h-[200px] max-h-[360px]">
 				<img
@@ -129,7 +129,7 @@ if (!album) {
 	</div>
 
 	<!-- Photo Masonry Grid -->
-	<div class="w-full rounded-(--radius-large) overflow-hidden relative mt-4">
+	<div class="w-full rounded-[var(--radius-large)] overflow-hidden relative mt-4">
 		<div class="card-base z-10 px-6 py-6 relative w-full">
 			{album.photos.length > 0 ? (
 				<div class="gallery-masonry">
