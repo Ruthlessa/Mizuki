@@ -9,6 +9,7 @@ import PostList from './pages/PostList';
 import CommentList from './pages/CommentList';
 import LogList from './pages/LogList';
 import Settings from './pages/Settings';
+import Analytics from './pages/Analytics';
 import Layout from './components/Layout';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="posts" element={<PostList />} />
               <Route path="comments" element={<CommentList />} />
               <Route path="logs" element={<LogList />} />
+              <Route path="analytics" element={<Analytics />} />
               <Route path="settings" element={<Settings />} />
             </Route>
           </Routes>

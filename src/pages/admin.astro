@@ -1,14 +1,19 @@
 ---
 import { PageHeader } from "@components/features/page-header";
 
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 页面标题
 const title = "网站管理";
+const isDevelopment = import.meta.env.DEV;
 ---
-
+{isDevelopment ? (
+	<script>
+		if (typeof window !== 'undefined') {
+			window.location.href = 'http://localhost:3001';
+		}
+	</script>
+) : (
 <MainGridLayout title={title}>
 	<!-- 引入右侧边栏布局管理器 -->
 	<script>
@@ -172,3 +177,4 @@ const title = "网站管理";
 		</div>
 	</div>
 </MainGridLayout>
+)}

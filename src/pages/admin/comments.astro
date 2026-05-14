@@ -1,0 +1,109 @@
+---
+import { PageHeader } from "@components/features/page-header";
+
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+
+const title = "评论管理";
+---
+
+<MainGridLayout title={title}>
+  <script>
+    import("../../scripts/right-sidebar-layout.js");
+  </script>
+
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <PageHeader title={title} />
+
+      <div class="mt-6 space-y-6">
+        <div class="flex justify-between items-center">
+          <div class="flex gap-4">
+            <select class="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
+              <option>全部状态</option>
+              <option>已审核</option>
+              <option>待审核</option>
+              <option>已拒绝</option>
+            </select>
+          </div>
+          <input type="text" placeholder="搜索评论..." class="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 w-64" />
+        </div>
+
+        <div class="space-y-4">
+          <div class="card-base p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">张</div>
+                <div>
+                  <div class="font-medium">张三</div>
+                  <div class="text-sm text-gray-500">评论于《如何使用 Astro 构建现代化博客》</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">待审核</span>
+                <div class="text-sm text-gray-500">2026-05-13 14:25</div>
+              </div>
+            </div>
+            <p class="mb-3">这篇文章写得太好了！解决了我很多问题，感谢分享！</p>
+            <div class="flex gap-2">
+              <button class="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-sm transition-colors">通过</button>
+              <button class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition-colors">拒绝</button>
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">编辑</button>
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">删除</button>
+            </div>
+          </div>
+
+          <div class="card-base p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">李</div>
+                <div>
+                  <div class="font-medium">李四</div>
+                  <div class="text-sm text-gray-500">评论于《TypeScript 高级类型技巧》</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">已审核</span>
+                <div class="text-sm text-gray-500">2026-05-12 09:15</div>
+              </div>
+            </div>
+            <p class="mb-3">请问这些高级类型在实际项目中应用场景多吗？能不能多举几个例子？</p>
+            <div class="flex gap-2">
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">编辑</button>
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">删除</button>
+            </div>
+          </div>
+
+          <div class="card-base p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">王</div>
+                <div>
+                  <div class="font-medium">王五</div>
+                  <div class="text-sm text-gray-500">评论于《React 18 新特性深度解析》</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">已审核</span>
+                <div class="text-sm text-gray-500">2026-05-11 16:40</div>
+              </div>
+            </div>
+            <p class="mb-3">期待更多关于 React 18 的内容，特别是 Suspense 的实际应用！</p>
+            <div class="flex gap-2">
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">编辑</button>
+              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">删除</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center mt-6">
+          <div class="flex gap-2">
+            <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700">上一页</button>
+            <button class="px-3 py-1 bg-blue-500 text-white rounded">1</button>
+            <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700">2</button>
+            <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700">下一页</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainGridLayout>

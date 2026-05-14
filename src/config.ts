@@ -296,7 +296,7 @@ export const navBarConfig: NavBarConfig = {
 		},
 		{
 			name: "关于",
-			url: "/content/",
+			url: "/about/",
 			icon: "material-symbols:info",
 			children: [
 				{
@@ -635,7 +635,7 @@ export const pioConfig: import("./types/config").PioConfig = {
 	width: 280, // 默认宽度
 	height: 250, // 默认高度
 	mode: "draggable", // 模式：draggable（可拖拽）或 fixed（固定）
-	hiddenOnMobile: true, // 在移动设备上隐藏
+	hiddenOnMobile: false, // 在移动设备上隐藏
 	dialog: {
 		welcome: "欢迎来到无情的博客！", // 欢迎词
 		touch: ["你在做什么？", "别碰我！", "hentai！", "别这样欺负我！"], // 触摸提示

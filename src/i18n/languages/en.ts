@@ -7,12 +7,16 @@ export const en: Translation = {
 	[Key.archive]: "Archive",
 	[Key.search]: "Search",
 	[Key.other]: "Other",
+	[Key.links]: "Links",
 
 	// Navigation bar titles
 	[Key.navLinks]: "Links",
+	[Key.linksDescription]: "Links page is under construction...",
 	[Key.navMy]: "My",
 	[Key.navAbout]: "About",
 	[Key.navOthers]: "Others",
+	[Key.content]: "Content",
+	[Key.contentDescription]: "Content page is under construction...",
 
 	[Key.tags]: "Tags",
 	[Key.categories]: "Categories",

@@ -113,23 +113,27 @@ export async function GET(context: APIContext) {
 			}
 		}
 
+		const sanitizedContent = sanitizeHtml(html.toString(), {
+			allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+		});
+
 		feed.push({
 			title: post.data.title,
 			description: post.data.description,
 			pubDate: post.data.published,
 			link: getPostUrl(post),
-			// sanitize the new html string with corrected image paths
-			content: sanitizeHtml(html.toString(), {
-				allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-			}),
+			// wrap content in CDATA to avoid encoding issues with special characters
+			content: `<![CDATA[${sanitizedContent}]]>`,
 		});
 	}
 
-	return rss({
+	const rssResult = rss({
 		title: siteConfig.title,
 		description: siteConfig.subtitle || "No description",
 		site: context.site,
 		items: feed,
 		customData: `<language>${siteConfig.lang}</language>`,
 	});
+
+	return rssResult;
 }

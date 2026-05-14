@@ -11,8 +11,11 @@
 	import SidebarProgress from "./components/SidebarProgress.svelte";
 	import SidebarTrackInfo from "./components/SidebarTrackInfo.svelte";
 
-	let state: MusicPlayerState = $state(musicPlayerStore.getState());
+	let state: MusicPlayerState = $state();
 	let showPlaylist = $state(false);
+	
+	// 初始化状态
+	state = musicPlayerStore.getState();
 	let unsubscribe: (() => void) | undefined;
 
 	onMount(() => {

@@ -45,6 +45,16 @@ export default defineConfig({
 	trailingSlash: "always",
 
 	output: "static",
+	server: {
+		host: '0.0.0.0',
+		port: 3000,
+		proxy: isLocal ? {
+			'/admin': {
+				target: 'http://localhost:3001',
+				changeOrigin: true,
+			},
+		} : undefined,
+	},
 
 	integrations: [
 		umami({
@@ -199,7 +209,16 @@ export default defineConfig({
 	},
 	vite: {
 		plugins: [tailwindcss()],
+		server: {
+			host: '0.0.0.0',
+			port: 3000,
+			watch: {
+				ignored: ['**/node_modules/**', '**/.pnpm-store/**'],
+			},
+		},
 		build: {
+			// 禁用 rolldown 引擎，回退到使用 Rollup 以避免兼容性问题
+			rollback: true,
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
 			// CSS 代码分割
@@ -268,5 +287,9 @@ export default defineConfig({
 				"@astrojs/svelte",
 			],
 		},
+		resolve: {
+			// 提供缺失的 tsconfigPaths 字段
+			tsconfigPaths: true
+		}
 	},
 });

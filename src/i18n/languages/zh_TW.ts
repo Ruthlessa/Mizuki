@@ -7,12 +7,16 @@ export const zh_TW: Translation = {
 	[Key.archive]: "歸檔",
 	[Key.search]: "搜尋",
 	[Key.other]: "其他",
+	[Key.links]: "連結",
 
 	// 導航欄標題
 	[Key.navLinks]: "連結",
+	[Key.linksDescription]: "連結頁面正在建設中...",
 	[Key.navMy]: "我的",
 	[Key.navAbout]: "關於",
 	[Key.navOthers]: "其他",
+	[Key.content]: "內容",
+	[Key.contentDescription]: "內容頁面正在建設中...",
 
 	[Key.tags]: "標籤",
 	[Key.categories]: "分類",
@@ -352,4 +356,21 @@ export const zh_TW: Translation = {
 	[Key.randomPosts]: "隨機文章",
 	[Key.smartRecommend]: "智能推薦",
 	[Key.randomRecommend]: "隨機推薦",
+
+	// 頁面無結果提示
+	[Key.noMatchingProjects]: "沒有匹配的項目",
+	[Key.noMatchingSkills]: "沒有匹配的技能",
+	[Key.noMatchingTimelineItems]: "沒有匹配的內容",
+
+	// 時間線頁面
+	[Key.timelineFilterAll]: "全部",
+
+	// 技能頁面
+	[Key.skillsFilterAll]: "全部",
+
+	// 項目頁面
+	[Key.projectsFilterAll]: "全部",
+
+	// 日記頁面
+	[Key.diaryFilterAll]: "全部",
 };

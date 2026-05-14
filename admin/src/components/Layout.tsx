@@ -8,6 +8,7 @@ import {
   HistoryOutlined,
   SettingOutlined,
   LogoutOutlined,
+  BarChartOutlined,
 } from '@ant-design/icons';
 import { useAuthStore } from '../store/auth';
 
@@ -20,6 +21,7 @@ const LayoutPage = () => {
 
   const menuItems = [
     { key: '/', icon: <DashboardOutlined />, label: '仪表盘' },
+    { key: '/analytics', icon: <BarChartOutlined />, label: '数据统计' },
     { key: '/users', icon: <UserOutlined />, label: '用户管理' },
     { key: '/posts', icon: <FileTextOutlined />, label: '文章管理' },
     { key: '/comments', icon: <CommentOutlined />, label: '评论管理' },

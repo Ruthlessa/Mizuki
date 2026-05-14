@@ -4,12 +4,16 @@ enum I18nKey {
 	archive = "archive",
 	search = "search",
 	other = "other",
+	links = "links",
 
 	// 导航栏标题
 	navLinks = "navLinks",
+	linksDescription = "linksDescription",
 	navMy = "navMy",
 	navAbout = "navAbout",
 	navOthers = "navOthers",
+	content = "content",
+	contentDescription = "contentDescription",
 
 	tags = "tags",
 	categories = "categories",

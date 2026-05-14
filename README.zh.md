@@ -3,11 +3,12 @@
 
 A modern, feature-rich static blog template built with [Astro](https://astro.build), featuring advanced functionality and beautiful design.
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-6.3.1-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+[![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/astro-6.3.1-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)](https://www.typescriptlang.org/)
+[![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
 
 
 [**🖥️ Live Demo**](https://mizuki.pages.dev/) | [**📝 Documentation**](https://docs.mizuki.mysqil.com/)
@@ -34,18 +35,20 @@ Get started quickly with our comprehensive documentation. Whether you're customi
   <tr>
 </table>
 
-## 🚀 NEW: Auto Resolution Adaptation
+## 🚀 Version 9.0 Updates
 
-> **🎯 Auto Resolution Algorithm** - Intelligently adjusts content layout based on device screen resolution for optimal viewing experience across all devices
+> **✨ Complete Upgrade** - Mizuki 9.0 brings comprehensive technical upgrades and feature optimizations
 
-🌏 README Languages
-[**English**](./README.zh.md) /
-[**中文**](./README.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+### 🔧 Tech Stack Upgrade
+- **Node.js Version Requirement**: Updated to Node.js 24.12.0 or higher
+- **pnpm Version**: Updated to pnpm 10.22.0
+- **TypeScript Upgrade**: From 5.6.2 to 5.9.3
+- **Svelte 5 Support**: Introducing the latest Svelte 5.55.5 component architecture
+- **Tailwind CSS 4**: Adopting the latest Tailwind CSS 4.3.0
+- **Full Dependency Update**: All core dependencies are updated to the latest stable versions
 
 
-### 🔧 Component Configuration System Refactor
+### 🎯 Component Configuration System Refactor
 - **Unified Configuration Architecture:** New modular component configuration system supporting dynamic component management and ordering
 - **Config-Driven Component Loading:** Refactored SideBar component with fully config-based loading mechanism
 - **Centralized Control:** Removed independent enable switches for music player and announcement components, now controlled via sidebarLayoutConfig
@@ -125,21 +128,25 @@ Get started quickly with our comprehensive documentation. Whether you're customi
    cd Mizuki
    ```
 
-2. **Install dependencies:**
+2. **Environment Requirements:**
+   - Node.js >= 24.12.0
+   - pnpm >= 10.22.0
+
+3. **Install dependencies:**
    ```bash
    # If pnpm is not installed
-   npm install -g pnpm
+   npm install -g pnpm@latest
    
    # Install project dependencies
    pnpm install
    ```
 
-3. **Configure your blog:**
+4. **Configure your blog:**
    - Edit `src/config.ts` to customize blog settings
    - Update site information, theme colors, banner images, and social links
    - Configure feature page functionality
 
-4. **Start the development server:**
+5. **Start the development server:**
    ```bash
    pnpm dev
    ```
