@@ -1,134 +1,117 @@
-document.addEventListener('DOMContentLoaded', function () {
-	const filterTags = document.querySelectorAll('.filter-tag');
-	const devicesContainer = document.getElementById('devices-container');
-	
-	if (!devicesContainer) {
-		return;
-	}
 
-	// 获取设备数据
-	const devicesDataScript = document.getElementById('devices-data');
-	const i18nDataScript = document.getElementById('i18n-data');
-	
-	if (!devicesDataScript) {
-		return;
-	}
+// Devices page filter handler
+// Works with Swup page transitions
 
-	let devices = {};
-	try {
-		devices = JSON.parse(devicesDataScript.textContent);
-	} catch (e) {
-		console.error('Failed to parse devices data:', e);
-		return;
-	}
-
-	const i18nData = i18nDataScript ? JSON.parse(i18nDataScript.textContent) : {};
-	const viewDetailsText = i18nData.viewDetails || 'View Details';
-
-	// 存储原始设备列表的HTML
-	let deviceCardsCache = {};
-	const brands = Object.keys(devices);
-
-	// 初始化缓存
-	brands.forEach(brand => {
-		if (devices[brand] && devices[brand].length > 0) {
-			deviceCardsCache[brand] = devices[brand].map((device, index) => {
-				return createDeviceCard(device, index, viewDetailsText);
-			}).join('');
-		}
-	});
-
-	// 创建设备卡片HTML
-	function escapeHtml(value) {
-		return String(value == null ? '' : value)
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
-	}
+(function () {
+	let devicesData = null;
+	let i18nData = null;
 
 	function createDeviceCard(device, index, viewDetailsText) {
-		const safeImage = escapeHtml(device.image);
-		const safeName = escapeHtml(device.name);
-		const safeBrand = escapeHtml(device.brand || '');
-		const safeViewDetailsText = escapeHtml(viewDetailsText);
-		const hasImage = device.image && device.image.trim() !== '';
-		const imageHtml = hasImage 
-			? `<div class="relative h-48 overflow-hidden rounded-xl mb-4">
-					<img src="${safeImage}" alt="${safeName}" class="w-full h-full object-cover" />
-			  </div>`
-			: '';
-		
-		const specsHtml = device.specs 
-			? `<div class="space-y-2 mb-4">
-					${device.specs.map(spec => `
-						<div class="flex items-center justify-between text-sm">
-							<span class="text-gray-500 dark:text-gray-400">${escapeHtml(spec.label)}</span>
-							<span class="font-medium">${escapeHtml(spec.value)}</span>
-						</div>
-					`).join('')}
-			  </div>`
-			: '';
-
-		return `
-			<div class="device-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700" data-brand="${safeBrand}">
-				${imageHtml}
-				<div class="p-4">
-					<h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${safeName}</h3>
-					${specsHtml}
-					<button class="w-full py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition-colors">
-						${safeViewDetailsText}
-					</button>
-				</div>
-			</div>
-		`;
+		// Create device card HTML dynamically
+		return `&lt;a
+			href="${device.link}"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="device-card group relative overflow-hidden rounded-xl border border-[var(--line-divider)] bg-[var(--card-bg)] transition-all duration-300 hover:border-[var(--primary)]/50 hover:shadow-md hover:shadow-black/5 dark:hover:shadow-white/5 hover:scale-[1.02] hover:-translate-y-0.5 block cursor-pointer"
+			style="animation-delay: ${index * 100}ms"
+		&gt;
+			&lt;div class="relative p-6 pb-0"&gt;
+				&lt;div class="flex justify-center items-center h-48 bg-gradient-to-br from-[var(--card-bg)] to-[var(--btn-regular-bg)] rounded-lg overflow-hidden relative"&gt;
+					&lt;div class="absolute inset-0 bg-[var(--primary)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"&gt;&lt;/div&gt;
+					&lt;img
+						src="${device.image}"
+						alt="${device.name}"
+						class="w-auto h-full max-h-full object-contain group-hover:scale-110 transition-all duration-500 drop-shadow-md relative z-10"
+						loading="lazy"
+					/&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="p-6 pt-4 relative z-10"&gt;
+				&lt;div class="flex items-start justify-between mb-3"&gt;
+					&lt;h3 class="text-lg font-bold text-black/90 dark:text-white/90 group-hover:text-[var(--primary)] transition-colors duration-300"&gt;
+						${device.name}
+					&lt;/h3&gt;
+					&lt;div class="p-1.5 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"&gt;
+						&lt;svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+							&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"&gt;&lt;/path&gt;
+						&lt;/svg&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="mb-4"&gt;
+					&lt;div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 text-sm mb-3"&gt;
+						&lt;svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+							&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"&gt;&lt;/path&gt;
+							&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"&gt;&lt;/path&gt;
+						&lt;/svg&gt;
+						&lt;span class="font-medium"&gt;${device.specs}&lt;/span&gt;
+					&lt;/div&gt;
+					&lt;p class="text-sm text-black/60 dark:text-white/60 leading-relaxed line-clamp-2"&gt;
+						${device.description}
+					&lt;/p&gt;
+				&lt;/div&gt;
+				&lt;div class="flex items-center justify-between pt-3 border-t border-[var(--line-divider)] border-dashed opacity-0 group-hover:opacity-100 transition-all duration-300"&gt;
+					&lt;span class="text-sm font-medium text-[var(--primary)]"&gt;${viewDetailsText}&lt;/span&gt;
+					&lt;svg class="w-5 h-5 text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+						&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"&gt;&lt;/path&gt;
+					&lt;/svg&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/a&gt;`;
 	}
 
-	// 切换过滤标签
-	function switchFilter(tag) {
-		const brand = tag.getAttribute('data-brand');
-		
-		// 更新标签状态
-		filterTags.forEach(t => t.classList.remove('active'));
-		tag.classList.add('active');
+	function renderDevices(brand) {
+		const container = document.getElementById("devices-container");
+		if (!container || !devicesData || !i18nData) return;
 
-		// 更新设备列表
-		if (brand && deviceCardsCache[brand]) {
-			devicesContainer.innerHTML = deviceCardsCache[brand];
-		} else {
-			// 显示所有品牌
-			let allCards = '';
-			brands.forEach(b => {
-				if (deviceCardsCache[b]) {
-					allCards += deviceCardsCache[b];
-				}
-			});
-			devicesContainer.innerHTML = allCards;
+		const devices = devicesData[brand];
+		if (!devices) {
+			container.innerHTML = "";
+			return;
 		}
 
-		// 添加动画
-		const cards = devicesContainer.querySelectorAll('.device-card');
-		cards.forEach((card, index) => {
-			card.style.opacity = '0';
-			card.style.transform = 'translateY(20px)';
-			setTimeout(() => {
-				card.style.transition = 'all 0.5s ease';
-				card.style.opacity = '1';
-				card.style.transform = 'translateY(0)';
-			}, index * 50);
+		container.innerHTML = devices
+			.map((device, index) =&gt; createDeviceCard(device, index, i18nData.viewDetails))
+			.join("");
+	}
+
+	function initDevicesPage() {
+		const dataScript = document.getElementById("devices-data");
+		const i18nScript = document.getElementById("i18n-data");
+
+		if (!dataScript || !i18nScript) return;
+
+		try {
+			devicesData = JSON.parse(dataScript.textContent);
+			i18nData = JSON.parse(i18nScript.textContent);
+		} catch (e) {
+			console.error("Failed to parse devices data:", e);
+			return;
+		}
+
+		const filterTags = document.querySelectorAll(".filter-tag");
+
+		filterTags.forEach((tag) =&gt; {
+			tag.addEventListener("click", () =&gt; {
+				filterTags.forEach((t) =&gt; t.classList.remove("active"));
+				tag.classList.add("active");
+
+				const brand = tag.dataset.brand;
+				renderDevices(brand);
+			});
 		});
 	}
 
-	// 绑定事件
-	filterTags.forEach(tag => {
-		tag.addEventListener('click', function() {
-			switchFilter(this);
-		});
-	});
-
-	// 初始化显示第一个品牌
-	if (filterTags.length > 0) {
-		switchFilter(filterTags[0]);
+	function onInit() {
+		if (document.getElementById("devices-container")) {
+			initDevicesPage();
+		}
 	}
-});
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", onInit);
+	} else {
+		onInit();
+	}
+
+	document.addEventListener("astro:page-load", onInit);
+})();
