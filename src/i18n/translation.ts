@@ -1,23 +1,14 @@
 import { siteConfig } from "../config";
 import type I18nKey from "./i18nKey";
-import { en } from "./languages/en";
-import { ja } from "./languages/ja";
 import { zh_CN } from "./languages/zh_CN";
-import { zh_TW } from "./languages/zh_TW";
 
 export type Translation = Record<I18nKey, string>;
 
-const defaultTranslation = en;
+const defaultTranslation = zh_CN;
 
 const map: Record<string, Translation> = {
-	en: en,
-	en_us: en,
-	en_gb: en,
-	en_au: en,
 	zh_cn: zh_CN,
-	zh_tw: zh_TW,
-	ja: ja,
-	ja_jp: ja,
+	zh: zh_CN,
 };
 
 export function getTranslation(lang: string): Translation {
@@ -25,6 +16,6 @@ export function getTranslation(lang: string): Translation {
 }
 
 export function i18n(key: I18nKey): string {
-	const lang = siteConfig.lang || "en";
+	const lang = siteConfig.lang || "zh_CN";
 	return getTranslation(lang)[key];
 }
