@@ -39,11 +39,24 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	// 创建设备卡片HTML
+	function escapeHtml(value) {
+		return String(value == null ? '' : value)
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;');
+	}
+
 	function createDeviceCard(device, index, viewDetailsText) {
+		const safeImage = escapeHtml(device.image);
+		const safeName = escapeHtml(device.name);
+		const safeBrand = escapeHtml(device.brand || '');
+		const safeViewDetailsText = escapeHtml(viewDetailsText);
 		const hasImage = device.image && device.image.trim() !== '';
 		const imageHtml = hasImage 
 			? `<div class="relative h-48 overflow-hidden rounded-xl mb-4">
-					<img src="${device.image}" alt="${device.name}" class="w-full h-full object-cover" />
+					<img src="${safeImage}" alt="${safeName}" class="w-full h-full object-cover" />
 			  </div>`
 			: '';
 		
@@ -51,21 +64,21 @@ document.addEventListener('DOMContentLoaded', function () {
 			? `<div class="space-y-2 mb-4">
 					${device.specs.map(spec => `
 						<div class="flex items-center justify-between text-sm">
-							<span class="text-gray-500 dark:text-gray-400">${spec.label}</span>
-							<span class="font-medium">${spec.value}</span>
+							<span class="text-gray-500 dark:text-gray-400">${escapeHtml(spec.label)}</span>
+							<span class="font-medium">${escapeHtml(spec.value)}</span>
 						</div>
 					`).join('')}
 			  </div>`
 			: '';
 
 		return `
-			<div class="device-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700" data-brand="${device.brand || ''}">
+			<div class="device-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700" data-brand="${safeBrand}">
 				${imageHtml}
 				<div class="p-4">
-					<h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${device.name}</h3>
+					<h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${safeName}</h3>
 					${specsHtml}
 					<button class="w-full py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition-colors">
-						${viewDetailsText}
+						${safeViewDetailsText}
 					</button>
 				</div>
 			</div>
