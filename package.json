@@ -2,6 +2,7 @@
 	"name": "mizuki",
 	"type": "module",
 	"version": "9.0",
+	"license": "Apache-2.0",
 	"scripts": {
 		"sync-content": "node scripts/sync-content.js",
 		"init-content": "node scripts/init-content-repo.js",

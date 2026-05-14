@@ -206,8 +206,9 @@
 				<button
 					onclick={hideError}
 					class="text-white/80 hover:text-white transition-colors"
+					aria-label="关闭错误提示"
 				>
-					<Icon icon="material-symbols:close" class="text-lg" />
+					<Icon icon="material-symbols:close" class="text-lg" aria-hidden="true" />
 				</button>
 			</div>
 		</div>
@@ -634,6 +635,26 @@
 		:global(button.bg-\\[var\\(--primary\\)\\]) {
 			box-shadow: 0 0 0 2px var(--primary);
 			border: none;
+		}
+		
+		@media (prefers-reduced-motion: reduce) {
+			.orb-enter,
+			.orb-leave,
+			:global(.orb-player:hover::before),
+			:global(.orb-player .animate-pulse),
+			:global(.animate-pulse),
+			:global(.cover-container img) {
+				animation: none !important;
+			}
+			:global(.orb-player::before),
+			:global(.progress-section div:hover),
+			:global(.bottom-controls > div:hover) {
+				transition: none !important;
+			}
+			:global(.progress-section div:hover),
+			:global(.bottom-controls > div:hover) {
+				transform: none !important;
+			}
 		}
 	</style>
 {/if}

@@ -122,4 +122,11 @@
 			transform 75ms ease-out,
 			background-color 0ms !important;
 	}
+	
+	@media (prefers-reduced-motion: reduce) {
+		.theme-switch-btn::before,
+		.theme-switch-btn div {
+			transition: none !important;
+		}
+	}
 </style>

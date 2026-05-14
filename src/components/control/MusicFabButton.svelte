@@ -7,6 +7,7 @@
 
 	let state: MusicPlayerState = musicPlayerStore.getState();
 	let unsubscribe: (() => void) | undefined;
+	let prefersReducedMotion = false;
 
 	function toggleControlCenter() {
 		musicPlayerStore.toggleExpanded();
@@ -23,6 +24,13 @@
 	onMount(() => {
 		unsubscribe = musicPlayerStore.subscribe((nextState) => {
 			state = nextState;
+		});
+		
+		// 检查用户是否希望减少动画
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		prefersReducedMotion = mediaQuery.matches;
+		mediaQuery.addEventListener('change', (e) => {
+			prefersReducedMotion = e.matches;
 		});
 	});
 
@@ -112,6 +120,12 @@
 		border-radius: inherit;
 		border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
 		animation: music-fab-pulse 1.8s ease-out infinite;
+	}
+	
+	@media (prefers-reduced-motion: reduce) {
+		.music-fab.playing::after {
+			animation: none;
+		}
 	}
 
 	.music-fab.loading .music-fab__icon :global(svg) {
