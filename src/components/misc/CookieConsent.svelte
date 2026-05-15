@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy,onMount } from "svelte";
+	import { onMount } from "svelte";
 
 	const CONSENT_KEY = "mizuki_cookie_consent";
 
@@ -8,11 +8,11 @@
 		necessary: boolean;
 	}
 
-	let isOpen = false;
-	let preferences: CookiePreferences = {
+	let isOpen = $state(false);
+	let preferences = $state<CookiePreferences>({
 		analytics: false,
 		necessary: true,
-	};
+	});
 
 	const loadPreferences = (): CookiePreferences => {
 		if (typeof localStorage === "undefined") {
@@ -84,15 +84,6 @@
 			}
 		}
 	});
-
-	onDestroy(() => {
-		if (typeof document !== "undefined") {
-			const openButton = document.getElementById("open_preferences_center");
-			if (openButton) {
-				openButton.removeEventListener("click", handleOpen);
-			}
-		}
-	});
 </script>
 
 {#if typeof document !== "undefined" && isOpen}
@@ -139,19 +130,22 @@
 
 				<div class="mt-6 flex gap-3">
 					<button
-						on:click={handleAcceptNecessary}
+						type="button"
+						onclick={handleAcceptNecessary}
 						class="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
 					>
 						仅必要
 					</button>
 					<button
-						on:click={handleAcceptAll}
+						type="button"
+						onclick={handleAcceptAll}
 						class="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
 					>
 						接受全部
 					</button>
 					<button
-						on:click={handleSave}
+						type="button"
+						onclick={handleSave}
 						class="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
 					>
 						保存设置
