@@ -1,0 +1,54 @@
+name: Check & Update Schedule
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天午夜运行
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  check-schedule:
+    runs-on: ubuntu-latest
+    name: Check Article Schedule
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check and update schedule
+        run: pnpm check-schedule
+
+      - name: Commit and push changes
+        id: commit
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add schedule.json
+          git diff --cached --quiet || true
+          
+          if git diff --cached --exit-code; then
+            echo "no_changes=true" >> $GITHUB_OUTPUT
+          else
+            git commit -m "chore: 更新文章发布状态"
+            git push
+            echo "no_changes=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
