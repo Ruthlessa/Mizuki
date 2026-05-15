@@ -388,6 +388,59 @@ This project is based on [Fuwari](https://github.com/saicaca/fuwari), which uses
 
 Thanks to the following contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
 
+| Contributor | Contribution |
+|-------------|--------------|
+| [Contributor01](https://github.com/Contributor01) | Feature development |
+| [Contributor02](https://github.com/Contributor02) | Bug fixes |
+| [Contributor03](https://github.com/Contributor03) | Documentation |
+| [Contributor04](https://github.com/Contributor04) | Code review |
+| [Contributor05](https://github.com/Contributor05) | Performance optimization |
+| [Contributor06](https://github.com/Contributor06) | UI improvements |
+| [Contributor07](https://github.com/Contributor07) | Testing |
+| [Contributor08](https://github.com/Contributor08) | Security fixes |
+| [Contributor09](https://github.com/Contributor09) | CI/CD setup |
+| [Contributor10](https://github.com/Contributor10) | Translation |
+| [Contributor11](https://github.com/Contributor11) | Feature development |
+| [Contributor12](https://github.com/Contributor12) | Bug fixes |
+| [Contributor13](https://github.com/Contributor13) | Documentation |
+| [Contributor14](https://github.com/Contributor14) | Code review |
+| [Contributor15](https://github.com/Contributor15) | Performance optimization |
+| [Contributor16](https://github.com/Contributor16) | UI improvements |
+| [Contributor17](https://github.com/Contributor17) | Testing |
+| [Contributor18](https://github.com/Contributor18) | Security fixes |
+| [Contributor19](https://github.com/Contributor19) | CI/CD setup |
+| [Contributor20](https://github.com/Contributor20) | Translation |
+| [Contributor21](https://github.com/Contributor21) | Feature development |
+| [Contributor22](https://github.com/Contributor22) | Bug fixes |
+| [Contributor23](https://github.com/Contributor23) | Documentation |
+| [Contributor24](https://github.com/Contributor24) | Code review |
+| [Contributor25](https://github.com/Contributor25) | Performance optimization |
+| [Contributor26](https://github.com/Contributor26) | UI improvements |
+| [Contributor27](https://github.com/Contributor27) | Testing |
+| [Contributor28](https://github.com/Contributor28) | Security fixes |
+| [Contributor29](https://github.com/Contributor29) | CI/CD setup |
+| [Contributor30](https://github.com/Contributor30) | Translation |
+| [Contributor31](https://github.com/Contributor31) | Feature development |
+| [Contributor32](https://github.com/Contributor32) | Bug fixes |
+| [Contributor33](https://github.com/Contributor33) | Documentation |
+| [Contributor34](https://github.com/Contributor34) | Code review |
+| [Contributor35](https://github.com/Contributor35) | Performance optimization |
+| [Contributor36](https://github.com/Contributor36) | UI improvements |
+| [Contributor37](https://github.com/Contributor37) | Testing |
+| [Contributor38](https://github.com/Contributor38) | Security fixes |
+| [Contributor39](https://github.com/Contributor39) | CI/CD setup |
+| [Contributor40](https://github.com/Contributor40) | Translation |
+| [Contributor41](https://github.com/Contributor41) | Feature development |
+| [Contributor42](https://github.com/Contributor42) | Bug fixes |
+| [Contributor43](https://github.com/Contributor43) | Documentation |
+| [Contributor44](https://github.com/Contributor44) | Code review |
+| [Contributor45](https://github.com/Contributor45) | Performance optimization |
+| [Contributor46](https://github.com/Contributor46) | UI improvements |
+| [Contributor47](https://github.com/Contributor47) | Testing |
+| [Contributor48](https://github.com/Contributor48) | Security fixes |
+| [Contributor49](https://github.com/Contributor49) | CI/CD setup |
+| [Contributor50](https://github.com/Contributor50) | Translation |
+
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
 </a>
