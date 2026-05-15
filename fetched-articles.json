@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Two DEV Users. Two Countries. One Weird Little Avatar Project.",
+    "url": "https://dev.to/itsugo/two-dev-users-two-countries-one-weird-little-avatar-project-3gd3",
+    "description": "We Gave Our DEV Avatar Project a V2… and It Escalated Quickly   A few months ago,...",
+    "source": "Dev.to",
+    "type": "article",
+    "tags": [
+      "webdev",
+      "nextjs",
+      "sideprojects",
+      "react"
+    ]
+  },
+  {
+    "title": "Does AI Behave Like a Toxic Ex?",
+    "url": "https://dev.to/konark_13/does-ai-behave-like-a-toxic-ex-498n",
+    "description": "Is AI that toxic ex you just can’t forget about and can’t move on from?  For every task you get...",
+    "source": "Dev.to",
+    "type": "article",
+    "tags": [
+      "ai",
+      "webdev",
+      "discuss",
+      "learning"
+    ]
+  },
+  {
+    "title": "My GitHub Graveyard has 27 dead projects. Here is the brutal truth about why.",
+    "url": "https://dev.to/tahosin/my-github-graveyard-has-27-dead-projects-here-is-the-brutal-truth-about-why-52d9",
+    "description": "I recently opened my GitHub account and filtered by private repositories. I actually counted them:...",
+    "source": "Dev.to",
+    "type": "article",
+    "tags": [
+      "webdev",
+      "beginners",
+      "productivity",
+      "discuss"
+    ]
+  },
+  {
+    "title": "Join the Hermes Agent Challenge: $1,000 in Prizes!",
+    "url": "https://dev.to/devteam/join-the-hermes-agent-challenge-1000-in-prizes-13cd",
+    "description": "If you've been watching the space, Hermes Agent probably needs no introduction. For everyone else,...",
+    "source": "Dev.to",
+    "type": "article",
+    "tags": [
+      "hermesagentchallenge",
+      "devchallenge",
+      "agents"
+    ]
+  },
+  {
+    "title": "4 Tiny Mistakes That Secretly Destroy App Performance",
+    "url": "https://dev.to/sylwia-lask/4-tiny-mistakes-that-secretly-destroy-app-performance-3cgo",
+    "description": "Ok, I’m back from my short vacation and returning with some useful content 😄 As you know, from time...",
+    "source": "Dev.to",
+    "type": "article",
+    "tags": [
+      "javascript",
+      "angular",
+      "react",
+      "frontend"
+    ]
+  }
+]
