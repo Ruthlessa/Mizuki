@@ -388,7 +388,7 @@ This project is based on [Fuwari](https://github.com/saicaca/fuwari), which uses
 
 Thanks to the PR contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
 
-<a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
+<a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors?from=2026%2F2%2F14">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
 </a>
 
