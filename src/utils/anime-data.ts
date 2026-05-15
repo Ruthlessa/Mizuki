@@ -5,12 +5,12 @@ import { i18n } from "../i18n/translation";
 // 使用 import.meta.glob 替代 fs，支持 Cloudflare Workers
 const bilibiliDataModule = import.meta.glob<{ default: RawAnimeItem[] }>(
 	"/src/data/bilibili-data.json",
-	{ eager: true }
+	{ eager: true },
 );
 
 const bangumiDataModule = import.meta.glob<{ default: RawAnimeItem[] }>(
 	"/src/data/bangumi-data.json",
-	{ eager: true }
+	{ eager: true },
 );
 
 export interface RawAnimeItem {

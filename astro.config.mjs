@@ -217,23 +217,16 @@ export default defineConfig({
 			},
 		},
 		build: {
-			// 禁用 rolldown 引擎，回退到使用 Rollup 以避免兼容性问题
 			rollback: true,
-			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
-			// CSS 代码分割
 			cssCodeSplit: true,
 			cssMinify: "esbuild",
-			// 内联小型 CSS 文件以减少网络请求
 			inlineStylesheets: "auto",
-			// 生产环境移除 console 和 debugger
 			minify: "esbuild",
-			// 进一步优化 chunk 大小
-			chunkSizeWarningLimit: 1000,
-			// 启用资源源映射用于生产环境调试
+			chunkSizeWarningLimit: 500,
 			sourcemap: false,
-			// 优化 Rollup 输出
-			reportCompressedSize: false, // 加快构建速度
+			reportCompressedSize: false,
+			target: "es2022",
 			rollupOptions: {
 				onwarn(warning, warn) {
 					if (
@@ -249,32 +242,35 @@ export default defineConfig({
 					warn(warning);
 				},
 				output: {
-					// 手动代码分割
-					manualChunks: {
-						"astro-vendor": [
-							"astro",
-							"astro-icon",
-							"astro-expressive-code",
-						],
-						"ui-vendor": ["@swup/astro"],
+					manualChunks: (id) => {
+						if (id.includes("node_modules")) {
+							if (id.includes("astro")) return "astro-vendor";
+							if (id.includes("svelte")) return "svelte-vendor";
+							if (id.includes("swup")) return "ui-vendor";
+							return "vendor";
+						}
 					},
-					// 优化 chunk 命名
 					chunkFileNames: "assets/chunks/[name]-[hash].js",
 					entryFileNames: "assets/entry/[name]-[hash].js",
 					assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
+					compact: true,
+					hoistTransitiveImports: true,
+				},
+				treeshake: {
+					unknownGlobalSideEffects: false,
+					preset: "smallest",
 				},
 			},
 		},
-		// 生产环境移除 console.log 和 debugger
 		esbuildOptions: {
 			drop:
 				process.env.NODE_ENV === "production"
 					? ["console", "debugger"]
 					: [],
-			// 启用 JavaScript 压缩
 			minify: true,
+			treeShaking: true,
+			legalComments: "none",
 		},
-		// 优化依赖预构建 - 改进的列表
 		optimizeDeps: {
 			include: [
 				"astro-icon",
@@ -282,13 +278,11 @@ export default defineConfig({
 				"@swup/astro",
 				"axios",
 			],
-			// 排除不需要预构建的依赖
 			exclude: [
 				"@astrojs/svelte",
 			],
 		},
 		resolve: {
-			// 提供缺失的 tsconfigPaths 字段
 			tsconfigPaths: true
 		}
 	},

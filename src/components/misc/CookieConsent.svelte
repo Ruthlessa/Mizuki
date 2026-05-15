@@ -70,8 +70,13 @@
 	onMount(() => {
 		preferences = loadPreferences();
 
-		if (typeof document !== "undefined" && typeof localStorage !== "undefined") {
-			const openButton = document.getElementById("open_preferences_center");
+		if (
+			typeof document !== "undefined" &&
+			typeof localStorage !== "undefined"
+		) {
+			const openButton = document.getElementById(
+				"open_preferences_center",
+			);
 			if (openButton) {
 				openButton.addEventListener("click", handleOpen);
 			}
@@ -87,18 +92,27 @@
 </script>
 
 {#if typeof document !== "undefined" && isOpen}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-		<div class="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 shadow-2xl">
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+	>
+		<div
+			class="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 shadow-2xl"
+		>
 			<div class="p-6">
-				<h3 class="mb-4 text-lg font-semibold text-black dark:text-white">
+				<h3
+					class="mb-4 text-lg font-semibold text-black dark:text-white"
+				>
 					Cookie 偏好设置
 				</h3>
 				<p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-					我们使用 Cookie 来改善您的浏览体验。您可以选择允许哪些类型的 Cookie。
+					我们使用 Cookie 来改善您的浏览体验。您可以选择允许哪些类型的
+					Cookie。
 				</p>
 
 				<div class="space-y-4">
-					<label class="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700">
+					<label
+						class="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+					>
 						<input
 							type="checkbox"
 							checked={preferences.necessary}
@@ -106,22 +120,33 @@
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
 						/>
 						<div>
-							<div class="font-medium text-black dark:text-white">必要 Cookie</div>
-							<div class="text-sm text-gray-500 dark:text-gray-400">
-								这些 Cookie 对于网站的基本功能是必需的，无法禁用。
+							<div class="font-medium text-black dark:text-white">
+								必要 Cookie
+							</div>
+							<div
+								class="text-sm text-gray-500 dark:text-gray-400"
+							>
+								这些 Cookie
+								对于网站的基本功能是必需的，无法禁用。
 							</div>
 						</div>
 					</label>
 
-					<label class="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700">
+					<label
+						class="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+					>
 						<input
 							type="checkbox"
 							bind:checked={preferences.analytics}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
 						/>
 						<div>
-							<div class="font-medium text-black dark:text-white">分析 Cookie</div>
-							<div class="text-sm text-gray-500 dark:text-gray-400">
+							<div class="font-medium text-black dark:text-white">
+								分析 Cookie
+							</div>
+							<div
+								class="text-sm text-gray-500 dark:text-gray-400"
+							>
 								用于收集网站使用数据，帮助我们改进服务。
 							</div>
 						</div>

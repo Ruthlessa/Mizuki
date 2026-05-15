@@ -34,7 +34,9 @@ export async function processPosterImage(
 		try {
 			const response = await fetch(imagePath);
 			const arrayBuffer = await response.arrayBuffer();
-			const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+			const base64 = btoa(
+				String.fromCharCode(...new Uint8Array(arrayBuffer)),
+			);
 			const contentType =
 				response.headers.get("content-type") || "image/jpeg";
 			return `data:${contentType};base64,${base64}`;
@@ -56,7 +58,11 @@ function normalizePath(path: string): string {
 	const result: string[] = [];
 
 	for (const part of parts) {
-		if (part === ".." && result.length > 0 && result[result.length - 1] !== "..") {
+		if (
+			part === ".." &&
+			result.length > 0 &&
+			result[result.length - 1] !== ".."
+		) {
 			result.pop();
 		} else if (part !== "." && part !== "") {
 			result.push(part);

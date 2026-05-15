@@ -7,127 +7,246 @@ const title = "安全设置";
 ---
 
 <MainGridLayout title={title}>
-  <script>
-    import("../../../scripts/right-sidebar-layout.js");
-  </script>
+	<script>
+		import("../../../scripts/right-sidebar-layout.js");
+	</script>
 
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 px-9 py-6 relative w-full">
-      <PageHeader title={title} />
+	<div
+		class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
+	>
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<PageHeader title={title} />
 
-      <div class="mt-6 space-y-8">
-        <div class="card-base p-6">
-          <h3 class="text-lg font-semibold mb-6">密码设置</h3>
-          
-          <div class="space-y-4 max-w-2xl">
-            <div>
-              <label class="block text-sm font-medium mb-2">当前密码</label>
-              <input type="password" placeholder="请输入当前密码" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800" />
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium mb-2">新密码</label>
-              <input type="password" placeholder="请输入新密码" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800" />
-              <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含大小写字母和数字</p>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium mb-2">确认新密码</label>
-              <input type="password" placeholder="请再次输入新密码" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800" />
-            </div>
-            
-            <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">更新密码</button>
-          </div>
-        </div>
+			<div class="mt-6 space-y-8">
+				<div class="card-base p-6">
+					<h3 class="text-lg font-semibold mb-6">密码设置</h3>
 
-        <div class="card-base p-6">
-          <h3 class="text-lg font-semibold mb-6">两步验证</h3>
-          
-          <div class="space-y-4">
-            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">验证器应用</div>
-                  <div class="text-sm text-gray-500">使用 Google Authenticator 等应用生成验证码</div>
-                </div>
-              </div>
-              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">启用</button>
-            </div>
-            
-            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">短信验证</div>
-                  <div class="text-sm text-gray-500">通过短信发送验证码到您的手机</div>
-                </div>
-              </div>
-              <button class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">启用</button>
-            </div>
-          </div>
-        </div>
+					<div class="space-y-4 max-w-2xl">
+						<div>
+							<label class="block text-sm font-medium mb-2"
+								>当前密码</label
+							>
+							<input
+								type="password"
+								placeholder="请输入当前密码"
+								class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+							/>
+						</div>
 
-        <div class="card-base p-6">
-          <h3 class="text-lg font-semibold mb-6">会话管理</h3>
-          
-          <div class="space-y-4">
-            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">当前会话 · Chrome on macOS</div>
-                  <div class="text-sm text-gray-500">北京市 · 刚刚 · <span class="text-green-600">当前</span></div>
-                </div>
-              </div>
-              <span class="text-sm text-gray-400">当前</span>
-            </div>
-            
-            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">Safari on iPhone</div>
-                  <div class="text-sm text-gray-500">上海市 · 2天前</div>
-                </div>
-              </div>
-              <button class="px-3 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm">退出</button>
-            </div>
-          </div>
-          
-          <button class="mt-4 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-red-500 hover:text-red-600 hover:border-red-300 dark:hover:border-red-700">退出所有其他会话</button>
-        </div>
+						<div>
+							<label class="block text-sm font-medium mb-2"
+								>新密码</label
+							>
+							<input
+								type="password"
+								placeholder="请输入新密码"
+								class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+							/>
+							<p class="text-xs text-gray-500 mt-1">
+								密码长度至少8位，包含大小写字母和数字
+							</p>
+						</div>
 
-        <div class="card-base p-6 border-red-200 dark:border-red-800">
-          <h3 class="text-lg font-semibold mb-6 text-red-600">危险区域</h3>
-          
-          <div class="space-y-4">
-            <div class="flex items-center justify-between p-4 border border-red-200 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <div>
-                <div class="font-medium text-red-600">删除账户</div>
-                <div class="text-sm text-gray-500">永久删除您的账户和所有数据，此操作不可撤销</div>
-              </div>
-              <button class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">删除账户</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						<div>
+							<label class="block text-sm font-medium mb-2"
+								>确认新密码</label
+							>
+							<input
+								type="password"
+								placeholder="请再次输入新密码"
+								class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+							/>
+						</div>
+
+						<button
+							class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+							>更新密码</button
+						>
+					</div>
+				</div>
+
+				<div class="card-base p-6">
+					<h3 class="text-lg font-semibold mb-6">两步验证</h3>
+
+					<div class="space-y-4">
+						<div
+							class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+						>
+							<div class="flex items-center gap-3">
+								<div
+									class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center"
+								>
+									<svg
+										class="w-5 h-5 text-blue-600 dark:text-blue-400"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+										></path>
+									</svg>
+								</div>
+								<div>
+									<div class="font-medium">验证器应用</div>
+									<div class="text-sm text-gray-500">
+										使用 Google Authenticator
+										等应用生成验证码
+									</div>
+								</div>
+							</div>
+							<button
+								class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+								>启用</button
+							>
+						</div>
+
+						<div
+							class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+						>
+							<div class="flex items-center gap-3">
+								<div
+									class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center"
+								>
+									<svg
+										class="w-5 h-5 text-green-600 dark:text-green-400"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+										></path>
+									</svg>
+								</div>
+								<div>
+									<div class="font-medium">短信验证</div>
+									<div class="text-sm text-gray-500">
+										通过短信发送验证码到您的手机
+									</div>
+								</div>
+							</div>
+							<button
+								class="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+								>启用</button
+							>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-base p-6">
+					<h3 class="text-lg font-semibold mb-6">会话管理</h3>
+
+					<div class="space-y-4">
+						<div
+							class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+						>
+							<div class="flex items-center gap-3">
+								<div
+									class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center"
+								>
+									<svg
+										class="w-5 h-5 text-purple-600 dark:text-purple-400"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+										></path>
+									</svg>
+								</div>
+								<div>
+									<div class="font-medium">
+										当前会话 · Chrome on macOS
+									</div>
+									<div class="text-sm text-gray-500">
+										北京市 · 刚刚 · <span
+											class="text-green-600">当前</span
+										>
+									</div>
+								</div>
+							</div>
+							<span class="text-sm text-gray-400">当前</span>
+						</div>
+
+						<div
+							class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+						>
+							<div class="flex items-center gap-3">
+								<div
+									class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+								>
+									<svg
+										class="w-5 h-5 text-gray-600 dark:text-gray-400"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+										></path>
+									</svg>
+								</div>
+								<div>
+									<div class="font-medium">
+										Safari on iPhone
+									</div>
+									<div class="text-sm text-gray-500">
+										上海市 · 2天前
+									</div>
+								</div>
+							</div>
+							<button
+								class="px-3 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm"
+								>退出</button
+							>
+						</div>
+					</div>
+
+					<button
+						class="mt-4 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-red-500 hover:text-red-600 hover:border-red-300 dark:hover:border-red-700"
+						>退出所有其他会话</button
+					>
+				</div>
+
+				<div class="card-base p-6 border-red-200 dark:border-red-800">
+					<h3 class="text-lg font-semibold mb-6 text-red-600">
+						危险区域
+					</h3>
+
+					<div class="space-y-4">
+						<div
+							class="flex items-center justify-between p-4 border border-red-200 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-900/20"
+						>
+							<div>
+								<div class="font-medium text-red-600">
+									删除账户
+								</div>
+								<div class="text-sm text-gray-500">
+									永久删除您的账户和所有数据，此操作不可撤销
+								</div>
+							</div>
+							<button
+								class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+								>删除账户</button
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </MainGridLayout>

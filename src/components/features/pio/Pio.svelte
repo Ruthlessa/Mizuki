@@ -29,7 +29,7 @@
 				if (pioContainer && pioCanvas && !pioInitialized) {
 					// 清除 localStorage 中的隐藏设置，强制显示
 					localStorage.removeItem("posterGirl");
-					
+
 					pioInstance = new (window as any).Paul_Pio(pioOptions);
 					pioInitialized = true;
 					console.log("Pio initialized successfully (Svelte)");

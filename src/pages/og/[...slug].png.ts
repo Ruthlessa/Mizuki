@@ -22,12 +22,12 @@ export const prerender = true;
 // 使用 import.meta.glob 替代 fs 读取图片文件
 const avatarModules = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/images/**/*.{png,jpg,jpeg,webp}",
-	{ eager: true, import: "default" }
+	{ eager: true, import: "default" },
 );
 
 const faviconModules = import.meta.glob<{ default: ImageMetadata }>(
 	"/public/favicon/**/*.{png,ico}",
-	{ eager: true, import: "default" }
+	{ eager: true, import: "default" },
 );
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -122,16 +122,22 @@ async function getImageBase64(imagePath: string): Promise<string | null> {
 
 		// 查找匹配的图片模块
 		for (const [path, module] of Object.entries(avatarModules)) {
-			if (path.includes(normalizedPath) || normalizedPath.includes(path.replace("/src/", ""))) {
+			if (
+				path.includes(normalizedPath) ||
+				normalizedPath.includes(path.replace("/src/", ""))
+			) {
 				const img = (module as { default: ImageMetadata }).default;
 				if (img.src) {
 					// 如果是本地路径，需要获取实际文件内容
 					if (img.src.startsWith("/")) {
 						// 在构建时，我们可以尝试获取文件
 						try {
-							const response = await fetch(`http://localhost:4321${img.src}`);
+							const response = await fetch(
+								`http://localhost:4321${img.src}`,
+							);
 							if (response.ok) {
-								const arrayBuffer = await response.arrayBuffer();
+								const arrayBuffer =
+									await response.arrayBuffer();
 								return `data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`;
 							}
 						} catch {
@@ -265,8 +271,7 @@ export async function GET({
 										style: {
 											width: "10px",
 											height: "68px",
-											backgroundColor:
-												primaryColor,
+											backgroundColor: primaryColor,
 											borderRadius: "6px",
 											marginTop: "14px",
 										},

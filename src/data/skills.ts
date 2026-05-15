@@ -38,8 +38,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "typescript",
 		name: "TypeScript",
-		description:
-			"JavaScript 的类型安全超集，提升代码质量和开发效率。",
+		description: "JavaScript 的类型安全超集，提升代码质量和开发效率。",
 		icon: "logos:typescript-icon",
 		category: "frontend",
 		level: "advanced",
@@ -74,8 +73,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "angular",
 		name: "Angular",
-		description:
-			"由 Google 开发的企业级前端框架，完整的单页应用解决方案。",
+		description: "由 Google 开发的企业级前端框架，完整的单页应用解决方案。",
 		icon: "logos:angular-icon",
 		category: "frontend",
 		level: "beginner",
@@ -86,8 +84,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "nextjs",
 		name: "Next.js",
-		description:
-			"生产级 React 框架，支持 SSR、SSG 和全栈开发。",
+		description: "生产级 React 框架，支持 SSR、SSG 和全栈开发。",
 		icon: "logos:nextjs-icon",
 		category: "frontend",
 		level: "intermediate",
@@ -98,8 +95,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "nuxtjs",
 		name: "Nuxt.js",
-		description:
-			"直观的 Vue.js 框架，支持服务器端渲染和静态站点生成。",
+		description: "直观的 Vue.js 框架，支持服务器端渲染和静态站点生成。",
 		icon: "logos:nuxt-icon",
 		category: "frontend",
 		level: "beginner",
@@ -110,8 +106,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "astro",
 		name: "Astro",
-		description:
-			"现代静态站点生成器，支持多框架集成和出色的性能。",
+		description: "现代静态站点生成器，支持多框架集成和出色的性能。",
 		icon: "logos:astro-icon",
 		category: "frontend",
 		level: "advanced",
@@ -122,8 +117,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "tailwindcss",
 		name: "Tailwind CSS",
-		description:
-			"实用优先的 CSS 框架，用于快速构建现代用户界面。",
+		description: "实用优先的 CSS 框架，用于快速构建现代用户界面。",
 		icon: "logos:tailwindcss-icon",
 		category: "frontend",
 		level: "advanced",
@@ -134,8 +128,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "sass",
 		name: "Sass/SCSS",
-		description:
-			"CSS 预处理器，提供变量、嵌套和混合等高级功能。",
+		description: "CSS 预处理器，提供变量、嵌套和混合等高级功能。",
 		icon: "logos:sass",
 		category: "frontend",
 		level: "intermediate",
@@ -146,8 +139,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "webpack",
 		name: "Webpack",
-		description:
-			"现代 JavaScript 应用的静态模块打包器。",
+		description: "现代 JavaScript 应用的静态模块打包器。",
 		icon: "logos:webpack",
 		category: "frontend",
 		level: "intermediate",
@@ -158,8 +150,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "vite",
 		name: "Vite",
-		description:
-			"下一代前端构建工具，具有快速的冷启动和热更新。",
+		description: "下一代前端构建工具，具有快速的冷启动和热更新。",
 		icon: "logos:vitejs",
 		category: "frontend",
 		level: "intermediate",
@@ -184,8 +175,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "python",
 		name: "Python",
-		description:
-			"通用编程语言，适用于 web 开发、数据分析、机器学习等。",
+		description: "通用编程语言，适用于 web 开发、数据分析、机器学习等。",
 		icon: "logos:python",
 		category: "backend",
 		level: "intermediate",
@@ -195,8 +185,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "java",
 		name: "Java",
-		description:
-			"企业应用开发的主流编程语言，跨平台且面向对象。",
+		description: "企业应用开发的主流编程语言，跨平台且面向对象。",
 		icon: "logos:java",
 		category: "backend",
 		level: "intermediate",
@@ -219,8 +208,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "go",
 		name: "Go",
-		description:
-			"由 Google 开发的高效编程语言，适用于云原生和微服务开发。",
+		description: "由 Google 开发的高效编程语言，适用于云原生和微服务开发。",
 		icon: "logos:go",
 		category: "backend",
 		level: "beginner",
@@ -231,8 +219,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "rust",
 		name: "Rust",
-		description:
-			"专注于安全性、速度和并发性的系统编程语言，无垃圾回收。",
+		description: "专注于安全性、速度和并发性的系统编程语言，无垃圾回收。",
 		icon: "logos:rust",
 		category: "backend",
 		level: "beginner",
@@ -255,8 +242,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "c",
 		name: "C",
-		description:
-			"低级系统编程语言，操作系统和嵌入式系统开发的基础。",
+		description: "低级系统编程语言，操作系统和嵌入式系统开发的基础。",
 		icon: "logos:c",
 		category: "backend",
 		level: "intermediate",
@@ -303,8 +289,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "php",
 		name: "PHP",
-		description:
-			"广泛使用的服务器端脚本语言，特别适合 web 开发。",
+		description: "广泛使用的服务器端脚本语言，特别适合 web 开发。",
 		icon: "logos:php",
 		category: "backend",
 		level: "intermediate",
@@ -326,8 +311,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "spring",
 		name: "Spring Boot",
-		description:
-			"Java 生态系统中最流行的企业应用开发框架。",
+		description: "Java 生态系统中最流行的企业应用开发框架。",
 		icon: "logos:spring-icon",
 		category: "backend",
 		level: "intermediate",
@@ -338,8 +322,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "django",
 		name: "Django",
-		description:
-			"高级 Python web 框架，具有快速开发和干净、实用的设计。",
+		description: "高级 Python web 框架，具有快速开发和干净、实用的设计。",
 		icon: "logos:django-icon",
 		category: "backend",
 		level: "beginner",
@@ -364,8 +347,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "postgresql",
 		name: "PostgreSQL",
-		description:
-			"强大的开源关系型数据库管理系统。",
+		description: "强大的开源关系型数据库管理系统。",
 		icon: "logos:postgresql",
 		category: "database",
 		level: "intermediate",
@@ -376,8 +358,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "redis",
 		name: "Redis",
-		description:
-			"高性能内存数据结构存储，用作数据库、缓存和消息代理。",
+		description: "高性能内存数据结构存储，用作数据库、缓存和消息代理。",
 		icon: "logos:redis",
 		category: "database",
 		level: "intermediate",
@@ -388,8 +369,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "mongodb",
 		name: "MongoDB",
-		description:
-			"面向文档的 NoSQL 数据库，具有灵活的数据模型。",
+		description: "面向文档的 NoSQL 数据库，具有灵活的数据模型。",
 		icon: "logos:mongodb-icon",
 		category: "database",
 		level: "intermediate",
@@ -399,8 +379,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "sqlite",
 		name: "SQLite",
-		description:
-			"轻量级嵌入式关系型数据库，适合移动应用和小型项目。",
+		description: "轻量级嵌入式关系型数据库，适合移动应用和小型项目。",
 		icon: "simple-icons:sqlite",
 		category: "database",
 		level: "intermediate",
@@ -425,8 +404,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "git",
 		name: "Git",
-		description:
-			"分布式版本控制系统，代码管理和团队协作的必备工具。",
+		description: "分布式版本控制系统，代码管理和团队协作的必备工具。",
 		icon: "logos:git-icon",
 		category: "tools",
 		level: "advanced",
@@ -436,8 +414,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "vscode",
 		name: "VS Code",
-		description:
-			"轻量级但功能强大的代码编辑器，拥有丰富的插件生态系统。",
+		description: "轻量级但功能强大的代码编辑器，拥有丰富的插件生态系统。",
 		icon: "logos:visual-studio-code",
 		category: "tools",
 		level: "expert",
@@ -507,8 +484,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "docker",
 		name: "Docker",
-		description:
-			"容器化平台，简化应用部署和环境管理。",
+		description: "容器化平台，简化应用部署和环境管理。",
 		icon: "logos:docker-icon",
 		category: "tools",
 		level: "intermediate",
@@ -518,8 +494,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "kubernetes",
 		name: "Kubernetes",
-		description:
-			"容器编排平台，用于自动化部署、扩展和管理容器化应用。",
+		description: "容器编排平台，用于自动化部署、扩展和管理容器化应用。",
 		icon: "logos:kubernetes",
 		category: "tools",
 		level: "beginner",
@@ -541,8 +516,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "apache",
 		name: "Apache HTTP Server",
-		description:
-			"世界上最流行的 web 服务器软件，稳定可靠的 HTTP 服务器。",
+		description: "世界上最流行的 web 服务器软件，稳定可靠的 HTTP 服务器。",
 		icon: "logos:apache",
 		category: "tools",
 		level: "intermediate",
@@ -577,8 +551,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "aws",
 		name: "AWS",
-		description:
-			"Amazon 的云平台，提供全面的云计算解决方案。",
+		description: "Amazon 的云平台，提供全面的云计算解决方案。",
 		icon: "logos:aws",
 		category: "tools",
 		level: "intermediate",
@@ -589,8 +562,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "linux",
 		name: "Linux",
-		description:
-			"开源操作系统，服务器部署和开发环境的首选。",
+		description: "开源操作系统，服务器部署和开发环境的首选。",
 		icon: "logos:linux-tux",
 		category: "tools",
 		level: "intermediate",
@@ -601,8 +573,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "postman",
 		name: "Postman",
-		description:
-			"API 开发和测试工具，简化 API 设计、测试和文档。",
+		description: "API 开发和测试工具，简化 API 设计、测试和文档。",
 		icon: "logos:postman-icon",
 		category: "tools",
 		level: "intermediate",
@@ -613,8 +584,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "figma",
 		name: "Figma",
-		description:
-			"协作界面设计工具，用于 UI/UX 设计和原型制作。",
+		description: "协作界面设计工具，用于 UI/UX 设计和原型制作。",
 		icon: "logos:figma",
 		category: "tools",
 		level: "intermediate",
@@ -649,8 +619,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "elasticsearch",
 		name: "Elasticsearch",
-		description:
-			"分布式搜索和分析引擎，用于全文搜索和数据分析。",
+		description: "分布式搜索和分析引擎，用于全文搜索和数据分析。",
 		icon: "logos:elasticsearch",
 		category: "other",
 		level: "beginner",
@@ -661,8 +630,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "jest",
 		name: "Jest",
-		description:
-			"JavaScript 测试框架，注重简洁性和易用性。",
+		description: "JavaScript 测试框架，注重简洁性和易用性。",
 		icon: "logos:jest",
 		category: "other",
 		level: "intermediate",
@@ -673,8 +641,7 @@ export const skillsData: Skill[] = [
 	{
 		id: "cypress",
 		name: "Cypress",
-		description:
-			"现代 web 应用端到端测试框架。",
+		description: "现代 web 应用端到端测试框架。",
 		icon: "logos:cypress-icon",
 		category: "other",
 		level: "beginner",
