@@ -5,15 +5,8 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 页面标题
 const title = "网站管理";
-const isDevelopment = import.meta.env.DEV;
 ---
-{isDevelopment ? (
-	<script>
-		if (typeof window !== 'undefined') {
-			window.location.href = 'http://localhost:3001';
-		}
-	</script>
-) : (
+
 <MainGridLayout title={title}>
 	<!-- 引入右侧边栏布局管理器 -->
 	<script>
@@ -177,4 +170,3 @@ const isDevelopment = import.meta.env.DEV;
 		</div>
 	</div>
 </MainGridLayout>
-)}
