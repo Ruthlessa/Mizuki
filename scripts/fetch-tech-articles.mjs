@@ -2,148 +2,251 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const OUTPUT_PATH = path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../fetched-articles.json",
-);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const OUTPUT_JSON = path.join(__dirname, "../fetched-articles.json");
+const POSTS_DIR = path.join(__dirname, "../src/content/posts");
+const SCHEDULE_FILE = path.join(__dirname, "../schedule.json");
 
-// 备用的精选技术文章列表
 const backupArticles = [
-    {
-        title: "React 19 新特性全面解析",
-        url: "https://react.dev/blog/2024/04/25/react-19",
-        description: "React 19 带来了全新的服务器组件和客户端组件架构，大幅提升了开发体验和应用性能",
-        source: "React Official Blog",
-        type: "article",
-        tags: ["React", "JavaScript", "Web开发"],
-    },
-    {
-        title: "TypeScript 5.0 性能优化指南",
-        url: "https://devblogs.microsoft.com/typescript",
-        description: "TypeScript 5.0 提供了更快的编译速度、更精确的类型推断以及新的装饰器系统",
-        source: "Microsoft DevBlogs",
-        type: "article",
-        tags: ["TypeScript", "编程", "性能优化"],
-    },
-    {
-        title: "构建高性能的 Next.js 应用",
-        url: "https://nextjs.org/docs/app/building-your-application",
-        description: "使用 Next.js App Router、ISR 和其他先进技术来构建快速、可扩展的现代应用",
-        source: "Next.js Documentation",
-        type: "article",
-        tags: ["Next.js", "React", "Web开发"],
-    },
-    {
-        title: "Tailwind CSS v4.0 革命性更新",
-        url: "https://tailwindcss.com/blog/tailwindcss-v4",
-        description: "全新的 CSS 架构、原生 CSS 变量支持和大幅改进的开发体验",
-        source: "Tailwind CSS Blog",
-        type: "article",
-        tags: ["CSS", "Tailwind", "Web开发"],
-    },
-    {
-        title: "Node.js 22 LTS 发布：新特性一览",
-        url: "https://nodejs.org/en/blog",
-        description: "Node.js 22 带来了全新的原生模块支持、性能改进和安全增强",
-        source: "Node.js Blog",
-        type: "article",
-        tags: ["Node.js", "JavaScript", "后端开发"],
-    },
-    {
-        title: "Docker 最佳实践：从入门到生产",
-        url: "https://docs.docker.com/get-started/",
-        description: "学习如何使用 Docker 容器化应用、管理容器编排和优化生产部署",
-        source: "Docker Documentation",
-        type: "article",
-        tags: ["Docker", "DevOps", "容器化"],
-    },
-    {
-        title: "GraphQL vs REST：2024 年该选哪个？",
-        url: "https://graphql.org/learn/",
-        description: "深入比较 GraphQL 和 REST API 的优缺点，帮助你为项目做出明智的选择",
-        source: "GraphQL Foundation",
-        type: "article",
-        tags: ["GraphQL", "API", "Web开发"],
-    },
-    {
-        title: "Svelte 5 抢先体验指南",
-        url: "https://svelte.dev/blog/svelte-5-is-alive",
-        description: "探索 Svelte 5 的新特性，包括 Runes、全新的编译器和显著的性能改进",
-        source: "Svelte Blog",
-        type: "article",
-        tags: ["Svelte", "JavaScript", "前端开发"],
-    },
-    {
-        title: "Git 高级技巧和最佳实践",
-        url: "https://git-scm.com/book",
-        description: "从基础到高级，掌握 Git 版本控制的强大功能，提高团队协作效率",
-        source: "Git Documentation",
-        type: "article",
-        tags: ["Git", "版本控制", "开发工具"],
-    },
-    {
-        title: "AI 辅助编程：使用 Copilot 和 Cursor 提高效率",
-        url: "https://github.blog",
-        description: "探索如何利用 AI 编程助手来加速开发流程、减少错误和学习新技术",
-        source: "GitHub Blog",
-        type: "article",
-        tags: ["AI", "编程", "开发工具"],
-    },
+  {
+    title: "React 19 新特性完全指南",
+    url: "https://react.dev/blog/2024/04/25/react-19",
+    description: "深入解析 React 19 的革命性更新，包括新的服务器组件架构、性能改进和开发体验提升。",
+    source: "React 官方博客",
+    tags: ["React", "JavaScript", "Web开发"],
+    category: "前端开发"
+  },
+  {
+    title: "TypeScript 5.0 性能优化与类型系统增强",
+    url: "https://devblogs.microsoft.com/typescript",
+    description: "探索 TypeScript 5.0 带来的更快编译速度、更精确的类型推断、新的装饰器系统以及其他令人兴奋的功能。",
+    source: "Microsoft DevBlogs",
+    tags: ["TypeScript", "编程", "性能优化"],
+    category: "编程语言"
+  },
+  {
+    title: "构建高性能 Next.js 应用最佳实践",
+    url: "https://nextjs.org/docs/app/building-your-application",
+    description: "使用 Next.js App Router、ISR 和其他先进技术构建快速、可扩展和现代化的 Web 应用程序。",
+    source: "Next.js 文档",
+    tags: ["Next.js", "React", "Web开发"],
+    category: "前端开发"
+  },
+  {
+    title: "Tailwind CSS v4.0：全新架构与设计理念",
+    url: "https://tailwindcss.com/blog/tailwindcss-v4",
+    description: "全新的 CSS 架构、原生 CSS 变量支持、大幅改进的开发体验和优化的构建速度。",
+    source: "Tailwind CSS 博客",
+    tags: ["CSS", "Tailwind", "Web开发"],
+    category: "前端开发"
+  },
+  {
+    title: "Node.js 22 LTS：企业级开发新特性",
+    url: "https://nodejs.org/en/blog",
+    description: "Node.js 22 LTS 带来的全新原生模块支持、性能优化、安全增强以及开发工具改进。",
+    source: "Node.js 博客",
+    tags: ["Node.js", "JavaScript", "后端开发"],
+    category: "后端开发"
+  },
+  {
+    title: "Docker 与 Kubernetes 生产环境最佳实践",
+    url: "https://docs.docker.com/get-started/",
+    description: "从容器化到编排，掌握现代应用部署的完整工作流程。",
+    source: "Docker 文档",
+    tags: ["Docker", "DevOps", "容器化"],
+    category: "DevOps"
+  },
+  {
+    title: "GraphQL 与 REST API：2026 年的架构选择指南",
+    url: "https://graphql.org/learn/",
+    description: "深入对比 GraphQL 和 REST 架构模式的优缺点，为项目做出明智的技术选择。",
+    source: "GraphQL 基金会",
+    tags: ["GraphQL", "API", "Web开发"],
+    category: "系统架构"
+  },
+  {
+    title: "Svelte 5：下一代前端框架",
+    url: "https://svelte.dev/blog/svelte-5-is-alive",
+    description: "探索 Svelte 5 的新特性，包括革命性的 Runes 系统、全新的编译器和显著的性能改进。",
+    source: "Svelte 博客",
+    tags: ["Svelte", "JavaScript", "前端开发"],
+    category: "前端开发"
+  },
+  {
+    title: "Git 高级技巧与团队协作最佳实践",
+    url: "https://git-scm.com/book",
+    description: "从基础到高级，掌握 Git 版本控制的强大功能，提高团队协作效率。",
+    source: "Git 文档",
+    tags: ["Git", "版本控制", "开发工具"],
+    category: "开发工具"
+  },
+  {
+    title: "AI 辅助编程：提升开发效率的完整指南",
+    url: "https://github.blog",
+    description: "探索如何利用 AI 编程助手来加速开发流程、减少错误和学习新技术。",
+    source: "GitHub 博客",
+    tags: ["AI", "编程", "开发工具"],
+    category: "人工智能"
+  }
 ];
 
-async function fetchDevToArticles() {
-    try {
-        const response = await fetch("https://dev.to/api/articles?per_page=10&top=7");
-        const data = await response.json();
-        const articles = data.map((article) => ({
-            title: article.title,
-            url: article.url,
-            description: article.description,
-            source: "Dev.to",
-            type: "article",
-            tags: article.tag_list,
-        }));
-        return articles;
-    } catch (error) {
-        console.error("Error fetching Dev.to articles:", error);
-        return [];
-    }
+async function fetchDevToArticles(count = 10) {
+  try {
+    const response = await fetch(`https://dev.to/api/articles?per_page=${count}&top=7`);
+    const data = await response.json();
+    return data.map((article) => ({
+      title: article.title,
+      url: article.url,
+      description: article.description,
+      source: "Dev.to",
+      tags: article.tag_list || [],
+      category: "技术分享"
+    }));
+  } catch (error) {
+    console.error("获取 Dev.to 文章失败:", error.message);
+    return [];
+  }
+}
+
+async function fetchArticles(total = 10) {
+  let articles = [];
+  
+  try {
+    const devToArticles = await fetchDevToArticles(10);
+    articles = [...devToArticles];
+  } catch (error) {
+    console.error("获取文章失败，使用备用文章列表");
+  }
+  
+  if (articles.length < total) {
+    const needed = total - articles.length;
+    articles = [...articles, ...backupArticles.slice(0, needed)];
+  }
+  
+  return articles.slice(0, total);
+}
+
+function generateFilename(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .slice(0, 60)
+    .replace(/-+/g, '-');
+}
+
+function formatDate(date) {
+  return date.toISOString().split('T')[0];
+}
+
+function escapeQuotes(str) {
+  return (str || '').replace(/"/g, '\\"');
+}
+
+function createArticleContent(article, publishDate) {
+  const frontmatter = `---
+title: "${escapeQuotes(article.title)}"
+published: ${formatDate(publishDate)}
+description: "${escapeQuotes(article.description || '')}"
+tags: ${JSON.stringify(article.tags || [])}
+category: "${escapeQuotes(article.category || '技术分享')}"
+sourceLink: "${article.url}"
+draft: false
+---
+
+# ${article.title}
+
+> 原文链接：[${article.source}](${article.url})
+
+${article.description || "这是一篇来自 " + article.source + " 的技术文章，点击上方链接查看原文。"}`;
+  
+  return frontmatter;
+}
+
+async function ensurePostsDir() {
+  try {
+    await fs.access(POSTS_DIR);
+  } catch {
+    await fs.mkdir(POSTS_DIR, { recursive: true });
+  }
+}
+
+async function saveArticleToPost(article, date, index = 0) {
+  await ensurePostsDir();
+  
+  const filename = generateFilename(article.title);
+  let filePath = path.join(POSTS_DIR, `${filename}-${Date.now()}-${index}.md`);
+  
+  let counter = 0;
+  while (await fs.access(filePath).then(() => true).catch(() => false)) {
+    counter++;
+    filePath = path.join(POSTS_DIR, `${filename}-${Date.now()}-${index}-${counter}.md`);
+  }
+  
+  const content = createArticleContent(article, date);
+  await fs.writeFile(filePath, content, "utf8");
+  
+  console.log(`✅ 文章已保存: ${filePath}`);
+  
+  return filePath;
+}
+
+async function saveSchedule(scheduleData) {
+  await fs.writeFile(SCHEDULE_FILE, JSON.stringify(scheduleData, null, 2), "utf8");
+  console.log(`📅 定时发布计划已保存: ${SCHEDULE_FILE}`);
+}
+
+async function loadSchedule() {
+  try {
+    const data = await fs.readFile(SCHEDULE_FILE, "utf8");
+    return JSON.parse(data);
+  } catch {
+    return { scheduled: [] };
+  }
 }
 
 async function main() {
-    console.log("🚀 开始抓取技术文章...");
+  console.log("🚀 开始获取技术文章...");
+  
+  const articles = await fetchArticles(10);
+  console.log(`✅ 成功获取 ${articles.length} 篇技术文章`);
+  
+  await fs.writeFile(OUTPUT_JSON, JSON.stringify(articles, null, 2), "utf8");
+  
+  const today = new Date();
+  const scheduleData = { scheduled: [] };
+  
+  console.log("\n📝 文章列表：");
+  
+  for (let i = 0; i < articles.length; i++) {
+    const article = articles[i];
     
-    // 尝试获取 Dev.to 的文章
-    const devToArticles = await fetchDevToArticles();
+    const publishDate = new Date(today);
+    publishDate.setDate(today.getDate() + i);
     
-    // 合并文章，确保有 10 篇
-    let allArticles = [...devToArticles];
+    console.log(`\n${i + 1}. [${article.source}] ${article.title}`);
+    console.log(`   链接: ${article.url}`);
     
-    // 如果 Dev.to 的文章不够 10 篇，从备用列表补充
-    if (allArticles.length < 10) {
-        const neededCount = 10 - allArticles.length;
-        allArticles = [...allArticles, ...backupArticles.slice(0, neededCount)];
-    }
+    const filePath = await saveArticleToPost(article, publishDate, i);
     
-    // 确保不超过 10 篇
-    allArticles = allArticles.slice(0, 10);
-    
-    console.log(`✅ 成功获取 ${allArticles.length} 篇技术文章/资源`);
-    
-    await fs.writeFile(OUTPUT_PATH, JSON.stringify(allArticles, null, 2), "utf8");
-    console.log(`📄 文章已保存到: ${OUTPUT_PATH}`);
-    
-    console.log("\n📋 文章列表:");
-    allArticles.forEach((article, index) => {
-        console.log(`\n${index + 1}. [${article.source}] ${article.title}`);
-        console.log(`   链接: ${article.url}`);
-        if (article.description) {
-            console.log(`   简介: ${article.description}`);
-        }
+    scheduleData.scheduled.push({
+      title: article.title,
+      url: article.url,
+      source: article.source,
+      filePath: path.relative(__dirname, filePath),
+      publishDate: formatDate(publishDate),
+      published: false
     });
+  }
+  
+  await saveSchedule(scheduleData);
+  
+  console.log("\n✨ 完成！所有文章已准备好并设置定时发布！");
 }
 
 main().catch((error) => {
-    console.error("❌ 抓取失败:", error);
-    process.exit(1);
+  console.error("❌ 失败:", error);
+  process.exit(1);
 });
+
+export { fetchArticles, saveArticleToPost };

@@ -31,7 +31,8 @@
 		"performance:baseline": "node scripts/performance-baseline.js",
 		"performance:check": "node scripts/performance-check.js",
 		"analyze-bundle": "node scripts/analyze-bundle.js",
-		"fetch-tech-articles": "node scripts/fetch-tech-articles.mjs"
+		"fetch-tech-articles": "node scripts/fetch-tech-articles.mjs",
+		"check-schedule": "node scripts/check-schedule.mjs"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.9",
