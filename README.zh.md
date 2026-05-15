@@ -386,62 +386,7 @@ This project is based on [Fuwari](https://github.com/saicaca/fuwari), which uses
 
 ## 🍀 Contributors
 
-### 每周贡献统计（2026年2月14日至2026年5月10日）
-
-| 排名 | 贡献者 | 提交次数 | 代码添加 | 代码删除 |
-|------|--------|----------|----------|----------|
-| #1 | [Ruthlessa](https://github.com/Ruthlessa) | 117 | 124,369 ++ | 6,968 -- |
-| #2 | [Dependabot[机器人]](https://github.com/apps/dependabot) | 36 | 2,789 ++ | 2,515 -- |
-| #3 | [Traeagent](https://github.com/Traeagent) | 25 | 21,672 ++ | 5,307 -- |
-| #4 | [MCQA25](https://github.com/MCQA25) | 17 | 1,511 ++ | 3,008 -- |
-| #5 | [GitHub-advanced-security[机器人]](https://github.com/apps/github-advanced-security) | 10 | 15,485 ++ | 33 -- |
-| #6 | [AlexChen](https://github.com/AlexChen) | 8 | 4,231 ++ | 1,892 -- |
-| #7 | [SarahWang](https://github.com/SarahWang) | 7 | 3,890 ++ | 2,103 -- |
-| #8 | [MikeZhang](https://github.com/MikeZhang) | 6 | 2,567 ++ | 890 -- |
-| #9 | [EmmaLiu](https://github.com/EmmaLiu) | 5 | 1,876 ++ | 1,234 -- |
-| #10 | [DavidChen](https://github.com/DavidChen) | 5 | 2,109 ++ | 789 -- |
-| #11 | [LisaWang](https://github.com/LisaWang) | 4 | 1,567 ++ | 654 -- |
-| #12 | [TomZhang](https://github.com/TomZhang) | 4 | 1,342 ++ | 876 -- |
-| #13 | [AmyLiu](https://github.com/AmyLiu) | 3 | 987 ++ | 432 -- |
-| #14 | [JohnChen](https://github.com/JohnChen) | 3 | 1,234 ++ | 567 -- |
-| #15 | [MaryWang](https://github.com/MaryWang) | 3 | 876 ++ | 234 -- |
-| #16 | [PeterZhang](https://github.com/PeterZhang) | 2 | 654 ++ | 123 -- |
-| #17 | [AliceLiu](https://github.com/AliceLiu) | 2 | 543 ++ | 89 -- |
-| #18 | [BobChen](https://github.com/BobChen) | 2 | 789 ++ | 345 -- |
-| #19 | [CarolWang](https://github.com/CarolWang) | 2 | 432 ++ | 156 -- |
-| #20 | [DavidZhang](https://github.com/DavidZhang) | 2 | 321 ++ | 78 -- |
-| #21 | [EveLiu](https://github.com/EveLiu) | 1 | 234 ++ | 45 -- |
-| #22 | [FrankChen](https://github.com/FrankChen) | 1 | 189 ++ | 23 -- |
-| #23 | [GraceWang](https://github.com/GraceWang) | 1 | 345 ++ | 67 -- |
-| #24 | [HenryZhang](https://github.com/HenryZhang) | 1 | 278 ++ | 89 -- |
-| #25 | [IvyLiu](https://github.com/IvyLiu) | 1 | 156 ++ | 34 -- |
-| #26 | [JackChen](https://github.com/JackChen) | 1 | 456 ++ | 123 -- |
-| #27 | [KateWang](https://github.com/KateWang) | 1 | 234 ++ | 56 -- |
-| #28 | [LeoZhang](https://github.com/LeoZhang) | 1 | 178 ++ | 23 -- |
-| #29 | [MonaLiu](https://github.com/MonaLiu) | 1 | 321 ++ | 78 -- |
-| #30 | [NickChen](https://github.com/NickChen) | 1 | 145 ++ | 45 -- |
-| #31 | [OliviaWang](https://github.com/OliviaWang) | 1 | 267 ++ | 67 -- |
-| #32 | [PaulZhang](https://github.com/PaulZhang) | 1 | 189 ++ | 34 -- |
-| #33 | [QueenLiu](https://github.com/QueenLiu) | 1 | 234 ++ | 56 -- |
-| #34 | [RyanChen](https://github.com/RyanChen) | 1 | 156 ++ | 23 -- |
-| #35 | [SaraWang](https://github.com/SaraWang) | 1 | 345 ++ | 89 -- |
-| #36 | [TomLiu](https://github.com/TomLiu) | 1 | 178 ++ | 45 -- |
-| #37 | [UmaChen](https://github.com/UmaChen) | 1 | 267 ++ | 67 -- |
-| #38 | [VictorWang](https://github.com/VictorWang) | 1 | 145 ++ | 34 -- |
-| #39 | [WendyZhang](https://github.com/WendyZhang) | 1 | 234 ++ | 56 -- |
-| #40 | [XavierLiu](https://github.com/XavierLiu) | 1 | 189 ++ | 23 -- |
-| #41 | [YukiChen](https://github.com/YukiChen) | 1 | 321 ++ | 78 -- |
-| #42 | [ZoeWang](https://github.com/ZoeWang) | 1 | 156 ++ | 45 -- |
-| #43 | [AdamZhang](https://github.com/AdamZhang) | 1 | 267 ++ | 67 -- |
-| #44 | [BellaLiu](https://github.com/BellaLiu) | 1 | 178 ++ | 34 -- |
-| #45 | [ChrisChen](https://github.com/ChrisChen) | 1 | 234 ++ | 56 -- |
-| #46 | [DianaWang](https://github.com/DianaWang) | 1 | 145 ++ | 23 -- |
-| #47 | [EthanZhang](https://github.com/EthanZhang) | 1 | 345 ++ | 89 -- |
-| #48 | [FionaLiu](https://github.com/FionaLiu) | 1 | 189 ++ | 45 -- |
-| #49 | [GeorgeChen](https://github.com/GeorgeChen) | 1 | 267 ++ | 67 -- |
-| #50 | [HannahWang](https://github.com/HannahWang) | 1 | 156 ++ | 34 -- |
-
-> **数据说明**: 以上统计不包括合并提交。时间范围：2026年2月14日至2026年5月10日。
+Thanks to the PR contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
 
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
