@@ -223,7 +223,9 @@
 		btn.addEventListener("click", (ev) => {
 			ev.stopPropagation();
 			const svg = element.querySelector("svg");
-			if (!svg) {return;}
+			if (!svg) {
+				return;
+			}
 			openFullscreen(svg);
 		});
 		element.appendChild(btn);
@@ -614,7 +616,9 @@
 
 								const safeSvg = sanitizeSvgString(svg);
 								if (!safeSvg) {
-									throw new Error("Invalid or unsafe SVG output");
+									throw new Error(
+										"Invalid or unsafe SVG output",
+									);
 								}
 								const parser = new DOMParser();
 								const doc = parser.parseFromString(
@@ -664,22 +668,28 @@
 										error,
 									);
 									element.innerHTML = "";
-									const errorWrapper = document.createElement("div");
+									const errorWrapper =
+										document.createElement("div");
 									errorWrapper.className = "mermaid-error";
 
-									const errorText = document.createElement("p");
+									const errorText =
+										document.createElement("p");
 									errorText.textContent = `Failed to render diagram after ${maxAttempts} attempts.`;
 
-									const retryButton = document.createElement("button");
+									const retryButton =
+										document.createElement("button");
 									retryButton.textContent = "Retry Page";
 									retryButton.style.marginTop = "8px";
 									retryButton.style.padding = "4px 8px";
-									retryButton.style.background = "var(--primary)";
+									retryButton.style.background =
+										"var(--primary)";
 									retryButton.style.color = "white";
 									retryButton.style.border = "none";
 									retryButton.style.borderRadius = "4px";
 									retryButton.style.cursor = "pointer";
-									retryButton.addEventListener("click", () => location.reload());
+									retryButton.addEventListener("click", () =>
+										location.reload(),
+									);
 
 									errorWrapper.appendChild(errorText);
 									errorWrapper.appendChild(retryButton);

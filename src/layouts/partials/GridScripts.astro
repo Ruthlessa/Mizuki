@@ -51,10 +51,16 @@ const {
 					break;
 				case "fullscreen":
 					body.classList.remove("enable-banner");
-					body.classList.add("wallpaper-transparent", "no-banner-mode");
+					body.classList.add(
+						"wallpaper-transparent",
+						"no-banner-mode",
+					);
 					break;
 				case "none":
-					body.classList.remove("enable-banner", "wallpaper-transparent");
+					body.classList.remove(
+						"enable-banner",
+						"wallpaper-transparent",
+					);
 					body.classList.add("no-banner-mode");
 					break;
 			}
@@ -90,7 +96,9 @@ const {
 						if (currentLayout === "grid") {
 							rightSidebar.classList.add("hidden-in-grid-mode");
 						} else {
-							rightSidebar.classList.remove("hidden-in-grid-mode");
+							rightSidebar.classList.remove(
+								"hidden-in-grid-mode",
+							);
 						}
 					}
 
@@ -112,7 +120,10 @@ const {
 								"lg:grid-cols-2",
 								"gap-6",
 							);
-							postListContainer.classList.remove("flex", "flex-col");
+							postListContainer.classList.remove(
+								"flex",
+								"flex-col",
+							);
 						} else {
 							postListContainer.classList.add("list-mode");
 							postListContainer.classList.add("flex", "flex-col");
@@ -302,18 +313,23 @@ const {
 							window.__pendingLayoutMode ||
 							localStorage.getItem("postListLayout") ||
 							defaultPostListLayout;
-						mainGrid.setAttribute("data-layout-mode", currentLayout);
+						mainGrid.setAttribute(
+							"data-layout-mode",
+							currentLayout,
+						);
 
 						const rightSidebar = document.querySelector(
 							".right-sidebar-container",
 						);
 						if (rightSidebar) {
 							if (currentLayout === "grid") {
-								rightSidebar.classList.add("hidden-in-grid-mode");
+								rightSidebar.classList.add(
+									"hidden-in-grid-mode",
+								);
 							} else {
 								rightSidebar.classList.remove(
-								"hidden-in-grid-mode",
-							);
+									"hidden-in-grid-mode",
+								);
 							}
 						}
 
@@ -342,7 +358,10 @@ const {
 								);
 							} else {
 								postListContainer.classList.add("list-mode");
-								postListContainer.classList.add("flex", "flex-col");
+								postListContainer.classList.add(
+									"flex",
+									"flex-col",
+								);
 								postListContainer.classList.remove(
 									"grid",
 									"grid-cols-1",
@@ -400,7 +419,9 @@ const {
 							".right-sidebar-container",
 						);
 						if (rightSidebar) {
-							rightSidebar.classList.remove("hidden-in-grid-mode");
+							rightSidebar.classList.remove(
+								"hidden-in-grid-mode",
+							);
 						}
 					}
 				}

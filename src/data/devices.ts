@@ -19,8 +19,7 @@ export const devicesData: DeviceCategory = {
 			name: "OnePlus 13T",
 			image: "/images/device/oneplus13t.webp",
 			specs: "灰色 / 16G + 1TB",
-			description:
-				"旗舰性能，哈苏影像，80W 超级闪充。",
+			description: "旗舰性能，哈苏影像，80W 超级闪充。",
 			link: "https://www.oneplus.com/cn/13t",
 		},
 	],
@@ -29,8 +28,7 @@ export const devicesData: DeviceCategory = {
 			name: "GL-MT3000",
 			image: "/images/device/mt3000.webp",
 			specs: "1000Mbps / 2.5G",
-			description:
-				"适合商务旅行和家庭使用的便携式 WiFi 6 路由器。",
+			description: "适合商务旅行和家庭使用的便携式 WiFi 6 路由器。",
 			link: "https://www.gl-inet.cn/products/gl-mt3000/",
 		},
 	],

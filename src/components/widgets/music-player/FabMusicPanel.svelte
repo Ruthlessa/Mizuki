@@ -15,7 +15,7 @@
 
 	let state: MusicPlayerState = $state();
 	let showPlaylist = $state(false);
-	
+
 	// 初始化状态
 	state = musicPlayerStore.getState();
 	let unsubscribe: (() => void) | undefined;
@@ -156,7 +156,9 @@
 		height: 1.75rem;
 		border-radius: 0.375rem;
 		color: var(--content-meta);
-		transition: color 150ms ease, background 150ms ease;
+		transition:
+			color 150ms ease,
+			background 150ms ease;
 		flex-shrink: 0;
 		margin-left: auto;
 	}

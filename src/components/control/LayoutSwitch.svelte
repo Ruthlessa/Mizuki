@@ -244,7 +244,7 @@
 		cursor: not-allowed;
 		opacity: 0.7;
 	}
-	
+
 	@media (prefers-reduced-motion: reduce) {
 		.theme-switch-btn::before,
 		.icon-transition {

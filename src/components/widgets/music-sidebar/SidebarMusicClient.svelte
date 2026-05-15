@@ -13,7 +13,7 @@
 
 	let state: MusicPlayerState = $state();
 	let showPlaylist = $state(false);
-	
+
 	// 初始化状态
 	state = musicPlayerStore.getState();
 	let unsubscribe: (() => void) | undefined;

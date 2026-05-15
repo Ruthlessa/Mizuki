@@ -3,13 +3,13 @@ import type { AlbumGroup, Photo } from "../types/album";
 // 使用 import.meta.glob 替代 fs，支持 Cloudflare Workers
 const albumModules = import.meta.glob<{ default: Record<string, any> }>(
 	"/public/images/albums/*/info.json",
-	{ eager: true }
+	{ eager: true },
 );
 
 // 获取所有相册图片
 const imageModules = import.meta.glob<ImageMetadata>(
 	"/public/images/albums/**/*.{jpg,jpeg,png,gif,webp}",
-	{ eager: true, import: "default" }
+	{ eager: true, import: "default" },
 );
 
 export async function scanAlbums(): Promise<AlbumGroup[]> {
@@ -18,8 +18,12 @@ export async function scanAlbums(): Promise<AlbumGroup[]> {
 	// 处理每个相册
 	for (const [path, module] of Object.entries(albumModules)) {
 		// 从路径中提取相册文件夹名
-		const match = path.match(/\/public\/images\/albums\/([^/]+)\/info\.json$/);
-		if (!match) {continue;}
+		const match = path.match(
+			/\/public\/images\/albums\/([^/]+)\/info\.json$/,
+		);
+		if (!match) {
+			continue;
+		}
 
 		const folderName = match[1];
 		const album = await processAlbumFolder(folderName, module.default);
@@ -29,14 +33,16 @@ export async function scanAlbums(): Promise<AlbumGroup[]> {
 	}
 
 	// 按日期排序
-	albums.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+	albums.sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	);
 
 	return albums;
 }
 
 async function processAlbumFolder(
 	folderName: string,
-	info: Record<string, any>
+	info: Record<string, any>,
 ): Promise<AlbumGroup | null> {
 	// 检查是否为外链模式
 	const isExternalMode = info.mode === "external";
@@ -55,12 +61,13 @@ async function processAlbumFolder(
 	} else {
 		// 本地模式：从 import.meta.glob 结果中获取图片
 		const albumImages = Object.entries(imageModules).filter(([path]) =>
-			path.includes(`/public/images/albums/${folderName}/`)
+			path.includes(`/public/images/albums/${folderName}/`),
 		);
 
 		// 查找封面
-		const coverEntry = albumImages.find(([path]) =>
-			path.endsWith("cover.webp") || path.endsWith("cover.jpg")
+		const coverEntry = albumImages.find(
+			([path]) =>
+				path.endsWith("cover.webp") || path.endsWith("cover.jpg"),
 		);
 
 		if (!coverEntry) {
@@ -97,14 +104,16 @@ async function processAlbumFolder(
 
 function scanPhotos(
 	albumImages: [string, ImageMetadata][],
-	albumId: string
+	albumId: string,
 ): Photo[] {
 	const photos: Photo[] = [];
 
 	// 过滤掉封面文件
 	const imageFiles = albumImages.filter(([path]) => {
 		const fileName = path.split("/").pop();
-		return fileName && fileName !== "cover.webp" && fileName !== "cover.jpg";
+		return (
+			fileName && fileName !== "cover.webp" && fileName !== "cover.jpg"
+		);
 	});
 
 	// 创建 WebP 映射
@@ -145,14 +154,14 @@ function scanPhotos(
 
 function processExternalPhotos(
 	externalPhotos: any[],
-	albumId: string
+	albumId: string,
 ): Photo[] {
 	const photos: Photo[] = [];
 
 	externalPhotos.forEach((photo, index) => {
 		if (!photo.src) {
 			console.warn(
-				`相册 ${albumId} 的第 ${index + 1} 张照片缺少 src 字段`
+				`相册 ${albumId} 的第 ${index + 1} 张照片缺少 src 字段`,
 			);
 			return;
 		}

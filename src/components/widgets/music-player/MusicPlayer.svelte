@@ -20,7 +20,7 @@
 	const shouldRenderFloatingUi =
 		showFloatingPlayer && musicPlayerConfig.enable;
 	let unsubscribe: (() => void) | undefined;
-	
+
 	// 初始化状态
 	state = musicPlayerStore.getState();
 
@@ -211,7 +211,11 @@
 					class="text-white/80 hover:text-white transition-colors"
 					aria-label="关闭错误提示"
 				>
-					<Icon icon="material-symbols:close" class="text-lg" aria-hidden="true" />
+					<Icon
+						icon="material-symbols:close"
+						class="text-lg"
+						aria-hidden="true"
+					/>
 				</button>
 			</div>
 		</div>
@@ -220,9 +224,7 @@
 	{#if useFabEntry}
 		{#if state.isExpanded}
 			<div class="music-player-fab-anchor fixed z-[55]">
-				<div
-					class="music-player-fab-shell"
-				>
+				<div class="music-player-fab-shell">
 					<FabMusicPanel />
 				</div>
 			</div>
@@ -633,7 +635,7 @@
 			box-shadow: 0 0 0 2px var(--primary);
 			border: none;
 		}
-		
+
 		@media (prefers-reduced-motion: reduce) {
 			.orb-enter,
 			.orb-leave,

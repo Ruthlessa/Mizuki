@@ -97,10 +97,7 @@ const tabletStickyComponents = widgetManager.getComponentsByPosition(
 					);
 				}
 
-				if (
-					window.swup &&
-					!window.__mizukiSidebarSwupHooked
-				) {
+				if (window.swup && !window.__mizukiSidebarSwupHooked) {
 					window.__mizukiSidebarSwupHooked = true;
 					window.swup.hooks.on("content:replace", () => {
 						setTimeout(() => {
@@ -143,8 +140,8 @@ const tabletStickyComponents = widgetManager.getComponentsByPosition(
 			}
 		}
 
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', () => {
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", () => {
 				if (!window[SIDEBAR_MANAGER_KEY]) {
 					window[SIDEBAR_MANAGER_KEY] = true;
 					new SidebarManager();

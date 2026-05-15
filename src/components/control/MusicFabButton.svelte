@@ -25,11 +25,13 @@
 		unsubscribe = musicPlayerStore.subscribe((nextState) => {
 			state = nextState;
 		});
-		
+
 		// 检查用户是否希望减少动画
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const mediaQuery = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		);
 		prefersReducedMotion = mediaQuery.matches;
-		mediaQuery.addEventListener('change', (e) => {
+		mediaQuery.addEventListener("change", (e) => {
 			prefersReducedMotion = e.matches;
 		});
 	});
@@ -121,7 +123,7 @@
 		border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
 		animation: music-fab-pulse 1.8s ease-out infinite;
 	}
-	
+
 	@media (prefers-reduced-motion: reduce) {
 		.music-fab.playing::after {
 			animation: none;
