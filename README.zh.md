@@ -11,14 +11,14 @@ A modern, feature-rich static blog template built with [Astro](https://astro.bui
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
 
 
-[**🖥️ Live Demo**](https://mizuki.pages.dev/) | [**📝 Documentation**](https://docs.mizuki.mysqil.com/)
+[**🖥️ Live Demo**](https://mizuki.pages.dev/) | [**📝 代码贡献者**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README Languages:**
 [**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 Get started quickly with our comprehensive documentation. Whether you're customizing themes, configuring features, or deploying to production, the docs cover everything you need to launch your blog successfully.
 
-[📚 Read the Full Documentation](https://docs.mizuki.mysqil.com/) →
+[📚 Read the Full 代码贡献者](https://docs.mizuki.mysqil.com/) →
 
 ![Mizuki Preview](./README.webp)
 
@@ -348,7 +348,7 @@ pnpm run sync-content
 
 📖 **Detailed Configuration:** [Content Separation Guide](docs/CONTENT_SEPARATION.md)
 🔄 **Migration Tutorial:** [Migrate from Single Repository to Separation Mode](docs/MIGRATION_GUIDE.md)
-📚 **More Documentation:** [Documentation Index](docs/README.md)
+📚 **More 代码贡献者:** [代码贡献者 Index](docs/README.md)
 
 ## ✏️ Contributing
 
@@ -390,56 +390,56 @@ Thanks to the following contributors for their contributions to this project. Fo
 
 | Contributor | Contribution |
 |-------------|--------------|
-| [Liam](https://github.com/Liam) | Feature development |
-| [Noah](https://github.com/Noah) | Bug fixes |
-| [Oliver](https://github.com/Oliver) | Documentation |
-| [Elijah](https://github.com/Elijah) | Code review |
-| [James](https://github.com/James) | Performance optimization |
-| [William](https://github.com/William) | UI improvements |
-| [Benjamin](https://github.com/Benjamin) | Testing |
-| [Lucas](https://github.com/Lucas) | Security fixes |
-| [Henry](https://github.com/Henry) | CI/CD setup |
-| [Alexander](https://github.com/Alexander) | Translation |
-| [Mason](https://github.com/Mason) | Feature development |
-| [Ethan](https://github.com/Ethan) | Bug fixes |
-| [Michael](https://github.com/Michael) | Documentation |
-| [Daniel](https://github.com/Daniel) | Code review |
-| [Jacob](https://github.com/Jacob) | Performance optimization |
-| [Logan](https://github.com/Logan) | UI improvements |
-| [Jackson](https://github.com/Jackson) | Testing |
-| [Levi](https://github.com/Levi) | Security fixes |
-| [Samuel](https://github.com/Samuel) | CI/CD setup |
-| [David](https://github.com/David) | Translation |
-| [Joseph](https://github.com/Joseph) | Feature development |
-| [Owen](https://github.com/Owen) | Bug fixes |
-| [Edward](https://github.com/Edward) | Documentation |
-| [Thomas](https://github.com/Thomas) | Code review |
-| [Charles](https://github.com/Charles) | Performance optimization |
-| [Christopher](https://github.com/Christopher) | UI improvements |
-| [Matthew](https://github.com/Matthew) | Testing |
-| [Anthony](https://github.com/Anthony) | Security fixes |
-| [Joshua](https://github.com/Joshua) | CI/CD setup |
-| [Andrew](https://github.com/Andrew) | Translation |
-| [Dylan](https://github.com/Dylan) | Feature development |
-| [Gabriel](https://github.com/Gabriel) | Bug fixes |
-| [Julian](https://github.com/Julian) | Documentation |
-| [Isaac](https://github.com/Isaac) | Code review |
-| [Ryan](https://github.com/Ryan) | Performance optimization |
-| [Nathan](https://github.com/Nathan) | UI improvements |
-| [Sebastian](https://github.com/Sebastian) | Testing |
-| [Carter](https://github.com/Carter) | Security fixes |
-| [Jayden](https://github.com/Jayden) | CI/CD setup |
-| [John](https://github.com/John) | Translation |
-| [Wyatt](https://github.com/Wyatt) | Feature development |
-| [Luke](https://github.com/Luke) | Bug fixes |
-| [Asher](https://github.com/Asher) | Documentation |
-| [Christian](https://github.com/Christian) | Code review |
-| [Hunter](https://github.com/Hunter) | Performance optimization |
-| [Jack](https://github.com/Jack) | UI improvements |
-| [Cooper](https://github.com/Cooper) | Testing |
-| [Samuel](https://github.com/Samuel) | Security fixes |
-| [Dylan](https://github.com/Dylan) | CI/CD setup |
-| [Elijah](https://github.com/Elijah) | Translation |
+| [Liam](https://github.com/Liam) | 代码贡献者 |
+| [Noah](https://github.com/Noah) | 代码贡献者 |
+| [Oliver](https://github.com/Oliver) | 代码贡献者 |
+| [Elijah](https://github.com/Elijah) | 代码贡献者 |
+| [James](https://github.com/James) | 代码贡献者 |
+| [William](https://github.com/William) | 代码贡献者 |
+| [Benjamin](https://github.com/Benjamin) | 代码贡献者 |
+| [Lucas](https://github.com/Lucas) | 代码贡献者 |
+| [Henry](https://github.com/Henry) | 代码贡献者 |
+| [Alexander](https://github.com/Alexander) | 代码贡献者 |
+| [Mason](https://github.com/Mason) | 代码贡献者 |
+| [Ethan](https://github.com/Ethan) | 代码贡献者 |
+| [Michael](https://github.com/Michael) | 代码贡献者 |
+| [Daniel](https://github.com/Daniel) | 代码贡献者 |
+| [Jacob](https://github.com/Jacob) | 代码贡献者 |
+| [Logan](https://github.com/Logan) | 代码贡献者 |
+| [Jackson](https://github.com/Jackson) | 代码贡献者 |
+| [Levi](https://github.com/Levi) | 代码贡献者 |
+| [Samuel](https://github.com/Samuel) | 代码贡献者 |
+| [David](https://github.com/David) | 代码贡献者 |
+| [Joseph](https://github.com/Joseph) | 代码贡献者 |
+| [Owen](https://github.com/Owen) | 代码贡献者 |
+| [Edward](https://github.com/Edward) | 代码贡献者 |
+| [Thomas](https://github.com/Thomas) | 代码贡献者 |
+| [Charles](https://github.com/Charles) | 代码贡献者 |
+| [Christopher](https://github.com/Christopher) | 代码贡献者 |
+| [Matthew](https://github.com/Matthew) | 代码贡献者 |
+| [Anthony](https://github.com/Anthony) | 代码贡献者 |
+| [Joshua](https://github.com/Joshua) | 代码贡献者 |
+| [Andrew](https://github.com/Andrew) | 代码贡献者 |
+| [Dylan](https://github.com/Dylan) | 代码贡献者 |
+| [Gabriel](https://github.com/Gabriel) | 代码贡献者 |
+| [Julian](https://github.com/Julian) | 代码贡献者 |
+| [Isaac](https://github.com/Isaac) | 代码贡献者 |
+| [Ryan](https://github.com/Ryan) | 代码贡献者 |
+| [Nathan](https://github.com/Nathan) | 代码贡献者 |
+| [Sebastian](https://github.com/Sebastian) | 代码贡献者 |
+| [Carter](https://github.com/Carter) | 代码贡献者 |
+| [Jayden](https://github.com/Jayden) | 代码贡献者 |
+| [John](https://github.com/John) | 代码贡献者 |
+| [Wyatt](https://github.com/Wyatt) | 代码贡献者 |
+| [Luke](https://github.com/Luke) | 代码贡献者 |
+| [Asher](https://github.com/Asher) | 代码贡献者 |
+| [Christian](https://github.com/Christian) | 代码贡献者 |
+| [Hunter](https://github.com/Hunter) | 代码贡献者 |
+| [Jack](https://github.com/Jack) | 代码贡献者 |
+| [Cooper](https://github.com/Cooper) | 代码贡献者 |
+| [Samuel](https://github.com/Samuel) | 代码贡献者 |
+| [Dylan](https://github.com/Dylan) | 代码贡献者 |
+| [Elijah](https://github.com/Elijah) | 代码贡献者 |
 
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
