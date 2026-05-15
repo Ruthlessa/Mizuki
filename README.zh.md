@@ -386,60 +386,7 @@ This project is based on [Fuwari](https://github.com/saicaca/fuwari), which uses
 
 ## 🍀 Contributors
 
-Thanks to the following contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
-
-| Contributor | Contribution |
-|-------------|--------------|
-| [Liam](https://github.com/Liam) | 代码贡献者 |
-| [Noah](https://github.com/Noah) | 代码贡献者 |
-| [Oliver](https://github.com/Oliver) | 代码贡献者 |
-| [Elijah](https://github.com/Elijah) | 代码贡献者 |
-| [James](https://github.com/James) | 代码贡献者 |
-| [William](https://github.com/William) | 代码贡献者 |
-| [Benjamin](https://github.com/Benjamin) | 代码贡献者 |
-| [Lucas](https://github.com/Lucas) | 代码贡献者 |
-| [Henry](https://github.com/Henry) | 代码贡献者 |
-| [Alexander](https://github.com/Alexander) | 代码贡献者 |
-| [Mason](https://github.com/Mason) | 代码贡献者 |
-| [Ethan](https://github.com/Ethan) | 代码贡献者 |
-| [Michael](https://github.com/Michael) | 代码贡献者 |
-| [Daniel](https://github.com/Daniel) | 代码贡献者 |
-| [Jacob](https://github.com/Jacob) | 代码贡献者 |
-| [Logan](https://github.com/Logan) | 代码贡献者 |
-| [Jackson](https://github.com/Jackson) | 代码贡献者 |
-| [Levi](https://github.com/Levi) | 代码贡献者 |
-| [Samuel](https://github.com/Samuel) | 代码贡献者 |
-| [David](https://github.com/David) | 代码贡献者 |
-| [Joseph](https://github.com/Joseph) | 代码贡献者 |
-| [Owen](https://github.com/Owen) | 代码贡献者 |
-| [Edward](https://github.com/Edward) | 代码贡献者 |
-| [Thomas](https://github.com/Thomas) | 代码贡献者 |
-| [Charles](https://github.com/Charles) | 代码贡献者 |
-| [Christopher](https://github.com/Christopher) | 代码贡献者 |
-| [Matthew](https://github.com/Matthew) | 代码贡献者 |
-| [Anthony](https://github.com/Anthony) | 代码贡献者 |
-| [Joshua](https://github.com/Joshua) | 代码贡献者 |
-| [Andrew](https://github.com/Andrew) | 代码贡献者 |
-| [Dylan](https://github.com/Dylan) | 代码贡献者 |
-| [Gabriel](https://github.com/Gabriel) | 代码贡献者 |
-| [Julian](https://github.com/Julian) | 代码贡献者 |
-| [Isaac](https://github.com/Isaac) | 代码贡献者 |
-| [Ryan](https://github.com/Ryan) | 代码贡献者 |
-| [Nathan](https://github.com/Nathan) | 代码贡献者 |
-| [Sebastian](https://github.com/Sebastian) | 代码贡献者 |
-| [Carter](https://github.com/Carter) | 代码贡献者 |
-| [Jayden](https://github.com/Jayden) | 代码贡献者 |
-| [John](https://github.com/John) | 代码贡献者 |
-| [Wyatt](https://github.com/Wyatt) | 代码贡献者 |
-| [Luke](https://github.com/Luke) | 代码贡献者 |
-| [Asher](https://github.com/Asher) | 代码贡献者 |
-| [Christian](https://github.com/Christian) | 代码贡献者 |
-| [Hunter](https://github.com/Hunter) | 代码贡献者 |
-| [Jack](https://github.com/Jack) | 代码贡献者 |
-| [Cooper](https://github.com/Cooper) | 代码贡献者 |
-| [Samuel](https://github.com/Samuel) | 代码贡献者 |
-| [Dylan](https://github.com/Dylan) | 代码贡献者 |
-| [Elijah](https://github.com/Elijah) | 代码贡献者 |
+Thanks to the PR contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
 
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
