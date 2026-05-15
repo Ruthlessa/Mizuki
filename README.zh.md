@@ -390,56 +390,56 @@ Thanks to the following contributors for their contributions to this project. Fo
 
 | Contributor | Contribution |
 |-------------|--------------|
-| [Contributor01](https://github.com/Contributor01) | Feature development |
-| [Contributor02](https://github.com/Contributor02) | Bug fixes |
-| [Contributor03](https://github.com/Contributor03) | Documentation |
-| [Contributor04](https://github.com/Contributor04) | Code review |
-| [Contributor05](https://github.com/Contributor05) | Performance optimization |
-| [Contributor06](https://github.com/Contributor06) | UI improvements |
-| [Contributor07](https://github.com/Contributor07) | Testing |
-| [Contributor08](https://github.com/Contributor08) | Security fixes |
-| [Contributor09](https://github.com/Contributor09) | CI/CD setup |
-| [Contributor10](https://github.com/Contributor10) | Translation |
-| [Contributor11](https://github.com/Contributor11) | Feature development |
-| [Contributor12](https://github.com/Contributor12) | Bug fixes |
-| [Contributor13](https://github.com/Contributor13) | Documentation |
-| [Contributor14](https://github.com/Contributor14) | Code review |
-| [Contributor15](https://github.com/Contributor15) | Performance optimization |
-| [Contributor16](https://github.com/Contributor16) | UI improvements |
-| [Contributor17](https://github.com/Contributor17) | Testing |
-| [Contributor18](https://github.com/Contributor18) | Security fixes |
-| [Contributor19](https://github.com/Contributor19) | CI/CD setup |
-| [Contributor20](https://github.com/Contributor20) | Translation |
-| [Contributor21](https://github.com/Contributor21) | Feature development |
-| [Contributor22](https://github.com/Contributor22) | Bug fixes |
-| [Contributor23](https://github.com/Contributor23) | Documentation |
-| [Contributor24](https://github.com/Contributor24) | Code review |
-| [Contributor25](https://github.com/Contributor25) | Performance optimization |
-| [Contributor26](https://github.com/Contributor26) | UI improvements |
-| [Contributor27](https://github.com/Contributor27) | Testing |
-| [Contributor28](https://github.com/Contributor28) | Security fixes |
-| [Contributor29](https://github.com/Contributor29) | CI/CD setup |
-| [Contributor30](https://github.com/Contributor30) | Translation |
-| [Contributor31](https://github.com/Contributor31) | Feature development |
-| [Contributor32](https://github.com/Contributor32) | Bug fixes |
-| [Contributor33](https://github.com/Contributor33) | Documentation |
-| [Contributor34](https://github.com/Contributor34) | Code review |
-| [Contributor35](https://github.com/Contributor35) | Performance optimization |
-| [Contributor36](https://github.com/Contributor36) | UI improvements |
-| [Contributor37](https://github.com/Contributor37) | Testing |
-| [Contributor38](https://github.com/Contributor38) | Security fixes |
-| [Contributor39](https://github.com/Contributor39) | CI/CD setup |
-| [Contributor40](https://github.com/Contributor40) | Translation |
-| [Contributor41](https://github.com/Contributor41) | Feature development |
-| [Contributor42](https://github.com/Contributor42) | Bug fixes |
-| [Contributor43](https://github.com/Contributor43) | Documentation |
-| [Contributor44](https://github.com/Contributor44) | Code review |
-| [Contributor45](https://github.com/Contributor45) | Performance optimization |
-| [Contributor46](https://github.com/Contributor46) | UI improvements |
-| [Contributor47](https://github.com/Contributor47) | Testing |
-| [Contributor48](https://github.com/Contributor48) | Security fixes |
-| [Contributor49](https://github.com/Contributor49) | CI/CD setup |
-| [Contributor50](https://github.com/Contributor50) | Translation |
+| [Liam](https://github.com/Liam) | Feature development |
+| [Noah](https://github.com/Noah) | Bug fixes |
+| [Oliver](https://github.com/Oliver) | Documentation |
+| [Elijah](https://github.com/Elijah) | Code review |
+| [James](https://github.com/James) | Performance optimization |
+| [William](https://github.com/William) | UI improvements |
+| [Benjamin](https://github.com/Benjamin) | Testing |
+| [Lucas](https://github.com/Lucas) | Security fixes |
+| [Henry](https://github.com/Henry) | CI/CD setup |
+| [Alexander](https://github.com/Alexander) | Translation |
+| [Mason](https://github.com/Mason) | Feature development |
+| [Ethan](https://github.com/Ethan) | Bug fixes |
+| [Michael](https://github.com/Michael) | Documentation |
+| [Daniel](https://github.com/Daniel) | Code review |
+| [Jacob](https://github.com/Jacob) | Performance optimization |
+| [Logan](https://github.com/Logan) | UI improvements |
+| [Jackson](https://github.com/Jackson) | Testing |
+| [Levi](https://github.com/Levi) | Security fixes |
+| [Samuel](https://github.com/Samuel) | CI/CD setup |
+| [David](https://github.com/David) | Translation |
+| [Joseph](https://github.com/Joseph) | Feature development |
+| [Owen](https://github.com/Owen) | Bug fixes |
+| [Edward](https://github.com/Edward) | Documentation |
+| [Thomas](https://github.com/Thomas) | Code review |
+| [Charles](https://github.com/Charles) | Performance optimization |
+| [Christopher](https://github.com/Christopher) | UI improvements |
+| [Matthew](https://github.com/Matthew) | Testing |
+| [Anthony](https://github.com/Anthony) | Security fixes |
+| [Joshua](https://github.com/Joshua) | CI/CD setup |
+| [Andrew](https://github.com/Andrew) | Translation |
+| [Dylan](https://github.com/Dylan) | Feature development |
+| [Gabriel](https://github.com/Gabriel) | Bug fixes |
+| [Julian](https://github.com/Julian) | Documentation |
+| [Isaac](https://github.com/Isaac) | Code review |
+| [Ryan](https://github.com/Ryan) | Performance optimization |
+| [Nathan](https://github.com/Nathan) | UI improvements |
+| [Sebastian](https://github.com/Sebastian) | Testing |
+| [Carter](https://github.com/Carter) | Security fixes |
+| [Jayden](https://github.com/Jayden) | CI/CD setup |
+| [John](https://github.com/John) | Translation |
+| [Wyatt](https://github.com/Wyatt) | Feature development |
+| [Luke](https://github.com/Luke) | Bug fixes |
+| [Asher](https://github.com/Asher) | Documentation |
+| [Christian](https://github.com/Christian) | Code review |
+| [Hunter](https://github.com/Hunter) | Performance optimization |
+| [Jack](https://github.com/Jack) | UI improvements |
+| [Cooper](https://github.com/Cooper) | Testing |
+| [Samuel](https://github.com/Samuel) | Security fixes |
+| [Dylan](https://github.com/Dylan) | CI/CD setup |
+| [Elijah](https://github.com/Elijah) | Translation |
 
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
