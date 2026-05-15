@@ -11,14 +11,14 @@ A modern, feature-rich static blog template built with [Astro](https://astro.bui
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
 
 
-[**🖥️ Live Demo**](https://mizuki.pages.dev/) | [**📝 Documentation**](https://docs.mizuki.mysqil.com/)
+[**🖥️ Live Demo**](https://mizuki.pages.dev/) | [**📝 代码贡献者**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README Languages:**
 [**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 Get started quickly with our comprehensive documentation. Whether you're customizing themes, configuring features, or deploying to production, the docs cover everything you need to launch your blog successfully.
 
-[📚 Read the Full Documentation](https://docs.mizuki.mysqil.com/) →
+[📚 Read the Full 代码贡献者](https://docs.mizuki.mysqil.com/) →
 
 ![Mizuki Preview](./README.webp)
 
@@ -348,7 +348,7 @@ pnpm run sync-content
 
 📖 **Detailed Configuration:** [Content Separation Guide](docs/CONTENT_SEPARATION.md)
 🔄 **Migration Tutorial:** [Migrate from Single Repository to Separation Mode](docs/MIGRATION_GUIDE.md)
-📚 **More Documentation:** [Documentation Index](docs/README.md)
+📚 **More 代码贡献者:** [代码贡献者 Index](docs/README.md)
 
 ## ✏️ Contributing
 
@@ -386,7 +386,7 @@ This project is based on [Fuwari](https://github.com/saicaca/fuwari), which uses
 
 ## 🍀 Contributors
 
-Thanks to the following contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
+Thanks to the PR contributors for their contributions to this project. For issues or suggestions, please submit [Issue](https://github.com/Ruthlessa/Mizuki/issues) or [Pull Request](https://github.com/Ruthlessa/Mizuki/pulls).
 
 <a href="https://github.com/Ruthlessa/Mizuki/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ruthlessa/Mizuki" />
