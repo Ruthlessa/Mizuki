@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte";
+	import { onMount } from "svelte";
 
 	import Key from "../../../../i18n/i18nKey";
 	import { i18n } from "../../../../i18n/translation";
@@ -22,7 +23,13 @@
 		interactive = false,
 	}: Props = $props();
 
+	let imageError = false;
+	let hasWindow = typeof window !== "undefined";
+
 	function getAssetPath(path: string): string {
+		if (!path || path.trim() === "") {
+			return "";
+		}
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;
 		}
@@ -32,11 +39,19 @@
 		return `/${path}`;
 	}
 
+	function handleImageError() {
+		imageError = true;
+	}
+
 	const containerClasses = {
 		mini: "cover-container relative w-12 h-12 rounded-full overflow-hidden",
 		expanded:
 			"cover-container relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0",
 	};
+
+	onMount(() => {
+		hasWindow = true;
+	});
 </script>
 
 {#if size === "orb"}
@@ -92,15 +107,27 @@
 			? i18n(Key.musicPlayerPause)
 			: i18n(Key.musicPlayerPlay)}
 	>
-		<img
-			src={getAssetPath(cover)}
-			alt={i18n(Key.musicPlayerCover)}
-			loading="eager"
-			fetchpriority="high"
-			class="w-full h-full object-cover transition-transform duration-300"
-			class:spinning={isPlaying && !isLoading}
-			class:animate-pulse={isLoading}
-		/>
+		{#if imageError || !cover || cover.trim() === ""}
+			<div
+				class="w-full h-full bg-[var(--btn-regular-bg)] flex items-center justify-center"
+			>
+				<Icon
+					icon="material-symbols:music-note"
+					class="text-[var(--btn-content)] text-2xl"
+				/>
+			</div>
+		{:else}
+			<img
+				src={getAssetPath(cover)}
+				alt={i18n(Key.musicPlayerCover)}
+				loading="eager"
+				fetchpriority="high"
+				class="w-full h-full object-cover transition-transform duration-300"
+				class:spinning={isPlaying && !isLoading}
+				class:animate-pulse={isLoading}
+				on:error={handleImageError}
+			/>
+		{/if}
 		<div
 			class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
 		>
@@ -121,15 +148,27 @@
 	</div>
 {:else}
 	<div class={containerClasses[size]}>
-		<img
-			src={getAssetPath(cover)}
-			alt={i18n(Key.musicPlayerCover)}
-			loading="eager"
-			fetchpriority="high"
-			class="w-full h-full object-cover transition-transform duration-300"
-			class:spinning={isPlaying && !isLoading}
-			class:animate-pulse={isLoading}
-		/>
+		{#if imageError || !cover || cover.trim() === ""}
+			<div
+				class="w-full h-full bg-[var(--btn-regular-bg)] flex items-center justify-center"
+			>
+				<Icon
+					icon="material-symbols:music-note"
+					class="text-[var(--btn-content)] text-2xl"
+				/>
+			</div>
+		{:else}
+			<img
+				src={getAssetPath(cover)}
+				alt={i18n(Key.musicPlayerCover)}
+				loading="eager"
+				fetchpriority="high"
+				class="w-full h-full object-cover transition-transform duration-300"
+				class:spinning={isPlaying && !isLoading}
+				class:animate-pulse={isLoading}
+				on:error={handleImageError}
+			/>
+		{/if}
 	</div>
 {/if}
 
