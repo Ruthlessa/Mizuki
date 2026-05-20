@@ -98,26 +98,6 @@ export function getFileDirFromPath(filePath: string): string {
 	return filePath.replace(/^src\//, "").replace(/\/[^/]+$/, "");
 }
 
-export function url(path: string): string {
-	let processedPath = path;
-	
-	// 处理带查询参数的路径
-	const hasQuery = processedPath.includes("?");
-	let basePath = processedPath;
-	let queryString = "";
-	
-	if (hasQuery) {
-		const parts = processedPath.split("?");
-		basePath = parts[0];
-		queryString = "?" + parts.slice(1).join("?");
-	}
-	
-	// 确保路径以尾部斜杠结尾（除了根路径 "/" 和文件路径）
-	if (basePath !== "/" && !basePath.match(/\.[a-zA-Z0-9]+$/) && !basePath.endsWith("/")) {
-		basePath += "/";
-	}
-	
-	processedPath = basePath + queryString;
-	
-	return joinUrl("", import.meta.env.BASE_URL, processedPath);
+export function url(path: string) {
+	return joinUrl("", import.meta.env.BASE_URL, path);
 }
