@@ -47,7 +47,7 @@
 		"@swup/astro": "^1.8.0",
 		"@tailwindcss/typography": "^0.5.15",
 		"@tailwindcss/vite": "^4.3.0",
-		"astro": "6.3.3",
+		"astro": "6.3.5",
 		"astro-expressive-code": "^0.42.0",
 		"astro-icon": "^1.1.5",
 		"axios": "^1.16.0",
@@ -82,7 +82,7 @@
 		"unist-util-visit": "^5.1.0"
 	},
 	"devDependencies": {
-		"@astrojs/ts-plugin": "^1.10.7",
+		"@astrojs/ts-plugin": "^1.10.9",
 		"@eslint/js": "^10.0.1",
 		"@iconify-json/fa7-brands": "^1.2.2",
 		"@iconify-json/fa7-regular": "^1.2.3",
