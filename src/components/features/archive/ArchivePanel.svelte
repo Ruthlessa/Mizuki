@@ -9,14 +9,14 @@
 
 	interface Post {
 		id: string;
-		url?: string; // 预计算的文章 URL
+		url?: string;
 		data: {
 			title: string;
 			tags: string[];
 			category?: string;
-			published: Date;
+			published: Date | string;
 			alias?: string;
-			permalink?: string; // 自定义固定链接
+			permalink?: string;
 		};
 	}
 
@@ -31,9 +31,14 @@
 	let initialCategories: string[] = [];
 	let uncategorized: string | null = null;
 
-	function formatDate(date: Date) {
-		const month = (date.getMonth() + 1).toString().padStart(2, "0");
-		const day = date.getDate().toString().padStart(2, "0");
+	function getDate(date: Date | string): Date {
+		return typeof date === "string" ? new Date(date) : date;
+	}
+
+	function formatDate(date: Date | string) {
+		const d = getDate(date);
+		const month = (d.getMonth() + 1).toString().padStart(2, "0");
+		const day = d.getDate().toString().padStart(2, "0");
 		return `${month}-${day}`;
 	}
 
@@ -42,7 +47,6 @@
 	}
 
 	onMount(async () => {
-		// 在 onMount 中才访问 window，此时组件已在客户端挂载
 		hasWindow = typeof window !== "undefined";
 		
 		if (hasWindow) {
@@ -74,17 +78,16 @@
 			filteredPosts = filteredPosts.filter((post) => !post.data.category);
 		}
 
-		// 按发布时间倒序排序，确保不受置顶影响
 		filteredPosts = filteredPosts
 			.slice()
 			.sort(
 				(a, b) =>
-					b.data.published.getTime() - a.data.published.getTime(),
+					getDate(b.data.published).getTime() - getDate(a.data.published).getTime(),
 			);
 
 		const grouped = filteredPosts.reduce(
 			(acc, post) => {
-				const year = post.data.published.getFullYear();
+				const year = getDate(post.data.published).getFullYear();
 				if (!acc[year]) {
 					acc[year] = [];
 				}
