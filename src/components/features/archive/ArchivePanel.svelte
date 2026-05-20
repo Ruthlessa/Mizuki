@@ -3,14 +3,9 @@
 	import { i18n } from "@i18n/translation";
 	import { onMount } from "svelte";
 
-	export let tags: string[];
-	export let categories: string[];
+	export let tags: string[] = [];
+	export let categories: string[] = [];
 	export let sortedPosts: Post[] = [];
-
-	const params = new URLSearchParams(window.location.search);
-	tags = params.has("tag") ? params.getAll("tag") : [];
-	categories = params.has("category") ? params.getAll("category") : [];
-	const uncategorized = params.get("uncategorized");
 
 	interface Post {
 		id: string;
@@ -31,6 +26,10 @@
 	}
 
 	let groups: Group[] = [];
+	let hasWindow = typeof window !== "undefined";
+	let initialTags: string[] = [];
+	let initialCategories: string[] = [];
+	let uncategorized: string | null = null;
 
 	function formatDate(date: Date) {
 		const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -43,21 +42,31 @@
 	}
 
 	onMount(async () => {
+		// 在 onMount 中才访问 window，此时组件已在客户端挂载
+		hasWindow = typeof window !== "undefined";
+		
+		if (hasWindow) {
+			const params = new URLSearchParams(window.location.search);
+			initialTags = params.has("tag") ? params.getAll("tag") : [];
+			initialCategories = params.has("category") ? params.getAll("category") : [];
+			uncategorized = params.get("uncategorized");
+		}
+
 		let filteredPosts: Post[] = sortedPosts;
 
-		if (tags.length > 0) {
+		if (initialTags.length > 0) {
 			filteredPosts = filteredPosts.filter(
 				(post) =>
 					Array.isArray(post.data.tags) &&
-					post.data.tags.some((tag) => tags.includes(tag)),
+					post.data.tags.some((tag) => initialTags.includes(tag)),
 			);
 		}
 
-		if (categories.length > 0) {
+		if (initialCategories.length > 0) {
 			filteredPosts = filteredPosts.filter(
 				(post) =>
 					post.data.category &&
-					categories.includes(post.data.category),
+					initialCategories.includes(post.data.category),
 			);
 		}
 
