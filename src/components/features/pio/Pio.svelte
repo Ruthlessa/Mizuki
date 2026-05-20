@@ -20,28 +20,14 @@
 	let pioContainer: HTMLDivElement | null = null;
 	let pioCanvas: HTMLCanvasElement | null = null;
 
-	function hasWebGLSupport(): boolean {
-		if (typeof window === "undefined") return false;
-		const canvas = document.createElement("canvas");
-		const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-		return !!gl;
-	}
-
 	function initPio() {
 		if (
 			typeof window !== "undefined" &&
 			typeof (window as any).Paul_Pio !== "undefined"
 		) {
 			try {
-				if (!hasWebGLSupport()) {
-					console.warn("WebGL is not supported, Pio will be disabled");
-					if (pioContainer) {
-						pioContainer.style.display = "none";
-					}
-					return;
-				}
-
 				if (pioContainer && pioCanvas && !pioInitialized) {
+					// 清除 localStorage 中的隐藏设置，强制显示
 					localStorage.removeItem("posterGirl");
 
 					pioInstance = new (window as any).Paul_Pio(pioOptions);
@@ -53,9 +39,6 @@
 				}
 			} catch (e) {
 				console.error("Pio initialization error:", e);
-				if (pioContainer) {
-					pioContainer.style.display = "none";
-				}
 			}
 		} else {
 			setTimeout(initPio, 100);

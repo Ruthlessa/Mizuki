@@ -12,19 +12,36 @@
 	let hue = 250;
 	let defaultHue = 250;
 	let isMounted = false;
+	let hasWindow = typeof window !== "undefined";
 
 	function resetHue() {
-		hue = defaultHue;
+		if (isMounted) {
+			hue = defaultHue;
+		}
 	}
 
 	onMount(() => {
-		isMounted = true;
-		defaultHue = getDefaultHue();
-		hue = getHue();
+		try {
+			if (!hasWindow) {
+				isMounted = false;
+				return;
+			}
+			hasWindow = true;
+			isMounted = true;
+			defaultHue = getDefaultHue();
+			hue = getHue();
+		} catch (error) {
+			console.error("DisplaySettings initialization error:", error);
+			isMounted = false;
+		}
 	});
 
-	$: if (isMounted && (hue || hue === 0)) {
-		setHue(hue);
+	$: if (isMounted && hasWindow && (hue || hue === 0)) {
+		try {
+			setHue(hue);
+		} catch (error) {
+			console.error("DisplaySettings setHue error:", error);
+		}
 	}
 </script>
 
