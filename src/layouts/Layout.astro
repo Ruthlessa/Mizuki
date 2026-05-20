@@ -324,12 +324,35 @@ if (siteConfig.font) {
 	initSwupManager();
 </script>
 
-<!-- 代码块折叠功能 -->
-<script>
-	import "../scripts/code-collapse.js";
+<!-- 代码块折叠功能 - 延迟加载（非关键功能） -->
+<script
+	is:inline
+>
+	// 延迟加载代码块折叠功能
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			import('../scripts/code-collapse.js');
+		});
+	} else {
+		import('../scripts/code-collapse.js');
+	}
 </script>
 
-<!-- 主题切换综合性能优化器（包含代码块优化、重型元素优化、性能诊断） -->
-<script>
-	import "../scripts/theme-optimizer.js";
+<!-- 主题切换综合性能优化器 - 延迟加载（非首屏关键） -->
+<script
+	is:inline
+>
+	// 延迟加载主题优化器（首屏渲染完成后）
+	const loadThemeOptimizer = () => {
+		import('../scripts/theme-optimizer.js');
+	};
+	
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			// 首屏渲染后延迟 500ms 加载
+			setTimeout(loadThemeOptimizer, 500);
+		});
+	} else {
+		setTimeout(loadThemeOptimizer, 500);
+	}
 </script>
