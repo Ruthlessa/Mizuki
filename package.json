@@ -55,7 +55,7 @@
 		"dayjs": "^1.11.20",
 		"hastscript": "^9.0.1",
 		"katex": "^0.16.47",
-		"markdown-it": "^14.1.1",
+		"markdown-it": "^14.2.0",
 		"marked": "^16.4.2",
 		"node-html-parser": "^7.0.2",
 		"oddmisc": "^1.2.5",
