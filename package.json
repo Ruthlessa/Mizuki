@@ -87,9 +87,9 @@
 		"@iconify-json/fa7-brands": "^1.2.2",
 		"@iconify-json/fa7-regular": "^1.2.3",
 		"@iconify-json/fa7-solid": "^1.2.4",
-		"@iconify-json/material-symbols": "^1.2.73",
+		"@iconify-json/material-symbols": "^1.2.74",
 		"@iconify-json/mdi": "^1.2.3",
-		"@iconify-json/simple-icons": "^1.2.81",
+		"@iconify-json/simple-icons": "^1.2.83",
 		"@lhci/cli": "^0.15.1",
 		"@rollup/plugin-yaml": "^4.1.2",
 		"@types/hast": "^3.0.4",
@@ -112,7 +112,7 @@
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
 		"svelte-eslint-parser": "^1.6.1",
-		"typescript-eslint": "^8.59.2"
+		"typescript-eslint": "^8.59.4"
 	},
 	"engines": {
 		"node": ">=24.12.0"
