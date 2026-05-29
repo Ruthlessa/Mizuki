@@ -27,9 +27,9 @@
 
 	let groups: Group[] = [];
 	let hasWindow = typeof window !== "undefined";
-	let initialTags: string[] = [];
-	let initialCategories: string[] = [];
-	let uncategorized: string | null = null;
+	let currentTags: string[] = [];
+	let currentCategories: string[] = [];
+	let currentUncategorized: string | null = null;
 
 	function getDate(date: Date | string): Date {
 		return typeof date === "string" ? new Date(date) : date;
@@ -46,35 +46,26 @@
 		return tagList.map((t) => `#${t}`).join(" ");
 	}
 
-	onMount(async () => {
-		hasWindow = typeof window !== "undefined";
-		
-		if (hasWindow) {
-			const params = new URLSearchParams(window.location.search);
-			initialTags = params.has("tag") ? params.getAll("tag") : [];
-			initialCategories = params.has("category") ? params.getAll("category") : [];
-			uncategorized = params.get("uncategorized");
-		}
+	function processPosts(posts: Post[], filterTags: string[], filterCategories: string[], filterUncategorized: string | null): Group[] {
+		let filteredPosts: Post[] = posts;
 
-		let filteredPosts: Post[] = sortedPosts;
-
-		if (initialTags.length > 0) {
+		if (filterTags.length > 0) {
 			filteredPosts = filteredPosts.filter(
 				(post) =>
 					Array.isArray(post.data.tags) &&
-					post.data.tags.some((tag) => initialTags.includes(tag)),
+					post.data.tags.some((tag) => filterTags.includes(tag)),
 			);
 		}
 
-		if (initialCategories.length > 0) {
+		if (filterCategories.length > 0) {
 			filteredPosts = filteredPosts.filter(
 				(post) =>
 					post.data.category &&
-					initialCategories.includes(post.data.category),
+					filterCategories.includes(post.data.category),
 			);
 		}
 
-		if (uncategorized) {
+		if (filterUncategorized) {
 			filteredPosts = filteredPosts.filter((post) => !post.data.category);
 		}
 
@@ -104,7 +95,20 @@
 
 		groupedPostsArray.sort((a, b) => b.year - a.year);
 
-		groups = groupedPostsArray;
+		return groupedPostsArray;
+	}
+
+	$: groups = processPosts(sortedPosts, currentTags, currentCategories, currentUncategorized);
+
+	onMount(() => {
+		hasWindow = typeof window !== "undefined";
+		
+		if (hasWindow) {
+			const params = new URLSearchParams(window.location.search);
+			currentTags = params.has("tag") ? params.getAll("tag") : [];
+			currentCategories = params.has("category") ? params.getAll("category") : [];
+			currentUncategorized = params.get("uncategorized");
+		}
 	});
 </script>
 
