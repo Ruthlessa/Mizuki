@@ -247,6 +247,8 @@ export default defineConfig({
 							if (id.includes("astro")) return "astro-vendor";
 							if (id.includes("svelte")) return "svelte-vendor";
 							if (id.includes("swup")) return "ui-vendor";
+							if (id.includes("expressive-code")) return "code-vendor";
+							if (id.includes("iconify")) return "icon-vendor";
 							return "vendor";
 						}
 					},
@@ -255,10 +257,12 @@ export default defineConfig({
 					assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
 					compact: true,
 					hoistTransitiveImports: true,
+					preserveModules: false,
 				},
 				treeshake: {
 					unknownGlobalSideEffects: false,
 					preset: "smallest",
+					moduleSideEffects: false,
 				},
 			},
 		},
