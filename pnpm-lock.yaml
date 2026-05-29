@@ -88,7 +88,7 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0
       markdown-it:
-        specifier: ^14.2.0
+        specifier: ^14.1.1
         version: 14.2.0
       marked:
         specifier: ^16.4.2
