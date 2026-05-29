@@ -3,10 +3,6 @@
 	import { i18n } from "@i18n/translation";
 	import { onMount } from "svelte";
 
-	export let tags: string[] = [];
-	export let categories: string[] = [];
-	export let sortedPosts: Post[] = [];
-
 	interface Post {
 		id: string;
 		url?: string;
@@ -25,11 +21,11 @@
 		posts: Post[];
 	}
 
-	let groups: Group[] = [];
-	let hasWindow = typeof window !== "undefined";
-	let initialTags: string[] = [];
-	let initialCategories: string[] = [];
-	let uncategorized: string | null = null;
+	let { sortedPosts = [] }: { sortedPosts?: Post[] } = $props();
+	let groups: Group[] = $state([]);
+	let initialTags: string[] = $state([]);
+	let initialCategories: string[] = $state([]);
+	let uncategorized: string | null = $state(null);
 
 	function getDate(date: Date | string): Date {
 		return typeof date === "string" ? new Date(date) : date;
@@ -46,16 +42,7 @@
 		return tagList.map((t) => `#${t}`).join(" ");
 	}
 
-	onMount(async () => {
-		hasWindow = typeof window !== "undefined";
-		
-		if (hasWindow) {
-			const params = new URLSearchParams(window.location.search);
-			initialTags = params.has("tag") ? params.getAll("tag") : [];
-			initialCategories = params.has("category") ? params.getAll("category") : [];
-			uncategorized = params.get("uncategorized");
-		}
-
+	function processPosts() {
 		let filteredPosts: Post[] = sortedPosts;
 
 		if (initialTags.length > 0) {
@@ -105,6 +92,15 @@
 		groupedPostsArray.sort((a, b) => b.year - a.year);
 
 		groups = groupedPostsArray;
+	}
+
+	onMount(async () => {
+		const params = new URLSearchParams(window.location.search);
+		initialTags = params.has("tag") ? params.getAll("tag") : [];
+		initialCategories = params.has("category") ? params.getAll("category") : [];
+		uncategorized = params.get("uncategorized");
+
+		processPosts();
 	});
 </script>
 
