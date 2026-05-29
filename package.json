@@ -25,7 +25,6 @@
     "lint": "eslint ./src --fix",
     "preinstall": "npx only-allow pnpm",
     "compress-fonts": "node scripts/compress-fonts.js",
-    "test-font-compression": "node scripts/test-font-compression.js",
     "optimize": "node scripts/optimize-all.js",
     "optimize-images": "node scripts/convert-images.js",
     "lhci": "lhci",
