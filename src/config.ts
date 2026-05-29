@@ -331,18 +331,13 @@ export const navBarConfig: NavBarConfig = {
 					url: "/timeline/",
 					icon: "material-symbols:timeline",
 				},
-				{
-					name: "管理",
-					url: "/admin/",
-					icon: "material-symbols:admin-panel-settings",
-				},
 			],
 		},
 	],
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/avatar.jpg", // 相对于 /public 目录。如果不以 '/' 开头，则相对于 /src 目录
+	avatar: "/avatar.webp", // 相对于 /public 目录。如果不以 '/' 开头，则相对于 /src 目录
 	name: "无情",
 	bio: "本网站使用 Astro 框架构建，采用 Mizuki 主题。",
 	typewriter: {
