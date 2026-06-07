@@ -76,6 +76,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://developer.mozilla.org",
 		tags: ["文档", "参考"],
 	},
+	{
+		id: 9,
+		title: "DigitalPlat",
+		imgurl: "https://img.icons8.com/color/480/domain--v1.png",
+		desc: "Get a free domain from DigitalPlat",
+		siteurl: "https://dash.domain.digitalplat.org/signup?ref=8csr4505Bf",
+		tags: ["工具", "域名"],
+	},
 ];
 
 // 获取所有友情链接数据
