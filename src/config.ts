@@ -478,6 +478,16 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 0,
 		},
 		{
+			// 组件类型：DigitalPlat 推广按钮组件
+			type: "digitalplat",
+			// 组件位置："top" 表示固定在顶部
+			position: "top",
+			// CSS 类名
+			class: "onload-animation",
+			// 动画延迟时间
+			animationDelay: 50,
+		},
+		{
 			// 组件类型：公告组件
 			type: "announcement",
 			// 组件位置："top" 表示固定在顶部
@@ -558,7 +568,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 
 	// 侧栏组件布局配置
 	components: {
-		left: ["profile", "announcement", "tags", "card-toc"],
+		left: ["profile", "digitalplat", "announcement", "tags", "card-toc"],
 		right: ["site-stats", "calendar", "categories", "music-sidebar"],
 		drawer: [
 			"profile",
