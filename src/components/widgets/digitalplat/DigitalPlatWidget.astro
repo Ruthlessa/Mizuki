@@ -1,0 +1,21 @@
+---
+import { DigitalPlatButton } from "@/components/control/DigitalPlatButton.astro";
+import WidgetLayout from "../common/WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const { class: className, style } = Astro.props;
+---
+
+<WidgetLayout
+	name="DigitalPlat"
+	id="digitalplat"
+	class={className}
+	style={style}
+>
+	<div class="flex justify-center">
+		<DigitalPlatButton />
+	</div>
+</WidgetLayout>
