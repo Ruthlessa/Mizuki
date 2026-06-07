@@ -1,0 +1,36 @@
+---
+interface Props {
+  url?: string;
+  text?: string;
+  class?: string;
+}
+
+const {
+  url = "https://a.nfq.dpdns.org/",
+  text = "DigitalPlat",
+  class: className = "",
+} = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all",
+    "bg-[var(--primary)] text-white font-medium",
+    "hover:opacity-90 active:scale-95",
+    "border border-transparent hover:border-[var(--primary)]",
+    className,
+  ]}
+>
+  <img
+    src="https://a.nfq.dpdns.org/"
+    alt="NFQ"
+    width="16"
+    height="16"
+    class="rounded-sm border border-white/20"
+    loading="lazy"
+  />
+  <span>{text}</span>
+</a>
