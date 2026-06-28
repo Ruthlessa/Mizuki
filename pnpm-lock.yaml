@@ -97,8 +97,8 @@ importers:
         specifier: ^7.0.2
         version: 7.1.0
       oddmisc:
-        specifier: ^1.2.5
-        version: 1.2.5
+        specifier: ^1.2.8
+        version: 1.2.8
       overlayscrollbars:
         specifier: ^2.16.0
         version: 2.16.0
@@ -170,23 +170,23 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.4.1(jiti@2.7.0))
       '@iconify-json/fa7-brands':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.2.3
+        version: 1.2.3
       '@iconify-json/fa7-regular':
         specifier: ^1.2.3
         version: 1.2.3
       '@iconify-json/fa7-solid':
-        specifier: ^1.2.4
-        version: 1.2.4
+        specifier: ^1.2.5
+        version: 1.2.5
       '@iconify-json/material-symbols':
-        specifier: ^1.2.79
-        version: 1.2.79
+        specifier: ^1.2.81
+        version: 1.2.81
       '@iconify-json/mdi':
         specifier: ^1.2.3
         version: 1.2.3
       '@iconify-json/simple-icons':
-        specifier: ^1.2.86
-        version: 1.2.86
+        specifier: ^1.2.87
+        version: 1.2.87
       '@lhci/cli':
         specifier: ^0.15.1
         version: 0.15.1(encoding@0.1.13)
@@ -1211,23 +1211,23 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify-json/fa7-brands@1.2.2':
-    resolution: {integrity: sha512-y6ZBdlLS4v1suB6fuMI5kqSO0B91Y19nlqTz7VfBYu9lI948tbRh+6lU2kNMOlo8I4qgSWX0SEdN7jkhOzI5gA==}
+  '@iconify-json/fa7-brands@1.2.3':
+    resolution: {integrity: sha512-54BpMFaIRsdfmLZ+mYzKkRcDplTKrqDl3/jQfP8mEwRpb1UFhUqCRa4asxu4OhDfjWGiLi4gMTpvuekiWyn9Mw==}
 
   '@iconify-json/fa7-regular@1.2.3':
     resolution: {integrity: sha512-j+3awnyNH2fpMaxqShVWT1JzaG7HR1N3SkKrMXYeonB3XRdW0SJuMaXqwzl1yPAdcqSO5bmCRIznPJ1j/PDi8w==}
 
-  '@iconify-json/fa7-solid@1.2.4':
-    resolution: {integrity: sha512-Ns+ABU21PQpTjMZZ8idaQ9CDNYxjCJ/HY4+gkDsnAiJLkISMB2WIjoR2sjEj+Yok72sFwhXdYKBxwfRaGlwVpA==}
+  '@iconify-json/fa7-solid@1.2.5':
+    resolution: {integrity: sha512-e9EOtXuvDhiv6gBjbuW1q4bSR2tU5HmsDxqbLElQt2w2dR1Byh2mXfPLdRgEVwEr50uQV5tKxE3YAL6LTa+1fA==}
 
-  '@iconify-json/material-symbols@1.2.79':
-    resolution: {integrity: sha512-WRLBReaTNJAeHxsFlD7pJ/K6il2vOZ4va3XTAUdTDkn4rWzRYu6dnI1bAW/4pANlTCt5eemtP65gBBNxt8Xd7Q==}
+  '@iconify-json/material-symbols@1.2.81':
+    resolution: {integrity: sha512-OUKm7GwMwdA1iLnlJD1dJsysgP0Z9fGZhqFiG4/mHVnSQfBBHcj5fdWiDCLZNLMssP7jRIHYojuSKDYrAWBL2g==}
 
   '@iconify-json/mdi@1.2.3':
     resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
 
-  '@iconify-json/simple-icons@1.2.86':
-    resolution: {integrity: sha512-t3jck5qPQuK1qy+bRn9eCoDQhIB7XSazKz1Fjp8hcan3XOAsTI5Mq/s3F0ekOKSvMQqkVORYK6ns6o6T9f5EMA==}
+  '@iconify-json/simple-icons@1.2.87':
+    resolution: {integrity: sha512-8YciStObhSji3OZFmWAWK6kBujyqO5bLCxeDwLxf3CR3F4PVelq7keC2LBvgTqviWzSTysj5/g4PCFLiAMVGsw==}
 
   '@iconify/svelte@5.2.1':
     resolution: {integrity: sha512-zHmsIPmnIhGd5gc95bNN5FL+GifwMZv7M2rlZEpa7IXYGFJm/XGHdWf6PWQa6OBoC+R69WyiPO9NAj5wjfjbow==}
@@ -5143,8 +5143,8 @@ packages:
     resolution: {integrity: sha512-9miFgM2OFba7hB+pRgvtV84pYTBaoTHohvmIgiRt6dRIzbwEOIaNaP+dIlGs2fNFoB0SeISs0Jz5WFVRid6Xyg==}
     engines: {node: '>=12.20.0'}
 
-  oddmisc@1.2.5:
-    resolution: {integrity: sha512-FbTIyYm825JWArqiEvZrtWjJe1rCi6Pk4Bxjt6gScsE6TlvhMaQ2L0VWtRzZLuWo/JCcehmirClaxUgTE2Rssg==}
+  oddmisc@1.2.8:
+    resolution: {integrity: sha512-6lOr3pOSlpvakgUn5BGS5pt4mRwzISPojHd+C7UTF3+7hl/xYV0zBqGs+wtz98uAlmy3qe+pYsEV3qeS4zLRXQ==}
 
   ofetch@1.5.1:
     resolution: {integrity: sha512-2W4oUZlVaqAPAil6FUg/difl6YhqhUR7x2eZY4bQCko22UXg3hptq9KLQdqFClV+Wu85UX7hNtdGTngi/1BxcA==}
@@ -8450,7 +8450,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify-json/fa7-brands@1.2.2':
+  '@iconify-json/fa7-brands@1.2.3':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -8458,11 +8458,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/fa7-solid@1.2.4':
+  '@iconify-json/fa7-solid@1.2.5':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/material-symbols@1.2.79':
+  '@iconify-json/material-symbols@1.2.81':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -8470,7 +8470,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.86':
+  '@iconify-json/simple-icons@1.2.87':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -13089,7 +13089,7 @@ snapshots:
 
   obug@2.1.3: {}
 
-  oddmisc@1.2.5: {}
+  oddmisc@1.2.8: {}
 
   ofetch@1.5.1:
     dependencies:
