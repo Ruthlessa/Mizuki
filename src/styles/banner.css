@@ -99,6 +99,17 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
   .mobile-both-sidebar .footer {
     grid-column: 1 / -1 !important;
   }
+
+  /* 主内容区域安全区域适配 */
+  #main-grid {
+    padding-left: var(--safe-area-inset-left, 0);
+    padding-right: var(--safe-area-inset-right, 0);
+  }
+
+  /* Banner 安全区域适配 */
+  .banner-text-overlay {
+    padding-top: var(--safe-area-inset-top, 0) !important;
+  }
 }
 
 /* ==========================================================================
