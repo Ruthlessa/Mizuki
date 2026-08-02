@@ -34,8 +34,8 @@
     "analyze-bundle": "node scripts/analyze-bundle.js"
   },
 	"dependencies": {
-		"@astrojs/check": "^0.9.9",
-		"@astrojs/rss": "^4.0.18",
+		"@astrojs/check": "^0.9.10",
+		"@astrojs/rss": "^4.0.19",
 		"@astrojs/sitemap": "^3.7.3",
 		"@astrojs/svelte": "8.1.2",
 		"@expressive-code/core": "^0.42.0",
@@ -48,8 +48,8 @@
 		"@swup/astro": "^1.8.0",
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.1",
-		"astro": "6.4.6",
-		"astro-expressive-code": "^0.43.1",
+		"astro": "6.4.8",
+		"astro-expressive-code": "^0.44.1",
 		"astro-icon": "^1.1.5",
 		"axios": "^1.17.0",
 		"crypto-js": "^4.2.0",
@@ -83,7 +83,7 @@
 		"unist-util-visit": "^5.1.0"
 	},
 	"devDependencies": {
-		"@astrojs/ts-plugin": "^1.10.9",
+		"@astrojs/ts-plugin": "^1.10.10",
 		"@eslint/js": "^10.0.1",
 		"@iconify-json/fa7-brands": "^1.2.2",
 		"@iconify-json/fa7-regular": "^1.2.3",
