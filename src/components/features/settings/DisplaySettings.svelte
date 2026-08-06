@@ -47,7 +47,7 @@
 
 <div
 	id="display-setting"
-	class="float-panel float-panel-closed absolute transition-all w-80 right-4 px-4 py-4"
+	class="float-panel float-panel-closed absolute transition-all w-[calc(100vw-2rem)] max-w-[20rem] right-4 px-4 py-4"
 	class:list={[className]}
 >
 	<div class="flex flex-row gap-2 mb-3 items-center justify-between">

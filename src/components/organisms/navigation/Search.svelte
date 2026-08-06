@@ -302,7 +302,7 @@
 <!-- search panel -->
 <div
 	id="search-panel"
-	class="float-panel float-panel-closed absolute md:w-[30rem] top-20 left-4 md:left-[unset] right-4 z-50 search-panel shadow-2xl rounded-2xl p-2"
+	class="float-panel float-panel-closed absolute md:w-[30rem] w-[calc(100vw-2rem)] max-w-[30rem] top-20 left-4 md:left-[unset] right-4 z-50 search-panel shadow-2xl rounded-2xl p-2"
 >
 	<!-- search bar inside panel for phone/tablet -->
 	<div
