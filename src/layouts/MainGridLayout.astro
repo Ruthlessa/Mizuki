@@ -220,16 +220,11 @@ const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
 						<!-- the overflow-hidden here prevent long text break the layout-->
 						<!-- make id different from windows.swup global property -->
 						<slot />
-						<div
-							class="footer col-span-full onload-animation hidden lg:block"
-						>
-							<Footer />
-						</div>
 					</div>
 				</main>
 
 				<div
-					class="footer col-span-full onload-animation block lg:hidden"
+					class="footer col-span-full onload-animation"
 				>
 					<Footer />
 				</div>
