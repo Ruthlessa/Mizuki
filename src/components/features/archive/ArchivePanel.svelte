@@ -21,7 +21,7 @@
 		posts: Post[];
 	}
 
-	let { sortedPosts = [] }: { sortedPosts?: Post[] } = $props();
+	const { sortedPosts = [] }: { sortedPosts?: Post[] } = $props();
 	let groups: Group[] = $state([]);
 	let initialTags: string[] = $state([]);
 	let initialCategories: string[] = $state([]);

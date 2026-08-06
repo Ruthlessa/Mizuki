@@ -1,7 +1,7 @@
 <script lang="ts">
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
-	import { onMount, onDestroy } from "svelte";
+	import { onDestroy,onMount } from "svelte";
 
 	import { sidebarLayoutConfig, siteConfig } from "../../config";
 
@@ -43,7 +43,7 @@
 	}
 
 	function getSavedSessionLayout(): LayoutMode | null {
-		if (!hasWindow) return null;
+		if (!hasWindow) {return null;}
 		const saved = sessionStorage.getItem("postListLayout");
 		return (saved === "list" || saved === "grid") ? saved : null;
 	}
@@ -67,7 +67,7 @@
 		isSmallScreen = !e.matches;
 	}
 
-	let cleanupFunctions: (() => void)[] = [];
+	const cleanupFunctions: (() => void)[] = [];
 
 	onMount(() => {
 		if (!hasWindow) {
