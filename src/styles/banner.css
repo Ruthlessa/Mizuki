@@ -638,11 +638,12 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
    水波纹显示优化
    ========================================================================== */
 .waves {
-  overflow: visible;
+  overflow: hidden;
+  overflow-x: hidden;
   z-index: 5;
   transform: translateZ(0);
   will-change: transform;
-  contain: none;
+  contain: layout style;
 }
 
 .waves svg {
@@ -674,7 +675,8 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
    ========================================================================== */
 @media (max-width: 1279px) {
   #header-waves {
-    overflow: visible;
+    overflow: hidden;
+    overflow-x: hidden;
     z-index: 5;
   }
 

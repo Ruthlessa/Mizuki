@@ -85,8 +85,14 @@ html {
   }
 
   /* 减少滚动时的重绘 */
-  body {
+  html, body {
     overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  /* 防止常见可溢出元素超出视口 */
+  img, video, iframe, table {
+    max-width: 100%;
   }
 
   /* 优化图片加载 */
