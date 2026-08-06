@@ -109,7 +109,7 @@
 		"globals": "^17.6.0",
 		"postcss-import": "^16.1.1",
 		"postcss-nesting": "^13.0.2",
-		"prettier": "^3.8.4",
+		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
 		"svelte-eslint-parser": "^1.7.0",
