@@ -68,7 +68,8 @@ admin/
 │   ├── components/
 │   ├── services/
 │   └── store/
-├── docs/                  # 部署文档
+├── docs/                  # 文档
+│   ├── API.md
 │   ├── CLOUDFLARE_DEPLOY.md
 │   ├── REMOTE_DEPLOY.md
 │   └── ADDRESS_CONFIG.md
@@ -85,6 +86,7 @@ admin/
 
 ## 文档目录
 
+- [后端 API 文档](docs/API.md) - 完整的 REST API 参考（认证、路由、数据结构）
 - [Cloudflare 部署指南](docs/CLOUDFLARE_DEPLOY.md)
 - [远程部署指南](docs/REMOTE_DEPLOY.md)
 - [地址配置指南](docs/ADDRESS_CONFIG.md)

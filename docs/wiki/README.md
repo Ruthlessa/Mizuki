@@ -110,7 +110,7 @@ docs/wiki/
 
 ## 📖 更多资源
 
-- [主 README 文档](../../README.zh.md) - 项目完整说明
+- [主 README 文档](../../README.md) - 项目完整说明
 - [部署指南](../DEPLOYMENT.md) - 详细的部署教程
 - [内容分离指南](../CONTENT_SEPARATION.md) - 代码与内容分离配置
 - [开发规范](../rule/README.md) - 组件开发和代码规范

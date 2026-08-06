@@ -14,7 +14,7 @@
 [**🖥️ 在线演示**](https://mizuki.pages.dev/) | [**📝 用户文档**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README 语言:**
-[**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+[**English**](./README.en.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 通过我们全面的文档快速开始。无论您是自定义主题、配置功能还是部署到生产环境，文档都涵盖了成功启动博客所需的一切。
 
@@ -259,19 +259,27 @@ Mizuki 支持超出标准 GitHub 风格 Markdown 的增强功能：
 |:---------------------------|:-----------------------------------------|
 | `pnpm install`             | 安装依赖                     |
 | `pnpm dev`                 | 在 `localhost:4321` 启动本地开发服务器 |
-| `pnpm build`               | 构建生产站点，包含动画更新、Pagefind 索引和字体压缩 |
+| `pnpm build`               | 构建生产站点（同步内容 → 构建 → Pagefind → 字体压缩） |
 | `pnpm preview`             | 在部署前本地预览构建  |
 | `pnpm check`               | 运行 Astro 错误检查                 |
+| `pnpm type-check`          | 运行 TypeScript 类型检查             |
 | `pnpm format`              | 使用 Prettier 格式化代码                   |
 | `pnpm lint`                | 检查并修复代码问题                |
 | `pnpm new-post <filename>` | 创建新博客文章                   |
-| `pnpm sync-content`        | 同步外部仓库内容     |
-| `pnpm update-anime`        | 更新动画数据                        |
-| `pnpm update-bangumi`      | 更新番剧数据                      |
-| `pnpm update-bilibili`     | 更新哔哩哔哩数据                     |
-| `pnpm compress-fonts`      | 压缩字体文件                      |
-| `pnpm type-check`          | 运行 TypeScript 类型检查             |
+| `pnpm sync-content`        | 从外部仓库同步内容（分离模式） |
+| `pnpm init-content`        | 初始化代码-内容分离仓库 |
+| `pnpm update-anime`        | 更新本地番剧数据 JSON |
+| `pnpm update-bangumi`      | 从 Bangumi API 拉取观看进度 |
+| `pnpm update-bilibili`     | 从 Bilibili API 拉取观看进度 |
+| `pnpm convert-images`      | 批量图片格式转换和压缩 |
+| `pnpm compress-fonts`      | 字体子集化压缩（减小体积） |
+| `pnpm optimize`            | 一键执行图片 + 字体优化 |
+| `pnpm submit`              | 提交 sitemap 到 IndexNow 搜索引擎 |
+| `pnpm performance:baseline`| 写入性能基准值 |
+| `pnpm performance:check`   | 对比当前性能与基准，检测回归 |
 | `pnpm astro ...`           | 运行 Astro CLI 命令                   |
+
+> 📖 所有脚本详细说明见 [scripts/README.md](scripts/README.md)。
 
 ## 🎯 配置指南
 

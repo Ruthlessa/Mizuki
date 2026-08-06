@@ -14,7 +14,7 @@
 [**🖥️ ライブデモ**](https://mizuki.pages.dev/) | [**📝 ドキュメント**](https://docs.mizuki.mysqil.com/)
 
 🌏 **README 言語:**
-[**English**](./README.zh.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+[**English**](./README.en.md) / [**中文**](./README.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
 
 包括的なドキュメントですぐに始められます。テーマのカスタマイズ、機能の設定、本番環境へのデプロイなど、ブログの立ち上げに必要なすべての内容が網羅されています。
 
