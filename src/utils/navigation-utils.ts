@@ -108,7 +108,8 @@ export function waitForSwup(timeout = 5000): Promise<boolean> {
 			return;
 		}
 
-		let timeoutId: NodeJS.Timeout;
+		// eslint-disable-next-line prefer-const -- closure references timeoutId before its assignment below
+                let timeoutId: NodeJS.Timeout;
 
 		const checkSwup = () => {
 			if (isSwupReady()) {
