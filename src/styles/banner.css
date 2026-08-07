@@ -55,8 +55,17 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
 
 /* 桌面端 Banner 模式下的主内容区域位置 */
 @media (min-width: 1280px) {
-  body.enable-banner .absolute.w-full.z-30 {
+  .absolute.w-full.z-30 {
     top: 35vh !important;
+  }
+
+  .lg\:is-home #banner-wrapper:not(.mobile-hide-banner) {
+    height: var(--banner-height-home, 65vh) !important;
+    transform: translateY(var(--banner-height-extend, 0vh));
+  }
+
+  #banner-wrapper:not(.mobile-hide-banner) {
+    height: var(--banner-height-home, 65vh) !important;
   }
 }
 
@@ -116,16 +125,14 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
    移动端横幅优化 - 小屏手机 (320px - 479px)
    ========================================================================== */
 @media (max-width: 479px) {
-  /* Banner wrapper 高度优化 */
-  body.enable-banner #banner-wrapper:not(.mobile-hide-banner) {
+  #banner-wrapper:not(.mobile-hide-banner) {
     height: 70vh !important;
     min-height: 450px;
     max-height: none;
     top: 0 !important;
   }
 
-  /* 主内容区域位置调整 */
-  body.enable-banner .absolute.w-full.z-30:not(.mobile-main-no-banner) {
+  .absolute.w-full.z-30:not(.mobile-main-no-banner) {
     top: 70vh !important;
     min-height: calc(100vh - 70vh) !important;
   }
@@ -172,16 +179,14 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
    移动端横幅优化 - 大屏手机 (480px - 767px)
    ========================================================================== */
 @media (min-width: 480px) and (max-width: 767px) {
-  /* Banner wrapper 高度优化 */
-  body.enable-banner #banner-wrapper:not(.mobile-hide-banner) {
+  #banner-wrapper:not(.mobile-hide-banner) {
     height: 75vh !important;
     min-height: 500px;
     max-height: none;
     top: 0 !important;
   }
 
-  /* 主内容区域位置调整 */
-  body.enable-banner .absolute.w-full.z-30:not(.mobile-main-no-banner) {
+  .absolute.w-full.z-30:not(.mobile-main-no-banner) {
     top: 75vh !important;
     min-height: calc(100vh - 75vh) !important;
   }
@@ -228,15 +233,13 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
    平板设备横幅优化 (768px - 1279px)
    ========================================================================== */
 @media (min-width: 768px) and (max-width: 1279px) {
-  /* Banner wrapper 高度优化 */
-  body.enable-banner #banner-wrapper:not(.mobile-hide-banner) {
+  #banner-wrapper:not(.mobile-hide-banner) {
     height: 70vh !important;
     min-height: 500px;
     top: 0 !important;
   }
 
-  /* 主内容区域位置调整 */
-  body.enable-banner .absolute.w-full.z-30:not(.mobile-main-no-banner) {
+  .absolute.w-full.z-30:not(.mobile-main-no-banner) {
     top: 70vh !important;
     min-height: calc(100vh - 70vh) !important;
   }
