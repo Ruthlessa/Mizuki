@@ -249,6 +249,8 @@ export default defineConfig({
 							if (id.includes("swup")) return "ui-vendor";
 							if (id.includes("expressive-code")) return "code-vendor";
 							if (id.includes("iconify")) return "icon-vendor";
+							if (id.includes("katex")) return "katex";
+							if (id.includes("fontsource")) return "fontsource";
 							return "vendor";
 						}
 					},
