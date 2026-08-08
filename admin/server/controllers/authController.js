@@ -7,7 +7,9 @@ const { logAction } = require('../middleware/auth');
 
 const register = async (req, res) => {
   try {
-    const { username, password, email, role = 'viewer' } = req.body;
+    const { username, password, email } = req.body;
+    // role cannot be self-assigned during registration
+    const role = 'viewer';
 
     if (!username || !password) {
       return res.status(400).json({ success: false, message: '用户名和密码不能为空' });
@@ -65,7 +67,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
       config.jwtSecret,
-      { expiresIn: config.jwtExpiresIn }
+      { algorithm: 'HS256', expiresIn: config.jwtExpiresIn }
     );
 
     await logAction(user.id, 'LOGIN', 'user', { username }, req.ip, req.get('user-agent'));
