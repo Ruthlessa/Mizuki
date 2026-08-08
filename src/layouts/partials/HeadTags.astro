@@ -95,15 +95,11 @@ const favicons: Favicon[] =
 <!-- 字体通过构建脚本压缩到 /assets/font/ 目录，此处不再预加载以避免 404 -->
 <!-- 字体在构建时通过 scripts/compress-fonts.js 处理并复制到 dist/ -->
 
-<!-- 预连接常用域名以减少加载延迟 -->
+<!-- 预连接 Iconify 域名以减少图标加载延迟 -->
 <link rel="preconnect" href="https://api.iconify.design" crossorigin />
 <link rel="dns-prefetch" href="https://api.iconify.design" />
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
-<!-- 预加载关键字体 - 使用 WOFF2 格式 -->
+<!-- 只 preload ASCII 字体（6.2KB），CJK 字体（308KB）通过 font-display: swap 按需加载 -->
 <link
 	rel="preload"
 	href="/assets/font/ZenMaruGothic-Medium.woff2"
@@ -111,22 +107,9 @@ const favicons: Favicon[] =
 	type="font/woff2"
 	crossorigin
 />
-<link
-	rel="preload"
-	href="/assets/font/loli.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
-/>
 
 <!-- 预加载关键脚本（仅在需要时启用） -->
 <!-- <link rel="preload" href="/assets/vendor.js" as="script" /> -->
-
-<!-- 预热 DNS 查询用于分析和第三方服务 -->
-<link rel="dns-prefetch" href="https://cdn.example.com" />
-
-<!-- 可选: 预连接重要的 API 端点 -->
-<link rel="preconnect" href="https://api.example.com" />
 
 <!-- Set the theme before the page is rendered to avoid a flash -->
 <script
