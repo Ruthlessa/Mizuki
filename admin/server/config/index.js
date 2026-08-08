@@ -1,9 +1,15 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+  console.error('[FATAL] JWT_SECRET is not configured or shorter than 32 chars. Refusing to start.');
+  process.exit(1);
+}
+
 module.exports = {
   port: process.env.PORT || 3000,
-  jwtSecret: process.env.JWT_SECRET || 'mizuki-admin-secret-key-2024',
+  jwtSecret: process.env.JWT_SECRET,
+  jwtAlgorithms: ['HS256'],
   jwtExpiresIn: '24h',
   cors: {
     origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : ['http://localhost:3001', 'http://localhost:5173'],

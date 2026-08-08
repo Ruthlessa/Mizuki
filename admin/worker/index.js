@@ -3,34 +3,71 @@
  * 无服务器后端 API
  */
 
-const JWT_SECRET = 'change-this-in-production';
 const SALT_ROUNDS = 10;
 
-// 简单的密码哈希
-async function hashPassword(password) {
+function getJwtSecret(env) {
+  const secret = (env && env.JWT_SECRET) || process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET is not configured');
+  return secret;
+}
+
+async function hmacSha256(key, data) {
+  const enc = new TextEncoder();
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', enc.encode(key), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  const sig = await crypto.subtle.sign('HMAC', cryptoKey, enc.encode(data));
+  return btoa(String.fromCharCode(...new Uint8Array(sig))).replace(/=+$/, '');
+}
+
+async function hmacVerify(key, data, sigB64) {
+  const enc = new TextEncoder();
+  const padded = sigB64 + '='.repeat((4 - (sigB64.length % 4)) % 4);
+  const sigBytes = Uint8Array.from(atob(padded), c => c.charCodeAt(0));
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', enc.encode(key), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']
+  );
+  return crypto.subtle.verify('HMAC', cryptoKey, sigBytes, enc.encode(data));
+}
+
+function b64urlEncode(obj) {
+  return btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64urlDecode(str) {
+  const padded = str.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (str.length % 4)) % 4);
+  return JSON.parse(atob(padded));
+}
+
+async function hashPassword(password, salt) {
   const encoder = new TextEncoder();
-  const data = encoder.encode(password + JWT_SECRET);
+  const data = encoder.encode(password + ':' + salt);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// 简单的 JWT 实现
-async function createToken(payload) {
-  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const payloadStr = btoa(JSON.stringify({ ...payload, exp: Date.now() + 86400000 }));
-  const signature = await hashPassword(`${header}.${payloadStr}`);
-  return `${header}.${payloadStr}.${signature}`;
+async function createToken(payload, env) {
+  const secret = getJwtSecret(env);
+  const header = b64urlEncode({ alg: 'HS256', typ: 'JWT' });
+  const body = b64urlEncode({ ...payload, exp: Math.floor(Date.now() / 1000) + 86400 });
+  const signature = await hmacSha256(secret, header + '.' + body);
+  return header + '.' + body + '.' + signature;
 }
 
-async function verifyToken(token) {
+async function verifyToken(token, env) {
   try {
-    const [header, payload, signature] = token.split('.');
-    const expectedSig = await hashPassword(`${header}.${payload}`);
-    if (signature !== expectedSig) return null;
-    const data = JSON.parse(atob(payload));
-    if (data.exp < Date.now()) return null;
-    return data;
+    const secret = getJwtSecret(env);
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+    const [header, body, signature] = parts;
+    let headerObj;
+    try { headerObj = b64urlDecode(header); } catch { return null; }
+    if (headerObj.alg !== 'HS256') return null;
+    const valid = await hmacVerify(secret, header + '.' + body, signature);
+    if (!valid) return null;
+    let payload;
+    try { payload = b64urlDecode(body); } catch { return null; }
+    if (typeof payload.exp === 'number' && payload.exp < Math.floor(Date.now() / 1000)) return null;
+    return payload;
   } catch {
     return null;
   }
@@ -76,7 +113,7 @@ async function handleRequest(request, env) {
   const authHeader = request.headers.get('Authorization');
   let user = null;
   if (authHeader && authHeader.startsWith('Bearer ')) {
-    user = await verifyToken(authHeader.slice(7));
+    user = await verifyToken(authHeader.slice(7), env);
   }
 
   // 路由匹配
@@ -94,7 +131,7 @@ async function handleRequest(request, env) {
       }
 
       const user = results.results[0];
-      const passwordHash = await hashPassword(password);
+      const passwordHash = await hashPassword(password, '')
 
       if (user.password !== passwordHash) {
         return new Response(JSON.stringify({ success: false, message: '用户名或密码错误' }), {
@@ -103,7 +140,7 @@ async function handleRequest(request, env) {
         });
       }
 
-      const token = await createToken({ id: user.id, username: user.username, role: user.role });
+      const token = await createToken({ id: user.id, username: user.username, role: user.role }, env);
 
       return new Response(JSON.stringify({
         success: true,
@@ -116,7 +153,7 @@ async function handleRequest(request, env) {
     // 注册
     if (path === '/auth/register' && method === 'POST') {
       const { username, password, email } = await request.json();
-      const passwordHash = await hashPassword(password);
+      const passwordHash = await hashPassword(password, '')
 
       await queryDB(env.DB,
         'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
