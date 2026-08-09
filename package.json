@@ -43,7 +43,7 @@
 		"@expressive-code/plugin-line-numbers": "^0.42.0",
 		"@fancyapps/ui": "^6.1.14",
 		"@fontsource-variable/jetbrains-mono": "^5.2.8",
-		"@fontsource/roboto": "^5.2.10",
+		"@fontsource/roboto": "^5.3.0",
 		"@iconify/svelte": "^5.2.2",
 		"@swup/astro": "^1.8.0",
 		"@tailwindcss/typography": "^0.5.20",
