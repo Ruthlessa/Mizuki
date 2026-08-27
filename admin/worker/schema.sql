@@ -92,11 +92,10 @@ CREATE INDEX IF NOT EXISTS idx_comments_status ON comments(status);
 CREATE INDEX IF NOT EXISTS idx_logs_user ON logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_logs_created ON logs(created_at);
 
--- 插入默认管理员账户 (密码: admin123)
--- 注意：实际部署时请更改密码
-INSERT OR IGNORE INTO users (username, password, email, role) VALUES (
-  'admin',
-  'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-  'admin@mizuki.dev',
-  'admin'
-);
+-- 安全说明：禁止在 schema 中预置任何带密码的默认管理员账户。
+-- 部署指引：
+--   1) 首次部署请通过 wrangler d1 execute 手动创建管理员：
+--      INSERT INTO users (username, password, email, role) VALUES ('yourname', '<hash>', 'a@b.c', 'admin');
+--      其中 <hash> 使用 PBKDF2 格式，可通过以下 Worker 一次性脚本或 Node 脚本生成：
+--        hashPassword('your-password') → "pbkdf2_sha256$200000$..."
+--   2) 或在管理后台开启 REGISTRATION_ENABLED=true 后注册首位用户，再用数据库将其 role 改为 admin

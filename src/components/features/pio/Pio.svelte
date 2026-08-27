@@ -5,7 +5,11 @@
 
 	import type { PioProps } from "./types";
 
-	export let config: Partial<PioProps["config"]> = {};
+	type Props = {
+		config?: Partial<PioProps["config"]>;
+	};
+
+	const { config = {} }: Props = $props();
 
 	const pioOptions = {
 		mode: config?.mode ?? pioConfig.mode,

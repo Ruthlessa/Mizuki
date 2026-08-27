@@ -1,29 +1,35 @@
 <script lang="ts">
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
-	import { onDestroy,onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
 	import { sidebarLayoutConfig, siteConfig } from "../../config";
 
 	type LayoutMode = "list" | "grid";
 
-	export let currentLayout: LayoutMode = "list";
+	type Props = {
+		currentLayout?: LayoutMode;
+	};
 
-	let mounted = false;
-	let isSmallScreen = false;
-	let isSwitching = false;
-	let userPreference: LayoutMode = "list";
+	const { currentLayout = "list" }: Props = $props();
+
+	let mounted = $state(false);
+	let isSmallScreen = $state(false);
+	let isSwitching = $state(false);
+	let userPreference = $state<LayoutMode>("list");
 	let mediaQueryList: MediaQueryList | null = null;
 	let hasWindow = typeof window !== "undefined";
 
 	const BREAKPOINT =
 		sidebarLayoutConfig.responsive?.breakpoints?.desktop ?? 1280;
 
-	$: currentLayout = isSmallScreen ? "list" : userPreference;
+	const effectiveLayout = $derived(isSmallScreen ? "list" : userPreference);
 
-	$: if (mounted && hasWindow) {
-		dispatchLayoutChange(currentLayout);
-	}
+	$effect(() => {
+		if (mounted && hasWindow) {
+			dispatchLayoutChange(effectiveLayout);
+		}
+	});
 
 	function dispatchLayoutChange(layout: LayoutMode) {
 		if (hasWindow) {
@@ -43,9 +49,11 @@
 	}
 
 	function getSavedSessionLayout(): LayoutMode | null {
-		if (!hasWindow) {return null;}
+		if (!hasWindow) {
+			return null;
+		}
 		const saved = sessionStorage.getItem("postListLayout");
-		return (saved === "list" || saved === "grid") ? saved : null;
+		return saved === "list" || saved === "grid" ? saved : null;
 	}
 
 	function switchLayout() {

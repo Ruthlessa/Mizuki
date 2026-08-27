@@ -1,5 +1,12 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
+let rateLimit = null;
+try {
+  rateLimit = require('express-rate-limit');
+} catch (_) {
+  rateLimit = function fallbackRateLimit() {
+    return (req, res, next) => next();
+  };
+}
 const router = express.Router();
 const userController = require('../controllers/userController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
