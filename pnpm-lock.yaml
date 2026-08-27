@@ -46,8 +46,8 @@ importers:
         specifier: ^6.1.14
         version: 6.1.14
       '@fontsource-variable/jetbrains-mono':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource/roboto':
         specifier: ^5.3.0
         version: 5.3.0
@@ -1446,8 +1446,8 @@ packages:
   '@fancyapps/ui@6.1.14':
     resolution: {integrity: sha512-cBV73XXHrc0qMca+PJJ6qay3xweIgsoYse13rGRstgUs0xA5WAv1tgbSzPCIOOjiLs2S2jiVFJxyszgvgyfxMg==}
 
-  '@fontsource-variable/jetbrains-mono@5.2.8':
-    resolution: {integrity: sha512-WBA9elru6Jdp5df2mES55wuOO0WIrn3kpXnI4+W2ek5u3ZgLS9XS4gmIlcQhiZOWEKl95meYdvK7xI+ETLCq/Q==}
+  '@fontsource-variable/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw==}
 
   '@fontsource/roboto@5.3.0':
     resolution: {integrity: sha512-BapRJOWYP+LZ21zp+wBQjfpPYKRoxc4LspJ/RLuI+HSMBD5u/X4O+ESDrSvEqDSy0rAl7GwBJ+09mdc16cVQ1Q==}
@@ -2601,6 +2601,7 @@ packages:
   '@xmldom/xmldom@0.8.13':
     resolution: {integrity: sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -8941,7 +8942,7 @@ snapshots:
 
   '@fancyapps/ui@6.1.14': {}
 
-  '@fontsource-variable/jetbrains-mono@5.2.8': {}
+  '@fontsource-variable/jetbrains-mono@5.3.0': {}
 
   '@fontsource/roboto@5.3.0': {}
 
