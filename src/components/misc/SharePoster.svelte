@@ -16,14 +16,27 @@
 		type SizeConfig,
 	} from "./utils/poster-renderer";
 
-	export let title: string;
-	export let author: string;
-	export let description = "";
-	export let pubDate: string;
-	export let coverImage: string | null = null;
-	export let url: string;
-	export let siteTitle: string;
-	export let avatar: string | null = null;
+	type Props = {
+		title: string;
+		author: string;
+		description?: string;
+		pubDate: string;
+		coverImage?: string | null;
+		url: string;
+		siteTitle: string;
+		avatar?: string | null;
+	};
+
+	const {
+		title,
+		author,
+		description = "",
+		pubDate,
+		coverImage = null,
+		url,
+		siteTitle,
+		avatar = null,
+	}: Props = $props();
 
 	// Constants
 	const SCALE = 2;
@@ -33,10 +46,12 @@
 	const FONT_FAMILY = "'Roboto', sans-serif";
 
 	// State
-	let showModal = false;
-	let posterImage: string | null = null;
-	let generating = false;
-	let themeColor = "#558e88";
+	let showModal = $state(false);
+	let posterImage = $state<string | null>(null);
+	let generating = $state(false);
+	let themeColor = $state("#558e88");
+	let copied = $state(false);
+	const COPY_FEEDBACK_DURATION = 2000;
 
 	function isDarkMode(): boolean {
 		return document.documentElement.classList.contains("dark");
@@ -353,9 +368,6 @@
 	function closeModal() {
 		showModal = false;
 	}
-
-	let copied = false;
-	const COPY_FEEDBACK_DURATION = 2000;
 
 	async function copyLink() {
 		try {
