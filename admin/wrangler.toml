@@ -13,4 +13,8 @@ database_name = "mizuki-admin"
 database_id = "your-database-id-here"
 
 [vars]
-JWT_SECRET = "change-this-in-production"
+# ⚠️ 安全要求：禁止在 wrangler.toml 中提交真实密钥。
+# 部署时通过 `wrangler secret put JWT_SECRET` 写入 Workers Secret，
+# 或在上方 [env.production.vars] 中覆写。值必须 >= 32 字符的强随机字符串，
+# 且不得使用 "change-this-in-production" 等已知弱默认值。
+JWT_SECRET = ""

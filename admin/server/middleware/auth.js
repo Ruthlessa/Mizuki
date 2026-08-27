@@ -41,13 +41,54 @@ const roleMiddleware = (...allowedRoles) => {
   };
 };
 
+// 敏感字段脱敏：对已知敏感字段返回 [REDACTED]，防止明文密码/密钥落日志
+const SENSITIVE_FIELDS = new Set([
+  'password', 'oldPassword', 'newPassword',
+  'token', 'secret', 'jwt', 'authorization',
+  'apiKey', 'api_key', 'privateKey', 'private_key',
+]);
+function redactSensitive(obj) {
+  if (obj === null || obj === undefined) return obj;
+  if (typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(redactSensitive);
+  const out = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (SENSITIVE_FIELDS.has(String(k).toLowerCase())) {
+      out[k] = '[REDACTED]';
+    } else if (v && typeof v === 'object') {
+      out[k] = redactSensitive(v);
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
+}
+
+// 这些路径的请求体会包含密码 / 敏感配置，整体不记录 body，仅记录路径与结果
+const SENSITIVE_PATH_PREFIXES = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/password',
+  '/settings',
+];
+function isSensitivePath(path) {
+  return SENSITIVE_PATH_PREFIXES.some(p =>
+    path === p || path.startsWith(p + '/')
+  );
+}
+
 const logMiddleware = (req, res, next) => {
   const originalSend = res.send;
   res.send = function (body) {
-    logAction(req.user?.id, req.method, req.path, {
-      query: req.query,
-      body: req.body,
-    }, req.ip, req.get('user-agent'));
+    const details = {
+      query: redactSensitive(req.query),
+    };
+    if (!isSensitivePath(req.path)) {
+      details.body = redactSensitive(req.body);
+    } else {
+      details.body = '[BODY REDACTED FOR SENSITIVE PATH]';
+    }
+    logAction(req.user?.id, req.method, req.path, details, req.ip, req.get('user-agent'));
     originalSend.call(this, body);
   };
   next();
@@ -58,9 +99,11 @@ const { getPool } = require('../models/database');
 const logAction = async (userId, action, targetType, details, ipAddress, userAgent) => {
   try {
     const pool = getPool();
+    // 防御式脱敏：即便上游传入了敏感字段，入库前也必须再打一遍 [REDACTED]
+    const safeDetails = redactSensitive(details || {});
     await pool.query(
       'INSERT INTO logs (user_id, action, target_type, details, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?)',
-      [userId, action, targetType, JSON.stringify(details), ipAddress, userAgent]
+      [userId, action, targetType, JSON.stringify(safeDetails), ipAddress, userAgent]
     );
   } catch (error) {
     console.error('Failed to log action:', error);
