@@ -4,6 +4,8 @@
 	"version": "9.0",
 	"license": "Apache-2.0",
 	"scripts": {
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"sync-content": "node scripts/sync-content.js",
 		"init-content": "node scripts/init-content-repo.js",
 		"predev": "node scripts/sync-content.js || true",
@@ -107,13 +109,16 @@
 		"fontmin": "^1.1.1",
 		"glob": "^13.0.6",
 		"globals": "^17.6.0",
+		"happy-dom": "^20.11.8",
 		"postcss-import": "^16.1.1",
 		"postcss-nesting": "^13.0.2",
 		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
 		"svelte-eslint-parser": "^1.7.0",
-		"typescript-eslint": "^8.61.1"
+		"typescript-eslint": "^8.61.1",
+		"vite-tsconfig-paths": "^6.1.1",
+		"vitest": "^4.1.11"
 	},
 	"engines": {
 		"node": ">=24.12.0"
