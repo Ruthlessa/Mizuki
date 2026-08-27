@@ -1,11 +1,13 @@
 ---
-title: 加密文章
+title: 加密文章使用说明
 published: 2026-03-15
-description: 这是一篇用于测试页面加密功能的文章
-encrypted: true
-pinned: true
-password: "123456"
-passwordHint: "123456"
+description: 加密文章功能的部署与安全使用指南（示例）
+# 安全说明：
+# 1) 禁止在 frontmatter 中直接写入 password / passwordHint 明文提交到 Git。
+# 2) 若需要加密文章，请在构建前通过非明文渠道（环境变量、构建服务器密钥）注入密码，
+#    并修改 Encryptor.astro 使其从 Astro.locals 或服务端 API 读取密钥而非 frontmatter。
+# 3) passwordHint 字段应避免与密码一致或给出过于明确的提示。
+pinned: false
 alias: "encrypted-example"
 tags: ["测试", "加密"]
 category: "技术"
@@ -42,8 +44,8 @@ draft: false
 | `sourceLink` | 文章内容的源链接或参考。 |
 | `draft` | 文章是否为草稿，草稿不会显示。 |
 | `encrypted` | 文章是否受密码保护。 |
-| `password` | 解锁加密文章的密码。 |
-| `passwordHint` | 帮助用户记住密码的提示。显示在密码输入框下方。 |
+| `password` | ⚠️ **安全警告：禁止将明文密码写进 frontmatter 提交到 Git**。应通过环境变量 / 构建时密钥注入，并在 Encryptor.astro 中从 `Astro.locals` 或服务端 API 读取，而非 frontmatter。仅供开发期本地快速测试使用。 |
+| `passwordHint` | ⚠️ **安全警告：避免给出与密码一致或过于明确的提示。该字段同样会出现在提交历史中，建议非必要不使用。** |
 
 ## 文章文件的放置位置
 
@@ -103,8 +105,10 @@ graph LR
 title: 我的私人文章
 published: 2026-03-15
 encrypted: true
-password: "my-secret-password"
-passwordHint: "提示：密码是我的狗的名字"
+# ⚠️ 安全警告：以下字段仅作示例，不要提交包含明文密码的文件到 Git！
+# 正确做法：通过环境变量 / 构建时密钥注入，或在 Encryptor 阶段读取本地密钥文件。
+# password: "<通过非明文渠道注入>"
+# passwordHint: "<仅在必要时提供不含敏感信息的通用提示>"
 ---
 ```
 

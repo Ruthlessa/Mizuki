@@ -7,11 +7,11 @@
 
 	import type { DisplaySettingsProps } from "./types";
 
-	export let className = "";
+	const { className = "" }: { className?: string } = $props();
 
-	let hue = 250;
-	let defaultHue = 250;
-	let isMounted = false;
+	let hue = $state(250);
+	let defaultHue = $state(250);
+	let isMounted = $state(false);
 	let hasWindow = typeof window !== "undefined";
 
 	function resetHue() {
@@ -36,13 +36,15 @@
 		}
 	});
 
-	$: if (isMounted && hasWindow && (hue || hue === 0)) {
-		try {
-			setHue(hue);
-		} catch (error) {
-			console.error("DisplaySettings setHue error:", error);
+	$effect(() => {
+		if (isMounted && hasWindow && (hue || hue === 0)) {
+			try {
+				setHue(hue);
+			} catch (error) {
+				console.error("DisplaySettings setHue error:", error);
+			}
 		}
-	}
+	});
 </script>
 
 <div

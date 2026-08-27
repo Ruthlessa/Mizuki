@@ -9,7 +9,7 @@ const postRoutes = require('./routes/posts');
 const commentRoutes = require('./routes/comments');
 const logRoutes = require('./routes/logs');
 const settingController = require('./controllers/settingController');
-const { authMiddleware } = require('./middleware/auth');
+const { authMiddleware, roleMiddleware } = require('./middleware/auth');
 
 const app = express();
 
@@ -27,9 +27,9 @@ app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/logs', logRoutes);
 
-app.get('/api/settings', authMiddleware, settingController.getAllSettings);
-app.put('/api/settings', authMiddleware, settingController.updateSetting);
-app.get('/api/dashboard/stats', authMiddleware, settingController.getDashboardStats);
+app.get('/api/settings', authMiddleware, roleMiddleware('admin'), settingController.getAllSettings);
+app.put('/api/settings', authMiddleware, roleMiddleware('admin'), settingController.updateSetting);
+app.get('/api/dashboard/stats', authMiddleware, roleMiddleware('admin'), settingController.getDashboardStats);
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);
