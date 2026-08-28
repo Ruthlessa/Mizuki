@@ -31,7 +31,8 @@
 		"lighthouse": "lighthouse",
 		"performance:baseline": "node scripts/performance-baseline.js",
 		"performance:check": "node scripts/performance-check.js",
-		"analyze-bundle": "node scripts/analyze-bundle.js"
+		"analyze-bundle": "node scripts/analyze-bundle.js",
+		"test": "node --import tsx --test test/*.test.ts"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.10",
@@ -113,6 +114,7 @@
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
 		"svelte-eslint-parser": "^1.7.0",
+		"tsx": "^4.23.12",
 		"typescript-eslint": "^8.66.0"
 	},
 	"engines": {
