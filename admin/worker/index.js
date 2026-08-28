@@ -472,11 +472,17 @@ async function handleRequest(request, env) {
       const err = requireRole(user, ['admin', 'editor']);
       if (err) return roleResponse(err, request, env);
       const id = postMatch[1];
-      const { title, content, status } = await request.json();
-      await queryDB(env.DB,
-        'UPDATE posts SET title = ?, content = ?, status = ? WHERE id = ?',
-        [title, content, status, id]
-      );
+      const { title, content, slug, category, tags, status } = await request.json();
+      const updates = []; const values = [];
+      if (title !== undefined) { updates.push('title = ?'); values.push(title); }
+      if (content !== undefined) { updates.push('content = ?'); values.push(content); }
+      if (slug !== undefined) { updates.push('slug = ?'); values.push(slug === '' || slug === null ? null : slug); }
+      if (category !== undefined) { updates.push('category = ?'); values.push(category); }
+      if (tags !== undefined) { updates.push('tags = ?'); values.push(JSON.stringify(tags)); }
+      if (status !== undefined) { updates.push('status = ?'); values.push(status); }
+      if (updates.length === 0) return jsonResponse({ success: false, message: '没有需要更新的字段' }, 400, request, env);
+      values.push(id);
+      await queryDB(env.DB, `UPDATE posts SET ${updates.join(', ')} WHERE id = ?`, values);
       return jsonResponse({ success: true, message: '文章更新成功' }, 200, request, env);
     }
 

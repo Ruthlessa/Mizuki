@@ -25,7 +25,7 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, config.bcryptSaltRounds);
     const [result] = await pool.query(
       'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
-      [username, hashedPassword, email, role]
+      [username, hashedPassword, email || null, role]
     );
 
     await logAction(result.insertId, 'REGISTER', 'user', { username }, req.ip, req.get('user-agent'));
@@ -131,6 +131,10 @@ const changePassword = async (req, res) => {
 
     const pool = getPool();
     const [users] = await pool.query('SELECT password FROM users WHERE id = ?', [req.user.id]);
+
+    if (users.length === 0) {
+      return res.status(401).json({ success: false, message: '用户不存在或已被删除' });
+    }
 
     const isOldPasswordValid = await bcrypt.compare(oldPassword, users[0].password);
 

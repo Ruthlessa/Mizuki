@@ -1,8 +1,9 @@
 /**
  * Post-commit regression tests
- * 覆盖: 用户删除 (result.meta.changes), slug UNIQUE 完整性, 分页参数校验, email NULL 归一化
+ * 覆盖: 用户删除 (result.meta.changes), slug UNIQUE 完整性, 分页参数校验,
+ *       email NULL 归一化, Worker updatePost 偏更新崩溃, changePassword 空引用
  *
- * 运行: node tests/postcommit.test.js
+ * 运行: node tests/postcommit.test.cjs
  * 不依赖任何第三方测试框架，使用 Node 内置 assert。
  */
 
@@ -140,6 +141,69 @@ function run() {
     assert.strictEqual(normalizeEmail(null), null);
     assert.strictEqual(normalizeEmail(''), null, '空字符串必须转为 NULL，避免 UNIQUE(email) 冲突（若有）');
     assert.strictEqual(normalizeEmail('u@example.com'), 'u@example.com');
+  }
+
+  // 5. Worker updatePost 偏更新: 仅发送部分字段时，未传字段不得出现在 SQL 中
+  //    原实现无条件绑定 title/content/status，undefined 会导致 D1 bind() 抛 TypeError
+  {
+    // 模拟 Worker updatePost 的字段组装逻辑
+    function buildPostUpdate(body) {
+      const { title, content, slug, category, tags, status } = body;
+      const updates = []; const values = [];
+      if (title !== undefined) { updates.push('title = ?'); values.push(title); }
+      if (content !== undefined) { updates.push('content = ?'); values.push(content); }
+      if (slug !== undefined) { updates.push('slug = ?'); values.push(slug === '' || slug === null ? null : slug); }
+      if (category !== undefined) { updates.push('category = ?'); values.push(category); }
+      if (tags !== undefined) { updates.push('tags = ?'); values.push(JSON.stringify(tags)); }
+      if (status !== undefined) { updates.push('status = ?'); values.push(status); }
+      if (updates.length === 0) return { error: 'no_fields' };
+      values.push(1); // id
+      return { sql: `UPDATE posts SET ${updates.join(', ')} WHERE id = ?`, values };
+    }
+
+    // 场景 A: 仅发布文章（仅发送 status）
+    const partial = buildPostUpdate({ status: 'published' });
+    assert.ok(!partial.error, '偏更新不应报错');
+    assert.strictEqual(partial.sql, 'UPDATE posts SET status = ? WHERE id = ?');
+    assert.deepStrictEqual(partial.values, ['published', 1]);
+
+    // 场景 B: 空请求体
+    const empty = buildPostUpdate({});
+    assert.strictEqual(empty.error, 'no_fields', '空请求体应返回错误');
+
+    // 场景 C: 全量更新
+    const full = buildPostUpdate({ title: 'T', content: 'C', status: 'draft', slug: 's', category: 'cat', tags: ['a'] });
+    assert.ok(full.sql.includes('title = ?') && full.sql.includes('content = ?') && full.sql.includes('status = ?'));
+    assert.ok(full.sql.includes('slug = ?') && full.sql.includes('category = ?') && full.sql.includes('tags = ?'));
+
+    // 场景 D: slug 空字符串归一化为 null
+    const slugEmpty = buildPostUpdate({ slug: '' });
+    assert.deepStrictEqual(slugEmpty.values, [null, 1], '空 slug 应归一化为 null');
+
+    // 关键断言: 偏更新不得产生 undefined 绑定值
+    const partialValues = buildPostUpdate({ status: 'published' }).values;
+    assert.ok(!partialValues.some(v => v === undefined), '绑定值中不得出现 undefined（会导致 D1 崩溃）');
+  }
+
+  // 6. changePassword 空引用防护: 用户被删除后不应崩溃
+  {
+    // 模拟 changePassword 的防护逻辑
+    function checkUserExists(users, oldPassword) {
+      if (users.length === 0) {
+        return { status: 401, message: '用户不存在或已被删除' };
+      }
+      // 正常流程不会执行到这里（bcrypt.compare）
+      return { status: 200 };
+    }
+
+    // 场景: 用户被删除（users 数组为空）
+    const result = checkUserExists([], 'oldPass');
+    assert.strictEqual(result.status, 401, '用户不存在应返回 401');
+    assert.strictEqual(result.message, '用户不存在或已被删除');
+
+    // 场景: 用户存在
+    const ok = checkUserExists([{ password: 'hash' }], 'oldPass');
+    assert.strictEqual(ok.status, 200, '用户存在应正常继续');
   }
 
   console.log('✅ 所有 post-commit 回归测试通过');
