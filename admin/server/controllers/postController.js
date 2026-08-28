@@ -3,8 +3,13 @@ const { logAction } = require('../middleware/auth');
 
 const getAllPosts = async (req, res) => {
   try {
-    const { page = 1, pageSize = 10, status, category, search } = req.query;
+    const { status, category, search } = req.query;
     const pool = getPool();
+
+    // 安全解析分页参数，防止 NaN 或负数传入 SQL
+    const page = Math.max(1, parseInt(req.query.page || '1', 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(req.query.pageSize || '10', 10) || 10));
+    const offset = (page - 1) * pageSize;
 
     let whereClause = '1=1';
     const params = [];
@@ -22,8 +27,6 @@ const getAllPosts = async (req, res) => {
       params.push(`%${search}%`, `%${search}%`);
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(pageSize);
-
     const [posts] = await pool.query(
       `SELECT p.*, u.username as author_name
        FROM posts p
@@ -31,7 +34,7 @@ const getAllPosts = async (req, res) => {
        WHERE ${whereClause}
        ORDER BY p.created_at DESC
        LIMIT ? OFFSET ?`,
-      [...params, parseInt(pageSize), offset]
+      [...params, pageSize, offset]
     );
 
     const [[{ total }]] = await pool.query(
@@ -39,7 +42,7 @@ const getAllPosts = async (req, res) => {
       params
     );
 
-    res.json({ success: true, data: posts, total, page: parseInt(page), pageSize: parseInt(pageSize) });
+    res.json({ success: true, data: posts, total, page, pageSize });
   } catch (error) {
     console.error('Get all posts error:', error);
     res.status(500).json({ success: false, message: '服务器错误' });
@@ -103,7 +106,8 @@ const updatePost = async (req, res) => {
 
     if (title !== undefined) { updates.push('title = ?'); values.push(title); }
     if (content !== undefined) { updates.push('content = ?'); values.push(content); }
-    if (slug !== undefined) { updates.push('slug = ?'); values.push(slug); }
+    // 空 slug 归一为 NULL，避免触发 UNIQUE 约束冲突
+    if (slug !== undefined) { updates.push('slug = ?'); values.push(slug === '' || slug === null ? null : slug); }
     if (category !== undefined) { updates.push('category = ?'); values.push(category); }
     if (tags !== undefined) { updates.push('tags = ?'); values.push(JSON.stringify(tags)); }
     if (status !== undefined) { updates.push('status = ?'); values.push(status); }

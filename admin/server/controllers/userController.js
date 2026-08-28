@@ -55,7 +55,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, config.bcryptSaltRounds);
     const [result] = await pool.query(
       'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
-      [username, hashedPassword, email, role || 'viewer']
+      [username, hashedPassword, email || null, role || 'viewer']
     );
 
     await logAction(req.user.id, 'CREATE_USER', 'user', { username }, req.ip, req.get('user-agent'));

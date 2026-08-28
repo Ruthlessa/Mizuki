@@ -2,8 +2,13 @@ const { getPool } = require('../models/database');
 
 const getAllLogs = async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, action, user_id, start_date, end_date } = req.query;
+    const { action, user_id, start_date, end_date } = req.query;
     const pool = getPool();
+
+    // 安全解析分页参数，防止 NaN 或负数传入 SQL
+    const page = Math.max(1, parseInt(req.query.page || '1', 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(req.query.pageSize || '20', 10) || 20));
+    const offset = (page - 1) * pageSize;
 
     let whereClause = '1=1';
     const params = [];
@@ -25,8 +30,6 @@ const getAllLogs = async (req, res) => {
       params.push(end_date);
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(pageSize);
-
     const [logs] = await pool.query(
       `SELECT l.*, u.username
        FROM logs l
@@ -34,7 +37,7 @@ const getAllLogs = async (req, res) => {
        WHERE ${whereClause}
        ORDER BY l.created_at DESC
        LIMIT ? OFFSET ?`,
-      [...params, parseInt(pageSize), offset]
+      [...params, pageSize, offset]
     );
 
     const [[{ total }]] = await pool.query(
@@ -42,7 +45,7 @@ const getAllLogs = async (req, res) => {
       params
     );
 
-    res.json({ success: true, data: logs, total, page: parseInt(page), pageSize: parseInt(pageSize) });
+    res.json({ success: true, data: logs, total, page, pageSize });
   } catch (error) {
     console.error('Get all logs error:', error);
     res.status(500).json({ success: false, message: '服务器错误' });

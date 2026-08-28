@@ -3,8 +3,13 @@ const { logAction } = require('../middleware/auth');
 
 const getAllComments = async (req, res) => {
   try {
-    const { page = 1, pageSize = 10, status, post_id } = req.query;
+    const { status, post_id } = req.query;
     const pool = getPool();
+
+    // 安全解析分页参数，防止 NaN 或负数传入 SQL
+    const page = Math.max(1, parseInt(req.query.page || '1', 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(req.query.pageSize || '10', 10) || 10));
+    const offset = (page - 1) * pageSize;
 
     let whereClause = '1=1';
     const params = [];
@@ -18,8 +23,6 @@ const getAllComments = async (req, res) => {
       params.push(post_id);
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(pageSize);
-
     const [comments] = await pool.query(
       `SELECT c.*, p.title as post_title
        FROM comments c
@@ -27,7 +30,7 @@ const getAllComments = async (req, res) => {
        WHERE ${whereClause}
        ORDER BY c.created_at DESC
        LIMIT ? OFFSET ?`,
-      [...params, parseInt(pageSize), offset]
+      [...params, pageSize, offset]
     );
 
     const [[{ total }]] = await pool.query(
@@ -35,7 +38,7 @@ const getAllComments = async (req, res) => {
       params
     );
 
-    res.json({ success: true, data: comments, total, page: parseInt(page), pageSize: parseInt(pageSize) });
+    res.json({ success: true, data: comments, total, page, pageSize });
   } catch (error) {
     console.error('Get all comments error:', error);
     res.status(500).json({ success: false, message: '服务器错误' });

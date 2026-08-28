@@ -144,13 +144,28 @@ async function verifyToken(token, env) {
   }
 }
 
-// 数据库操作
+// 判断是否为写操作（INSERT / UPDATE / DELETE）
+function isWriteQuery(sql) {
+  const trimmed = sql.trim().toUpperCase();
+  return trimmed.startsWith('INSERT') || trimmed.startsWith('UPDATE') || trimmed.startsWith('DELETE');
+}
+
+// 安全解析分页参数，防止 NaN 传入 SQL 导致崩溃
+function parsePagination(searchParams) {
+  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10) || 1);
+  const pageSize = Math.min(100, Math.max(1, parseInt(searchParams.get('pageSize') || '10', 10) || 10));
+  return { page, pageSize, offset: (page - 1) * pageSize };
+}
+
+// 数据库操作：读操作用 .all()，写操作用 .run() 以正确返回 meta 信息
 async function queryDB(db, sql, params = []) {
   const stmt = db.prepare(sql);
+  const isWrite = isWriteQuery(sql);
   if (params.length > 0) {
-    return stmt.bind(...params).all();
+    const bound = stmt.bind(...params);
+    return isWrite ? bound.run() : bound.all();
   }
-  return stmt.all();
+  return isWrite ? stmt.run() : stmt.all();
 }
 
 // CORS 头
@@ -326,7 +341,7 @@ async function handleRequest(request, env) {
       const passwordHash = await hashPassword(password);
       await queryDB(env.DB,
         'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
-        [username, passwordHash, email || '', 'viewer']
+        [username, passwordHash, email || null, 'viewer']
       );
 
       return jsonResponse({ success: true, message: '注册成功' }, 201, request, env);
@@ -378,7 +393,7 @@ async function handleRequest(request, env) {
       const passwordHash = await hashPassword(password);
       const r = await queryDB(env.DB,
         'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
-        [username, passwordHash, email || '', allowedRole]
+        [username, passwordHash, email || null, allowedRole]
       );
       return jsonResponse({ success: true, message: '用户创建成功', data: { id: r.meta?.last_row_id } }, 201, request, env);
     }
@@ -414,9 +429,7 @@ async function handleRequest(request, env) {
     if (path === '/posts' && method === 'GET') {
       const err = requireRole(user, ['admin', 'editor', 'viewer']);
       if (err) return roleResponse(err, request, env);
-      const page = parseInt(url.searchParams.get('page') || '1');
-      const pageSize = parseInt(url.searchParams.get('pageSize') || '10');
-      const offset = (page - 1) * pageSize;
+      const { page, pageSize, offset } = parsePagination(url.searchParams);
 
       const results = await queryDB(env.DB,
         `SELECT p.*, u.username as author_name FROM posts p LEFT JOIN users u ON p.author_id = u.id ORDER BY p.created_at DESC LIMIT ? OFFSET ?`,
@@ -437,7 +450,7 @@ async function handleRequest(request, env) {
       if (!title) return jsonResponse({ success: false, message: '标题不能为空' }, 400, request, env);
       await queryDB(env.DB,
         'INSERT INTO posts (title, content, slug, category, tags, status, author_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [title, content || '', slug || '', category || '', JSON.stringify(tags || []), status || 'draft', user.id]
+        [title, content || '', slug || null, category || null, JSON.stringify(tags || []), status || 'draft', user.id]
       );
       return jsonResponse({ success: true, message: '文章创建成功' }, 201, request, env);
     }
