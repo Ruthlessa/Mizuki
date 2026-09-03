@@ -74,7 +74,7 @@
 		"remark-directive-rehype": "^0.4.2",
 		"remark-math": "^6.0.0",
 		"remark-sectionize": "^2.1.0",
-		"sanitize-html": "^2.17.6",
+		"sanitize-html": "^2.17.7",
 		"satori": "^0.29.0",
 		"sharp": "^0.35.3",
 		"stylus": "^0.64.0",
