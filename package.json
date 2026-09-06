@@ -37,7 +37,7 @@
 	"dependencies": {
 		"@astrojs/check": "^0.9.10",
 		"@astrojs/rss": "^4.0.19",
-		"@astrojs/sitemap": "^3.7.3",
+		"@astrojs/sitemap": "^3.7.4",
 		"@astrojs/svelte": "8.1.2",
 		"@expressive-code/core": "^0.44.1",
 		"@expressive-code/plugin-collapsible-sections": "^0.44.1",
@@ -49,9 +49,9 @@
 		"@swup/astro": "^1.8.0",
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.1",
-		"astro": "7.1.1",
-		"astro-expressive-code": "^0.44.1",
-		"astro-icon": "^1.1.5",
+		"astro": "7.3.1",
+		"astro-expressive-code": "^0.44.2",
+		"astro-icon": "^1.2.0",
 		"axios": "^1.18.0",
 		"crypto-js": "^4.2.0",
 		"dayjs": "^1.11.21",
@@ -84,7 +84,7 @@
 		"unist-util-visit": "^5.1.0"
 	},
 	"devDependencies": {
-		"@astrojs/ts-plugin": "^1.10.10",
+		"@astrojs/ts-plugin": "^1.10.11",
 		"@eslint/js": "^10.0.1",
 		"@iconify-json/fa7-brands": "^1.2.4",
 		"@iconify-json/fa7-regular": "^1.2.3",
