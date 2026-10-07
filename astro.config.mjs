@@ -80,7 +80,7 @@ function legacySyntaxDownlevel() {
 
 // Astro 的 is:inline 脚本会原样写入 HTML，不经过打包器，
 // 因此上面的 chunk 降级无法覆盖它们，这里在构建产物落盘后统一处理。
-const INLINE_SCRIPT_RE = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
+const INLINE_SCRIPT_RE = /<script\b([^>]*)>([\s\S]*?)<\/script[^>]*>/gi;
 
 function legacyInlineScripts() {
 	return {
