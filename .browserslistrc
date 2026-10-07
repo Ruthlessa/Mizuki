@@ -1,0 +1,10 @@
+# 目标浏览器范围
+# 需覆盖国产浏览器 / 旧安卓内核（多为 Chromium 61 ~ 90，如 X5、U4、系统 WebView）
+# 这些内核对 @layer / oklch() / color-mix() / :has() 等现代 CSS 支持不完整
+Chrome >= 61
+ChromeAndroid >= 61
+iOS >= 12
+Safari >= 12
+Firefox >= 60
+Edge >= 79
+Samsung >= 8

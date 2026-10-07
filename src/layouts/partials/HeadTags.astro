@@ -111,6 +111,93 @@ const favicons: Favicon[] =
 <!-- 预加载关键脚本（仅在需要时启用） -->
 <!-- <link rel="preload" href="/assets/vendor.js" as="script" /> -->
 
+<!-- 兼容国产浏览器 / 旧安卓内核（Chromium 61~90）缺失的运行时 API。
+     这些 API 无法通过语法降级解决，缺失时会让打包产物在加载阶段直接抛错，
+     表现为交互失效、切换页面后空白，所以必须在所有业务脚本之前补全。 -->
+<script is:inline>
+	(function () {
+		if (typeof globalThis === "undefined") {
+			window.globalThis = window;
+		}
+		if (typeof queueMicrotask === "undefined") {
+			window.queueMicrotask = function (callback) {
+				Promise.resolve()
+					.then(callback)
+					.catch(function (error) {
+						setTimeout(function () {
+							throw error;
+						}, 0);
+					});
+			};
+		}
+		if (typeof Promise.prototype.finally !== "function") {
+			Promise.prototype.finally = function (onFinally) {
+				var handler =
+					typeof onFinally === "function"
+						? onFinally
+						: function () {};
+				return this.then(
+					function (value) {
+						return Promise.resolve(handler()).then(function () {
+							return value;
+						});
+					},
+					function (reason) {
+						return Promise.resolve(handler()).then(function () {
+							throw reason;
+						});
+					},
+				);
+			};
+		}
+		if (typeof String.prototype.replaceAll !== "function") {
+			String.prototype.replaceAll = function (search, replacement) {
+				if (
+					Object.prototype.toString.call(search) === "[object RegExp]"
+				) {
+					if (!search.global) {
+						throw new TypeError(
+							"replaceAll: 正则表达式必须带 g 标志",
+						);
+					}
+					return this.replace(search, replacement);
+				}
+				return this.split(search).join(replacement);
+			};
+		}
+		if (typeof String.prototype.matchAll !== "function") {
+			String.prototype.matchAll = function (regexp) {
+				var source = regexp.source;
+				var flags =
+					regexp.flags.indexOf("g") === -1
+						? regexp.flags + "g"
+						: regexp.flags;
+				var re = new RegExp(source, flags);
+				var result = [];
+				var match;
+				while ((match = re.exec(this)) !== null) {
+					result.push(match);
+					if (match[0] === "") re.lastIndex += 1;
+				}
+				return result[Symbol.iterator]();
+			};
+		}
+		if (typeof Object.hasOwn !== "function") {
+			Object.hasOwn = function (object, property) {
+				return Object.prototype.hasOwnProperty.call(object, property);
+			};
+		}
+		if (typeof ResizeObserver === "undefined") {
+			// 占位实现：避免 new ResizeObserver 抛错，旧内核下不触发回调
+			function ResizeObserverStub() {}
+			ResizeObserverStub.prototype.observe = function () {};
+			ResizeObserverStub.prototype.unobserve = function () {};
+			ResizeObserverStub.prototype.disconnect = function () {};
+			window.ResizeObserver = ResizeObserverStub;
+		}
+	})();
+</script>
+
 <!-- Set the theme before the page is rendered to avoid a flash -->
 <script
 	is:inline
