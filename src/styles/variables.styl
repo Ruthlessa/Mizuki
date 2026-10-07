@@ -109,3 +109,61 @@ body.wallpaper-transparent
 
 :root.dark body.wallpaper-transparent
   --card-bg-transparent: rgba(23, 23, 23, 0.8)
+
+/*
+ * 兼容不支持 oklch() 的旧内核（国产浏览器 / 旧安卓，Chromium < 111）。
+ * 上面的主题变量用了 oklch(… var(--hue))，因为色相是运行时变量，
+ * 构建期无法转换成 rgb，这里为默认色相（--hue: 60）补一份 rgb 回退，
+ * 避免这些变量解析失败导致背景/文字颜色丢失。该块位于变量定义之后，
+ * 在不支持 oklch 的浏览器中会覆盖上面的值。
+ */
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    --primary: rgb(221, 135, 54);
+    --page-bg: rgb(244, 237, 232);
+    --btn-content: rgb(163, 94, 22);
+    --btn-regular-bg: rgb(252, 235, 222);
+    --btn-regular-bg-hover: rgb(248, 215, 190);
+    --btn-regular-bg-active: rgb(245, 194, 153);
+    --btn-plain-bg-hover: rgb(252, 235, 222);
+    --btn-plain-bg-active: rgb(254, 247, 242);
+    --btn-card-bg-hover: rgb(251, 248, 245);
+    --btn-card-bg-active: rgb(238, 218, 203);
+    --deep-text: rgb(41, 31, 24);
+    --title-active: rgb(172, 113, 62);
+    --selection-bg: rgb(248, 215, 190);
+    --codeblock-bg: rgb(248, 244, 242);
+    --codeblock-topbar-bg: rgb(240, 234, 229);
+    --link-underline: rgb(253, 226, 206);
+    --link-hover: rgb(252, 235, 222);
+    --link-active: rgb(248, 215, 190);
+    --toc-badge-bg: rgb(245, 216, 193);
+    --toc-btn-hover: rgb(236, 226, 219);
+    --toc-btn-active: rgb(230, 220, 212);
+    --toc-item-active: rgb(217, 137, 65);
+  }
+
+  :root.dark {
+    --primary: rgb(238, 151, 72);
+    --page-bg: rgb(18, 12, 7);
+    --card-bg: rgb(34, 27, 22);
+    --btn-content: rgb(221, 159, 107);
+    --btn-regular-bg: rgb(67, 49, 35);
+    --btn-regular-bg-hover: rgb(82, 61, 45);
+    --btn-regular-bg-active: rgb(98, 74, 55);
+    --btn-plain-bg-hover: rgb(59, 42, 28);
+    --btn-plain-bg-active: rgb(48, 36, 26);
+    --btn-card-bg-hover: rgb(57, 42, 30);
+    --btn-card-bg-active: rgb(72, 54, 40);
+    --selection-bg: rgb(103, 60, 20);
+    --codeblock-bg: rgb(20, 14, 9);
+    --codeblock-topbar-bg: rgb(9, 5, 2);
+    --link-underline: rgb(103, 60, 20);
+    --link-hover: rgb(103, 60, 20);
+    --link-active: rgb(85, 49, 15);
+    --float-panel-bg: rgb(25, 18, 13);
+    --toc-btn-hover: rgb(34, 24, 17);
+    --toc-btn-active: rgb(41, 31, 24);
+    --toc-item-active: rgb(85, 49, 15);
+  }
+}

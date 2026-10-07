@@ -331,10 +331,10 @@ if (siteConfig.font) {
 	// 延迟加载代码块折叠功能
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', () => {
-			import('../scripts/code-collapse.js');
+			import('/scripts/code-collapse.js');
 		});
 	} else {
-		import('../scripts/code-collapse.js');
+		import('/scripts/code-collapse.js');
 	}
 </script>
 
@@ -344,7 +344,7 @@ if (siteConfig.font) {
 >
 	// 延迟加载主题优化器（首屏渲染完成后）
 	const loadThemeOptimizer = () => {
-		import('../scripts/theme-optimizer.js');
+		import('/scripts/theme-optimizer.js');
 	};
 	
 	if (document.readyState === 'loading') {
