@@ -224,6 +224,52 @@
     0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* ------------------------------------------------------------------
+ * 主题对齐（Theme alignment）
+ * astro-expressive-code 的双主题（github-light / github-dark）是按系统的
+ * prefers-color-scheme 切换，而本站主题由 html 上的 .dark 类控制。
+ * 两者不一致时会出现「深底深字 / 浅底浅字」，这里统一按站点主题取值。
+ * ---------------------------------------------------------------- */
+:root:not(.dark) .expressive-code {
+  --ec-codeFg: #24292e;
+  --ec-codeSelBg: #0366d625;
+  --ec-gtrFg: #1b1f234d;
+  --ec-gtrBrdCol: #1b1f2333;
+  --ec-gtrHlFg: #24292e;
+}
+
+:root.dark .expressive-code {
+  --ec-codeFg: #e1e4e8;
+  --ec-codeSelBg: #3392ff44;
+  --ec-gtrFg: #444d56;
+  --ec-gtrBrdCol: #444d5633;
+  --ec-gtrHlFg: #e1e4e8;
+}
+
+/* 语法着色 token：--0 为浅色主题色，--1 为深色主题色。
+   用 .custom-md 提升特异性，覆盖 ec 内置的 prefers-color-scheme 规则 */
+:root:not(.dark) .custom-md .expressive-code .ec-line :where(span[style^="--"]:not([class])) {
+  color: var(--0, inherit);
+  background-color: var(--0bg, transparent);
+  font-style: var(--0fs, inherit);
+  font-weight: var(--0fw, inherit);
+  text-decoration: var(--0td, inherit);
+}
+
+:root.dark .custom-md .expressive-code .ec-line :where(span[style^="--"]:not([class])) {
+  color: var(--1, inherit);
+  background-color: var(--1bg, transparent);
+  font-style: var(--1fs, inherit);
+  font-weight: var(--1fw, inherit);
+  text-decoration: var(--1td, inherit);
+}
+
+/* 代码块底色：@tailwindcss/typography 的 pre 规则特异性极高，
+   会把 ec 的浅色底覆盖成深灰（浅色主题下出现深底深字），这里显式纠正 */
+.custom-md .expressive-code pre {
+  background: var(--codeblock-bg) !important;
+}
+
 @media print {
   .expressive-code.collapsed .frame pre {
     max-height: none !important;

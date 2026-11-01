@@ -1,6 +1,27 @@
 @reference "tailwindcss";
 
 .custom-md {
+  /* 中文正文用更松的行距，长段落不易粘连 */
+  :is(p, li) {
+    line-height: 1.85;
+  }
+
+  /* 标题层级留白：h2 与上文拉开距离，与下文保持紧凑，强化分组感 */
+  h2 {
+    @apply mt-10 mb-3;
+    letter-spacing: 0.01em;
+  }
+
+  h3 {
+    @apply mt-8 mb-2;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply mt-6 mb-2;
+  }
+
   h1 {
     @apply text-3xl;
   }
