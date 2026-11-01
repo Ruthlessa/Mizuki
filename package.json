@@ -61,7 +61,7 @@
 		"marked": "^16.4.2",
 		"node-html-parser": "^7.0.2",
 		"oddmisc": "1.2.8",
-		"overlayscrollbars": "^2.16.0",
+		"overlayscrollbars": "^2.17.0",
 		"pagefind": "^1.5.2",
 		"qrcode": "^1.5.4",
 		"reading-time": "^1.5.0",
