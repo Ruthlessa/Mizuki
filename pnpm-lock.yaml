@@ -34,14 +34,14 @@ importers:
         specifier: 8.1.2
         version: 8.1.2(@types/node@25.7.0)(astro@7.2.8(@astrojs/markdown-remark@7.3.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@25.7.0)(jiti@2.7.0)(stylus@0.64.0)(terser@5.47.1)(tsx@4.23.12)(yaml@2.9.0))(jiti@2.7.0)(lightningcss@1.33.0)(stylus@0.64.0)(svelte@5.57.2(@typescript-eslint/types@8.68.0))(terser@5.47.1)(tsx@4.23.12)(typescript@5.9.3)(yaml@2.9.0)
       '@expressive-code/core':
-        specifier: ^0.44.1
-        version: 0.44.1
+        specifier: ^0.44.2
+        version: 0.44.2
       '@expressive-code/plugin-collapsible-sections':
-        specifier: ^0.44.1
-        version: 0.44.1
+        specifier: ^0.44.2
+        version: 0.44.2
       '@expressive-code/plugin-line-numbers':
-        specifier: ^0.44.1
-        version: 0.44.1
+        specifier: ^0.44.2
+        version: 0.44.2
       '@fancyapps/ui':
         specifier: ^6.1.14
         version: 6.1.14
@@ -1130,8 +1130,8 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
-  '@ctrl/tinycolor@4.2.0':
-    resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
+  '@ctrl/tinycolor@4.2.1':
+    resolution: {integrity: sha512-Vh5uy9Y1JBMId6J1f68TMXnZrTCvNdo9Fu2k0d1YnJngR+sM5kWTKl441c/3TFs+cG0NWOjRWgQ/iaWhbYx+7A==}
     engines: {node: '>=14'}
 
   '@emmetio/abbreviation@2.3.3':
@@ -1525,17 +1525,17 @@ packages:
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@expressive-code/core@0.44.1':
-    resolution: {integrity: sha512-3dDo9N8D7hYrLNNMMWFovg3+aDUtnQm7c7z0GZc1c0LEFVBc0Q6lKG+tVT28gDadOvsgOANfCn35fgpe97Pmgg==}
+  '@expressive-code/core@0.44.2':
+    resolution: {integrity: sha512-Yw5KonQCD1HoOO2P89y4wifqS9qrJcGVY0LkVMUsVZjhi++bhz4WwQ37inenKFNOEVo50P7cjoVsCdaVnUbq8w==}
 
-  '@expressive-code/plugin-collapsible-sections@0.44.1':
-    resolution: {integrity: sha512-1XG4PfamU5JPpWf9Z5jEsS1mNbeymntwn1EoQE40PPS5K9rUNTKpY5GFYEI60vWwj890a3/Oz9bCWTomvFityQ==}
+  '@expressive-code/plugin-collapsible-sections@0.44.2':
+    resolution: {integrity: sha512-iT8PPitb32Te5tGd1LiIlVeZve/HDZUtygwLjqg3f47aHR3AeUreDXDZUis5qMHr+/Vrt8tKfQSWtT7qm8Fkng==}
 
   '@expressive-code/plugin-frames@0.44.1':
     resolution: {integrity: sha512-HC/bdRao9225ApcgO/e3jn8ZOhldKO7ob1O/Tcipvtv7Vb5nMphZhMtD9uuywpvxkPYBHJi3504WhrKg05Dwqg==}
 
-  '@expressive-code/plugin-line-numbers@0.44.1':
-    resolution: {integrity: sha512-rWZmmSXBq9sq0DSe5+bXA+7j+3bYrh4EwXJdaBZtxEKB2I99OUSrU2d+4FAyu9Afpm5tCijbCs9AOg7Y93suOw==}
+  '@expressive-code/plugin-line-numbers@0.44.2':
+    resolution: {integrity: sha512-WvJV+Wv+dazle+IQoKH8rL5GpzwvRTSJ2IMrtufvnJy+aT+GGm73PoM19CN5HauCIc0tl/fGDtrm3iI9SjZNGQ==}
 
   '@expressive-code/plugin-shiki@0.44.1':
     resolution: {integrity: sha512-YApiZt3buUzBwL5tqj8G+sYC5NjMjRCHgQwr9bmGl69rtcHy6fE9dooWUeKYB978fJT2BuxT5FeHcF47rA3SEg==}
@@ -2683,6 +2683,9 @@ packages:
 
   '@ungap/structured-clone@1.3.3':
     resolution: {integrity: sha512-60YRaenCQcVjYEKOcG824+DRGGIQ3VKErcBoAEDJZz5bKIs2ZG+X/H9Nk+Q6EVkwJk5QNApxbrc5QtBSwtrXAg==}
+
+  '@ungap/structured-clone@1.4.0':
+    resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
 
   '@volar/kit@2.4.28':
     resolution: {integrity: sha512-cKX4vK9dtZvDRaAzeoUdaAJEew6IdxHNCRrdp5Kvcl6zZOqb6jTOfk3kXkIkG3T7oTFXguEMt5+9ptyqYR84Pg==}
@@ -9187,7 +9190,7 @@ snapshots:
     dependencies:
       postcss: 8.5.29
 
-  '@ctrl/tinycolor@4.2.0': {}
+  '@ctrl/tinycolor@4.2.1': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
@@ -9428,38 +9431,38 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@expressive-code/core@0.44.1':
+  '@expressive-code/core@0.44.2':
     dependencies:
-      '@ctrl/tinycolor': 4.2.0
+      '@ctrl/tinycolor': 4.2.1
       hast-util-select: 6.0.4
       hast-util-to-html: 9.0.5
       hast-util-to-text: 4.0.2
       hastscript: 9.0.1
-      postcss: 8.5.26
-      postcss-nested: 6.2.0(postcss@8.5.26)
+      postcss: 8.5.29
+      postcss-nested: 6.2.0(postcss@8.5.29)
       unist-util-visit: 5.1.0
       unist-util-visit-parents: 6.0.2
 
-  '@expressive-code/plugin-collapsible-sections@0.44.1':
+  '@expressive-code/plugin-collapsible-sections@0.44.2':
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
 
   '@expressive-code/plugin-frames@0.44.1':
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
 
-  '@expressive-code/plugin-line-numbers@0.44.1':
+  '@expressive-code/plugin-line-numbers@0.44.2':
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
 
   '@expressive-code/plugin-shiki@0.44.1':
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
       shiki: 4.5.0
 
   '@expressive-code/plugin-text-markers@0.44.1':
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
 
   '@fancyapps/ui@6.1.14': {}
 
@@ -10604,6 +10607,8 @@ snapshots:
   '@ungap/structured-clone@1.3.1': {}
 
   '@ungap/structured-clone@1.3.3': {}
+
+  '@ungap/structured-clone@1.4.0': {}
 
   '@volar/kit@2.4.28(typescript@5.9.3)':
     dependencies:
@@ -12344,7 +12349,7 @@ snapshots:
 
   expressive-code@0.44.1:
     dependencies:
-      '@expressive-code/core': 0.44.1
+      '@expressive-code/core': 0.44.2
       '@expressive-code/plugin-frames': 0.44.1
       '@expressive-code/plugin-shiki': 0.44.1
       '@expressive-code/plugin-text-markers': 0.44.1
@@ -13936,7 +13941,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.5
       '@types/mdast': 4.0.4
-      '@ungap/structured-clone': 1.3.3
+      '@ungap/structured-clone': 1.4.0
       devlop: 1.1.0
       micromark-util-sanitize-uri: 2.0.1
       trim-lines: 3.0.1
@@ -14990,9 +14995,9 @@ snapshots:
       postcss-modules-values: 4.0.0(postcss@8.5.29)
       string-hash: 1.1.3
 
-  postcss-nested@6.2.0(postcss@8.5.26):
+  postcss-nested@6.2.0(postcss@8.5.29):
     dependencies:
-      postcss: 8.5.26
+      postcss: 8.5.29
       postcss-selector-parser: 6.1.4
 
   postcss-nesting@13.0.2(postcss@8.5.29):
