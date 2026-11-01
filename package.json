@@ -118,7 +118,7 @@
 		"prettier": "^3.9.10",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-svelte": "^3.5.0",
-		"svelte-eslint-parser": "^1.8.1",
+		"svelte-eslint-parser": "^1.10.0",
 		"tsx": "^4.23.15",
 		"typescript-eslint": "^8.72.1"
 	},
