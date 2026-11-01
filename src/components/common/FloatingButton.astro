@@ -41,6 +41,12 @@ const { id, icon, ariaLabel, onclick, class: className = "" } = Astro.props;
 	border: 1px solid rgba(148, 163, 184, 0.45)
 	flex-shrink: 0
 	overflow: hidden
+	// 消除移动端双击缩放等待，快速连点也能立刻响应
+	touch-action: manipulation
+
+	:global(button)
+		touch-action: manipulation
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)
 
 	:global(svg)
 		font-size: 1.6rem
@@ -62,7 +68,10 @@ const { id, icon, ariaLabel, onclick, class: className = "" } = Astro.props;
 			transition: opacity 0.1s ease
 
 	&:active
-		transform: scale(0.9)
+		// 只缩放内层按钮，保持外层命中区域不变，避免触摸端点按边缘时
+		// 元素缩小导致点击落空
+		:global(button)
+			transform: scale(0.9)
 
 	&:hover
 		color: var(--primary)

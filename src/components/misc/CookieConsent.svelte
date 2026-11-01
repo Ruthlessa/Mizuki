@@ -9,6 +9,8 @@
 	}
 
 	let isOpen = $state(false);
+	// 自动弹出的提示条不遮挡页面，用户主动打开时才使用全屏弹窗
+	let isAutoPrompt = $state(false);
 	let preferences = $state<CookiePreferences>({
 		analytics: false,
 		necessary: true,
@@ -52,6 +54,7 @@
 	};
 
 	const handleOpen = () => {
+		isAutoPrompt = false;
 		isOpen = true;
 	};
 
@@ -84,6 +87,7 @@
 			const savedConsent = localStorage.getItem(CONSENT_KEY);
 			if (!savedConsent) {
 				setTimeout(() => {
+					isAutoPrompt = true;
 					isOpen = true;
 				}, 2000);
 			}
@@ -92,9 +96,49 @@
 </script>
 
 {#if typeof document !== "undefined" && isOpen}
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-	>
+	{#if isAutoPrompt}
+		<div
+			class="pointer-events-none fixed inset-x-0 bottom-0 z-[45] pl-3 pr-16 pb-3 sm:pr-3"
+		>
+			<div
+				class="pointer-events-auto mx-auto flex w-full max-w-3xl flex-col gap-2 rounded-xl border border-black/10 bg-white/95 px-4 py-3 shadow-xl backdrop-blur sm:flex-row sm:items-center sm:gap-4 dark:border-white/10 dark:bg-gray-800/95"
+			>
+				<p
+					class="text-xs leading-relaxed text-gray-600 sm:flex-1 sm:text-sm dark:text-gray-400"
+				>
+					我们使用 Cookie 来改善您的浏览体验。
+				</p>
+				<div
+					class="flex shrink-0 items-center justify-start gap-2 sm:justify-end"
+				>
+					<button
+						type="button"
+						onclick={handleAcceptNecessary}
+						class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+					>
+						仅必要
+					</button>
+					<button
+						type="button"
+						onclick={handleAcceptAll}
+						class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-blue-700"
+					>
+						接受全部
+					</button>
+					<button
+						type="button"
+						onclick={() => (isAutoPrompt = false)}
+						class="text-xs text-gray-500 underline-offset-2 hover:text-gray-700 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+					>
+						自定义
+					</button>
+				</div>
+			</div>
+		</div>
+	{:else}
+		<div
+			class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+		>
 		<div
 			class="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 shadow-2xl"
 		>
@@ -179,4 +223,5 @@
 			</div>
 		</div>
 	</div>
+	{/if}
 {/if}

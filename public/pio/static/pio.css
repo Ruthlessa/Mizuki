@@ -12,7 +12,8 @@
 
 .pio-container {
 	bottom: 0;
-	z-index: 52;
+	/* 低于右下角悬浮按钮组的 z-index: 50，避免画布拦截按钮点击 */
+	z-index: 40;
 	color: #666;
 	position: fixed;
 	user-select: none;
