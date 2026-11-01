@@ -445,7 +445,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	floatingEntryMode: "fab", // 悬浮入口模式："default" 为独立悬浮播放器，"fab" 为集成到通用 FAB 组
 	mode: "meting", // 音乐播放器模式："local" 本地模式 或 "meting" 网易云模式
 	meting_api:
-		"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
+		"https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
 	id: "2247042580", // 网易云歌单ID
 	server: "netease", // 音乐源服务器：netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐
 	type: "playlist", // 播单类型

@@ -304,7 +304,9 @@ class MusicPlayerStore {
 				this.loadSong(this.state.playlist[0], false);
 			}
 		} catch (e) {
+			// 第三方 Meting 服务不可用时退回本地歌单，避免播放器完全失效
 			this.showError(i18n(Key.musicPlayerErrorPlaylist));
+			this.loadLocalPlaylist();
 			this.state.isLoading = false;
 		}
 		this.broadcastState();
