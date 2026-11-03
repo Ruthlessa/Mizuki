@@ -45,7 +45,7 @@
 		"@fancyapps/ui": "^6.1.15",
 		"@fontsource-variable/jetbrains-mono": "^5.3.0",
 		"@fontsource/roboto": "^5.3.0",
-		"@iconify/svelte": "^5.2.2",
+		"@iconify/svelte": "^5.2.3",
 		"@swup/astro": "^1.8.0",
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.1",
