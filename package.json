@@ -81,7 +81,7 @@
 		"svelte": "^5.57.2",
 		"tailwindcss": "^4.3.1",
 		"typescript": "^5.9.3",
-		"unist-util-visit": "^5.1.0"
+		"unist-util-visit": "^5.2.0"
 	},
 	"devDependencies": {
 		"@astrojs/markdown-remark": "^7.3.5",
