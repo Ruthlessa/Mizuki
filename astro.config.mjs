@@ -173,6 +173,10 @@ export default defineConfig({
 			theme: false,
 			animationClass: "transition-swup-",
 			containers: ["main"],
+			// 不要等到 window load 再初始化：Banner 随机图、音乐音频等外部请求
+			// 可能长时间挂起，load 迟迟不触发会导致 swup 始终未接管，
+			// 每次切页都退化成整页刷新，按钮在水合前无法点击。
+			loadOnIdle: false,
 			smoothScrolling: false, // 禁用平滑滚动以提升性能，避免与锚点导航冲突
 			cache: true,
 			preload: true, // 启用智能预加载

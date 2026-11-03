@@ -230,9 +230,11 @@ const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
 				</div>
 			</div>
 
-			<FloatingControls headings={headings} />
 		</div>
 	</div>
+
+	<!-- 悬浮按钮组放在 z-30 内容层之外，避免被 z-index 层叠上下文压低而遮挡 -->
+	<FloatingControls headings={headings} />
 
 	<style>
 		.right-sidebar-container {

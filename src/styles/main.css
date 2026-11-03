@@ -327,9 +327,13 @@ html {
       box-shadow var(--dur-base) var(--ease-out-soft),
       background-color 150ms;
   }
-  .post-card-item:hover .card-base {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-2), var(--ring-soft);
+  /* 仅在真正支持悬停的精确指针设备上抬升：触摸端:hover会粘滞，
+     卡片在按下后被抬起会移出触点，导致点击落空 */
+  @media (hover: hover) and (pointer: fine) {
+    .post-card-item:hover .card-base {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-2), var(--ring-soft);
+    }
   }
 
   /* 全屏壁纸模式下的半透明效果 - 使用!important确保优先级 */

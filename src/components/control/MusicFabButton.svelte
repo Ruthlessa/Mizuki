@@ -80,6 +80,7 @@
 		cursor: pointer;
 		color: var(--primary);
 		pointer-events: auto;
+		touch-action: manipulation;
 		transition:
 			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 			box-shadow 0.3s ease,
@@ -90,8 +91,10 @@
 		box-shadow: var(--shadow-button);
 	}
 
-	.music-fab:active {
-		transform: scale(0.94);
+	/* 按压反馈只作用在图标上，保持按钮命中区域不变，
+	   避免触摸端点按边缘时元素缩小导致点击落空 */
+	.music-fab:active .music-fab__icon {
+		transform: scale(0.9);
 	}
 
 	.music-fab.active {
@@ -105,6 +108,7 @@
 		justify-content: center;
 		font-size: 1.5rem;
 		line-height: 1;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.music-fab__dot {
