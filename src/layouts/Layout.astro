@@ -203,6 +203,13 @@ if (siteConfig.font) {
 			title={profileConfig.name}
 			href={`${Astro.site}rss.xml`}
 		/>
+
+		<!-- 首屏图标本地化：避免每个图标集单独请求 Iconify CDN -->
+		<script>
+			import { registerOfflineIcons } from "../utils/iconify-offline";
+
+			registerOfflineIcons();
+		</script>
 	</head>
 	<body
 		class="min-h-screen"

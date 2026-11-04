@@ -187,6 +187,28 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					const desktopSrc = getRandomImage(desktopImages, "banner_desktop_index");
 					const mobileSrc = getRandomImage(mobileImages, "banner_mobile_index");
 
+					// 外链随机图源可能长时间挂起，6s 未完成则移除 img 并降级为渐变背景，
+					// 同时释放挂起的请求，避免 window.load 永远不触发
+					const attachStalledFallback = (img, container) => {
+						const degrade = () => {
+							img.removeAttribute("src");
+							if (img.parentNode) {
+								img.parentNode.removeChild(img);
+							}
+							container.classList.add("banner-image-stalled");
+						};
+						const timer = setTimeout(() => {
+							if (!img.complete || img.naturalWidth === 0) {
+								degrade();
+							}
+						}, 6000);
+						img.addEventListener("load", () => clearTimeout(timer), { once: true });
+						img.addEventListener("error", () => {
+							clearTimeout(timer);
+							degrade();
+						}, { once: true });
+					};
+
 					if (mobileSrc) {
 						const mobileImg = document.createElement("img");
 						mobileImg.alt = "Mobile banner image of the blog";
@@ -197,6 +219,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						mobileImg.fetchPriority = "high";
 						mobileImg.dataset.position = position;
 						container.appendChild(mobileImg);
+						attachStalledFallback(mobileImg, container);
 					}
 
 					if (desktopSrc) {
@@ -210,6 +233,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						desktopImg.fetchPriority = "high";
 						desktopImg.dataset.position = position;
 						container.appendChild(desktopImg);
+						attachStalledFallback(desktopImg, container);
 					}
 				}
 
@@ -671,6 +695,17 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 </div>
 
 <style>
+	/* Banner 图片加载失败/超时后的降级背景，保证文字仍然可读 */
+	#banner-single-container.banner-image-stalled {
+		background:
+			radial-gradient(
+				ellipse 120% 90% at 50% 0%,
+				rgba(255, 255, 255, 0.12) 0%,
+				transparent 60%
+			),
+			linear-gradient(135deg, #111827 0%, #1f2937 40%, #374151 75%, #4b5563 100%);
+	}
+
 	/* 遮罩：顶部渐隐压暗导航栏，中心径向压暗标题区域，保证白字可读 */
 	.banner-scrim {
 		background:

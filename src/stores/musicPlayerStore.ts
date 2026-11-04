@@ -113,6 +113,8 @@ class MusicPlayerStore {
 		}
 
 		this.audio = new Audio();
+		// 只预取元数据（用于显示时长），完整音频流等用户点击播放再请求
+		this.audio.preload = "metadata";
 		this.setupAudioListeners();
 		this.loadVolumeFromStorage();
 		this.registerInteractionHandler();
@@ -154,6 +156,19 @@ class MusicPlayerStore {
 
 		this.audio.addEventListener("loadeddata", () => {
 			this.handleAudioLoaded();
+		});
+
+		// 只预取元数据时，时长为 0 的歌也可以在 loadedmetadata 后显示正确总时长
+		this.audio.addEventListener("loadedmetadata", () => {
+			this.state.isLoading = false;
+			if (this.audio?.duration && this.audio.duration > 1) {
+				this.state.duration = Math.floor(this.audio.duration);
+				this.state.currentSong = {
+					...this.state.currentSong,
+					duration: this.state.duration,
+				};
+				this.broadcastState();
+			}
 		});
 
 		this.audio.addEventListener("loadstart", () => {
@@ -354,11 +369,11 @@ class MusicPlayerStore {
 		}
 		if (song.url !== this.state.currentSong.url) {
 			this.state.currentSong = { ...song };
-			if (song.url) {
-				this.state.isLoading = true;
-			} else {
-				this.state.isLoading = false;
+			// 歌单已带时长，先展示正确总时长；不预加载音频，只有自动播放时才显示 loading
+			if (song.duration && song.duration > 0) {
+				this.state.duration = song.duration;
 			}
+			this.state.isLoading = autoPlay && !!song.url;
 		}
 		this.state.willAutoPlay = autoPlay;
 		if (this.audio) {
@@ -366,7 +381,11 @@ class MusicPlayerStore {
 				this.audio.src = "";
 			}
 			this.audio.src = getAssetPath(song.url);
-			this.audio.load();
+			// 不主动 load()：等用户点击播放时再拉取音频，
+			// 避免初始化就产生永不结束的流式请求而阻塞 load 事件
+			if (autoPlay) {
+				this.audio.load();
+			}
 		}
 		this.broadcastState();
 	}
@@ -526,6 +545,11 @@ class MusicPlayerStore {
 	}
 
 	toggleExpanded(): void {
+		// 播放器是懒初始化的（避免首屏加载歌单与音频流），
+		// 用户主动打开面板时立即补齐初始化
+		if (!this.isInitialized) {
+			void this.initialize();
+		}
 		this.state.isExpanded = !this.state.isExpanded;
 		// 保持与原先 usePlayerState.toggleExpandedUI 一致的联动行为：
 		// 展开时强制取消隐藏，并关闭播放列表，避免状态组合异常
