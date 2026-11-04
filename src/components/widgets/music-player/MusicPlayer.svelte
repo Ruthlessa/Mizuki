@@ -20,6 +20,13 @@
 	const shouldRenderFloatingUi =
 		showFloatingPlayer && musicPlayerConfig.enable;
 	let unsubscribe: (() => void) | undefined;
+	let initTimer: ReturnType<typeof setTimeout> | undefined;
+	let initTeardown: (() => void) | undefined;
+	const initEvents: (keyof WindowEventMap)[] = [
+		"pointerdown",
+		"keydown",
+		"touchstart",
+	];
 
 	// 初始化状态
 	state = musicPlayerStore.getState();
@@ -182,13 +189,38 @@
 		unsubscribe = musicPlayerStore.subscribe((nextState) => {
 			state = nextState;
 		});
-		musicPlayerStore.initialize();
+
+		// 首屏不初始化播放器：歌单接口与音频流会长时间占用请求并阻塞 load 事件，
+		// 等用户首次交互或首屏渲染完成（最多 4s）后再初始化
+		const stopWaiting = () => {
+			initEvents.forEach((event) =>
+				window.removeEventListener(event, startInit, true),
+			);
+			if (initTimer !== undefined) {
+				clearTimeout(initTimer);
+				initTimer = undefined;
+			}
+		};
+		const startInit = () => {
+			stopWaiting();
+			musicPlayerStore.initialize();
+		};
+		initTeardown = stopWaiting;
+		initEvents.forEach((event) =>
+			window.addEventListener(event, startInit, {
+				once: true,
+				capture: true,
+				passive: true,
+			}),
+		);
+		initTimer = setTimeout(startInit, 4000);
 	});
 
 	onDestroy(() => {
 		if (unsubscribe) {
 			unsubscribe();
 		}
+		initTeardown?.();
 		musicPlayerStore.destroy();
 	});
 </script>

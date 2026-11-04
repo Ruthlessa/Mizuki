@@ -86,8 +86,13 @@
 				});
 		};
 
-		// 立即开始加载，不等待 idle
-		setTimeout(loadWithIdle, 500);
+		// 首屏优先：Live2D 纹理约 1.6MB，等页面空闲（或最多 3.5s）后再加载，
+		// 避免与首屏图片、字体、脚本争抢带宽
+		if (typeof window.requestIdleCallback === "function") {
+			window.requestIdleCallback(loadWithIdle, { timeout: 3500 });
+		} else {
+			setTimeout(loadWithIdle, 3500);
+		}
 	}
 
 	function handlePageTransition() {
