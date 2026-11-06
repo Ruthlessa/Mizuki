@@ -5,7 +5,7 @@
 
 [![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/astro-6.3.1-orange)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/astro-7.4.4-orange)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
@@ -43,8 +43,8 @@
 - **Node.js 版本要求**：升級至 Node.js 24.12.0 或更高版本
 - **pnpm 版本**：升級至 pnpm 10.22.0
 - **TypeScript 升級**：從 5.6.2 升級至 5.9.3
-- **Svelte 5 支持**：引入最新的 Svelte 5.55.5 元件架構
-- **Tailwind CSS 4**：採用最新的 Tailwind CSS 4.3.0
+- **Svelte 5 支持**：引入最新的 Svelte 5.57.2 元件架構
+- **Tailwind CSS 4**：採用最新的 Tailwind CSS 4.3.1
 - **依賴全面更新**：所有核心依賴都已更新到最新穩定版本
 
 

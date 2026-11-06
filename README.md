@@ -6,7 +6,7 @@
 
 [![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/astro-6.3.1-orange)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/astro-7.4.4-orange)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
@@ -19,6 +19,8 @@
 通过我们全面的文档快速开始。无论您是自定义主题、配置功能还是部署到生产环境，文档都涵盖了成功启动博客所需的一切。
 
 [📚 阅读完整文档](https://docs.mizuki.mysqil.com/) →
+
+> 快速入口：[文档索引](./docs/README.md) · [性能优化指南](./docs/OPTIMIZATION_GUIDE.md) · [变更记录](./docs/CHANGELOG.md)
 
 ![Mizuki 预览](./README.webp)
 
@@ -43,8 +45,8 @@
 - **Node.js 版本要求**：升级至 Node.js 24.12.0 或更高版本
 - **pnpm 版本**：升级至 pnpm 10.22.0
 - **TypeScript 升级**：从 5.6.2 升级至 5.9.3
-- **Svelte 5 支持**：引入最新的 Svelte 5.55.5 组件架构
-- **Tailwind CSS 4**：采用最新的 Tailwind CSS 4.3.0
+- **Svelte 5 支持**：引入最新的 Svelte 5.57.2 组件架构
+- **Tailwind CSS 4**：采用最新的 Tailwind CSS 4.3.1
 - **依赖全面更新**：所有核心依赖都已更新到最新稳定版本
 
 ### 🎯 组件配置系统重构
