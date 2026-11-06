@@ -92,8 +92,10 @@
 
   /* --- 引用块 --- */
   blockquote {
-    @apply not-italic border-transparent relative;
+    @apply not-italic border-transparent relative rounded-(--radius-large);
     font-weight: inherit;
+    background: color-mix(in oklch, var(--btn-regular-bg) 65%, transparent);
+    padding: 0.6rem 1rem 0.6rem 1.25rem;
 
     &:before {
       @apply content-[''] absolute left-0 block transition bg-(--btn-regular-bg) h-full w-1 rounded-full;
@@ -103,6 +105,21 @@
     p:after {
       @apply content-none;
     }
+  }
+
+  /* --- 图片样式 --- */
+  img {
+    @apply mx-auto rounded-(--radius-large);
+    box-shadow: var(--shadow-1);
+  }
+
+  figure {
+    @apply my-6 flex flex-col items-center;
+  }
+
+  figcaption {
+    @apply mt-2 text-center text-sm;
+    color: color-mix(in oklch, currentColor 60%, transparent);
   }
 
   /* --- 表格样式 --- */

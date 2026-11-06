@@ -255,6 +255,30 @@ pnpm run performance:check
 
 ---
 
+## 🚀 2026-11 首屏优化实践
+
+针对「首屏被外部请求拖慢」的问题，本轮从资源优先级与请求时机入手，做了以下改动：
+
+| 项目 | 优化前 | 优化后 |
+| --- | --- | --- |
+| 音乐播放器 | 页面加载即请求歌单与音频流 | 首次交互或 4 秒后初始化；音频 `preload="metadata"`，点击播放才拉流 |
+| Live2D | 挂载后 500ms 拉取约 1.6MB 纹理 | `requestIdleCallback` 延迟（最多 3.5 秒） |
+| Iconify 图标 | 每个图标集单独请求 CDN，首屏 8 个请求 | 本地注册实际使用的图标子集，首屏请求降至 2 个 |
+| Banner 随机图 | 外链挂起时首屏长期空白并阻塞 `load` | 6 秒超时后移除图片并降级为渐变背景 |
+| Swup 初始化 | 等待 `window.load`，外部请求挂起时永不就绪 | `loadOnIdle: false`，不再依赖 `load` 事件 |
+
+实测（移动端 390×844，生产构建）：FCP 约 400–530ms，DOMContentLoaded 约 560ms。
+
+验证方式：
+
+```bash
+pnpm build
+pnpm preview
+# 用 Lighthouse 或浏览器 Performance 面板对比 FCP / DCL / 首屏请求数
+```
+
+---
+
 ## 📚 相关文档
 
 - [Astro 性能指南](https://docs.astro.build/en/guides/performance/)

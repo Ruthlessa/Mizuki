@@ -50,6 +50,15 @@
 - **[AUTO_BUILD_TRIGGER.md](./AUTO_BUILD_TRIGGER.md)** - 自动构建触发快速参考 🆕
   - 5 步快速配置，解决内容更新不触发部署的问题
 
+### 性能与维护
+
+- **[OPTIMIZATION_GUIDE.md](./OPTIMIZATION_GUIDE.md)** - 加载性能优化总结
+  - Swup 导航、资源预加载、首屏延迟加载与本地图标
+- **[PERFORMANCE_MONITORING.md](./PERFORMANCE_MONITORING.md)** - 性能监控指南
+  - Lighthouse CI、性能指标目标与回归检查
+- **[CHANGELOG.md](./CHANGELOG.md)** - 变更记录 🆕
+  - 按时间记录修复、优化与依赖升级
+
 ## 🚀 快速查找
 
 ### 我是新手，想快速开始
@@ -76,6 +85,12 @@
 ### 内容仓库更新后站点没有自动重新部署 🆕
 → 阅读 [自动构建触发快速参考](./AUTO_BUILD_TRIGGER.md)
 
+### 我想了解最近的修复与优化
+→ 阅读 [变更记录](./CHANGELOG.md)
+
+### 我想优化首屏加载速度
+→ 阅读 [加载性能优化总结](./OPTIMIZATION_GUIDE.md)
+
 ## 📖 文档架构
 
 ```
@@ -86,6 +101,10 @@ docs/
 ├── MIGRATION_GUIDE.md           # 迁移指南
 ├── DEPLOYMENT.md                # 部署完整指南
 ├── AUTO_BUILD_TRIGGER.md        # 自动构建触发快速参考
+├── OPTIMIZATION_GUIDE.md        # 加载性能优化总结
+├── PERFORMANCE_MONITORING.md    # 性能监控指南
+├── CHANGELOG.md                 # 变更记录
+├── editor/                       # 编辑器配置说明
 └── image/                       # 文档图片资源
 ```
 
@@ -104,8 +123,8 @@ docs/
 
 ## 🤝 需要帮助？
 
-- 查看 [GitHub Issues](https://github.com/matsuzaka-yuki/Mizuki/issues)
+- 查看 [GitHub Issues](https://github.com/Ruthlessa/Mizuki/issues)
 - 阅读相关文档的故障排查章节
-- 运行 `pnpm run check-env` 检查配置
+- 运行 `pnpm run check` 检查类型与 Astro 诊断
 
 祝你使用愉快！🎉
