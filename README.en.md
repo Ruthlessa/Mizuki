@@ -5,7 +5,7 @@ A modern, feature-rich static blog template built with [Astro](https://astro.bui
 
 [![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/astro-6.3.1-orange)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/astro-7.4.4-orange)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
@@ -43,8 +43,8 @@ Get started quickly with our comprehensive documentation. Whether you're customi
 - **Node.js Version Requirement**: Updated to Node.js 24.12.0 or higher
 - **pnpm Version**: Updated to pnpm 10.22.0
 - **TypeScript Upgrade**: From 5.6.2 to 5.9.3
-- **Svelte 5 Support**: Introducing the latest Svelte 5.55.5 component architecture
-- **Tailwind CSS 4**: Adopting the latest Tailwind CSS 4.3.0
+- **Svelte 5 Support**: Introducing the latest Svelte 5.57.2 component architecture
+- **Tailwind CSS 4**: Adopting the latest Tailwind CSS 4.3.1
 - **Full Dependency Update**: All core dependencies are updated to the latest stable versions
 
 

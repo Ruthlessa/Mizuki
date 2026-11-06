@@ -5,7 +5,7 @@
 
 [![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/astro-6.3.1-orange)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/astro-7.4.4-orange)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![Version](https://img.shields.io/badge/version-9.0-green)](https://github.com/Ruthlessa/Mizuki)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
@@ -43,8 +43,8 @@
 - **Node.js バージョン要件**: Node.js 24.12.0 以上に更新
 - **pnpm バージョン**: pnpm 10.22.0 に更新
 - **TypeScript アップグレード**: 5.6.2 から 5.9.3 に
-- **Svelte 5 サポート**: 最新の Svelte 5.55.5 コンポーネントアーキテクチャを導入
-- **Tailwind CSS 4**: 最新の Tailwind CSS 4.3.0 を採用
+- **Svelte 5 サポート**: 最新の Svelte 5.57.2 コンポーネントアーキテクチャを導入
+- **Tailwind CSS 4**: 最新の Tailwind CSS 4.3.1 を採用
 - **依存関係の完全な更新**: すべてのコア依存関係が最新の安定版に更新
 
 
