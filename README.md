@@ -3,7 +3,6 @@
 
 一个现代化、功能丰富的静态博客模板，使用 [Astro](https://astro.build) 构建，具有先进的功能和美丽的设计
 
-
 [![Node.js](https://img.shields.io/badge/node.js-24.12.0-green)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.22.0-blue)](https://pnpm.io/)
 [![Astro](https://img.shields.io/badge/astro-7.4.4-orange)](https://astro.build/)
