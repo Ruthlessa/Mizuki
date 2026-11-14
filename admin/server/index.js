@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 const config = require('./config');
 const { initDatabase } = require('./models/database');
 
@@ -13,9 +14,17 @@ const { authMiddleware, roleMiddleware } = require('./middleware/auth');
 
 const app = express();
 
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300, // limit each IP to 300 requests per window
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 app.use(cors(config.cors));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api', apiLimiter);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
