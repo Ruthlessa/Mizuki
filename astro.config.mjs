@@ -10,7 +10,7 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import swup from "@swup/astro";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import expressiveCode from "astro-expressive-code";
+import { umami } from "oddmisc/astro";
 import icon from "astro-icon";
 import { umami } from "oddmisc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
