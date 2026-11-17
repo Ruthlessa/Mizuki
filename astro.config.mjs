@@ -12,7 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import { umami } from "oddmisc";
+import { umami } from "oddmisc/astro";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components";
 import rehypeExternalLinks from "rehype-external-links";
