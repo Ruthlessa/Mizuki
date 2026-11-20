@@ -1,8 +1,3 @@
-/**
- * Iconify 离线图标子集
- * 内联首屏所需图标数据并注册到 Iconify 缓存，避免逐个请求 CDN 造成的图标延迟；
- * 只暴露 registerOfflineIcons 一个入口，需在客户端调用且幂等。
- */
 import { addCollection } from "@iconify/svelte/dist/functions";
 
 // 首屏图标使用本地子集，避免每个图标集单独请求 Iconify CDN（否则按钮图标会延迟 1s 以上出现）。
@@ -11,7 +6,6 @@ const collections = [{"prefix":"material-symbols","width":24,"height":24,"icons"
 
 let registered = false;
 
-/** 把内联的图标子集注册到 Iconify 缓存，只执行一次；仅在浏览器环境生效 */
 export function registerOfflineIcons(): void {
 	if (registered || typeof window === "undefined") {
 		return;

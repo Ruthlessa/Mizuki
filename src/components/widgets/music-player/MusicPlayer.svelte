@@ -226,7 +226,6 @@
 				initTimer = undefined;
 			}
 		};
-		/** 首次交互或超时触发：停止等待并初始化播放器 store。 */
 		const startInit = () => {
 			stopWaiting();
 			musicPlayerStore.initialize();

@@ -193,7 +193,6 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					// 外链随机图源可能长时间挂起，6s 未完成则移除 img 并降级为渐变背景，
 					// 同时释放挂起的请求，避免 window.load 永远不触发
 					const attachStalledFallback = (img, container) => {
-						/** 移除挂起的 img 并给容器加降级背景类，避免空白横幅 */
 						const degrade = () => {
 							img.removeAttribute("src");
 							if (img.parentNode) {
