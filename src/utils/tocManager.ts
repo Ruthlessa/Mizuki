@@ -57,6 +57,7 @@ export class TOCManager {
 		) as HTMLElement | null;
 	}
 
+	/** 定位正文容器：依次尝试主题的 .custom-md / .prose / .markdown-content */
 	private getContentContainer(): Element | null {
 		return (
 			document.querySelector(".custom-md") ||
@@ -65,6 +66,7 @@ export class TOCManager {
 		);
 	}
 
+	/** 收集正文中的全部标题元素 */
 	private getAllHeadings(): HTMLElement[] {
 		const contentContainer = this.getContentContainer();
 		if (!contentContainer) {
@@ -75,6 +77,7 @@ export class TOCManager {
 		);
 	}
 
+	/** 找出最小标题层级（如正文从 h2 开始则 minDepth 为 2），作为缩进基准 */
 	private calculateMinDepth(headings: HTMLElement[]): number {
 		let minDepth = 10;
 		headings.forEach((heading) => {
@@ -84,6 +87,7 @@ export class TOCManager {
 		return minDepth;
 	}
 
+	/** 按 maxLevel 过滤标题，只保留最小层级附近若干级 */
 	private filterHeadings(headings: HTMLElement[]): HTMLElement[] {
 		return Array.from(headings).filter((heading) => {
 			const depth = Number.parseInt(heading.tagName.charAt(1), 10);
@@ -91,6 +95,7 @@ export class TOCManager {
 		});
 	}
 
+	/** 克隆节点后取纯文本，避免读取标题内的锚点 # 等辅助节点 */
 	private getCleanTextContent(element: HTMLElement): string {
 		const clone = element.cloneNode(true) as HTMLElement;
 		for (const el of clone.querySelectorAll("script, style")) {
@@ -99,6 +104,7 @@ export class TOCManager {
 		return clone.textContent || "";
 	}
 
+	/** 转义 HTML 属性值，防止标题文本破坏 title/aria-label 属性 */
 	private escapeHtmlAttr(value: string): string {
 		return value
 			.replace(/&/g, "&amp;")
@@ -108,6 +114,7 @@ export class TOCManager {
 			.replace(/>/g, "&gt;");
 	}
 
+	/** 按层级生成左侧徽标内容：一级显示序号，二级/三级显示圆点 */
 	private generateBadgeContent(depth: number, heading1Count: number): string {
 		if (depth === this.minDepth) {
 			return heading1Count.toString();
@@ -118,10 +125,12 @@ export class TOCManager {
 		return '<span class="toc-badge-dot toc-badge-dot-sm"></span>';
 	}
 
+	/** 无标题时返回的空状态 HTML */
 	private getEmptyStateHTML(): string {
 		return `<div class="text-center py-8 text-gray-500 dark:text-gray-400"><p>${i18n(I18nKey.tocEmpty)}</p></div>`;
 	}
 
+	/** 生成目录的完整 HTML 字符串（含活动指示器占位），供 CardTOC 直接注入容器 */
 	public generateTOCHTML(): string {
 		const headings = this.getAllHeadings();
 
@@ -209,6 +218,7 @@ export class TOCManager {
 		return tocHTML;
 	}
 
+	/** 重新渲染目录并刷新内部持有目录项引用 */
 	public updateTOCContent(): void {
 		const tocContent = this.getTOCContentElement();
 		if (!tocContent) {
@@ -219,6 +229,7 @@ export class TOCManager {
 		this.tocItems = Array.from(tocContent.querySelectorAll("a"));
 	}
 
+	/** 通过视口位置计算当前可见的标题 id；全部不可见时退化为距离顶部最近的标题 */
 	private getVisibleHeadingIds(): string[] {
 		const headings = this.getAllHeadings();
 		const visibleHeadingIds: string[] = [];
@@ -259,6 +270,7 @@ export class TOCManager {
 		return visibleHeadingIds;
 	}
 
+	/** 根据滚动位置刷新目录高亮状态与活动指示条 */
 	public updateActiveState(): void {
 		if (!this.tocItems || this.tocItems.length === 0) {
 			return;
@@ -282,6 +294,7 @@ export class TOCManager {
 		this.updateActiveIndicator(activeItems);
 	}
 
+	/** 根据首个/最后一个高亮项的位置与高度，绘制覆盖它们的活动指示条 */
 	private updateActiveIndicator(activeItems: HTMLElement[]): void {
 		const indicator = this.getIndicatorElement();
 		if (!indicator || !this.tocItems.length) {
@@ -317,6 +330,7 @@ export class TOCManager {
 		}
 	}
 
+	/** 若高亮项超出目录滚动容器可视区，则平滑滚动使其居中；做 100ms 防抖 */
 	private scrollToActiveItem(activeItem: HTMLElement): void {
 		if (!activeItem) {
 			return;
@@ -355,6 +369,7 @@ export class TOCManager {
 		}, 100);
 	}
 
+	/** 点击目录项时阻止默认跳转，按 scrollOffset 平滑滚动到对应标题 */
 	public handleClick(event: Event): void {
 		event.preventDefault();
 		const target = event.currentTarget as HTMLAnchorElement;
@@ -376,6 +391,7 @@ export class TOCManager {
 		}
 	}
 
+	/** 重建 IntersectionObserver，标题进入视口时触发高亮刷新 */
 	public setupObserver(): void {
 		const headings = this.getAllHeadings();
 
@@ -400,12 +416,14 @@ export class TOCManager {
 		});
 	}
 
+	/** 为所有目录项绑定点击跳转事件 */
 	public bindClickEvents(): void {
 		this.tocItems.forEach((item) => {
 			item.addEventListener("click", this.handleClick.bind(this));
 		});
 	}
 
+	/** 清理观察器与定时器，页面切换时调用防止内存泄漏 */
 	public cleanup(): void {
 		if (this.observer) {
 			this.observer.disconnect();
@@ -417,6 +435,7 @@ export class TOCManager {
 		}
 	}
 
+	/** 初始化：渲染目录、绑定点击、建立观察器并同步一次高亮 */
 	public init(): void {
 		this.updateTOCContent();
 		this.bindClickEvents();
@@ -425,6 +444,7 @@ export class TOCManager {
 	}
 }
 
+/** 判断当前是否处于文章详情页（路径包含 /posts/） */
 export function isPostPage(): boolean {
 	if (typeof window === "undefined") {
 		return false;

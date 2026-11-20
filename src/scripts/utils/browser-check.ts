@@ -3,10 +3,12 @@
  * 用于防止在 SSR 环境中执行浏览器特定的代码
  */
 
+/** 判断当前是否运行在浏览器（window 与 document 同时存在） */
 export function isBrowser(): boolean {
 	return typeof window !== "undefined" && typeof document !== "undefined";
 }
 
+/** 判断当前是否运行在服务端/构建期 */
 export function isServer(): boolean {
 	return !isBrowser();
 }

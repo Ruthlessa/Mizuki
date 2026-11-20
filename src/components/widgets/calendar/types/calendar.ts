@@ -1,3 +1,5 @@
+// 日历组件的公共类型定义：文章条目、索引结构、网格单元格与子组件 Props。
+// 被 Calendar.svelte 及其 components/*、hooks/useCalendar.ts 共同引用。
 export interface CalendarPost {
 	id: string;
 	title: string;

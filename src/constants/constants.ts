@@ -1,3 +1,7 @@
+/**
+ * 全站静态常量：分页大小、主题模式、Banner 尺寸、页面宽度、分类与壁纸模式。
+ * 这些值会被布局、列表页与壁纸组件共同引用，修改时需要全局考虑。
+ */
 export const PAGE_SIZE = 8;
 
 export const LIGHT_MODE = "light",

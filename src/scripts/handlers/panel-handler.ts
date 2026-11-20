@@ -68,6 +68,7 @@ export class PanelHandler {
 	 * 设置点击外部关闭面板
 	 */
 	private setupClickOutsideToClose(panel: PanelConfig): void {
+		/** 点击时先判断是否落在忽略元素内，否则通过 panelManager 关闭该面板 */
 		const clickHandler = async (event: MouseEvent) => {
 			const target = event.target;
 			if (!(target instanceof Node)) {

@@ -40,7 +40,9 @@ export class SwupManager {
 	private bannerEnabled: boolean;
 	private initialized = false;
 
+	/** 检测页面是否存在 Banner，并初始化各子处理器（均取自单例） */
 	constructor() {
+		// 选择器统一写成 "#xxx"，这里去掉 # 以便用 getElementById
 		this.bannerEnabled = !!document.getElementById(
 			SWUP_SELECTORS.bannerWrapper.slice(1),
 		);

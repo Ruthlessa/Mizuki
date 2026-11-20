@@ -1,3 +1,5 @@
+// 播放列表核心逻辑：Meting 数据转换、随机/循环切换、上下曲与本地歌单加载。
+// 以纯函数方式操作传入的 PlaylistState，便于 UI 层直接触发。
 import Key from "../../../../i18n/i18nKey";
 import { i18n } from "../../../../i18n/translation";
 import { LOCAL_PLAYLIST } from "../constants";
@@ -55,6 +57,7 @@ export interface PlaylistState {
 	isRepeating: RepeatMode;
 }
 
+/** 创建播放列表初始状态。 */
 export function createPlaylistState(): PlaylistState {
 	return {
 		playlist: [],
@@ -64,6 +67,7 @@ export function createPlaylistState(): PlaylistState {
 	};
 }
 
+/** 切换随机播放；开启时关闭循环模式，两者互斥。 */
 export function toggleShuffle(state: PlaylistState) {
 	state.isShuffled = !state.isShuffled;
 	if (state.isShuffled) {
@@ -71,6 +75,7 @@ export function toggleShuffle(state: PlaylistState) {
 	}
 }
 
+/** 在关闭/列表循环/单曲循环间轮转；非关闭态会关闭随机播放。 */
 export function toggleRepeat(state: PlaylistState) {
 	state.isRepeating = ((state.isRepeating + 1) % 3) as RepeatMode;
 	if (state.isRepeating !== 0) {
@@ -78,6 +83,7 @@ export function toggleRepeat(state: PlaylistState) {
 	}
 }
 
+/** 计算上一首索引，到头部时回绕到末尾；单曲列表时保持当前索引。 */
 export function previousSong(state: PlaylistState): number {
 	if (state.playlist.length <= 1) {
 		return state.currentIndex;
@@ -87,6 +93,7 @@ export function previousSong(state: PlaylistState): number {
 		: state.playlist.length - 1;
 }
 
+/** 计算下一首索引：随机模式避免与当前重复，顺序模式到尾部回绕到 0。 */
 export function nextSong(state: PlaylistState, _autoPlay = true): number {
 	if (state.playlist.length <= 1) {
 		return state.currentIndex;
@@ -106,6 +113,7 @@ export function nextSong(state: PlaylistState, _autoPlay = true): number {
 	return newIndex;
 }
 
+/** 切换到指定索引的歌曲；索引越界返回 false。 */
 export function playSong(state: PlaylistState, index: number): boolean {
 	if (index < 0 || index >= state.playlist.length) {
 		return false;
@@ -114,6 +122,7 @@ export function playSong(state: PlaylistState, index: number): boolean {
 	return true;
 }
 
+/** 按模板拼接 Meting API 地址并拉取歌单，成功后写回 state；失败统一走错误回调。 */
 export async function fetchMetingPlaylist(
 	state: PlaylistState,
 	meting_api: string,
@@ -150,6 +159,7 @@ export async function fetchMetingPlaylist(
 	}
 }
 
+/** 用内置歌单覆盖当前列表；为空时上报错误并返回 false。 */
 export function loadLocalPlaylist(
 	state: PlaylistState,
 	showError: (message: string) => void,
@@ -162,6 +172,7 @@ export function loadLocalPlaylist(
 	return true;
 }
 
+/** 判断当前是否有可切换的下一首/上一首（多于一首才可切换）。 */
 export function canSkip(state: PlaylistState): boolean {
 	return state.playlist.length > 1;
 }

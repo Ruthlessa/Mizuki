@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 胶囊条目原子组件：可选的链接外壳 + 圆点前缀 + 内容插槽 + 右侧徽标，用于侧边栏分类/标签导航。
+	// 传入 href 时外层渲染 <a> 以保证可访问与可跳转，否则退化为纯按钮。
 	import type { ChipProps } from "./types";
 
 	interface Props extends ChipProps {}

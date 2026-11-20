@@ -1,4 +1,6 @@
 ---
+// 作者名片卡片：展示头像、昵称、简介与社交链接，并可选展示站点访问统计。
+// 依赖 profileConfig 配置；统计数据来自 window.oddmisc，未就绪时隐藏或延迟重试。
 import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../../config";
 import { url } from "../../../utils/url-utils";
@@ -118,10 +120,12 @@ import { i18n } from "../../../i18n/translation";
 		profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable),
 	}}
 >
+	/** 拼接本地化后的 PV/UV 统计文案。 */
 	function generateStatsText(pageViews, visits) {
 		return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
 	}
 
+	/** 拉取并渲染站点统计；oddmisc 未加载时延迟重试一次，失败则隐藏统计区。 */
 	async function fetchSiteStats(isRetry = false) {
 		const containers = document.querySelectorAll(".umami-stats-container");
 

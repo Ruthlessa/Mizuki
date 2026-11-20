@@ -1,4 +1,5 @@
 ---
+// 文章列表页：渲染分页文章卡片，并在客户端维护列表/网格布局切换与侧栏联动。
 import { siteConfig } from "../../../config";
 import { widgetManager } from "../../../utils/widget-manager";
 import PostCard from "./PostCard.astro";
@@ -34,6 +35,7 @@ const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";
 </div>
 
 <script>
+	/** 读取用户保存的布局偏好并校正容器类名，完成首屏布局初始化。 */
 	function initLayout() {
 		requestAnimationFrame(() => {
 			const postListContainer = document.getElementById(
@@ -70,6 +72,7 @@ const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";
 		});
 	}
 
+	/** 在列表/网格布局间切换，并同步右侧栏与主栅格的布局标记。 */
 	function updatePostListLayout(layout: string) {
 		const container = document.getElementById("post-list-container");
 		if (!container) {
@@ -143,11 +146,13 @@ const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";
 		initLayout();
 	}
 
+	/** 注册 swup 内容替换后的重新初始化，避免 SPA 切换后布局失效。 */
 	function setupSwupListeners() {
 		if ((window as any)._postListSwupListenerAttached) {
 			return;
 		}
 
+		/** 尝试挂载 swup 钩子，成功返回 true 供外部决定是否继续重试。 */
 		function trySetupSwup() {
 			if (typeof window !== "undefined" && (window as any).swup) {
 				(window as any).swup.hooks.on("content:replace", initLayout);
@@ -173,6 +178,7 @@ const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";
 	}
 	setTimeout(setupSwupListeners, 200);
 
+	/** 广播当前布局模式，供其他组件（如侧栏）响应布局变化。 */
 	function publishLayoutInit() {
 		const container = document.getElementById("post-list-container");
 		if (container) {

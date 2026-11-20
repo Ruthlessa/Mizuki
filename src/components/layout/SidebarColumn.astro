@@ -1,4 +1,6 @@
 ---
+// 侧边栏列组件：按设备（移动/平板/桌面）与位置（top/sticky）从 widgetManager 取配置并渲染对应小组件。
+// 左右侧栏（LeftSideBar / RightSideBar）均复用本组件，因此组件清单与布局差异集中在此维护。
 import { SidebarTOC } from "@components/features/toc";
 import type { MarkdownHeading } from "astro";
 
@@ -77,6 +79,7 @@ type ComponentType =
 	| "site-stats"
 	| "calendar";
 
+/** 校验并收窄组件类型字符串，非法类型返回 null 以便模板跳过渲染 */
 function getComponentType(type: string): ComponentType | null {
 	const validTypes: ComponentType[] = [
 		"profile",

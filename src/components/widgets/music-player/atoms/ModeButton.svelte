@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 播放模式按钮（atom）：shuffle 模式显示随机图标，repeat 模式按 repeatMode 显示单曲/列表循环。
 	import Icon from "@iconify/svelte";
 
 	import type { RepeatMode } from "../types";

@@ -1,4 +1,6 @@
 <script lang="ts">
+	// Cookie 同意组件：首次访问时弹出提示条，可接受全部/仅必要/自定义偏好，选择结果写入 localStorage。
+	// 页脚的“更新您的Cookie”按钮通过 #open_preferences_center 重新打开本组件的设置弹窗。
 	import { onMount } from "svelte";
 
 	const CONSENT_KEY = "mizuki_cookie_consent";
@@ -16,6 +18,7 @@
 		necessary: true,
 	});
 
+	/** 从本地存储读取已保存的偏好，无记录或解析失败时回退为默认值 */
 	const loadPreferences = (): CookiePreferences => {
 		if (typeof localStorage === "undefined") {
 			return { analytics: false, necessary: true };
@@ -31,6 +34,7 @@
 		return { analytics: false, necessary: true };
 	};
 
+	/** 持久化偏好、关闭弹窗并立刻应用对应脚本，保证选择即时生效 */
 	const savePreferences = (prefs: CookiePreferences) => {
 		if (typeof localStorage !== "undefined") {
 			localStorage.setItem(CONSENT_KEY, JSON.stringify(prefs));
@@ -40,12 +44,14 @@
 		applyPreferences(prefs);
 	};
 
+	/** 依据偏好决定是否加载分析类脚本，仅在用户同意时执行 */
 	const applyPreferences = (prefs: CookiePreferences) => {
 		if (prefs.analytics && typeof document !== "undefined") {
 			loadAnalyticsScript();
 		}
 	};
 
+	/** 动态注入分析统计脚本，占位地址供使用者替换为真实服务 */
 	const loadAnalyticsScript = () => {
 		const script = document.createElement("script");
 		script.src = "https://analytics.example.com/script.js";
@@ -53,19 +59,23 @@
 		document.head.appendChild(script);
 	};
 
+	/** 打开完整偏好弹窗（非自动提示条模式） */
 	const handleOpen = () => {
 		isAutoPrompt = false;
 		isOpen = true;
 	};
 
+	/** 接受全部 Cookie，包含分析类 */
 	const handleAcceptAll = () => {
 		savePreferences({ analytics: true, necessary: true });
 	};
 
+	/** 仅接受必要 Cookie，保持分析与必要两类的最小权限 */
 	const handleAcceptNecessary = () => {
 		savePreferences({ analytics: false, necessary: true });
 	};
 
+	/** 保存自定义勾选结果，用于偏好弹窗中的“保存设置”按钮 */
 	const handleSave = () => {
 		savePreferences(preferences);
 	};

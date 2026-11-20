@@ -1,4 +1,5 @@
 ---
+// 分类导航条：列出首页、归档与全部分类，并在客户端处理高亮与横向滚动提示。
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { Icon } from "astro-icon/components";
@@ -131,6 +132,7 @@ const archiveUrl = url("/archive/");
 </style>
 
 <script>
+	/** 根据当前路径与查询参数决定导航条显隐，并高亮命中的分类项。 */
 	function updateCategoryBar() {
 		const bar = document.getElementById("category-bar");
 		if (!bar) {
@@ -220,6 +222,7 @@ const archiveUrl = url("/archive/");
 		}
 	}
 
+	/** 绑定滚轮横向滚动与滚动提示监听，提升窄屏下的分类浏览体验。 */
 	function initScrollFeatures() {
 		const bar = document.getElementById("category-bar");
 		if (!bar) {
@@ -250,6 +253,7 @@ const archiveUrl = url("/archive/");
 		updateScrollHint();
 	}
 
+	/** 根据横向滚动位置切换两侧渐隐遮罩的可见性。 */
 	function updateScrollHint() {
 		const bar = document.getElementById("category-bar");
 		if (!bar) {

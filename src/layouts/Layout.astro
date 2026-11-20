@@ -1,4 +1,6 @@
 ---
+// 站点根布局：输出 <html>/<head>/<body>，注入 SEO、全局脚本、进度条与全局组件。
+// 所有页面经 MainGridLayout 间接使用；负责主题变量与 Swup 初始化。
 import ConfigCarrier from "@components/misc/ConfigCarrier.astro";
 import CookieConsent from "@components/misc/CookieConsent.svelte";
 import MusicPlayer from "@components/widgets/music-player/MusicPlayer.svelte";
@@ -32,6 +34,7 @@ interface Props {
 	postSlug?: string;
 }
 
+// 页面标题等信息由各路由页面传入，可选项均有默认回退
 let { title, banner, description, lang, setOGTypeArticle, postSlug } =
 	Astro.props;
 

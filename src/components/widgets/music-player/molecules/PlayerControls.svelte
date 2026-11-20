@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 播放控制（molecule）：排列随机、上一首、播放/暂停、下一首与循环按钮，交互全部由父级回调承担。
 	import ModeButton from "../atoms/ModeButton.svelte";
 	import NextButton from "../atoms/NextButton.svelte";
 	import PlayButton from "../atoms/PlayButton.svelte";

@@ -1,3 +1,4 @@
+/** 英文语言包：键集合需与 I18nKey 保持一致 */
 import Key from "../i18nKey";
 import type { Translation } from "../translation";
 

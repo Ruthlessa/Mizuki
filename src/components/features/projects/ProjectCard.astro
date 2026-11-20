@@ -1,4 +1,5 @@
 ---
+// 项目卡片：展示封面/标题占位、状态徽标、技术栈与访问/源码按钮，被项目相关区块复用。
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import type { ProjectCardProps } from "./types";
@@ -10,6 +11,7 @@ const showImageArea = project.showImage !== false && hasImage;
 const hasVisitUrl = !!project.visitUrl;
 const hasSourceCode = !!project.sourceCode;
 
+/** 把项目状态枚举转换为本地化文案，未知状态原样返回。 */
 const getStatusText = (status: string) => {
 	switch (status) {
 		case "completed":

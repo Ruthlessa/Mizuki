@@ -1,3 +1,8 @@
+/**
+ * Iconify 图标加载器（单例）
+ * 统一注入 Iconify 脚本、去重并发加载、派发就绪回调，供 Svelte/Astro 组件通过底部导出的
+ * loadIconify / preloadIcons / onIconsReady 调用；所有逻辑仅在浏览器端生效。
+ */
 // 图标加载工具类
 // 提供可靠的Iconify图标加载解决方案
 
@@ -16,6 +21,7 @@ class IconLoader {
 
 	private constructor() {}
 
+	/** 获取单例实例；首次调用时才创建，保证全站只加载一次脚本 */
 	static getInstance(): IconLoader {
 		if (!IconLoader.instance) {
 			IconLoader.instance = new IconLoader();
@@ -257,8 +263,11 @@ class IconLoader {
 export const iconLoader = IconLoader.getInstance();
 
 // 导出便捷函数
+/** 加载 Iconify 脚本（内部带超时与重试），返回的 Promise 在就绪后 resolve */
 export const loadIconify = (options?: IconifyLoadOptions) =>
 	iconLoader.loadIconify(options);
+/** 预加载一批图标，全部加载完成或超时后 resolve */
 export const preloadIcons = (icons: string[]) => iconLoader.preloadIcons(icons);
+/** 注册图标库就绪回调；若已就绪会立即同步执行 */
 export const onIconsReady = (callback: () => void) =>
 	iconLoader.onLoad(callback);

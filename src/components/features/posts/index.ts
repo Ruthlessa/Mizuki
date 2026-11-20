@@ -1,3 +1,4 @@
+/** posts 模块统一出口：导出文章卡片、元信息、导航、推荐与分享等组件。 */
 export { default as LastModified } from "./LastModified.astro";
 export { default as PostCard } from "./PostCard.astro";
 export { default as PostListItem } from "./PostListItem.astro";

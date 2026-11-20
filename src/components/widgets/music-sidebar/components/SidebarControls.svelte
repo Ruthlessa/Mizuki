@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 侧栏播放控制：模式按钮 + 上一首/播放/下一首 + 播放列表入口，复用播放器 atom 按钮。
 	import Icon from "@iconify/svelte";
 
 	import NextButton from "../../music-player/atoms/NextButton.svelte";

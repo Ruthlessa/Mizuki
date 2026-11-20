@@ -1,10 +1,12 @@
 ---
+// 外链按钮：渲染带图标的外链（地址/文案可配置），供侧栏、关于页等展示赞助/友链入口。
 interface Props {
   url?: string;
   text?: string;
   class?: string;
 }
 
+// 解构 Astro 传入的属性，class 改名以避开保留字冲突
 const {
   url = "https://a.nfq.dpdns.org/",
   text = "DigitalPlat",

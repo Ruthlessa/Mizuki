@@ -12,6 +12,7 @@ type PanelId =
 
 class PanelManager {
 	private activePanels = new Set<PanelId>();
+	// 记录打开顺序，栈顶为最近打开的浮窗，便于实现「返回上一层」类交互
 	private panelStack: PanelId[] = [];
 	private readonly duration = 100;
 
@@ -43,6 +44,7 @@ class PanelManager {
 			requestAnimationFrame(() => {
 				panel.style.transition = `all ${this.duration}ms ease-out`;
 
+				// 双重 rAF：先让初始样式（opacity 0）生效，下一帧再过渡到终态，避免被浏览器合并
 				requestAnimationFrame(() => {
 					panel.style.opacity = "1";
 					panel.style.transform = "scale(1) translateY(0)";
@@ -113,6 +115,7 @@ class PanelManager {
 		const shouldOpen = forceState !== undefined ? forceState : isClosed;
 
 		if (shouldOpen) {
+			// 先关闭其他浮窗，保证同一时刻只有一个浮窗打开
 			await this.closeAllPanelsExcept(panelId);
 			await this.animateIn(panel);
 			this.activePanels.add(panelId);

@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 标签胶囊原子组件：轻量内联标签，样式比 Chip 更紧凑，常用于文章卡片底部的标签列表。
+	// 传 href 时渲染为链接，否则为普通 span，语义上不做按钮行为。
 	import type { TagChipProps } from "./types";
 
 	interface Props extends TagChipProps {}

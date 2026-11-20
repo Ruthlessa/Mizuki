@@ -1,3 +1,7 @@
+/**
+ * 站点主配置文件：集中定义站点信息、导航、侧边栏组件、评论、播放器、
+ * 看板娘、樱花特效等所有可调项。字段含义参见 src/types/config.ts。
+ */
 import type {
 	AnnouncementConfig,
 	CommentConfig,
@@ -23,6 +27,7 @@ import { LinkPreset } from "./types/config";
 // 定义站点语言
 const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 const SITE_TIMEZONE = 8; //设置你的网站时区 from -12 to 12 default in UTC+8
+/** 站点基础配置：标题、URL、语言、主题色、Banner 与整体功能开关 */
 export const siteConfig: SiteConfig = {
 	title: "Mizuki",
 	subtitle: "一个演示网站",
@@ -233,6 +238,7 @@ export const siteConfig: SiteConfig = {
 		clarityId: "", // Clarity 项目 ID
 	},
 };
+/** 全屏壁纸与轮播配置（仅在壁纸模式为 fullscreen 时生效） */
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	src: {
 		desktop: "https://www.dmoe.cc/random.php", // 桌面全屏壁纸使用随机动漫背景 API
@@ -248,6 +254,7 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	blur: 1, // 背景模糊程度
 };
 
+/** 导航栏配置：可混用 LinkPreset 预设与自定义链接 */
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
@@ -336,6 +343,7 @@ export const navBarConfig: NavBarConfig = {
 	],
 };
 
+/** 个人资料配置：侧边栏头像、昵称、简介与社交链接 */
 export const profileConfig: ProfileConfig = {
 	avatar: "/avatar.webp", // 相对于 /public 目录。如果不以 '/' 开头，则相对于 /src 目录
 	name: "无情",
@@ -358,6 +366,7 @@ export const profileConfig: ProfileConfig = {
 	],
 };
 
+/** 文章版权协议配置 */
 export const licenseConfig: LicenseConfig = {
 	enable: true,
 	name: "CC BY-NC-SA 4.0",
@@ -392,6 +401,7 @@ export const permalinkConfig: PermalinkConfig = {
 	format: "%postname%", // 默认使用文件名
 };
 
+/** Expressive Code 代码块主题配置 */
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// 注意：某些样式（如背景颜色）已被覆盖，请参阅 astro.config.mjs 文件。
 	// 请选择深色主题，因为此博客主题目前仅支持深色背景
@@ -400,6 +410,7 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	hideDuringThemeTransition: true,
 };
 
+/** 评论系统配置：选择 twikoo 或 giscus 并填写对应参数 */
 export const commentConfig: CommentConfig = {
 	enable: false, // 启用评论功能。当设置为 false 时，评论组件将不会显示在文章区域。
 	system: "twikoo", // 评论系统选择: "twikoo" | "giscus"
@@ -423,10 +434,12 @@ export const commentConfig: CommentConfig = {
 	},
 };
 
+/** 文章分享按钮配置 */
 export const shareConfig: ShareConfig = {
 	enable: true, // 启用分享功能
 };
 
+/** 侧边栏公告配置：标题、内容、类型与可选链接 */
 export const announcementConfig: AnnouncementConfig = {
 	title: "", // 公告标题，填空使用i18n字符串Key.announcement
 	content: "欢迎来到博客！", // 公告内容
@@ -439,6 +452,7 @@ export const announcementConfig: AnnouncementConfig = {
 	},
 };
 
+/** 音乐播放器配置：入口模式与歌单数据源（Meting / 本地） */
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: true, // 启用音乐播放器功能
 	showFloatingPlayer: true, // 显示悬浮播放器 UI
@@ -451,6 +465,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	type: "playlist", // 播单类型
 };
 
+/** 页脚配置：可注入备案号等自定义 HTML */
 export const footerConfig: FooterConfig = {
 	enable: false, // 是否启用Footer HTML注入功能
 	customHtml: "", // HTML格式的自定义页脚信息，例如备案号等，默认留空
@@ -605,6 +620,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	},
 };
 
+/** 樱花飘落特效配置 */
 export const sakuraConfig: SakuraConfig = {
 	enable: false, // 默认关闭樱花特效
 	sakuraNum: 21, // 樱花数量
@@ -663,7 +679,7 @@ export const randomPostsConfig: RandomPostsConfig = {
 	maxCount: 5,
 };
 
-// 导出所有配置的统一接口
+// 导出所有配置的统一接口，便于组件按 key 取用
 export const widgetConfigs = {
 	profile: profileConfig,
 	announcement: announcementConfig,

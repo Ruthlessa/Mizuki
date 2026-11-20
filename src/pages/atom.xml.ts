@@ -1,3 +1,7 @@
+/**
+ * Atom 订阅源接口：构建时输出 /atom.xml，包含正文 HTML 与本地图片的绝对地址。
+ * 加密文章与草稿会被过滤，避免泄露受保护内容。
+ */
 // import { getCollection } from "astro:content";
 import type { APIContext, ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
@@ -17,6 +21,7 @@ const imagesGlob = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/content/**/*.{jpeg,jpg,png,gif,webp}", // include posts and assets
 );
 
+/** 生成 Atom XML 响应，逐个处理文章正文中的图片路径 */
 export async function GET(context: APIContext) {
 	if (!context.site) {
 		throw Error("site not set");

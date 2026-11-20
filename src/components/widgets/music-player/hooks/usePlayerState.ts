@@ -1,3 +1,4 @@
+// 播放器 UI 状态与状态变更逻辑（展开/隐藏/播放列表/错误提示），供 MusicPlayer 复用。
 import { ERROR_DISPLAY_DURATION } from "../constants";
 
 export interface PlayerUIState {
@@ -8,6 +9,7 @@ export interface PlayerUIState {
 	showError: boolean;
 }
 
+/** 创建播放器 UI 的初始状态，默认全部收起且无错误。 */
 export function createPlayerUIState(): PlayerUIState {
 	return {
 		isExpanded: false,
@@ -59,6 +61,7 @@ export function showErrorMessageUI(state: PlayerUIState, message: string) {
 	}, ERROR_DISPLAY_DURATION);
 }
 
+/** 立即清除错误提示状态。 */
 export function hideErrorUI(state: PlayerUIState) {
 	state.showError = false;
 }

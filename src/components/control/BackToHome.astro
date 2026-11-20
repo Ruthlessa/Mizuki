@@ -1,4 +1,6 @@
 ---
+// 返回首页悬浮按钮：仅在非首页时显示，点击时优先走 Swup 无刷新跳转。
+// 由 FloatingControls 等容器引入，依赖全局 window.swup 是否可用做降级。
 import FloatingButton from "@components/common/FloatingButton.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
@@ -13,6 +15,7 @@ import { i18n } from "@i18n/translation";
 />
 
 <script is:raw is:inline define:vars={{ homeUrl: "/" }}>
+	// 有 Swup 时用无刷新导航，否则回退为整页跳转
 	window.backToHome = function () {
 		if (window.swup) {
 			window.swup.navigate(homeUrl);
@@ -23,6 +26,7 @@ import { i18n } from "@i18n/translation";
 </script>
 
 <script is:inline define:vars={{ homeUrl: "/" }}>
+	/** 根据当前路径是否为首页，切换按钮的显隐状态 */
 	function updateBackToHomeVisibility() {
 		const btn = document.getElementById("back-to-home-btn");
 		if (!btn) {

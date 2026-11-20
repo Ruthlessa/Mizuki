@@ -1,4 +1,6 @@
 ---
+// 全屏壁纸组件：作为固定背景层铺满视口，支持单图随机与多图轮播，仅在 fullscreen 模式显示。
+// 首帧用内联脚本按 localStorage 提前隐藏以避免闪烁，图片列表可来自配置或图源 API。
 import { siteConfig } from "../../config";
 import type { FullscreenWallpaperConfig } from "../../types/config";
 
@@ -10,6 +12,7 @@ interface Props {
 const { config, className } = Astro.props;
 
 // 获取当前设备类型的图片源
+/** 汇总桌面/移动图片列表：优先请求图源 API，失败时回退到配置项并按需互相兜底 */
 const getImageSources = async () => {
 	const srcConfig = config.src;
 
@@ -27,6 +30,7 @@ const getImageSources = async () => {
 		}
 	}
 
+	/** 把可能为空/单值的图片配置统一规范为字符串数组 */
 	const toArray = (src: string | string[] | undefined): string[] => 
 		Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
 
@@ -127,6 +131,7 @@ const renderGroups = [
 				// 只在客户端执行
 				if (typeof window !== "undefined" && typeof document !== "undefined" && typeof sessionStorage !== "undefined") {
 					(function() {
+						/** 从候选图里随机挑一张并尽量避开上次结果，索引存入 sessionStorage */
 						const getRandomImage = (images, storageKey) => {
 							if (images.length === 0) {return null;}
 							if (images.length === 1) {return images[0];}
@@ -193,6 +198,7 @@ const renderGroups = [
 	<script is:inline define:vars={{ carouselInterval }}>
 		// 只在客户端执行
 		if (typeof window !== "undefined" && typeof document !== "undefined" && typeof sessionStorage !== "undefined") {
+			/** 轮播初始化：读取会话索引、修正首帧显示、启动定时切换并注册清理函数 */
 			function initFullscreenWallpaperCarousel() {
 				const container = document.querySelector('[data-fullscreen-wallpaper]');
 				if (!container) {return;}
@@ -221,6 +227,7 @@ const renderGroups = [
 				});
 
 				// 初始化显示：根据 savedIndex 立即修正图片显示
+				/** 按当前索引立即设置各图透明度，避免首帧闪烁到第一张 */
 				function initImage(stateItem) {
 					const { items, currentIndex } = stateItem;
 					// 立即设置样式，防止视觉上跳回第一张
@@ -230,6 +237,7 @@ const renderGroups = [
 				}
 
 				// 切换下一张
+				/** 交叉淡出当前图并淡入下一张，同时把新索引写回会话存储 */
 				function switchNextImage(stateItem) {
 					const { items, currentIndex } = stateItem;
 					const nextIndex = (currentIndex + 1) % items.length;
@@ -242,6 +250,7 @@ const renderGroups = [
 					sessionStorage.setItem(STORAGE_KEY, nextIndex.toString());
 				}
 
+				/** 为每组图（桌面/移动）启动轮播定时器，节点被移除时自动停止 */
 				function start() {
 					state.forEach(s => {
 						if (s.active && !s.timer) {
@@ -256,6 +265,7 @@ const renderGroups = [
 					});
 				}
 
+				/** 清除所有分组的轮播定时器 */
 				function stop() {
 					state.forEach(s => {
 						if (s.timer) {
@@ -265,6 +275,7 @@ const renderGroups = [
 					});
 				}
 
+				/** 标签页隐藏时暂停、恢复可见时续播，节省后台资源 */
 				const handleVisibilityChange = () => {
 					if (document.hidden) {
 						stop();

@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 音乐播放器悬浮层入口：订阅 musicPlayerStore，渲染迷你/展开播放器、播放列表与错误提示。
+	// 首屏延迟初始化（用户交互或 4s 后），避免歌单与音频请求阻塞 load 事件。
 	import Icon from "@iconify/svelte";
 	import { onDestroy, onMount } from "svelte";
 
@@ -31,30 +33,37 @@
 	// 初始化状态
 	state = musicPlayerStore.getState();
 
+	/** 切换播放/暂停。 */
 	function togglePlay() {
 		musicPlayerStore.toggle();
 	}
 
+	/** 切换到上一首。 */
 	function prev() {
 		musicPlayerStore.prev();
 	}
 
+	/** 切换到下一首。 */
 	function next() {
 		musicPlayerStore.next();
 	}
 
+	/** 切换随机播放模式。 */
 	function toggleShuffle() {
 		musicPlayerStore.toggleShuffle();
 	}
 
+	/** 切换循环模式（关闭/列表/单曲）。 */
 	function toggleRepeat() {
 		musicPlayerStore.toggleRepeat();
 	}
 
+	/** 播放列表中指定索引的歌曲。 */
 	function playIndex(index: number) {
 		musicPlayerStore.playIndex(index);
 	}
 
+	/** 根据点击位置在进度条中的比例设置播放进度。 */
 	function setProgress(event: MouseEvent) {
 		const progressElement = event.currentTarget as HTMLElement | null;
 		if (!progressElement) {
@@ -65,6 +74,7 @@
 		musicPlayerStore.setProgress(percent);
 	}
 
+	/** 进度条键盘操作：Enter/空格跳到中间位置，保证可访问性。 */
 	function handleProgressKeyDown(event: KeyboardEvent) {
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
@@ -72,20 +82,24 @@
 		}
 	}
 
+	/** 切换静音状态。 */
 	function toggleMute() {
 		musicPlayerStore.toggleMute();
 	}
 
+	/** 点击音量按钮时切换静音。 */
 	function handleVolumeButtonClick() {
 		musicPlayerStore.toggleMute();
 	}
 
+	/** 开始拖拽音量：立即按点击位置更新，并在移动/抬起/取消时同步音量后清理监听。 */
 	function startVolumeDrag(event: PointerEvent) {
 		const slider = event.currentTarget as HTMLElement | null;
 		if (!slider) {
 			return;
 		}
 
+		/** 按横坐标换算并夹紧音量后写入 store。 */
 		const updateVolume = (clientX: number) => {
 			const rect = slider.getBoundingClientRect();
 			if (rect.width <= 0) {
@@ -103,6 +117,7 @@
 		const pointerId = event.pointerId;
 		slider.setPointerCapture(pointerId);
 
+		/** 拖拽移动时更新音量，忽略非当前指针事件。 */
 		const handleMove = (moveEvent: PointerEvent) => {
 			if (moveEvent.pointerId !== pointerId) {
 				return;
@@ -110,6 +125,7 @@
 			updateVolume(moveEvent.clientX);
 		};
 
+		/** 移除拖拽监听并释放指针捕获，避免事件泄漏。 */
 		const cleanup = () => {
 			slider.removeEventListener("pointermove", handleMove);
 			slider.removeEventListener("pointerup", handleUp);
@@ -119,6 +135,7 @@
 			}
 		};
 
+		/** 抬起指针时做最后一次音量同步并清理监听。 */
 		const handleUp = (upEvent: PointerEvent) => {
 			if (upEvent.pointerId !== pointerId) {
 				return;
@@ -127,6 +144,7 @@
 			cleanup();
 		};
 
+		/** 指针取消时仅清理监听，不再更新音量。 */
 		const handleCancel = (cancelEvent: PointerEvent) => {
 			if (cancelEvent.pointerId !== pointerId) {
 				return;
@@ -139,6 +157,7 @@
 		slider.addEventListener("pointercancel", handleCancel);
 	}
 
+	/** 全局键盘事件：方向键以 5% 步进调音量，Enter/空格/M 切换静音。 */
 	function handleVolumeKeyDown(event: KeyboardEvent) {
 		if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
 			event.preventDefault();
@@ -163,24 +182,30 @@
 		}
 	}
 
+	/** 切换播放列表面板显隐。 */
 	function togglePlaylist() {
 		musicPlayerStore.togglePlaylist();
 	}
 
+	/** 切换展开/收起完整播放器。 */
 	function toggleExpanded() {
 		musicPlayerStore.toggleExpanded();
 	}
 
+	/** 切换隐藏为悬浮球（收起全部 UI）。 */
 	function toggleHidden() {
 		musicPlayerStore.toggleHidden();
 	}
 
+	/** 手动关闭错误提示。 */
 	function hideError() {
 		musicPlayerStore.hideError();
 	}
 
+	/** 音量条 DOM 引用回调（当前未使用，保留给子组件绑定）。 */
 	function volumeBarRef(node: HTMLElement) {}
 
+	/** 查询 store 是否允许切歌（歌单多于一首）。 */
 	function canSkip(): boolean {
 		return musicPlayerStore.canSkip();
 	}
@@ -201,6 +226,7 @@
 				initTimer = undefined;
 			}
 		};
+		/** 首次交互或超时触发：停止等待并初始化播放器 store。 */
 		const startInit = () => {
 			stopWaiting();
 			musicPlayerStore.initialize();

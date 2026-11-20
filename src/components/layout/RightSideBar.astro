@@ -1,4 +1,6 @@
 ---
+// 右侧栏入口：仅桌面端显示，复用 SidebarColumn 渲染文章目录（TOC）。
+// 实际粘性定位、滚动高亮等逻辑都在 SidebarColumn 内部实现。
 import type { MarkdownHeading } from "astro";
 
 import SidebarColumn from "@/components/layout/SidebarColumn.astro";

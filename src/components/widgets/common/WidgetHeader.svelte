@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 小部件表头：显示主色竖线、可选图标与标题，并预留默认插槽。
 	import Icon from "@iconify/svelte";
 
 	interface Props {

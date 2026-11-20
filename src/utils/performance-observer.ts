@@ -80,6 +80,7 @@ export function observeCLS(callback: MetricCallback): () => void {
 	}, 1000);
 
 	// 最终上报
+	// 清理时再补建一个只读缓冲区观察器，用于收集清理前残留的 layout-shift 记录
 	const snoopOnPreviousEntries = () => {
 		clsEntries = [];
 		new PerformanceObserver((list) => {
@@ -390,6 +391,7 @@ export function checkPerformanceRegression(
 
 /**
  * 初始化所有 Web Vitals 监控
+ * 一次性注册全部指标观察器，返回的函数可统一注销它们
  */
 export function initPerformanceMonitoring(
 	callback: MetricCallback,

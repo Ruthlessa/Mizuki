@@ -1,4 +1,6 @@
 ---
+// 小部件通用外壳：渲染标题、折叠容器与“更多”展开按钮，所有侧栏卡片共用。
+// 自定义元素 widget-layout 负责折叠后的展开交互，由各 widget 传入 id/name/折叠配置。
 import { Icon } from "astro-icon/components";
 
 import I18nKey from "../../../i18n/i18nKey";
@@ -67,7 +69,9 @@ const className = Astro.props.class;
 </style>
 
 <script>
+	/** 自定义元素：仅在处于折叠态时绑定“更多”按钮，展开后移除折叠类并隐藏按钮。 */
 	class WidgetLayout extends HTMLElement {
+		/** 升级元素时根据 data-is-collapsed 决定是否初始化展开交互。 */
 		constructor() {
 			super();
 

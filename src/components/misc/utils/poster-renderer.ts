@@ -1,4 +1,8 @@
 /**
+ * 海报绘制的纯 Canvas 工具集：尺寸估算、文本折行、圆角矩形、日期徽标与图片加载。
+ * 仅在浏览器端使用（依赖 Image / CanvasRenderingContext2D），被 PosterCanvas 与 SharePoster 复用。
+ */
+/**
  * poster-renderer.ts - Canvas rendering utilities for SharePoster component
  */
 
@@ -24,6 +28,7 @@ export interface SizeConfig {
 /**
  * Load image from URL with fallback to proxy
  */
+/** 跨域加载图片失败时回退到 weserv 图片代理；两种方式都失败则返回 null，调用方需容忍空图 */
 export async function loadImage(src: string): Promise<HTMLImageElement | null> {
 	return new Promise((resolve) => {
 		const img = new Image();
@@ -50,6 +55,7 @@ export async function loadImage(src: string): Promise<HTMLImageElement | null> {
 /**
  * Get text lines wrapped to fit maxWidth
  */
+/** 逐字符测量宽度实现折行，适用于中英混排；不会处理原文中的换行符 */
 export function getLines(
 	ctx: CanvasRenderingContext2D,
 	text: string,
@@ -76,6 +82,7 @@ export function getLines(
 /**
  * Draw rounded rectangle on canvas
  */
+/** 构造圆角矩形路径（不绘制），调用方需自行 fill 或 stroke */
 export function drawRoundedRect(
 	ctx: CanvasRenderingContext2D,
 	x: number,
@@ -100,6 +107,7 @@ export function drawRoundedRect(
 /**
  * Parse date string to object
  */
+/** 解析日期为日/月/年字符串，非法日期或解析异常时返回 null */
 export function parseDate(
 	dateStr: string,
 ): { day: string; month: string; year: string } | null {
@@ -122,6 +130,7 @@ export function parseDate(
 /**
  * Calculate poster dimensions
  */
+/** 预先测量标题与摘要行数，估算封面/正文高度，供画布在绘制前确定总高度 */
 export function calculateDimensions(
 	hasCover: boolean,
 	title: string,
@@ -172,6 +181,7 @@ export function calculateDimensions(
 /**
  * Draw decorative circles on poster
  */
+/** 在海报对角绘制低透明度装饰圆，绘制后恢复画布状态 */
 export function drawDecorativeCircles(
 	ctx: CanvasRenderingContext2D,
 	canvasWidth: number,
@@ -194,6 +204,7 @@ export function drawDecorativeCircles(
 /**
  * Draw date badge on cover image
  */
+/** 在封面左下角绘制日期徽标，日夜模式使用不同底色与文字色 */
 export function drawDateBadge(
 	ctx: CanvasRenderingContext2D,
 	dateObj: { day: string; month: string; year: string },

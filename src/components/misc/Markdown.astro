@@ -1,4 +1,6 @@
 ---
+// Markdown 渲染容器：为文章正文提供 prose 排版样式与 Pagefind 索引标记，并接管代码块复制按钮。
+// 复制逻辑通过事件委托绑定在 document 上，因此切换页面后依然有效。
 // 只加载基础的等宽字体，减少加载时间
 import "@fontsource-variable/jetbrains-mono";
 
@@ -87,6 +89,7 @@ const className = Astro.props.class;
 			});
 
 			// 尝试多种复制方法
+			/** 优先用 Clipboard API 写入，失败时退回隐藏 textarea 方案保证旧浏览器可用 */
 			const copyToClipboard = async (text: string) => {
 				try {
 					// 优先使用 Clipboard API

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 侧栏曲目信息：显示曲名/作者/时间，并内嵌可拖拽、可键盘操作的音量条。
 	import Icon from "@iconify/svelte";
 
 	import type { Song } from "../../music-player/types";
@@ -37,6 +38,7 @@
 
 	let isVolumeDragging = false;
 
+	/** 按指针位置换算音量并上报；同时进入拖拽态并捕获指针，保证移出元素后仍可继续拖动。 */
 	function handleVolumePointer(event: PointerEvent) {
 		const el = event.currentTarget as HTMLElement | null;
 		if (!el) {
@@ -50,6 +52,7 @@
 		el.setPointerCapture(event.pointerId);
 	}
 
+	/** 拖拽过程中持续更新音量，仅在按下态生效。 */
 	function handleVolumeMove(event: PointerEvent) {
 		if (!isVolumeDragging) {
 			return;
@@ -57,10 +60,12 @@
 		handleVolumePointer(event);
 	}
 
+	/** 指针抬起或取消时结束拖拽态。 */
 	function handleVolumeEnd() {
 		isVolumeDragging = false;
 	}
 
+	/** 音量条键盘操作：左右/上下方向键以 5% 步进调整，Enter 切换静音。 */
 	function handleVolumeKeyDown(event: KeyboardEvent) {
 		if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
 			event.preventDefault();

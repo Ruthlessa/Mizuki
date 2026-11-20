@@ -9,6 +9,7 @@ export class TransitionEffect {
 	private config: TransitionConfig;
 	private root: HTMLElement;
 
+	/** 合并默认配置与传入覆盖项，并缓存根元素以便写入 CSS 变量 */
 	constructor(config?: Partial<TransitionConfig>) {
 		this.config = { ...TRANSITION_CONFIG, ...config };
 		this.root = document.documentElement;
@@ -75,6 +76,7 @@ export class TransitionEffect {
 
 let transitionEffectInstance: TransitionEffect | null = null;
 
+/** 获取全局过渡效果实例；首次调用时按传入配置创建 */
 export function getTransitionEffect(
 	config?: Partial<TransitionConfig>,
 ): TransitionEffect {
@@ -84,6 +86,7 @@ export function getTransitionEffect(
 	return transitionEffectInstance;
 }
 
+/** 销毁全局实例并复位 CSS 变量 */
 export function destroyTransitionEffect(): void {
 	if (transitionEffectInstance) {
 		transitionEffectInstance.destroy();

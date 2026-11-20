@@ -1,4 +1,6 @@
 ---
+// 站点统计小部件：汇总文章/分类/标签数、总字数，并在客户端计算运行天数与最近更新。
+// 字数统计规则需与 remark-content.mjs 的 CJK 正则保持一致。
 import { Icon } from "astro-icon/components";
 
 import { siteConfig } from "../../../config";
@@ -154,6 +156,7 @@ const stats = [
 </WidgetLayout>
 
 <script is:inline define:vars={{ siteStartDate, lastPostDate }}>
+	/** 用当前时间重算运行天数与距最近更新的天数，并写回对应 DOM 节点。 */
 	function updateDynamicStats() {
 		const today = new Date();
 

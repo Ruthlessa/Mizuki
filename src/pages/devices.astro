@@ -1,4 +1,5 @@
 ---
+// 设备页：按品牌分组展示设备卡片，筛选交互由 devices-page-handler.js 处理。
 import DeviceCard from "@components/features/devices/DeviceCard.astro";
 
 import { siteConfig } from "../config";
@@ -7,6 +8,7 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
+// 页面数据静态，构建期预渲染即可
 export const prerender = true;
 
 // 检查设备页面是否启用

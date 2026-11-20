@@ -118,6 +118,7 @@ export function calculateGridLayout(
 	const initialRightSidebarHidden = defaultPostListLayout === "grid";
 
 	// 动态网格布局类名 - 根据侧边栏模式和是否有组件调整列宽
+	// 桌面端按左右侧栏是否存在，分别切换三栏 / 左侧两栏 / 右侧两栏
 	let desktopGridCols = "lg:grid-cols-1";
 	if (desktopShowLeftSidebar && desktopShowRightSidebar) {
 		desktopGridCols = "lg:grid-cols-[17.5rem_1fr_17.5rem]";
@@ -203,6 +204,7 @@ export async function getBannerImages(
 	let bannerSrc = siteConfig.banner.src;
 
 	// 如果启用了图片API，获取API图片
+	// 接口约定为纯文本、每行一个图片地址
 	if (siteConfig.banner.imageApi?.enable && siteConfig.banner.imageApi?.url) {
 		try {
 			const response = await fetch(siteConfig.banner.imageApi.url);

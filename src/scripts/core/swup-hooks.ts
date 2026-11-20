@@ -41,11 +41,13 @@ export class SwupHooksManager {
 
 	private cachedElements: Map<string, Element | null> = new Map();
 
+	/** 保存 banner 开关与外部注入的处理器集合（处理器可后续通过 updateHandlers 替换） */
 	constructor(bannerEnabled: boolean, handlers: SwupHookHandlers = {}) {
 		this.bannerEnabled = bannerEnabled;
 		this.handlers = handlers;
 	}
 
+	/** 查询并缓存元素：id 选择器走 getElementById，其余走 querySelector，减少重复查询 */
 	private getCachedElement(selector: string): Element | null {
 		if (!this.cachedElements.has(selector)) {
 			const id = selector.startsWith("#") ? selector.slice(1) : selector;
@@ -61,6 +63,7 @@ export class SwupHooksManager {
 		return this.cachedElements.get(selector) ?? null;
 	}
 
+	/** 清空元素缓存；内容被替换后旧节点已失效，必须重新查询 */
 	private clearCache(): void {
 		this.cachedElements.clear();
 	}
@@ -445,6 +448,7 @@ export class SwupHooksManager {
 	/**
 	 * 更新处理器
 	 */
+	/** 增量替换处理器集合，未传入的键保持原值 */
 	updateHandlers(handlers: Partial<SwupHookHandlers>): void {
 		this.handlers = { ...this.handlers, ...handlers };
 	}

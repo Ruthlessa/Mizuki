@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 分享海报组件：点击按钮后在弹窗内用 Canvas 生成文章分享图，支持下载与复制链接。
+	// 依赖 qrcode 动态导入与主题色 --primary；暗色模式或主题切换后需清空已生成图片重绘。
 	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
@@ -53,10 +55,12 @@
 	let copied = $state(false);
 	const COPY_FEEDBACK_DURATION = 2000;
 
+	/** 判断当前是否为暗色主题，决定海报配色 */
 	function isDarkMode(): boolean {
 		return document.documentElement.classList.contains("dark");
 	}
 
+	/** 汇总海报各层的颜色取值，主题切换时整体重算以保持对比度 */
 	function getPosterColors() {
 		const dark = isDarkMode();
 		return {
@@ -99,6 +103,7 @@
 		return () => observer.disconnect();
 	});
 
+	/** 生成海报主流程：生成二维码、预载图片、按尺寸逐段绘制并导出 DataURL；任何异常只记录日志不阻塞 UI */
 	async function generatePoster() {
 		showModal = true;
 		if (posterImage) {
@@ -356,6 +361,7 @@
 		}
 	}
 
+	/** 用临时 <a download> 触发浏览器下载已生成的海报 */
 	function downloadPoster() {
 		if (posterImage) {
 			const a = document.createElement("a");
@@ -365,10 +371,12 @@
 		}
 	}
 
+	/** 关闭分享弹窗，保留已生成的海报以便再次打开时复用 */
 	function closeModal() {
 		showModal = false;
 	}
 
+	/** 复制文章链接，优先 Clipboard API，旧浏览器回退 textarea + execCommand，并短暂显示成功态 */
 	async function copyLink() {
 		try {
 			if (navigator.clipboard?.writeText) {
@@ -393,6 +401,7 @@
 		}
 	}
 
+	/** Svelte action：把弹窗节点挂到 body 末尾，避免被父级 transform/overflow 裁剪 */
 	function portal(node: HTMLElement) {
 		document.body.appendChild(node);
 		return {

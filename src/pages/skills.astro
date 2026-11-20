@@ -1,4 +1,5 @@
 ---
+// 技能页：从 data/skills 读取技能数据，按分类过滤并以卡片网格展示。
 import { FilterTabs } from "@components/atoms/filter-tabs";
 import { PageHeader } from "@components/features/page-header";
 import { SkillCard } from "@components/features/skills";
@@ -9,12 +10,14 @@ import { skillsData } from "../data/skills";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.skills) {
 	return Astro.redirect("/404/");
 }
 
 const categories = [...new Set(skillsData.map((skill) => skill.category))];
 
+/** 按技能分类返回国际化后的显示名称 */
 const getCategoryText = (category: string) => {
 	switch (category) {
 		case "frontend":
@@ -32,6 +35,7 @@ const getCategoryText = (category: string) => {
 	}
 };
 
+/** 按技能分类返回对应的图标名 */
 const getCategoryIcon = (category: string) => {
 	switch (category) {
 		case "frontend":

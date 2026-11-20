@@ -1,3 +1,8 @@
+/**
+ * 侧边栏组件管理器
+ * 把 sidebarLayoutConfig 中的组件类型解析成具体组件路径、类名、内联样式和动画延迟，
+ * 供侧边栏 Astro 组件按位置（top/sticky）与设备（mobile/tablet/desktop）渲染时调用。
+ */
 import { sidebarLayoutConfig } from "../config";
 import type {
 	SidebarLayoutConfig,

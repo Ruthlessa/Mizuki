@@ -1,3 +1,4 @@
+/** 时间线页面数据：按年份组织的个人经历/里程碑列表 */
 import type { TimelineItem } from "../components/features/timeline/types";
 
 export const timelineData: TimelineItem[] = [

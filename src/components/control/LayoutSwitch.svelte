@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * 文章列表布局切换按钮：在列表（list）与网格（grid）模式间切换。
+	 * 用于列表页工具栏，偏好写入本地存储，并通过自定义事件通知列表组件。
+	 */
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
 	import { onDestroy, onMount } from "svelte";
@@ -11,6 +15,7 @@
 		currentLayout?: LayoutMode;
 	};
 
+	// 从父组件接收当前的初始布局模式
 	const { currentLayout = "list" }: Props = $props();
 
 	let mounted = $state(false);
@@ -31,6 +36,7 @@
 		}
 	});
 
+	/** 通过自定义事件把最新布局广播给列表等消费方 */
 	function dispatchLayoutChange(layout: LayoutMode) {
 		if (hasWindow) {
 			window.dispatchEvent(
@@ -41,6 +47,7 @@
 		}
 	}
 
+	/** 同时写入 sessionStorage 与 localStorage，兼顾会话内与长期记忆 */
 	function updateStorage(layout: LayoutMode) {
 		if (hasWindow) {
 			sessionStorage.setItem("postListLayout", layout);
@@ -48,6 +55,7 @@
 		}
 	}
 
+	/** 读取本次会话保存的布局模式，非法值返回 null */
 	function getSavedSessionLayout(): LayoutMode | null {
 		if (!hasWindow) {
 			return null;
@@ -56,6 +64,7 @@
 		return saved === "list" || saved === "grid" ? saved : null;
 	}
 
+	/** 在小屏以外的场景切换布局，并加锁避免动画期间重复触发 */
 	function switchLayout() {
 		if (!mounted || isSmallScreen || isSwitching) {
 			return;
@@ -67,16 +76,19 @@
 		updateStorage(newLayout);
 	}
 
+	/** 图标旋转动画结束后解锁，允许下一次切换 */
 	function onAnimationEnd() {
 		isSwitching = false;
 	}
 
+	/** 监听断点变化，小屏时强制退回列表模式 */
 	function handleMediaQueryChange(e: MediaQueryListEvent | MediaQueryList) {
 		isSmallScreen = !e.matches;
 	}
 
 	const cleanupFunctions: (() => void)[] = [];
 
+	// 挂载后恢复用户偏好、监听断点与 Swup 事件；所有副作用统一登记以便卸载时清理
 	onMount(() => {
 		if (!hasWindow) {
 			mounted = false;
@@ -116,6 +128,7 @@
 				});
 			}
 
+			/** 响应其它组件的布局变更事件，保持按钮状态同步 */
 			const handleCustomEvent = (
 				event: CustomEvent<{ layout: LayoutMode }>,
 			) => {
@@ -124,6 +137,7 @@
 				}
 			};
 
+			/** Swup 跳转后延迟重新读取布局偏好，等待新页面初始化完成 */
 			const handleSwupEvent = () => {
 				setTimeout(() => {
 					const saved = getSavedSessionLayout();
@@ -166,6 +180,7 @@
 		}
 	});
 
+	// 卸载时统一执行登记的清理函数，移除监听与 Swup 钩子
 	onDestroy(() => {
 		cleanupFunctions.forEach((fn) => fn());
 	});

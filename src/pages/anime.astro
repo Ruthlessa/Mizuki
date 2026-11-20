@@ -1,4 +1,6 @@
 ---
+// 追番页：按配置从 bangumi / bilibili / 本地数据源读取番剧列表并展示。
+// 功能关闭时重定向到 404，页面内联脚本负责列表布局与筛选交互。
 import "../styles/anime.css";
 
 import { AnimeFilters, AnimeGrid } from "@components/features/anime";
@@ -15,6 +17,7 @@ import {
 } from "../utils/anime-data";
 import { widgetManager } from "../utils/widget-manager";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.anime) {
 	return Astro.redirect("/404/");
 }
@@ -127,6 +130,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 		(function () {
 			const containerId = "anime-list-container";
 
+			/** 切换番剧列表为列表/网格布局，并用 FLIP 动画平滑过渡 */
 			function updateAnimeListLayout(layout, shouldAnimate = true) {
 				const animeListContainer = document.getElementById(containerId);
 				if (!animeListContainer) {
@@ -264,6 +268,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 				});
 			}
 
+			/** 读取本地布局偏好并应用，容器不存在时返回 false 供重试 */
 			function initAnimeLayout() {
 				const animeListContainer = document.getElementById(containerId);
 				if (!animeListContainer) {
@@ -281,6 +286,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 			let retryCount = 0;
 			const maxRetries = 10;
 
+			/** 容器可能在 Swup 切换后才出现，采用指数退避重试初始化 */
 			function tryInit() {
 				if (initAnimeLayout()) {
 					return;
@@ -324,6 +330,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 			window.animeFilterEventListeners = [];
 		}
 
+		/** 重新绑定筛选按钮点击与无限滚动，重复调用会先清理旧监听 */
 		function initFilterButtons() {
 			const filterTags = document.querySelectorAll(".anime-filter-tag");
 			const sentinel = document.getElementById(
@@ -339,6 +346,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 			});
 			window.animeFilterEventListeners = [];
 			filterTags.forEach((tag) => {
+				/** 筛选标签点击处理：按状态过滤并做交错淡入动画 */
 				const clickHandler = function () {
 					if (this.classList.contains("anime-active")) {
 						return;
@@ -404,6 +412,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 							top: rect.top,
 						});
 					});
+					/** 执行实际的显隐切换与位移动画，先让隐藏项淡出再统一布局 */
 					const runAnimation = () => {
 						itemsToHide.forEach((item) => {
 							item.classList.add("anime-hidden");
@@ -534,6 +543,7 @@ const emptyMessage = i18n(I18nKey.animeEmpty);
 		}
 
 		document.addEventListener("DOMContentLoaded", initFilterButtons);
+		/** Swup 无刷新跳转后重新初始化筛选，延迟等待 DOM 替换完成 */
 		function setupSwupListeners() {
 			if (window.swup) {
 				window.swup.hooks.on("content:replace", () =>

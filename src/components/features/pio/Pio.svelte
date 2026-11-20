@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** Live2D 看板娘组件：懒加载 Pio 资源，并在 swup 页面切换后重建实例；通常由全局布局挂载。 */
 	import { onDestroy, onMount } from "svelte";
 
 	import { pioConfig } from "@/config";
@@ -24,6 +25,7 @@
 	let pioContainer: HTMLDivElement | null = null;
 	let pioCanvas: HTMLCanvasElement | null = null;
 
+	/** 轮询等待 SDK 与 DOM 容器就绪后创建看板娘实例，避免脚本尚未加载完成。 */
 	function initPio() {
 		if (
 			typeof window !== "undefined" &&
@@ -49,11 +51,13 @@
 		}
 	}
 
+	/** 在浏览器空闲时按顺序加载 l2d.js 与 pio.js，减少对首屏渲染的影响。 */
 	function loadPioAssets() {
 		if (typeof window === "undefined") {
 			return;
 		}
 
+		/** 动态注入脚本标签，已存在同 id 脚本则直接复用，返回加载结果 Promise。 */
 		const loadScript = (src: string, id: string): Promise<void> => {
 			return new Promise((resolve, reject) => {
 				if (document.querySelector(`#${id}`)) {
@@ -70,6 +74,7 @@
 			});
 		};
 
+		/** 串行加载两个依赖脚本，全部就绪后再触发看板娘初始化。 */
 		const loadWithIdle = () => {
 			console.log("Loading Pio assets...");
 			loadScript("/pio/static/l2d.js", "pio-l2d-script")
@@ -95,6 +100,7 @@
 		}
 	}
 
+	/** 页面切换后丢弃旧实例并重新初始化，避免看板娘残留或失效。 */
 	function handlePageTransition() {
 		if (pioInstance) {
 			console.log("Pio page transition detected, refreshing instance");

@@ -1,3 +1,7 @@
+/**
+ * 海报画布绘制：在离屏 canvas 上按给定选项绘制标题、摘要、封面、二维码与作者信息，输出 PNG DataURL。
+ * 由 SharePoster 组件在浏览器端调用，所有尺寸以 scale 为倍率适配高分屏。
+ */
 import {
 	calculateDimensions,
 	drawDateBadge,
@@ -29,6 +33,7 @@ export interface PosterDrawOptions {
 	scanToReadLabel: string;
 }
 
+/** 生成海报图片：并行预载二维码/封面/头像后逐段绘制，最终导出 PNG DataURL */
 export async function generatePosterImage(
 	options: PosterDrawOptions,
 ): Promise<string> {

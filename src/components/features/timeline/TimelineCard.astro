@@ -1,4 +1,5 @@
 ---
+// 时间线条目卡片：渲染单条经历（教育/工作/项目/成就），由时间线页面列出。
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import type { TimelineCardProps } from "./types";
@@ -7,6 +8,7 @@ const { item } = Astro.props as TimelineCardProps;
 
 const isCurrent = !item.endDate;
 
+/** 按条目类型映射对应的图标名，未知类型回退为通用事件图标。 */
 const getTypeIcon = (type: string) => {
 	switch (type) {
 		case "education":
@@ -22,6 +24,7 @@ const getTypeIcon = (type: string) => {
 	}
 };
 
+/** 把条目类型翻译为本地化文案。 */
 const getTypeText = (type: string) => {
 	switch (type) {
 		case "education":
@@ -37,6 +40,7 @@ const getTypeText = (type: string) => {
 	}
 };
 
+/** 按链接类型选择图标，缺省使用文档图标。 */
 const getLinkIcon = (type: string) => {
 	switch (type) {
 		case "certificate":
@@ -50,6 +54,7 @@ const getLinkIcon = (type: string) => {
 	}
 };
 
+/** 将日期格式化为“年 + 简写月份”，用于卡片时间范围展示。 */
 const formatDate = (dateString: string) => {
 	const date = new Date(dateString);
 	return date.toLocaleDateString("zh-CN", {
@@ -58,6 +63,7 @@ const formatDate = (dateString: string) => {
 	});
 };
 
+/** 计算起止时间的时长；无结束时间时按“至今”计算并本地化输出。 */
 const getDuration = (startDate: string, endDate?: string) => {
 	const start = new Date(startDate);
 	const end = endDate ? new Date(endDate) : new Date();

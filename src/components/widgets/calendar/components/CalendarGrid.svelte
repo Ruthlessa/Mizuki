@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 日历月视图网格：渲染星期表头、空白占位与每日格子，并标注今天/选中/有文章状态。
 	import type { CalendarGridCell } from "../types/calendar";
 
 	interface Props {
@@ -10,6 +11,7 @@
 
 	const { weekDays, emptyCellsCount, cells, onCellClick }: Props = $props();
 
+	/** 根据单元格状态拼装样式类，优先级为选中 > 今天 > 有文章 > 普通。 */
 	function getCellClass(cell: CalendarGridCell): string {
 		let bgClass =
 			"hover:bg-[var(--btn-plain-bg-hover)] text-neutral-700 dark:text-neutral-300 border border-transparent";
@@ -32,6 +34,7 @@
 		return `calendar-day aspect-square flex items-center justify-center rounded-md cursor-pointer relative transition-all duration-200 ${bgClass}`;
 	}
 
+	/** 点击非空格子时把日期键回传给父组件。 */
 	function handleCellClick(cell: CalendarGridCell) {
 		if (!cell.isEmpty && cell.dateKey) {
 			onCellClick(cell.dateKey);

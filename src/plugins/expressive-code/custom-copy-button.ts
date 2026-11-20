@@ -1,11 +1,18 @@
+/**
+ * Expressive Code 自定义复制按钮插件
+ * 在每个代码块的 AST 末尾追加 button.copy-btn（内含复制图标与成功图标），点击行为由主题前端脚本处理。
+ * 仅做 AST 结构注入，不涉及任何交互逻辑。
+ */
 import { definePlugin } from "@expressive-code/core";
 import type { Element } from "hast";
 
+/** 注册插件：在代码块渲染后（postprocess）挂载复制按钮 */
 export function pluginCustomCopyButton() {
 	return definePlugin({
 		name: "Custom Copy Button",
 		hooks: {
 			postprocessRenderedBlock: (context) => {
+				/** 构造复制按钮节点并追加到代码块 AST 的 children 中 */
 				function processCodeBlock(node: Element) {
 					const copyButton = {
 						type: "element" as const,

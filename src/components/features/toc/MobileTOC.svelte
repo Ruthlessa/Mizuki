@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** 移动端目录面板：在文章页展示目录、在首页展示文章列表，并支持滚动高亮。 */
 	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
@@ -24,24 +25,29 @@
 	let observer: IntersectionObserver | undefined;
 	let swupListenersRegistered = $state(false);
 
+	/** 切换移动端目录面板的显隐。 */
 	const togglePanel = async () => {
 		await panelManager.togglePanel("mobile-toc-panel");
 	};
 
+	/** 显式设置面板可见性，导航或跳转前用于主动收起面板。 */
 	const setPanelVisibility = async (show: boolean): Promise<void> => {
 		await panelManager.togglePanel("mobile-toc-panel", show);
 	};
 
+	/** 收起面板并滚动到指定标题锚点。 */
 	const scrollToHeading = (id: string) => {
 		setPanelVisibility(false);
 		scrollToHeadingUtil(id);
 	};
 
+	/** 收起面板后通过统一路由工具跳转文章，兼容 SPA 切换。 */
 	const navigateToPost = (url: string) => {
 		setPanelVisibility(false);
 		navigateToPage(url);
 	};
 
+	/** 根据滚动位置计算当前处于视区上方的最后一个标题。 */
 	const updateActiveHeading = () => {
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 		const scrollTop = window.scrollY;
@@ -60,6 +66,7 @@
 		activeId = currentActiveId;
 	};
 
+	/** 用 IntersectionObserver 精确跟踪标题可见性，替换滚动计算的近似值。 */
 	const setupIntersectionObserver = () => {
 		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
@@ -88,6 +95,7 @@
 		});
 	};
 
+	/** 注册 swup 页面切换监听，等价场景下退化为 popstate 监听。 */
 	const setupSwupListeners = () => {
 		if (
 			typeof window !== "undefined" &&
@@ -124,6 +132,7 @@
 		}
 	};
 
+	/** 等待 swup 实例可用（或超时）后再注册切换监听。 */
 	const checkSwupAvailability = () => {
 		if (typeof window !== "undefined") {
 			const w = window as unknown as {
@@ -155,6 +164,7 @@
 		}
 	};
 
+	/** 按当前页面类型重建目录或文章列表，并挂接对应的高亮逻辑。 */
 	const init = () => {
 		isHomePage = checkIsHomePage();
 		checkSwupAvailability();
@@ -202,6 +212,7 @@
 			init;
 	}
 
+	/** 依据标题层级返回普通状态的左内边距。 */
 	const getLevelPadding = (level: number): string => {
 		const base = "12px";
 		const levelPadding: Record<number, string> = {
@@ -215,6 +226,7 @@
 		return levelPadding[level] || base;
 	};
 
+	/** 依据标题层级返回激活状态的左内边距，用于抵消边框宽度保持对齐。 */
 	const getActivePadding = (level: number): string => {
 		const activePadding: Record<number, string> = {
 			1: "9px",

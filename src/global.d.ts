@@ -1,3 +1,7 @@
+/**
+ * 全局类型声明：扩展 Window（swup、pagefind、看板娘、侧边栏管理等运行时属性）
+ * 以及自定义元素、Fancybox 与 Pagefind 搜索结果的结构。
+ */
 export {};
 
 declare global {
@@ -41,6 +45,9 @@ declare global {
 		};
 	}
 
+	/**
+	 * 扩展浏览器 Window：挂载各脚本在运行时注入的全局对象与初始化标志
+	 */
 	interface Window {
 		swup: Swup | undefined;
 		closeAnnouncement: () => void;
@@ -89,6 +96,9 @@ declare global {
 		__mizukiRightSidebarManagerInitialized?: boolean;
 	}
 
+	/**
+	 * Fancybox 图片灯箱的最小接口声明，用于脚本中动态绑定/解绑
+	 */
 	interface Fancybox {
 		unbind: (selector: string) => void;
 		bind: (selector: string, options: object) => void;
@@ -97,6 +107,7 @@ declare global {
 	var Fancybox: Fancybox | undefined;
 }
 
+/** Pagefind 搜索结果条目，用于搜索组件的类型提示 */
 interface SearchResult {
 	url: string;
 	meta: {

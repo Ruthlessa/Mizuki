@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** 密码输入弹窗：收集密码并通过自定义事件通知解密脚本，自身不持有解密逻辑。 */
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
 	import { onMount } from "svelte";
@@ -9,6 +10,7 @@
 	let isLoading = $state(false);
 	let password = $state("");
 
+	/** 派发解密请求事件，由外层内联脚本监听并执行实际解密。 */
 	function dispatchUnlock(pwd: string) {
 		const event = new CustomEvent("password:unlock", {
 			detail: { password: pwd },
@@ -18,6 +20,7 @@
 		document.dispatchEvent(event);
 	}
 
+	/** 提交表单时校验非空后发起解密，空密码直接忽略。 */
 	function handleSubmit(e: Event) {
 		e.preventDefault();
 		if (password.trim()) {
@@ -25,6 +28,7 @@
 		}
 	}
 
+	/** 支持回车快速提交，避免额外点击按钮。 */
 	function handleKeypress(e: KeyboardEvent) {
 		if (e.key === "Enter" && password.trim()) {
 			dispatchUnlock(password);
@@ -32,15 +36,18 @@
 	}
 
 	onMount(() => {
+		/** 接收外层派发的加载状态，控制按钮禁用与文案切换。 */
 		const handleLoading = ((e: CustomEvent<boolean>) => {
 			isLoading = e.detail;
 		}) as EventListener;
 
+		/** 接收解密失败信息并结束加载态。 */
 		const handleError = ((e: CustomEvent<string>) => {
 			errorMessage = e.detail;
 			isLoading = false;
 		}) as EventListener;
 
+		/** 清空错误提示，通常在重新提交前调用。 */
 		const handleClearError = (() => {
 			errorMessage = "";
 		}) as EventListener;

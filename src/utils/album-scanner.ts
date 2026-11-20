@@ -1,3 +1,9 @@
+/**
+ * 相册扫描工具
+ * 通过 import.meta.glob 在构建期收集 public/images/albums 下的相册信息与图片，
+ * 同时支持「本地图片」与「外链图片」两种模式，返回按日期倒序排列的相册列表。
+ * 之所以不用 fs，是为了兼容 Cloudflare Workers 等无文件系统的运行时。
+ */
 import type { AlbumGroup, Photo } from "../types/album";
 
 // 使用 import.meta.glob 替代 fs，支持 Cloudflare Workers
@@ -12,6 +18,7 @@ const imageModules = import.meta.glob<ImageMetadata>(
 	{ eager: true, import: "default" },
 );
 
+/** 扫描全部相册并返回相册列表（按日期倒序，隐藏相册与不合法相册会被跳过） */
 export async function scanAlbums(): Promise<AlbumGroup[]> {
 	const albums: AlbumGroup[] = [];
 
@@ -40,6 +47,7 @@ export async function scanAlbums(): Promise<AlbumGroup[]> {
 	return albums;
 }
 
+/** 解析单个相册文件夹，返回相册数据；信息缺失或标记隐藏时返回 null */
 async function processAlbumFolder(
 	folderName: string,
 	info: Record<string, any>,
@@ -102,6 +110,7 @@ async function processAlbumFolder(
 	};
 }
 
+/** 把本地相册图片转换为 Photo 列表，自动剔除封面图并优先使用同名 webp */
 function scanPhotos(
 	albumImages: [string, ImageMetadata][],
 	albumId: string,
@@ -152,6 +161,7 @@ function scanPhotos(
 	return photos;
 }
 
+/** 把 info.json 中配置的外链照片转换为 Photo 列表（缺少 src 的条目会被跳过） */
 function processExternalPhotos(
 	externalPhotos: any[],
 	albumId: string,
@@ -184,6 +194,7 @@ function processExternalPhotos(
 	return photos;
 }
 
+/** 从「文件名_标签1_标签2」格式中拆出基础名与标签 */
 function parseFileName(fileName: string): { baseName: string; tags: string[] } {
 	// 移除扩展名
 	const nameWithoutExt = fileName.replace(/\.(jpg|jpeg|png|gif|webp)$/i, "");

@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 搜索组件（导航栏内）：桌面端可展开输入框 + 移动端浮层面板，统一走 Pagefind。
+	// 开发环境 Pagefind 不可用，使用假数据兜底；组件通过 #search-panel / #navbar 的类名与外部联动。
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
 	import Icon from "@iconify/svelte";
@@ -38,6 +40,7 @@
 		},
 	];
 
+	/** 切换移动端搜索浮层的开合，首次展开时按需加载 Pagefind */
 	const togglePanel = () => {
 		const panel = document.getElementById("search-panel");
 		panel?.classList.toggle("float-panel-closed");
@@ -49,6 +52,7 @@
 		}
 	};
 
+	/** 展开/收起桌面搜索框，展开后异步聚焦输入框并触发索引加载 */
 	const toggleDesktopSearch = () => {
 		// 如果窗口刚获得焦点，不自动展开搜索框
 		if (windowJustFocused) {
@@ -68,12 +72,14 @@
 		}
 	};
 
+	/** 鼠标离开时收起桌面搜索框，但有输入内容时保持展开以便继续查看结果 */
 	const collapseDesktopSearch = () => {
 		if (!keywordDesktop) {
 			isDesktopSearchExpanded = false;
 		}
 	};
 
+	/** 输入框失焦时延迟折叠，避免点击结果链接前事件尚未触发就被关闭 */
 	const handleBlur = () => {
 		// 延迟处理以允许搜索结果的点击事件先于折叠逻辑执行
 		blurTimer = setTimeout(() => {
@@ -83,6 +89,7 @@
 		}, 200);
 	};
 
+	/** 控制搜索浮层的显隐；仅桌面场景由本组件管理，移动端沿用全局面板逻辑 */
 	const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 		const panel = document.getElementById("search-panel");
 		if (!panel || !isDesktop) {
@@ -95,6 +102,7 @@
 		}
 	};
 
+	/** 关闭搜索浮层并清空关键词与结果，用于结果点击后重置状态 */
 	const closeSearchPanel = (): void => {
 		const panel = document.getElementById("search-panel");
 		if (panel) {
@@ -106,12 +114,14 @@
 		result = [];
 	};
 
+	/** 点击搜索结果：阻止默认跳转后走统一的站内导航，保证过渡动画生效 */
 	const handleResultClick = (event: Event, url: string): void => {
 		event.preventDefault();
 		closeSearchPanel();
 		navigateToPage(url);
 	};
 
+	/** 执行搜索：生产环境走 Pagefind，开发环境返回假数据，异常时清空结果并收起面板 */
 	const search = async (
 		keyword: string,
 		isDesktop: boolean,
@@ -149,6 +159,7 @@
 	};
 
 	onMount(() => {
+		/** 读取 Pagefind 可用状态并标记初始化完成，供搜索与防抖副作用使用 */
 		const initializeSearch = () => {
 			initialized = true;
 			pagefindLoaded =
@@ -183,6 +194,7 @@
 		}
 
 		// 监听窗口焦点事件，防止切换窗口时自动展开搜索框
+		/** 窗口获得焦点后的短暂窗口期内忽略 mouseenter，避免误触发展开 */
 		const handleFocus = () => {
 			windowJustFocused = true;
 			clearTimeout(focusTimer);

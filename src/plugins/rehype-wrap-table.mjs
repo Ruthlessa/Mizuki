@@ -1,5 +1,10 @@
+/**
+ * rehype 表格包裹插件
+ * 给每个 <table> 套一层 div.table-wrapper，便于在小屏下做横向滚动且不破坏表格语义。
+ */
 import { visit } from "unist-util-visit";
 
+/** 返回 rehype transformer，原地替换 table 节点为包裹后的结构 */
 export function rehypeWrapTable() {
 	return (tree) => {
 		visit(tree, "element", (node, index, parent) => {

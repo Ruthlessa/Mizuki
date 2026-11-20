@@ -1,8 +1,15 @@
+/**
+ * 追番页筛选与无限滚动处理器
+ * 负责筛选标签的点击过滤（FLIP 位移动画 + 淡入淡出）以及「懒加载存储」节点分批注入列表。
+ * 事件监听会记录在 window.animeFilterEventListeners 中，重渲染前统一解绑，防止重复绑定。
+ */
+/** 初始化筛选交互；页面切换后需重复调用以重新绑定事件 */
 export function initFilterHandler() {
 	if (typeof window.animeFilterEventListeners === "undefined") {
 		window.animeFilterEventListeners = [];
 	}
 
+	/** 一次性绑定筛选标签点击与哨兵元素懒加载 */
 	function initFilterButtons() {
 		const filterTags = document.querySelectorAll(".anime-filter-tag");
 		const sentinel = document.getElementById("infinite-scroll-sentinel");
@@ -18,6 +25,7 @@ export function initFilterHandler() {
 		window.animeFilterEventListeners = [];
 
 		filterTags.forEach((tag) => {
+			/** 点击筛选标签：清空当前筛选 → 应用新标签 → 按状态显隐条目 */
 			const clickHandler = function () {
 				if (this.classList.contains("anime-active")) {
 					return;
@@ -76,6 +84,7 @@ export function initFilterHandler() {
 					}
 				});
 
+				// 记录保留条目筛选前的位置，稍后用 FLIP 技术让它们平滑移动到新位置
 				const firstPositions = new Map<
 					HTMLElement,
 					{ left: number; top: number }
@@ -88,6 +97,7 @@ export function initFilterHandler() {
 					});
 				});
 
+				/** 执行显隐与位移动画：先隐藏/显示条目，再在下一帧播放过渡 */
 				const runAnimation = () => {
 					itemsToHide.forEach((item) => {
 						item.classList.add("anime-hidden");
@@ -175,6 +185,7 @@ export function initFilterHandler() {
 		});
 
 		if (sentinel && lazyStore && listContainer) {
+			// 哨兵进入视口（提前 200px）时把懒加载存储中的条目分批搬进列表
 			const observer = new IntersectionObserver(
 				(entries) => {
 					if (entries[0].isIntersecting) {
@@ -219,6 +230,7 @@ export function initFilterHandler() {
 
 	document.addEventListener("DOMContentLoaded", initFilterButtons);
 
+	/** Swup 可用时在内容替换与页面切换后重新绑定筛选事件 */
 	function setupSwupListeners() {
 		if (window.swup) {
 			window.swup.hooks.on("content:replace", () =>

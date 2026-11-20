@@ -1,3 +1,4 @@
+/** 小部件公共出口：导出统一布局/表头组件，并兼容转发遗留的 Badge/Chip/TagChip。 */
 /**
  * @deprecated Use atoms/Badge instead
  */

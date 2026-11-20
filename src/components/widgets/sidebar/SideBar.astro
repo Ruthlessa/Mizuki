@@ -1,4 +1,6 @@
 ---
+// 左侧栏容器：按设备断点读取 widgetManager 的组件配置，并交由 SidebarColumn 布局。
+// 客户端脚本负责响应式显隐与 swup 页面切换后的状态重算。
 import type { MarkdownHeading } from "astro";
 
 import SidebarColumn from "@/components/layout/SidebarColumn.astro";
@@ -81,11 +83,14 @@ const tabletStickyComponents = widgetManager.getComponentsByPosition(
 	if (typeof window !== "undefined") {
 		const SIDEBAR_MANAGER_KEY = "__mizukiSidebarManagerInitialized";
 
+		/** 侧栏响应式管理器：统一控制不同断点下侧栏的显示状态。 */
 		class SidebarManager {
+			/** 实例化后立即初始化监听。 */
 			constructor() {
 				this.init();
 			}
 
+			/** 绑定 resize 与 swup content:replace 监听，保证切换页面后仍可重算。 */
 			init() {
 				this.updateResponsiveDisplay();
 				if (!window.__mizukiSidebarResizeHandler) {
@@ -107,6 +112,7 @@ const tabletStickyComponents = widgetManager.getComponentsByPosition(
 				}
 			}
 
+			/** 依据当前视口宽度与配置决定是否展示侧栏，通过 CSS 变量控制显隐。 */
 			updateResponsiveDisplay() {
 				const width = window.innerWidth;
 

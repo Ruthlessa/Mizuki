@@ -1,4 +1,5 @@
 ---
+// 技能卡片：展示技能图标、等级、熟练度进度条与年限，供技能页网格使用。
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import Icon from "../../misc/Icon.astro";
@@ -8,6 +9,7 @@ const { skill } = Astro.props as SkillCardProps;
 
 const skillColor = skill.color || "#3B82F6";
 
+/** 把技能等级枚举转换为本地化文案。 */
 const getLevelText = (level: string) => {
 	switch (level) {
 		case "expert":

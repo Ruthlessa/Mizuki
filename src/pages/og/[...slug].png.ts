@@ -1,3 +1,7 @@
+/**
+ * 文章 OG 图接口：为每篇文章用 satori + sharp 生成 1200x630 的分享封面。
+ * 由 generateOgImages 开关控制；字体运行时从 Google Fonts 拉取并缓存。
+ */
 import type { APIContext, GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
@@ -30,6 +34,7 @@ const faviconModules = import.meta.glob<{ default: ImageMetadata }>(
 	{ eager: true, import: "default" },
 );
 
+/** 为每篇已发布文章生成 OG 图路径；开关关闭时不生成任何页面 */
 export const getStaticPaths: GetStaticPaths = async () => {
 	if (!siteConfig.generateOgImages) {
 		return [];
@@ -50,6 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 let fontCache: { regular: Buffer | null; bold: Buffer | null } | null = null;
 
+/** 拉取并缓存 Noto Sans SC 常规/粗体字体，失败时降级为无自定义字体 */
 async function fetchNotoSansSCFonts() {
 	if (fontCache) {
 		return fontCache;
@@ -64,6 +70,7 @@ async function fetchNotoSansSCFonts() {
 		}
 		const cssText = await cssResp.text();
 
+		/** 从 CSS 文本中解析指定字重的字体文件地址 */
 		const getUrlForWeight = (weight: number) => {
 			const blockRe = new RegExp(
 				`@font-face\\s*{[^}]*font-weight:\\s*${weight}[^}]*}`,
@@ -166,6 +173,7 @@ async function getImageBase64(imagePath: string): Promise<string | null> {
 	}
 }
 
+/** 用 satori 渲染 JSX 风格模板并转成 PNG 响应，带一年缓存头 */
 export async function GET({
 	props,
 }: APIContext<{ post: CollectionEntry<"posts"> }>) {

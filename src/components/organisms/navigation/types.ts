@@ -1,3 +1,6 @@
+/**
+ * 导航相关组件的 Props 类型定义，含移动端面板、下拉菜单与处理后的链接结构。
+ */
 import type { LinkPreset, NavBarLink } from "../../../types/config";
 
 export interface NavMenuPanelProps {

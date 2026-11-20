@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * 音乐悬浮按钮：展示播放状态并负责展开/收起音乐控制中心。
+	 * 作为 FloatingControls 的一个悬浮项渲染，状态订阅自 musicPlayerStore。
+	 */
 	import Icon from "@iconify/svelte";
 	import { onDestroy, onMount } from "svelte";
 
@@ -9,6 +13,7 @@
 	let unsubscribe: (() => void) | undefined;
 	let prefersReducedMotion = $state(false);
 
+	/** 切换音乐控制中心的展开状态，具体逻辑交由全局 store 处理 */
 	function toggleControlCenter() {
 		musicPlayerStore.toggleExpanded();
 	}
@@ -25,6 +30,7 @@
 			: "material-symbols:music-note-rounded",
 	);
 
+	// 挂载后订阅播放器状态，并读取系统的“减少动画”偏好
 	onMount(() => {
 		unsubscribe = musicPlayerStore.subscribe((nextState) => {
 			state = nextState;
@@ -40,6 +46,7 @@
 		});
 	});
 
+	// 卸载时取消订阅，防止内存泄漏
 	onDestroy(() => {
 		unsubscribe?.();
 	});

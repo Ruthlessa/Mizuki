@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 播放/暂停按钮（atom）：根据播放与加载状态切换图标，加载中禁用点击。
 	import Icon from "@iconify/svelte";
 
 	interface Props {

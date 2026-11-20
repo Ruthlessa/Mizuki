@@ -1,3 +1,8 @@
+/**
+ * 主题与外观设置工具
+ * 负责色相（--hue）、亮暗主题、壁纸模式三组偏好的读写：localStorage 持久化 + 同步到 document 根节点。
+ * 所有函数都做了 window/localStorage 存在性判断，可安全地在 SSR 环境调用。
+ */
 import {
 	DARK_MODE,
 	DEFAULT_THEME,
@@ -8,6 +13,7 @@ import {
 import { siteConfig } from "@/config";
 import type { LIGHT_DARK_MODE, WALLPAPER_MODE } from "@/types/config";
 
+/** 读取主题色相默认值：优先取 #config-carrier 上的 data-hue，取不到时用 250 */
 export function getDefaultHue(): number {
 	if (typeof window === "undefined" || typeof document === "undefined") {
 		return 250;
@@ -21,6 +27,7 @@ export function getDefaultHue(): number {
 	return Number.parseInt(configCarrier.dataset.hue || fallback);
 }
 
+/** 读取当前色相：已保存过用户选择则用保存值，否则回退到默认值 */
 export function getHue(): number {
 	if (typeof window === "undefined" || typeof localStorage === "undefined") {
 		return 250;
@@ -29,6 +36,7 @@ export function getHue(): number {
 	return stored ? Number.parseInt(stored) : getDefaultHue();
 }
 
+/** 保存色相并立即写入 :root 的 --hue 变量 */
 export function setHue(hue: number): void {
 	if (
 		typeof window === "undefined" ||
@@ -45,6 +53,7 @@ export function setHue(hue: number): void {
 	r.style.setProperty("--hue", String(hue));
 }
 
+/** 把主题应用到 document：切换 dark 类与 Expressive Code 的 data-theme，并尽量使用 View Transitions 过渡 */
 export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 	if (typeof window === "undefined" || typeof document === "undefined") {
 		return;
@@ -81,6 +90,7 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 	}
 
 	// 定义实际执行主题切换的函数
+	/** 真正修改 DOM 上的主题状态（供普通模式与 View Transitions 回调复用） */
 	const performThemeChange = () => {
 		// 应用主题变化
 		if (needsThemeChange) {
@@ -105,6 +115,7 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 	};
 
 	// 检查浏览器是否支持 View Transitions API
+	// 用户开启「减少动效」时跳过过渡，直接同步切换，避免不适
 	if (
 		needsThemeChange &&
 		document.startViewTransition &&
@@ -159,6 +170,7 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 	}
 }
 
+/** 保存主题选择并立即应用 */
 export function setTheme(theme: LIGHT_DARK_MODE): void {
 	if (typeof window === "undefined" || typeof localStorage === "undefined") {
 		return;
@@ -167,6 +179,7 @@ export function setTheme(theme: LIGHT_DARK_MODE): void {
 	applyThemeToDocument(theme);
 }
 
+/** 读取已保存的主题，未保存时返回站点默认主题 */
 export function getStoredTheme(): LIGHT_DARK_MODE {
 	if (typeof window === "undefined" || typeof localStorage === "undefined") {
 		return DEFAULT_THEME;
@@ -174,6 +187,7 @@ export function getStoredTheme(): LIGHT_DARK_MODE {
 	return (localStorage.getItem("theme") as LIGHT_DARK_MODE) || DEFAULT_THEME;
 }
 
+/** 读取已保存的壁纸模式，未保存时返回配置中的默认模式 */
 export function getStoredWallpaperMode(): WALLPAPER_MODE {
 	if (typeof window === "undefined" || typeof localStorage === "undefined") {
 		return siteConfig.wallpaperMode.defaultMode;
@@ -184,6 +198,7 @@ export function getStoredWallpaperMode(): WALLPAPER_MODE {
 	);
 }
 
+/** 保存壁纸模式并广播 wallpaper-mode-change 事件，通知其他组件联动 */
 export function setWallpaperMode(mode: WALLPAPER_MODE): void {
 	if (typeof window === "undefined" || typeof localStorage === "undefined") {
 		return;

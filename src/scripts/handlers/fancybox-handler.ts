@@ -76,6 +76,7 @@ export class FancyboxHandler {
 		const commonConfig = getDefaultFancyboxConfig();
 
 		// 绑定相册/文章图片
+		// groupAll 让同一页内多张图片组成一个可左右切换的画廊
 		this.Fancybox.bind(FANCYBOX_SELECTORS.albumImages, {
 			...commonConfig,
 			groupAll: true,

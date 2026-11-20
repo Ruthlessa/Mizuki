@@ -1,3 +1,8 @@
+/**
+ * 樱花飘落特效管理器
+ * 基于 Canvas + requestAnimationFrame 绘制樱花粒子，提供全局单例的初始化/切换/停止入口。
+ * 所有入口都做了 window 存在性判断，因此在 SSR/构建期调用是安全的。
+ */
 import type { SakuraConfig } from "../types/config";
 
 // 樱花对象类

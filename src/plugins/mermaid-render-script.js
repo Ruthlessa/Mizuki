@@ -1,3 +1,8 @@
+/**
+ * Mermaid 客户端渲染脚本（以原始字符串内联进页面）
+ * 负责按需加载 mermaid 库、按主题渲染图表、提供缩放/拖拽/全屏查看，并监听主题与页面切换事件。
+ * 脚本为 IIFE 且通过 window 标记做单例保护，重复注入不会重复初始化。
+ */
 (() => {
 	// 单例模式：检查是否已经初始化过
 	if (window.mermaidInitialized) {
@@ -14,6 +19,7 @@
 	let currentTheme = null;
 	let isRendering = false; // 防止并发渲染
 
+	/** 过滤 Mermaid 输出的 SVG，移除 script、foreignObject、on* 属性与 javascript: 链接，防止 XSS */
 	function sanitizeSvgString(svgText) {
 		if (typeof svgText !== "string" || !svgText.trim()) {
 			return "";
@@ -54,6 +60,7 @@
 	const RETRY_DELAY = 1000; // 1秒
 	let fullscreenOverlay = null;
 
+	/** 注入全屏查看所需的样式，已存在时直接返回 */
 	function injectFullscreenStyles() {
 		if (document.getElementById("mermaid-fullscreen-style")) {
 			return;
@@ -125,6 +132,7 @@
 		document.head.appendChild(style);
 	}
 
+	/** 从 CSS 变量读取当前主题配色，缺失时按亮/暗模式给出兜底色 */
 	function getThemePalette() {
 		const htmlElement = document.documentElement;
 		const isDark = htmlElement.classList.contains("dark");
@@ -151,6 +159,7 @@
 		return { isDark, primary, surface, text, muted, backdrop };
 	}
 
+	/** 关闭并移除全屏遮罩 */
 	function closeFullscreen() {
 		if (fullscreenOverlay) {
 			fullscreenOverlay.remove();
@@ -159,6 +168,7 @@
 		}
 	}
 
+	/** 以克隆的 SVG 打开全屏遮罩，支持点击遮罩或按 Esc 关闭 */
 	function openFullscreen(svgElement) {
 		const palette = getThemePalette();
 		injectFullscreenStyles();
@@ -210,6 +220,7 @@
 		attachZoomControls(stage, clonedSvg);
 	}
 
+	/** 为图表补一个悬停出现的全屏按钮（已存在则跳过） */
 	function ensureFullscreenButton(element) {
 		if (element.querySelector(".mermaid-fullscreen-btn")) {
 			return;
@@ -248,6 +259,7 @@
 		return new Promise((resolve, reject) => {
 			const startTime = Date.now();
 
+			/** 轮询检测 mermaid 是否就绪，超时则 reject */
 			function check() {
 				if (
 					window.mermaid &&
@@ -335,6 +347,7 @@
 		const MIN_SCALE = 0.2;
 		const MAX_SCALE = 6;
 
+		/** 把最新 scale/translate 写回 wrapper 的 transform */
 		function applyTransform() {
 			wrapper.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
 		}
@@ -492,6 +505,7 @@
 		});
 	}
 
+	/** 等待库就绪后完成首次初始化，失败时按次数退避重试 */
 	async function initializeMermaid() {
 		try {
 			await waitForMermaid();
@@ -522,6 +536,7 @@
 		}
 	}
 
+	/** 渲染页面内全部 Mermaid 图表：切换主题 → 分批渲染 → 单个图表失败自动重试 3 次 */
 	async function renderMermaidDiagrams() {
 		// 防止并发渲染
 		if (isRendering) {
@@ -583,6 +598,7 @@
 			const BATCH_SIZE = 3;
 			let index = 0;
 
+			/** 渲染一批图表，批间用 requestIdleCallback 让出主线程 */
 			async function renderBatch() {
 				const batch = mermaidElements.slice(index, index + BATCH_SIZE);
 				if (batch.length === 0) {

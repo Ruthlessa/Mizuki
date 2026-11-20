@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** 显示设置面板：提供主题色相滑块，实时写入 CSS 变量并支持一键恢复默认。 */
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
 	import Icon from "@iconify/svelte";
@@ -14,6 +15,7 @@
 	let isMounted = $state(false);
 	let hasWindow = typeof window !== "undefined";
 
+	/** 把色相恢复到站点默认值（仅在客户端挂载完成后执行）。 */
 	function resetHue() {
 		if (isMounted) {
 			hue = defaultHue;

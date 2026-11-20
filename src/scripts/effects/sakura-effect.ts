@@ -24,6 +24,7 @@ export class SakuraEffectHandler {
 		}
 
 		// 避免重复初始化
+		// 使用 window 上的标记而不是实例字段，确保 Swup 切换页面后也不会重复创建 Canvas
 		if ((window as any).sakuraInitialized) {
 			return;
 		}
@@ -76,6 +77,7 @@ export function setupSakura(widgetConfigs: any): void {
 export function setupSakuraOnDOMReady(widgetConfigs: any): void {
 	const handler = getSakuraEffectHandler();
 
+	/** DOM 就绪后执行初始化的回调 */
 	const init = () => {
 		handler.init(widgetConfigs);
 	};

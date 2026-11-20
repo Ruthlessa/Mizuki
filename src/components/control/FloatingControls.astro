@@ -1,4 +1,6 @@
 ---
+// 右下角悬浮控件容器：按配置聚合音乐按钮、浮动目录、返回首页与回到顶部。
+// 由布局在文章页/全局挂载，通过内联脚本按可见项动态调整整组位置。
 import type { MarkdownHeading } from "astro";
 
 import { musicPlayerConfig, siteConfig } from "../../config";
@@ -236,11 +238,13 @@ const { headings = [] } = Astro.props;
 			"back-to-top-btn",
 		];
 
+		/** 判断指定按钮是否处于可见（未被 hide 类隐藏）状态 */
 		function isButtonVisible(id) {
 			const element = document.getElementById(id);
 			return Boolean(element && !element.classList.contains("hide"));
 		}
 
+		/** 依据各按钮显隐重排悬浮项，并按可见数量压缩整组底部间距 */
 		function updateFloatingControlVisibility() {
 			if (isMusicPanelExpanded) {
 				return;
@@ -302,6 +306,7 @@ const { headings = [] } = Astro.props;
 			}
 		}
 
+		/** 用 MutationObserver 监听按钮 class 变化，变化时触发重排 */
 		function observeFloatingControlButton(id) {
 			const target = document.getElementById(id);
 			if (!target) {
@@ -325,6 +330,7 @@ const { headings = [] } = Astro.props;
 			window.__floatingControlObservers.set(id, observer);
 		}
 
+		/** 初始化悬浮控件：先算一次布局，再为每个按钮挂上监听 */
 		function initFloatingControlVisibility() {
 			updateFloatingControlVisibility();
 			observeFloatingControlButton("floating-toc-btn");
@@ -332,6 +338,7 @@ const { headings = [] } = Astro.props;
 			observeFloatingControlButton("back-to-top-btn");
 		}
 
+		/** 音乐面板展开时锁定悬浮控件布局，避免其随面板动画抖动 */
 		function lockFloatingControlVisibility() {
 			document.documentElement.classList.add("fab-visibility-locked");
 
@@ -371,6 +378,7 @@ const { headings = [] } = Astro.props;
 			}
 		}
 
+		/** 解除锁定并清理相关 class，恢复常规显隐逻辑 */
 		function unlockFloatingControlVisibility() {
 			document.documentElement.classList.remove("fab-visibility-locked");
 
@@ -387,6 +395,7 @@ const { headings = [] } = Astro.props;
 			}
 		}
 
+		/** 响应音乐侧栏展开/收起事件，切换锁定状态 */
 		function handleMusicPanelState(event) {
 			const expanded = Boolean(event?.detail?.isExpanded);
 			if (expanded === isMusicPanelExpanded) {
@@ -405,10 +414,12 @@ const { headings = [] } = Astro.props;
 		let mermaidRendering = false;
 		let mermaidRenderTimer = null;
 
+		/** Mermaid 开始渲染时挂起布局重排，避免图表尺寸变化引起反复计算 */
 		function handleMermaidRenderStart() {
 			mermaidRendering = true;
 		}
 
+		/** Mermaid 渲染结束后延迟恢复并重排，等待图表布局稳定 */
 		function handleMermaidRenderDone() {
 			clearTimeout(mermaidRenderTimer);
 			mermaidRenderTimer = setTimeout(() => {
@@ -433,6 +444,7 @@ const { headings = [] } = Astro.props;
 		window.addEventListener("mermaid:render:done", handleMermaidRenderDone);
 		initFloatingControlVisibility();
 
+		/** 将重排请求合并到下一帧，避免同一帧内重复计算 */
 		function scheduleVisibilityUpdate() {
 			if (visibilityUpdateScheduled || mermaidRendering) {
 				return;
