@@ -1,4 +1,6 @@
 ---
+// 过滤标签栏组件：渲染一组带图标与计数的筛选项按钮，仅输出 DOM 与 data-* 标记。
+// 筛选行为由使用方脚本根据 data-filter-attr / data-filter-value 自行接管，组件本身不含交互逻辑。
 interface FilterTab {
 	value: string;
 	label: string;

@@ -1,4 +1,5 @@
 ---
+// 相册详情页：按相册 id 静态生成页面，展示封面信息与照片瀑布流。
 import { PhotoCard } from "@components/features/albums";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
@@ -9,10 +10,12 @@ import { i18n } from "../../../i18n/translation";
 import type { AlbumGroup, Photo } from "../../../types/album";
 import { scanAlbums } from "../../../utils/album-scanner";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.albums) {
 	return Astro.redirect("/404/");
 }
 
+/** 扫描相册目录，为每个相册生成以 id 为参数的静态路径 */
 export const getStaticPaths = async () => {
 	const albumsData = await scanAlbums();
 	return albumsData.map((album) => ({
@@ -25,6 +28,7 @@ interface Props {
 	album: AlbumGroup;
 }
 
+// 相册数据由 getStaticPaths 注入，缺失时回退到 404
 const { album } = Astro.props;
 
 if (!album) {

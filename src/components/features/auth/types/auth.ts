@@ -1,3 +1,4 @@
+/** 认证子模块的共享类型：解密结果、提示文案、回调与复制代码选项。 */
 export interface PasswordProtectionProps {
 	encryptedContent: string;
 }

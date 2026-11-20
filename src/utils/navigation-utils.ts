@@ -1,6 +1,7 @@
 /**
  * 导航工具函数
  * 提供统一的页面导航功能，支持 Swup 无刷新跳转
+ * 被 Svelte 组件与客户端脚本共用；Swup 不可用或跳转异常时会自动降级为整页跳转。
  */
 
 /**
@@ -231,6 +232,7 @@ export function initLinkPreloading(): void {
 			});
 		},
 		{
+			// 提前 200px 进入视口就开始预加载，让用户滚动到位时页面已就绪
 			rootMargin: "200px",
 		},
 	);
@@ -254,6 +256,7 @@ export function initLinkPreloading(): void {
 			observeLinks();
 		});
 		mutationObserver.observe(mainContainer, {
+			// 只观察 main 的子树增删，避免监听整个 body 带来的性能开销
 			childList: true,
 			subtree: true,
 		});

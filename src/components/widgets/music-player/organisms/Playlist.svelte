@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 播放列表面板（organism）：以滑入动画展示歌曲列表，点击条目回调父级切歌。
 	import Icon from "@iconify/svelte";
 	import { slide } from "svelte/transition";
 

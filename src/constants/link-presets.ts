@@ -1,3 +1,7 @@
+/**
+ * 导航栏预设链接：把 LinkPreset 枚举映射为默认的名称、路径与图标，
+ * 供站点配置在没有自定义导航项时直接复用。
+ */
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 

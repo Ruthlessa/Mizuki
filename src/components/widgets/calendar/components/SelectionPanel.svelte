@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 日期选择浮层：在月/年视图间切换展示选择器，点击遮罩空白处关闭。
 	import type { CalendarStats } from "../types/calendar";
 	import MonthPicker from "./MonthPicker.svelte";
 	import YearPicker from "./YearPicker.svelte";
@@ -25,6 +26,7 @@
 		onClose,
 	}: Props = $props();
 
+	/** 仅当点击蒙层自身（非子选择器）时触发关闭。 */
 	function handleBackdropClick(e: MouseEvent) {
 		if (e.target === e.currentTarget) {
 			onClose();

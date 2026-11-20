@@ -1,4 +1,6 @@
 ---
+// 通用图标组件：包装 iconify-icon 自定义元素，并在图标加载完成前展示占位符号避免布局跳动。
+// 每个实例生成唯一容器 id，内联脚本按 id 精确绑定，支持懒加载与加载失败兜底。
 import type { IconProps } from "./types";
 
 const {
@@ -62,6 +64,7 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
 			return;
 		}
 
+		/** 判断 iconify 影子 DOM 是否已渲染内容，用于确认图标是否可用 */
 		function checkIconLoaded() {
 			const hasContent =
 				iconElement.shadowRoot &&
@@ -74,12 +77,14 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
 			return false;
 		}
 
+		/** 图标就绪后隐藏占位符并淡入真实图标 */
 		function showIcon() {
 			loadingIndicator.style.display = "none";
 			iconElement.classList.remove("opacity-0");
 			iconElement.classList.add("opacity-100");
 		}
 
+		/** 图标未就绪时展示占位符并让图标保持透明 */
 		function showLoading() {
 			loadingIndicator.style.display = "inline-flex";
 			iconElement.classList.remove("opacity-100");

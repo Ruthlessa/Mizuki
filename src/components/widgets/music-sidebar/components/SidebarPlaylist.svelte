@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 侧栏播放列表：用 AccordionDrawer 实现展开收起，列表项复用 TrackListItem。
 	import AccordionDrawer from "../../common/AccordionDrawer.svelte";
 	import type { Song } from "../../music-player/types";
 	import TrackListItem from "./TrackListItem.svelte";

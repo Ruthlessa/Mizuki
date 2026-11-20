@@ -1,4 +1,6 @@
 ---
+// 移动端导航面板：手机端点击菜单按钮后弹出的浮层，支持二级菜单手风琴式展开。
+// 面板显隐由 panel-manager 控制，本组件只负责内部子菜单交互与链接渲染。
 import { Icon } from "astro-icon/components";
 
 import { LinkPresets } from "../../../constants/link-presets";
@@ -23,6 +25,7 @@ const navTitleMap: Record<string, string> = {
 	Friends: I18nKey.friends,
 };
 
+/** 将导航项名称映射为对应 i18n 文案，未命中映射时原样返回 */
 const getLocalizedName = (name: string): string => {
 	const keyValue = navTitleMap[name];
 	if (keyValue) {

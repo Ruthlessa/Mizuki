@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 徽标原子组件：渲染一个带主题配色的数值/文本标签，常用于导航菜单项右侧的计数提示。
+	// 值为空（undefined / null / 空串）时整体不渲染，避免出现空胶囊。
 	import type { BadgeProps } from "./types";
 
 	interface Props extends BadgeProps {}

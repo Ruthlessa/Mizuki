@@ -1,3 +1,4 @@
+/** 简体中文语言包：同时作为默认回退语言 */
 import Key from "../i18nKey";
 import type { Translation } from "../translation";
 

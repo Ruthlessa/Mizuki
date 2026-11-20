@@ -1,4 +1,6 @@
 ---
+// 主网格布局：组合导航栏、Banner、左右侧栏、正文插槽与页脚。
+// 被几乎所有页面使用；通过 grid-layout-utils 计算响应式网格列与透明效果。
 import FloatingControls from "@components/control/FloatingControls.astro";
 import { SidebarTOC } from "@components/features/toc";
 import Banner from "@components/layout/Banner.astro";
@@ -37,6 +39,7 @@ interface Props {
 // 获取 banner 图片
 const bannerImages = await getBannerImages(siteConfig);
 
+// 解构页面传入的属性，headings 供侧边目录使用，默认空数组
 const {
 	title,
 	banner,

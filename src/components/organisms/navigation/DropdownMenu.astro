@@ -1,4 +1,6 @@
 ---
+// 桌面端导航下拉菜单：有子项时渲染触发按钮 + 悬浮子菜单，无子项时退化为普通链接。
+// 键盘可达性（Enter/Space/方向键/Esc）由组件脚本处理，依赖 data-dropdown-* 属性。
 import { Icon } from "astro-icon/components";
 
 import { LinkPresets } from "../../../constants/link-presets";
@@ -24,6 +26,7 @@ const navTitleMap: Record<string, I18nKey> = {
 	Friends: I18nKey.friends,
 };
 
+/** 将导航项名称映射为对应 i18n 文案，未命中映射时原样返回 */
 const getLocalizedName = (name: string): string => {
 	return name in navTitleMap ? i18n(navTitleMap[name]) : name;
 };
@@ -184,10 +187,12 @@ const hasChildren = children.length > 0;
 				return;
 			}
 
+			/** 收起菜单：仅通过 aria-expanded 驱动 CSS 显隐 */
 			const closeMenu = () => {
 				trigger.setAttribute("aria-expanded", "false");
 			};
 
+			/** 切换菜单展开状态，供点击与键盘触发共用 */
 			const toggleMenu = () => {
 				const isExpanded =
 					trigger.getAttribute("aria-expanded") === "true";

@@ -1,4 +1,6 @@
 ---
+// Giscus 评论组件：注入 giscus 官方脚本到页面，实现基于 GitHub Discussions 的评论。
+// 采用 IntersectionObserver 懒加载，并监听主题切换向 iframe 推送配色变更。
 import { commentConfig } from "@/config";
 
 interface Props {
@@ -21,6 +23,7 @@ const config = {
 
 		let observer = null;
 
+		/** 读取当前路由路径并去掉末尾斜杠，作为 giscus 的 discussion 匹配项 */
 		function getCurrentPath() {
 			const pathname = window.location.pathname;
 			return pathname.endsWith("/") && pathname.length > 1
@@ -28,6 +31,7 @@ const config = {
 				: pathname;
 		}
 
+		/** 按需注入滚动保护脚本，并用标记元素避免重复加载 */
 		async function loadScrollProtection() {
 			return new Promise((resolve, reject) => {
 				if (document.getElementById("scroll-protection-loaded")) {
@@ -47,6 +51,7 @@ const config = {
 			});
 		}
 
+		/** 清空容器后重建 giscus 脚本标签，将配置写入 data-* 属性交由官方脚本读取 */
 		async function initGiscus() {
 			const container = document.getElementById(GISCUS_CONTAINER_ID);
 			if (!container) {
@@ -94,6 +99,7 @@ const config = {
 			container.appendChild(script);
 		}
 
+		/** 页面卸载时断开观察者并解绑 swup 钩子，防止内存泄漏 */
 		function cleanup() {
 			if (observer) {
 				observer.disconnect();
@@ -104,6 +110,7 @@ const config = {
 			}
 		}
 
+		/** 用 IntersectionObserver 监听容器进入视口后再初始化评论，减少首屏开销 */
 		function setupLazyLoad() {
 			const container = document.getElementById(GISCUS_CONTAINER_ID);
 			if (!container) {
@@ -124,6 +131,7 @@ const config = {
 			observer.observe(container);
 		}
 
+		/** 注册 swup 页面切换钩子，等待新内容替换后重新挂载懒加载 */
 		function setupSwupHooks() {
 			if (window.swup?.hooks) {
 				window.swup.hooks.on("content:replace", () => {

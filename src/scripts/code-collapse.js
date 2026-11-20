@@ -1,4 +1,10 @@
+/**
+ * 代码块折叠功能
+ * 为 Expressive Code 代码块追加右下角折叠按钮（带标题的代码块除外），并把状态同步到全局 window.codeBlockCollapser。
+ * 依赖 Swup 页面切换钩子与 MutationObserver 处理动态插入的代码块，主题切换期间会暂停观察以避免重排抖动。
+ */
 class CodeBlockCollapser {
+	/** 初始化状态并立即启动监听；processedBlocks 用于避免重复增强同一代码块 */
 	constructor() {
 		this.processedBlocks = new WeakSet();
 		this.observer = null;
@@ -7,12 +13,14 @@ class CodeBlockCollapser {
 		this.init();
 	}
 
+	/** 统一调试日志出口，仅在 debug 开启时输出 */
 	log(...args) {
 		if (this.debug) {
 			console.log("[CodeBlockCollapser]", ...args);
 		}
 	}
 
+	/** 启动入口：处理已有代码块并注册页面变化、主题变化相关监听 */
 	init() {
 		this.log("Initializing...");
 		if (document.readyState === "loading") {
@@ -29,6 +37,7 @@ class CodeBlockCollapser {
 		this.setupThemeOptimizerSync();
 	}
 
+	/** 与主题优化器对齐折叠行为：在初始化完成与页面切换后各同步一次 */
 	setupThemeOptimizerSync() {
 		// 与主题优化器同步，确保代码块的隐藏/显示行为一致
 		this.syncWithThemeOptimizer();
@@ -48,6 +57,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 读取主题优化器的开关，决定代码块在过渡期间是否隐藏；优化器缺失时默认隐藏 */
 	syncWithThemeOptimizer() {
 		// 检查主题优化器是否存在
 		if (window.themeOptimizer) {
@@ -79,6 +89,7 @@ class CodeBlockCollapser {
 		}
 	}
 
+	/** 监听 <html> 上的 class/data-theme 变化，判断主题切换开始与结束并暂停/恢复观察 */
 	setupThemeChangeListener() {
 		// 监听主题切换，在切换期间暂停 observer 和优化性能
 		const themeObserver = new MutationObserver((mutations) => {
@@ -136,6 +147,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 找到所有尚未处理过的代码块并逐个增强 */
 	setupCodeBlocks() {
 		requestAnimationFrame(() => {
 			const codeBlocks = document.querySelectorAll(".expressive-code");
@@ -153,6 +165,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 给单个代码块加上 collapsible/expanded 类并注入折叠按钮；无 frame 或带标题时跳过 */
 	enhanceCodeBlock(codeBlock) {
 		const frame = codeBlock.querySelector(".frame");
 		if (!frame) {
@@ -174,6 +187,7 @@ class CodeBlockCollapser {
 		this.bindToggleEvents(codeBlock, toggleBtn);
 	}
 
+	/** 创建带内联 SVG 箭头的折叠按钮 */
 	createToggleButton() {
 		const button = document.createElement("button");
 		button.className = "collapse-toggle-btn";
@@ -192,6 +206,7 @@ class CodeBlockCollapser {
 		return button;
 	}
 
+	/** 绑定点击与键盘（Enter/空格）触发切换，保证可访问性 */
 	bindToggleEvents(codeBlock, button) {
 		button.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -207,6 +222,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 在 collapsed/expanded 之间切换，并派发 codeBlockToggle 事件供外部监听 */
 	toggleCollapse(codeBlock) {
 		const isCollapsed = codeBlock.classList.contains("collapsed");
 
@@ -226,6 +242,7 @@ class CodeBlockCollapser {
 		document.dispatchEvent(event);
 	}
 
+	/** 观察 body 的 DOM 变化，发现新增代码块时做 30ms 防抖后重新扫描 */
 	observePageChanges() {
 		// 如果正在主题切换，不要重新连接
 		if (this.isThemeChanging) {
@@ -287,6 +304,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 销毁实例：断开观察器并清空已处理记录 */
 	destroy() {
 		if (this.observer) {
 			this.observer.disconnect();
@@ -296,6 +314,7 @@ class CodeBlockCollapser {
 	}
 
 	// 公共API方法
+	/** 折叠所有当前展开的代码块 */
 	collapseAll() {
 		const allBlocks = document.querySelectorAll(
 			".expressive-code.expanded",
@@ -305,6 +324,7 @@ class CodeBlockCollapser {
 		});
 	}
 
+	/** 展开所有当前折叠的代码块 */
 	expandAll() {
 		const allBlocks = document.querySelectorAll(
 			".expressive-code.collapsed",
@@ -321,6 +341,7 @@ window.CodeBlockCollapser = CodeBlockCollapser;
 window.codeBlockCollapser = codeBlockCollapser;
 
 // 设置 Swup 钩子的函数
+/** 注册 Swup 钩子，在页面切换后重置已处理记录并重新扫描代码块；未就绪时返回 false */
 function setupSwupHooks() {
 	if (window.swup) {
 		codeBlockCollapser.log("Setting up Swup hooks");
@@ -366,6 +387,7 @@ if (!setupSwupHooks()) {
 	});
 
 	// 额外的延迟重试机制，确保捕获到 Swup
+	// Swup 脚本可能晚于本脚本加载，因此每 100ms 重试一次，2 秒后放弃
 	const retryInterval = setInterval(() => {
 		if (setupSwupHooks()) {
 			codeBlockCollapser.log("Swup hooks set up successfully via retry");

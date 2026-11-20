@@ -1,4 +1,5 @@
 ---
+// 动态页（日记）：读取本地动态数据，按标签筛选并渲染时间线卡片。
 import { FilterTabs } from "@components/atoms/filter-tabs";
 import { MomentCard } from "@components/features/diary";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -8,6 +9,7 @@ import { getAllTags, getDiaryList } from "../data/diary";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.diary) {
 	return Astro.redirect("/404/");
 }

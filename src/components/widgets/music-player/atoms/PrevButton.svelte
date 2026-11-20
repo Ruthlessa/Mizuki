@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 上一首按钮（atom）：纯展示，点击与禁用状态均由父级控制。
 	import Icon from "@iconify/svelte";
 
 	interface Props {

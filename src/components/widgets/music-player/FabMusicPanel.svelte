@@ -1,4 +1,6 @@
 <script lang="ts">
+	// FAB 入口下的音乐面板：复用侧栏音乐组件，提供封面、进度、控制与播放列表。
+	// 数据全部来自 musicPlayerStore，订阅后随状态更新。
 	import Icon from "@iconify/svelte";
 	import { onDestroy, onMount } from "svelte";
 
@@ -32,42 +34,52 @@
 		}
 	});
 
+	/** 切换播放/暂停。 */
 	function togglePlay() {
 		musicPlayerStore.toggle();
 	}
 
+	/** 切换到上一首。 */
 	function prev() {
 		musicPlayerStore.prev();
 	}
 
+	/** 切换到下一首。 */
 	function next() {
 		musicPlayerStore.next();
 	}
 
+	/** 切换随机/循环播放模式。 */
 	function toggleMode() {
 		musicPlayerStore.toggleMode();
 	}
 
+	/** 切换面板内播放列表的显隐。 */
 	function togglePlaylistView() {
 		showPlaylist = !showPlaylist;
 	}
 
+	/** 播放指定索引的歌曲。 */
 	function playIndex(index: number) {
 		musicPlayerStore.playIndex(index);
 	}
 
+	/** 跳转到指定播放时间。 */
 	function seek(time: number) {
 		musicPlayerStore.seek(time);
 	}
 
+	/** 切换静音。 */
 	function toggleMute() {
 		musicPlayerStore.toggleMute();
 	}
 
+	/** 设置音量。 */
 	function setVolume(volume: number) {
 		musicPlayerStore.setVolume(volume);
 	}
 
+	/** 收起面板（切回非展开态）。 */
 	function collapse() {
 		musicPlayerStore.toggleExpanded();
 	}

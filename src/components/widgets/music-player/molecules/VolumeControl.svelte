@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 音量控制（molecule）：组合音量按钮与滑条，静音时滑条显示为 0，默认插槽用于放收起按钮。
 	import type { Action } from "svelte/action";
 
 	import VolumeButton from "../atoms/VolumeButton.svelte";

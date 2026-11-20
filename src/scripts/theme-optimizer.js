@@ -13,6 +13,7 @@
  */
 
 class ThemeOptimizer {
+	/** 初始化内部状态、读取配置并启动优化逻辑 */
 	constructor() {
 		// 代码块优化相关
 		this.visibleBlocks = new Set();
@@ -41,6 +42,7 @@ class ThemeOptimizer {
 		this.init();
 	}
 
+	/** 启动各项子优化：代码块观察、主题切换拦截、过渡行为与 Swup 钩子 */
 	init() {
 		// 从配置中初始化
 		this.initFromConfig();
@@ -63,6 +65,7 @@ class ThemeOptimizer {
 
 	// ==================== Swup 钩子设置 ====================
 
+	/** 注册 Swup 钩子，页面切换后重新观察代码块并重应用过渡行为；未就绪时轮询重试 */
 	setupSwupHooks() {
 		// 设置 Swup 钩子的函数
 		const setupHooks = () => {
@@ -114,6 +117,7 @@ class ThemeOptimizer {
 		}
 	}
 
+	/** 强制重算代码块样式：切换期间用 content-visibility 隐藏，结束后恢复内联样式 */
 	forceApplyThemeTransitionStyles() {
 		// 强制应用主题切换样式，确保在页面切换后也能正确工作
 		const codeBlocks = document.querySelectorAll(".expressive-code");
@@ -158,6 +162,7 @@ class ThemeOptimizer {
 
 	// ==================== 配置初始化 ====================
 
+	/** 从 #config-carrier 的 dataset 读取「过渡期是否隐藏代码块」配置，失败时保持启用 */
 	initFromConfig() {
 		try {
 			// 尝试从配置中获取设置
@@ -177,6 +182,7 @@ class ThemeOptimizer {
 		}
 	}
 
+	/** 按配置给所有代码块增删 hide-during-transition 类 */
 	applyCodeBlockTransitionBehavior() {
 		// 应用代码块在主题切换期间的行为设置
 		const codeBlocks = document.querySelectorAll(".expressive-code");
@@ -195,6 +201,7 @@ class ThemeOptimizer {
 		this.updateTempStyleSheet();
 	}
 
+	/** 若临时样式表已存在，把代码块显隐规则补写进去（避免重复追加） */
 	updateTempStyleSheet() {
 		// 如果临时样式表存在，更新其内容以反映当前设置
 		if (this.tempStyleSheet) {
@@ -224,6 +231,7 @@ class ThemeOptimizer {
 
 	// ==================== 代码块优化 ====================
 
+	/** 创建 IntersectionObserver 追踪可见代码块，并监听主题与页面变化 */
 	initCodeBlockOptimization() {
 		// 创建 Intersection Observer 追踪可见代码块
 		this.codeBlockObserver = new IntersectionObserver(
@@ -263,6 +271,7 @@ class ThemeOptimizer {
 		}
 	}
 
+	/** 清空可见集合并重新观察当前页面全部代码块 */
 	observeCodeBlocks() {
 		this.visibleBlocks.clear();
 
@@ -281,6 +290,7 @@ class ThemeOptimizer {
 		});
 	}
 
+	/** 监听 <html> 的 data-theme 变化并触发分批更新 */
 	setupThemeListener() {
 		// 监听 data-theme 属性变化
 		const themeObserver = new MutationObserver((mutations) => {
@@ -303,6 +313,7 @@ class ThemeOptimizer {
 		});
 	}
 
+	/** 记录待更新主题，仅对当前可见代码块启动分批处理 */
 	handleThemeChange(newTheme) {
 		this.pendingThemeUpdate = newTheme;
 
@@ -316,6 +327,7 @@ class ThemeOptimizer {
 		this.batchUpdateBlocks(visibleBlocksArray, newTheme);
 	}
 
+	/** 每帧最多处理 3 个代码块，避免一次性更新导致长任务卡顿 */
 	batchUpdateBlocks(blocks, theme) {
 		const batchSize = 3;
 		let currentIndex = 0;
@@ -339,6 +351,7 @@ class ThemeOptimizer {
 		processBatch();
 	}
 
+	/** 在代码块上记录已应用的主题，作为更新标记 */
 	applyThemeToBlock(block, theme) {
 		// 标记该代码块已更新
 		block.dataset.themeUpdated = theme;
@@ -346,6 +359,7 @@ class ThemeOptimizer {
 
 	// ==================== 重型元素优化 ====================
 
+	/** 通过 MutationObserver 监听 is-theme-transitioning 类的增删，作为切换开始/结束信号 */
 	interceptThemeSwitch() {
 		// 监听 class 变化来拦截主题切换
 		const observer = new MutationObserver((mutations) => {
@@ -378,6 +392,7 @@ class ThemeOptimizer {
 		});
 	}
 
+	/** 切换开始时启用的优化组合：禁动画、隐藏视口外元素、提升合成层；View Transitions 下交给浏览器 */
 	optimizeThemeSwitch(useViewTransition = false) {
 		this.isOptimizing = true;
 		this.useViewTransition = useViewTransition;
@@ -397,6 +412,7 @@ class ThemeOptimizer {
 		this.forceCompositing();
 	}
 
+	/** 创建并写入临时样式表，切换期间关闭重型元素的过渡与动画 */
 	disableHeavyAnimations() {
 		if (!this.tempStyleSheet) {
 			this.tempStyleSheet = document.createElement("style");
@@ -453,6 +469,7 @@ class ThemeOptimizer {
     `;
 	}
 
+	/** 给视口外（上下各留 200px 余量）的重型元素设置 content-visibility:hidden，记录原值以便恢复 */
 	hideOffscreenHeavyElements() {
 		const viewportHeight = window.innerHeight;
 		const scrollTop = window.scrollY;
@@ -479,6 +496,7 @@ class ThemeOptimizer {
 		});
 	}
 
+	/** 给关键元素加 translateZ(0) 与 will-change，提前提升为独立合成层 */
 	forceCompositing() {
 		const criticalElements = document.querySelectorAll(`
       .expressive-code,
@@ -498,6 +516,7 @@ class ThemeOptimizer {
 		});
 	}
 
+	/** 切换结束后在双 rAF 中移除临时样式表并还原所有内联样式 */
 	restoreAfterThemeSwitch(useViewTransition = false) {
 		this.isOptimizing = false;
 

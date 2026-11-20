@@ -1,4 +1,6 @@
 ---
+// 顶部页面加载进度条：监听 Swup 的跳转开始/结束事件来展示进度动画。
+// 仅在 enable 为真时渲染，样式定义在同目录的 page-progress-bar.css。
 import "./page-progress-bar.css";
 
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
 	duration: number;
 }
 
+// 从 Astro.props 取出进度条开关、高度与动画时长
 const { enable, height, duration } = Astro.props;
 ---
 
@@ -23,6 +26,7 @@ const { enable, height, duration } = Astro.props;
 			if (el) {el.remove();}
 			}
 
+			/** 绑定 Swup 的 visit 钩子，按跳转阶段切换进度条状态 */
 			function setupProgressBar() {
 				if (!window.swup) {return;}
 

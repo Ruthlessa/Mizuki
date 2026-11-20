@@ -1,4 +1,6 @@
 ---
+// RSS / Atom 订阅说明页：展示订阅地址、复制按钮、最新文章与订阅科普内容。
+// 由 /rss、/atom 路由页面使用，文本均走 i18n 键。
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -17,6 +19,7 @@ const recentPosts = posts.slice(0, 6);
 const feedUrl = type === "rss" ? "rss.xml" : "atom.xml";
 const prefix = type === "rss" ? "rss" : "atom";
 
+/** 以动态键名取国际化文案的快捷方法。 */
 const t = (key: string) => i18n(key as I18nKey);
 ---
 
@@ -156,6 +159,7 @@ const t = (key: string) => i18n(key as I18nKey);
 	</div>
 
 	<script>
+		/** 为订阅链接复制按钮绑定点击交互；页面切换后需重新调用。 */
 		const init = () => {
 			const btn =
 				document.getElementById("copy-rss-btn") ||

@@ -1,4 +1,5 @@
 ---
+// 友链页：渲染友链卡片与搜索/标签筛选，交互逻辑在 friends-page-handler.js 中。
 import FriendCard from "@components/features/friends/FriendCard.astro";
 import { PageHeader } from "@components/features/page-header";
 import Markdown from "@components/misc/Markdown.astro";
@@ -10,8 +11,10 @@ import { getShuffledFriendsList } from "../data/friends";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
+// 强制预渲染，保证友链列表在构建期生成静态 HTML
 export const prerender = true;
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.friends) {
 	return Astro.redirect("/404/");
 }

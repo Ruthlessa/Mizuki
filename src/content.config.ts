@@ -1,7 +1,13 @@
+/**
+ * Astro 内容集合定义。
+ * posts 收集 src/content/posts 下的 Markdown 文章并按 schema 校验 frontmatter；
+ * spec 收集特殊页面（如关于页）的 Markdown，不做字段约束。
+ */
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
 
+/** 文章集合：定义 frontmatter 字段、默认值与加密/别名/永久链接等扩展字段 */
 const postsCollection = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
 	schema: z.object({
@@ -40,6 +46,7 @@ const postsCollection = defineCollection({
 		nextSlug: z.string().default(""),
 	}),
 });
+/** 特殊页面集合：内容直接渲染，不限制 frontmatter 结构 */
 const specCollection = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/spec" }),
 	schema: z.object({}),

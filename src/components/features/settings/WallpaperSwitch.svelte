@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** 壁纸模式切换器：在横幅/全屏/无壁纸间切换并持久化到本地设置。 */
 	import {
 		WALLPAPER_BANNER,
 		WALLPAPER_FULLSCREEN,
@@ -49,11 +50,13 @@
 			wallpaperOptions[0].icon,
 	);
 
+	/** 更新本地状态并写入持久化设置，同步触发页面壁纸切换。 */
 	function switchWallpaperMode(newMode: WALLPAPER_MODE) {
 		mode = newMode;
 		setWallpaperMode(newMode);
 	}
 
+	/** 先关闭其他浮层面板再切换本面板，保证同一时间只展开一个菜单。 */
 	async function togglePanel() {
 		await panelManager.closeAllPanelsExcept("wallpaper-mode-panel");
 		await panelManager.togglePanel("wallpaper-mode-panel");

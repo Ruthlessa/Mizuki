@@ -1,4 +1,6 @@
 ---
+// 顶部导航栏：渲染站点标题/Logo、主导航、搜索、主题与布局切换按钮，并被全站布局复用。
+// 悬浮交互（搜索展开时收起链接、滚动变样式）由本组件内联脚本绑定，依赖 #navbar 与 .scrolled 约定。
 import { Icon } from "astro-icon/components"
 
 import { navBarConfig, siteConfig } from "../../../config"
@@ -130,12 +132,14 @@ if (document.readyState === 'loading') {
     initNavbar();
 }
 
+/** 导航栏初始化入口：按 DOM 就绪状态安全调用，避免脚本挂载晚于页面加载 */
 function initNavbar() {
 	const searchContainer = document.getElementById("search-container");
 	const navbarLinksContainer = document.getElementById("navbar-links-container");
 
 	if (searchContainer && navbarLinksContainer) {
 		// 鼠标移入/触摸开始时隐藏导航链接
+		/** 悬停搜索区时淡出导航链接，为搜索框腾出空间（仅桌面且支持 hover 时生效） */
 		const hideLinks = () => {
 			if (window.matchMedia("(min-width: 1280px)").matches && window.matchMedia("(hover: hover)").matches) {
 				navbarLinksContainer.style.opacity = "0";
@@ -143,6 +147,7 @@ function initNavbar() {
 		};
 
 		// 鼠标移出/触摸结束时显示导航链接
+		/** 移出搜索区后恢复导航链接，但搜索处于展开态时保持隐藏 */
 		const showLinks = () => {
 			const navbar = document.getElementById("navbar");
 			if (navbar && !navbar.classList.contains("is-searching")) {
@@ -180,6 +185,7 @@ function initNavbar() {
 	initSemifullScrollDetection();
 }
 
+/** 动态加载面板管理器并绑定设置/菜单按钮；加载失败时退化为直接切换面板的隐藏类 */
 async function loadButtonScript() {
     try {
         const { panelManager } = await import('../../../utils/panel-manager.js');
@@ -223,6 +229,7 @@ async function loadButtonScript() {
 }
 
 // 为semifull模式添加滚动检测逻辑
+/** semifull 模式下监听滚动切换 .scrolled；非首页直接锁定为已滚动态，并复用全局引用避免重复绑定 */
 function initSemifullScrollDetection() {
     const navbar = document.getElementById('navbar');
     if (!navbar) {return;}
@@ -246,6 +253,7 @@ function initSemifullScrollDetection() {
     
     let ticking = false;
     
+    /** 依据当前滚动位置增删 .scrolled，判断阈值固定为 50px */
     function updateNavbarState() {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const threshold = 50; // 滚动阈值，可以根据需要调整
@@ -259,6 +267,7 @@ function initSemifullScrollDetection() {
         ticking = false;
     }
     
+    /** 用 requestAnimationFrame 节流滚动回调，保证一帧内只计算一次布局 */
     function requestTick() {
         if (!ticking) {
             requestAnimationFrame(updateNavbarState);
@@ -283,6 +292,7 @@ window.initSemifullScrollDetection = initSemifullScrollDetection;
 </script>
 
 {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
+/** 生产环境按需加载 Pagefind 搜索索引；失败时注入空搜索桩，避免调用方崩溃 */
 window.loadPagefind = async function() {
     if (window.pagefind) {return;}
     try {

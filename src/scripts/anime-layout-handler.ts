@@ -1,11 +1,18 @@
+/**
+ * 追番页布局切换处理器
+ * 在列表/网格布局间切换时更新容器类名、联动右侧边栏显隐，并用 FLIP 动画让卡片平滑过渡。
+ * 初始化带有指数退避重试，兼容脚本先于 DOM 就绪执行的情况。
+ */
 export interface LayoutHandlerOptions {
 	containerId: string;
 	hasRightSidebars: boolean;
 }
 
+/** 初始化布局切换逻辑：应用当前布局并监听 layoutChange 事件 */
 export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 	const { containerId, hasRightSidebars } = options;
 
+	/** 切换到指定布局：先记录旧位置，改完类名后再用 FLIP 动画过渡 */
 	function updateAnimeListLayout(layout: string, shouldAnimate = true) {
 		const animeListContainer = document.getElementById(containerId);
 		if (!animeListContainer) {
@@ -32,6 +39,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 			});
 		}
 
+		// 切换瞬间临时禁用卡片自身的过渡，防止与 FLIP 动画叠加产生抖动
 		const style = document.createElement("style");
 		style.innerHTML = `.anime-grid-container .group { transition: none !important; }`;
 		document.head.appendChild(style);
@@ -83,6 +91,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 			}
 		}
 
+		// 强制读取 offsetHeight 触发一次同步重排，确保浏览器已应用新布局
 		void animeListContainer.offsetHeight;
 		if (!shouldAnimate) {
 			if (style.parentNode) {
@@ -142,6 +151,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 		});
 	}
 
+	/** 读取本地保存的布局并立即应用（不做动画），容器不存在时返回 false */
 	function initAnimeLayout() {
 		const animeListContainer = document.getElementById(containerId);
 		if (!animeListContainer) {
@@ -158,6 +168,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 	let retryCount = 0;
 	const maxRetries = 10;
 
+	/** 尝试初始化；容器尚未渲染时按指数退避重试，最多 10 次 */
 	function tryInit() {
 		if (initAnimeLayout()) {
 			return;
@@ -193,6 +204,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 	);
 }
 
+/** 兼容旧调用方式的入口，直接转调 initAnimeLayoutHandler */
 export function initLayoutListener(
 	containerId: string,
 	hasRightSidebars: boolean,

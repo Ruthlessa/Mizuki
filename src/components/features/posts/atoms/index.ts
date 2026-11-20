@@ -1,3 +1,4 @@
+/** posts/atoms 统一出口：导出文章元信息的小颗粒组件及其类型。 */
 export { default as Category } from "./Category.astro";
 export { default as EncryptedBadge } from "./EncryptedBadge.astro";
 export { default as PublishedDate } from "./PublishedDate.astro";

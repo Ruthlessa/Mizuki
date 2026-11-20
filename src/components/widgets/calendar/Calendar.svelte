@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 侧栏日历主体：拉取文章日期索引，渲染月历网格/文章列表，并支持月、年选择器。
+	// 数据来源 /api/calendar-data.json；当前文章由 URL 路径匹配后自动定位月份。
 	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
@@ -104,6 +106,7 @@
 	);
 
 	// Functions
+	/** 请求日历数据并建立索引；若当前页面是文章页则跳转到对应年月。 */
 	async function fetchCalendarData() {
 		try {
 			const res = await fetch("/api/calendar-data.json");
@@ -135,6 +138,7 @@
 		}
 	}
 
+	/** 向前翻一个月，跨年时同步回退年份。 */
 	function handlePrevMonth() {
 		currentMonth--;
 		if (currentMonth < 0) {
@@ -143,6 +147,7 @@
 		}
 	}
 
+	/** 向后翻一个月，跨年时同步前进年份。 */
 	function handleNextMonth() {
 		currentMonth++;
 		if (currentMonth > 11) {
@@ -151,6 +156,7 @@
 		}
 	}
 
+	/** 回到今天所在月份并清空选中日期，必要时关闭选择面板。 */
 	function handleBackToToday() {
 		currentYear = todayYear;
 		currentMonth = todayMonth;
@@ -160,6 +166,7 @@
 		}
 	}
 
+	/** 标题点击按当前视图层级递进：日→月选择→年选择→关闭。 */
 	function handleTitleClick() {
 		if (currentView === "day") {
 			showMonthPicker();
@@ -170,6 +177,7 @@
 		}
 	}
 
+	/** 点击日期格子时切换选中态，再次点击同一日期则取消选择。 */
 	function handleCellClick(dateKey: string) {
 		if (selectedDateKey === dateKey) {
 			selectedDateKey = null;
@@ -178,24 +186,29 @@
 		}
 	}
 
+	/** 选中月份后切回日视图。 */
 	function handleMonthSelect(month: number) {
 		currentMonth = month;
 		closeSelectionPanel();
 	}
 
+	/** 选中年份后进入月份选择视图。 */
 	function handleYearSelect(year: number) {
 		currentYear = year;
 		showMonthPicker();
 	}
 
+	/** 切换到月份选择视图。 */
 	function showMonthPicker() {
 		currentView = "month";
 	}
 
+	/** 切换到年份选择视图。 */
 	function showYearPicker() {
 		currentView = "year";
 	}
 
+	/** 关闭选择面板，回到日历网格视图。 */
 	function closeSelectionPanel() {
 		currentView = "day";
 	}

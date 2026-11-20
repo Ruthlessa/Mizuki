@@ -1,4 +1,5 @@
 ---
+// 统计卡片：展示数值、标题、图标与趋势，按 small/medium/large 三档调整排版。
 import type { StatCardProps } from "./types";
 
 const {
@@ -11,6 +12,7 @@ const {
 	link,
 } = Astro.props as StatCardProps;
 
+/** 依据尺寸档位返回对应的内边距、字号与图标容器类名。 */
 const getSizeClasses = (size: string) => {
 	switch (size) {
 		case "small":

@@ -93,6 +93,7 @@ export class ScrollHandler {
 		limit: number,
 	): (...args: Parameters<T>) => void {
 		let inThrottle = false;
+		/** 节流包装：在一个时间窗口内只允许第一次调用真正执行 */
 		return function (this: any, ...args: Parameters<T>) {
 			if (!inThrottle) {
 				func.apply(this, args);

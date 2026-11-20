@@ -1,4 +1,6 @@
 <script lang="ts">
+	// 侧栏音乐客户端：订阅 musicPlayerStore，把播放状态分发给封面/信息/进度/控制/列表子组件。
+	// 仅在客户端渲染，卸载时取消订阅防止回调泄漏。
 	import { onDestroy, onMount } from "svelte";
 
 	import type { MusicPlayerState } from "@/stores/musicPlayerStore";
@@ -30,38 +32,47 @@
 		}
 	});
 
+	/** 切换播放/暂停。 */
 	function togglePlay() {
 		musicPlayerStore.toggle();
 	}
 
+	/** 切换到上一首。 */
 	function prev() {
 		musicPlayerStore.prev();
 	}
 
+	/** 切换到下一首。 */
 	function next() {
 		musicPlayerStore.next();
 	}
 
+	/** 切换随机/循环播放模式。 */
 	function toggleMode() {
 		musicPlayerStore.toggleMode();
 	}
 
+	/** 切换侧栏内播放列表的显隐。 */
 	function togglePlaylistView() {
 		showPlaylist = !showPlaylist;
 	}
 
+	/** 播放指定索引的歌曲。 */
 	function playIndex(index: number) {
 		musicPlayerStore.playIndex(index);
 	}
 
+	/** 跳转到指定播放时间。 */
 	function seek(time: number) {
 		musicPlayerStore.seek(time);
 	}
 
+	/** 切换静音。 */
 	function toggleMute() {
 		musicPlayerStore.toggleMute();
 	}
 
+	/** 设置音量。 */
 	function setVolume(volume: number) {
 		musicPlayerStore.setVolume(volume);
 	}

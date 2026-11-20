@@ -1,10 +1,12 @@
 ---
+// 内容页占位：目前只显示“建设中”提示，为后续内容栏目预留路由。
 import { PageHeader } from "@components/features/page-header";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
+// 该页无动态数据，构建期直接生成静态页面
 export const prerender = true;
 ---
 

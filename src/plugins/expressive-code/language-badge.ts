@@ -1,8 +1,13 @@
 /**
  * Based on the discussion at https://github.com/expressive-code/expressive-code/issues/153#issuecomment-2282218684
  */
+/**
+ * Expressive Code 语言徽标插件
+ * 把代码块语言写入 .frame 的 data-language 属性，并通过 ::after 在右上角显示语言名（hover 时隐去）。
+ */
 import { definePlugin } from "@expressive-code/core";
 
+/** 注册插件：渲染后补充语言属性并注入徽标样式 */
 export function pluginLanguageBadge() {
 	return definePlugin({
 		name: "Language Badge",

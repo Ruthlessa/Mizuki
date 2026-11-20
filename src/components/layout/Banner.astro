@@ -42,6 +42,7 @@ const {
 } = Astro.props;
 
 // 标准化图片数组
+/** 将单图或图片数组统一为数组，便于后续按数量判断是否启用轮播 */
 const normalizeToArray = (images: string | string[]): string[] =>
 	Array.isArray(images) ? images : [images];
 
@@ -157,7 +158,9 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 		>
 			// 只在客户端执行
 			if (typeof window !== "undefined") {
+				/** 单图模式下创建桌面/移动两张 img，并复用会话记录避免连续切换重复同一张 */
 				function initBannerImages() {
+					/** 从候选列表中挑一张与上次不同的图片，并把索引写入 sessionStorage */
 					const getRandomImage = (images, storageKey) => {
 						if (Array.isArray(images)) {
 							if (images.length === 0) {return null;}
@@ -265,6 +268,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 		<script is:inline data-swup-ignore-script>
 			// 只在客户端执行
 			if (typeof window !== "undefined") {
+				/** 轮播模式入口：初始化随机起始帧、帧序列、Ken Burns 与触摸/悬停控制 */
 				function initBannerCarousel() {
 					var container = document.getElementById('banner-carousel');
 					if (!container) return;
@@ -287,6 +291,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						window.__bannerInitialFrameHtml = {};
 					}
 
+					/** 记录首次渲染出的 slot HTML，作为轮播帧序列的第 0 帧 */
 					function rememberInitialFrame(slotClass) {
 						var slot = container.querySelector('.' + slotClass);
 						if (!slot) return;
@@ -307,6 +312,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					}
 
 					// 从 template 替换默认图片
+					/** 按随机索引把对应 template 内容克隆进 slot，实现随机首图 */
 					function applyRandom(slotClass, tplClass, randomIndex) {
 						if (randomIndex === 0) return;
 						var slot = container.querySelector('.' + slotClass);
@@ -324,6 +330,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					// 收集所有帧 HTML 字符串（仅首次）
 					if (!window.__bannerCarouselFrames) window.__bannerCarouselFrames = {};
 
+					/** 汇总首帧与所有 template 帧为字符串数组，供后续 crossfade 复用 */
 					function collectFrames(slotClass, tplClass) {
 						if (window.__bannerCarouselFrames[slotClass]) return;
 						var frames = [];
@@ -352,6 +359,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					}
 
 					// 断点检测（md = 768px）
+					/** 判断某 slot 在当前断点下是否被隐藏，避免对不可见图层做动画 */
 					function isSlotHiddenByBreakpoint(slot) {
 						var cl = slot.classList;
 						var isMd = window.matchMedia('(min-width: 768px)').matches;
@@ -361,6 +369,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					}
 
 					// 给首张图启动 Ken Burns
+					/** 强制重排后重新挂载 .banner-kb，使首帧也能播放缩放动画 */
 					function applyInitialKB(slotClass) {
 						var slot = container.querySelector('.' + slotClass);
 						if (!slot || isSlotHiddenByBreakpoint(slot)) return;
@@ -373,6 +382,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					var isCrossfading = { mobile: false, desktop: false };
 
 					// 清理 orphaned 中间层（快速滑动时可能残留）
+					/** 移除同类 slot 中除当前外的残留节点，防止快速切换堆叠 */
 					function cleanupOrphanedLayers(slotClass, currentSlot) {
 						var allSlots = container.querySelectorAll('.' + slotClass);
 						for (var i = 0; i < allSlots.length; i++) {
@@ -383,6 +393,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					}
 
 					// Crossfade：创建新层叠在旧层上方，淡入后移除旧层
+					/** 切换到指定索引帧：新建图层淡入并播 Ken Burns，旧层在淡入结束后移除；同类型互斥加锁 */
 					function crossfadeToIndex(slotClass, totalCount, type, targetIndex) {
 						if (totalCount <= 1) return;
 						if (isCrossfading[type]) return;
@@ -425,6 +436,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					}
 
 					// 自动轮播用的 crossfade（前进到下一张）
+					/** 计算下一帧索引并交由 crossfadeToIndex 执行过渡 */
 					function crossfade(slotClass, totalCount, type) {
 						var frames = window.__bannerCarouselFrames[slotClass];
 						if (!frames || frames.length === 0) return;
@@ -441,6 +453,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					var touchStartY = 0;
 					var isSwiping = false;
 
+					/** 启动（或重启）自动轮播定时器，先清理旧定时器避免叠加 */
 					function startCarousel() {
 						stopCarousel();
 						if (isPaused) return;
@@ -456,11 +469,13 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						}, interval);
 					}
 
+					/** 停止自动轮播并清空定时器句柄 */
 					function stopCarousel() {
 						if (timerId !== null) { clearInterval(timerId); timerId = null; }
 					}
 
 					// 页面可见性：后台标签页暂停轮播
+					/** 标签页隐藏时暂停轮播，重新可见且未被悬停暂停时恢复 */
 					var visibilityHandler = function() {
 						if (document.hidden) {
 							stopCarousel();
@@ -471,6 +486,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					document.addEventListener('visibilitychange', visibilityHandler);
 
 					// 事件处理函数引用（用于清理）
+					/** 手指按下：记录起点并暂停自动轮播，避免与手势冲突 */
 					var onTouchStart = function(e) {
 						touchStartX = e.touches[0].clientX;
 						touchStartY = e.touches[0].clientY;
@@ -479,6 +495,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						stopCarousel();
 					};
 
+					/** 手指移动：横向位移明显时标记为滑动并阻止页面纵向滚动干扰 */
 					var onTouchMove = function(e) {
 						if (!touchStartX || !touchStartY) return;
 						var diffX = Math.abs(e.touches[0].clientX - touchStartX);
@@ -489,6 +506,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						}
 					};
 
+					/** 手指抬起：滑动超过阈值则切换上/下一帧，否则恢复自动轮播 */
 					var onTouchEnd = function(e) {
 						if (!touchStartX || !touchStartY || !isSwiping) {
 							isPaused = false;
@@ -523,11 +541,13 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 						startCarousel();
 					};
 
+					/** 鼠标移入：暂停轮播，便于阅读 Banner 内容 */
 					var onMouseEnter = function() {
 						isPaused = true;
 						stopCarousel();
 					};
 
+					/** 鼠标移出：恢复自动轮播 */
 					var onMouseLeave = function() {
 						isPaused = false;
 						startCarousel();
@@ -547,6 +567,7 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 					startCarousel();
 
 					// 注册清理函数，供下次 Swup 导航或销毁时调用
+					/** 统一的销毁入口：停表、解绑可见性与指针事件、重置过渡锁 */
 					window.__bannerCarouselCleanup = function() {
 						stopCarousel();
 						document.removeEventListener('visibilitychange', visibilityHandler);

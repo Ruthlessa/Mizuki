@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 封面图（atom）：支持 mini/expanded/orb 三种形态，播放时旋转，加载时脉冲，失败回退音符图标。
 	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
@@ -26,6 +27,7 @@
 	let imageError = false;
 	let hasWindow = typeof window !== "undefined";
 
+	/** 补全封面路径；空路径返回空串以便模板走占位图标分支。 */
 	function getAssetPath(path: string): string {
 		if (!path || path.trim() === "") {
 			return "";
@@ -39,6 +41,7 @@
 		return `/${path}`;
 	}
 
+	/** 图片加载失败时标记状态，模板改为显示占位图标。 */
 	function handleImageError() {
 		imageError = true;
 	}

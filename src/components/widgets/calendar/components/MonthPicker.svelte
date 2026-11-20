@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 月份选择面板：以 3 列网格展示 12 个月，并标记当前月与有文章的月份。
 	import type { CalendarStats } from "../types/calendar";
 
 	interface Props {
@@ -17,6 +18,7 @@
 		onMonthSelect,
 	}: Props = $props();
 
+	/** 返回月份按钮的样式类，当前月使用主色描边高亮。 */
 	function getMonthClass(index: number, hasPost: boolean): string {
 		const isCurrentMonth = index === currentMonth;
 		let baseClass =

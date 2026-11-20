@@ -1,4 +1,6 @@
 ---
+// 评论入口组件：按 siteConfig 中的评论系统配置，选择渲染 Twikoo 或 Giscus。
+// 仅当全局开关开启且文章未显式关闭评论（comment: false）时才输出卡片容器。
 import type { CollectionEntry } from "astro:content";
 
 import { commentConfig } from "@/config";

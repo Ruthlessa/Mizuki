@@ -1,3 +1,8 @@
+/**
+ * GitHub 仓库卡片组件
+ * 在构建期为 `::github{repo="owner/repo"}` 指令生成卡片骨架 HTML，并由内联脚本调用 GitHub API 填充头像、星标等信息。
+ * 由于数据在客户端拉取，构建期只输出占位文本与唯一 id。
+ */
 /// <reference types="mdast" />
 import { randomBytes } from "node:crypto";
 

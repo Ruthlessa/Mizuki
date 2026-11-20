@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 播放列表条目（atom）：展示序号/播放态、封面与曲名，支持键盘操作与懒加载封面。
 	import Icon from "@iconify/svelte";
 
 	import type { Song } from "../types";
@@ -21,6 +22,7 @@
 		lazy = true,
 	}: Props = $props();
 
+	/** 补全封面资源路径：绝对 URL 或已带斜杠的路径原样返回。 */
 	function getAssetPath(path: string): string {
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;

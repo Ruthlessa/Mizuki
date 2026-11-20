@@ -1,3 +1,8 @@
+/**
+ * Admonition 提示块组件
+ * 把 directive（:::note / :::tip 等）构建为 blockquote.admonition 结构，标题优先取 directive label。
+ * 内容为空时输出隐藏的错误提示，便于作者发现语法问题。
+ */
 /// <reference types="mdast" />
 import { h } from "hastscript";
 

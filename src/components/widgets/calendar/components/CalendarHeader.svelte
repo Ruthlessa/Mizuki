@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 日历头部：显示当前年月标题，提供回今天/上下月切换按钮；由 Calendar.svelte 传入回调。
 	import Icon from "@iconify/svelte";
 
 	interface Props {

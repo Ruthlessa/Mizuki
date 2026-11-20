@@ -1,3 +1,7 @@
+/**
+ * RSS 订阅源接口：构建时输出 /rss.xml，并把正文中的相对图片转为绝对地址。
+ * 加密文章会被过滤；与 atom.xml.ts 的图片处理逻辑保持一致。
+ */
 // import { getCollection } from "astro:content";
 import type { RSSFeedItem } from "@astrojs/rss";
 import rss from "@astrojs/rss";
@@ -19,6 +23,7 @@ const imagesGlob = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/content/**/*.{jpeg,jpg,png,gif,webp}", // include posts and assets
 );
 
+/** 生成 RSS 响应，逐篇渲染 Markdown 并修正图片地址 */
 export async function GET(context: APIContext) {
 	if (!context.site) {
 		throw Error("site not set");

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 音量滑条（atom）：纯展示组件，通过 use:volumeBarRef 暴露 DOM 供父级拖拽计算。
 	import type { Action } from "svelte/action";
 
 	interface Props {

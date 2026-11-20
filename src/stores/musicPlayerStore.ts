@@ -1,3 +1,8 @@
+/**
+ * 音乐播放器全局状态管理。
+ * 以单例形式持有唯一的 HTMLAudioElement、歌单与 UI 状态（展开/隐藏/歌单列表），
+ * 通过订阅机制广播变化，供 FAB 面板与侧边栏播放器共享。
+ */
 import Key from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 
@@ -31,6 +36,7 @@ export interface MusicPlayerState {
 	willAutoPlay: boolean;
 }
 
+/** 把歌单中的相对路径补成站点绝对路径，外部 URL 原样返回 */
 function getAssetPath(path: string): string {
 	if (!path) {
 		return "";
@@ -44,6 +50,7 @@ function getAssetPath(path: string): string {
 	return `/${path}`;
 }
 
+/** 音乐播放器状态容器：管理 Audio 实例、歌单与 UI 状态 */
 class MusicPlayerStore {
 	private audio: HTMLAudioElement | null = null;
 	private state: MusicPlayerState;
@@ -51,10 +58,12 @@ class MusicPlayerStore {
 	private unregisterInteraction: (() => void) | undefined;
 	private listeners = new Set<(state: MusicPlayerState) => void>();
 
+	/** 初始化内部状态；Audio 实例延迟到 initialize() 再创建 */
 	constructor() {
 		this.state = this.createInitialState();
 	}
 
+	/** 生成播放器的初始状态 */
 	private createInitialState(): MusicPlayerState {
 		return {
 			currentSong: { ...DEFAULT_SONG },
@@ -78,6 +87,7 @@ class MusicPlayerStore {
 		};
 	}
 
+	/** 拷贝当前状态，避免订阅者拿到内部对象后直接修改 */
 	private createSnapshot(): MusicPlayerState {
 		return {
 			...this.state,
@@ -86,14 +96,17 @@ class MusicPlayerStore {
 		};
 	}
 
+	/** 获取当前状态快照 */
 	getState(): MusicPlayerState {
 		return this.createSnapshot();
 	}
 
+	/** 暴露底层 Audio 实例，供进度可视化等组件读取 */
 	getAudio(): HTMLAudioElement | null {
 		return this.audio;
 	}
 
+	/** 订阅状态变化：立即回调一次当前快照，返回取消订阅函数 */
 	subscribe(listener: (state: MusicPlayerState) => void): () => void {
 		this.listeners.add(listener);
 		listener(this.createSnapshot());
@@ -102,6 +115,7 @@ class MusicPlayerStore {
 		};
 	}
 
+	/** 幂等初始化：创建 Audio、恢复音量、注册交互补救并加载歌单 */
 	async initialize(): Promise<void> {
 		if (typeof window === "undefined" || this.isInitialized) {
 			return;
@@ -121,6 +135,7 @@ class MusicPlayerStore {
 		await this.loadPlaylist();
 	}
 
+	/** 绑定音频事件，把播放、进度、加载与错误同步到 store */
 	private setupAudioListeners(): void {
 		if (!this.audio) {
 			return;
@@ -177,6 +192,7 @@ class MusicPlayerStore {
 		});
 	}
 
+	/** 单曲播放结束：单曲循环时重播，否则自动切到下一首 */
 	private handleAudioEnded(): void {
 		if (this.state.isRepeating === 1) {
 			if (this.audio) {
@@ -188,6 +204,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 播放出错时提示用户；歌单多于一首时延时自动跳过 */
 	private handleAudioError(): void {
 		this.state.isLoading = false;
 		this.showError(i18n(Key.musicPlayerErrorSong));
@@ -200,6 +217,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 音频可播放后更新时长，并在需要自动播放时开始播放 */
 	private handleAudioLoaded(): void {
 		this.state.isLoading = false;
 		if (this.audio?.duration && this.audio.duration > 1) {
@@ -222,6 +240,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 从 localStorage 恢复上次的音量设置 */
 	private loadVolumeFromStorage(): void {
 		if (typeof localStorage !== "undefined") {
 			const savedVolume = localStorage.getItem(STORAGE_KEY_VOLUME);
@@ -239,6 +258,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 注册一次性交互监听，用于补救浏览器阻止自动播放的场景 */
 	private registerInteractionHandler(): void {
 		if (typeof document === "undefined") {
 			return;
@@ -263,6 +283,7 @@ class MusicPlayerStore {
 		};
 	}
 
+	/** 依据配置选择 Meting 在线歌单或本地歌单 */
 	private async loadPlaylist(): Promise<void> {
 		const mode = musicPlayerConfig.mode ?? "meting";
 		const meting_api =
@@ -284,6 +305,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 请求 Meting 歌单并转换；接口异常时回退到本地歌单，保证播放器可用 */
 	private async fetchMetingPlaylist(
 		api: string,
 		server: string,
@@ -327,6 +349,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 把 Meting 返回的字段归一化为内部 Song 结构，并将时长统一为秒 */
 	private convertMetingSong(song: any): Song {
 		const title = song.name ?? song.title ?? i18n(Key.unknownSong);
 		const artist = song.artist ?? song.author ?? i18n(Key.unknownArtist);
@@ -354,6 +377,7 @@ class MusicPlayerStore {
 		};
 	}
 
+	/** 使用内置的本地歌单，空列表时给出错误提示 */
 	private loadLocalPlaylist(): void {
 		this.state.playlist = [...LOCAL_PLAYLIST];
 		if (this.state.playlist.length === 0) {
@@ -363,6 +387,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 切换当前歌曲并设置音频源；默认不预加载整段音频，避免首屏挂起请求 */
 	private loadSong(song: Song, autoPlay = true): void {
 		if (!song) {
 			return;
@@ -390,6 +415,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 展示错误提示，3 秒后自动隐藏 */
 	private showError(message: string): void {
 		this.state.errorMessage = message;
 		this.state.showError = true;
@@ -400,11 +426,13 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 手动关闭错误提示 */
 	hideError(): void {
 		this.state.showError = false;
 		this.broadcastState();
 	}
 
+	/** 在播放与暂停之间切换 */
 	toggle(): void {
 		if (!this.audio || !this.state.currentSong.url) {
 			return;
@@ -416,6 +444,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 开始播放当前歌曲 */
 	play(): void {
 		if (!this.audio || !this.state.currentSong.url) {
 			return;
@@ -423,6 +452,7 @@ class MusicPlayerStore {
 		this.audio.play().catch(() => {});
 	}
 
+	/** 暂停当前歌曲 */
 	pause(): void {
 		if (!this.audio) {
 			return;
@@ -430,6 +460,7 @@ class MusicPlayerStore {
 		this.audio.pause();
 	}
 
+	/** 切到下一首；随机模式下随机取一首（避免重复当前曲目） */
 	next(autoPlay = true): void {
 		if (this.state.playlist.length <= 1) {
 			return;
@@ -456,6 +487,7 @@ class MusicPlayerStore {
 		this.loadSong(this.state.playlist[newIndex], autoPlay);
 	}
 
+	/** 切到上一首，越界时回到列表末尾 */
 	prev(): void {
 		if (this.state.playlist.length <= 1) {
 			return;
@@ -468,6 +500,7 @@ class MusicPlayerStore {
 		this.loadSong(this.state.playlist[newIndex], true);
 	}
 
+	/** 播放歌单中指定下标的歌曲 */
 	playIndex(index: number): void {
 		if (index < 0 || index >= this.state.playlist.length) {
 			return;
@@ -476,6 +509,7 @@ class MusicPlayerStore {
 		this.loadSong(this.state.playlist[index], true);
 	}
 
+	/** 跳转到指定秒数，超出时长范围时忽略 */
 	seek(time: number): void {
 		if (!this.audio) {
 			return;
@@ -487,6 +521,7 @@ class MusicPlayerStore {
 		}
 	}
 
+	/** 设置音量（自动裁剪到 0-1），0 视为静音并持久化到 localStorage */
 	setVolume(volume: number): void {
 		const clampedVolume = Math.max(0, Math.min(1, volume));
 		this.state.volume = clampedVolume;
@@ -501,6 +536,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 切换静音状态 */
 	toggleMute(): void {
 		this.state.isMuted = !this.state.isMuted;
 		if (this.audio) {
@@ -509,6 +545,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 切换随机播放；开启时关闭循环模式，两者互斥 */
 	toggleShuffle(): void {
 		this.state.isShuffled = !this.state.isShuffled;
 		if (this.state.isShuffled) {
@@ -517,6 +554,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 循环模式在三态间轮换：关闭 → 单曲循环 → 列表循环 */
 	toggleRepeat(): void {
 		this.state.isRepeating = ((this.state.isRepeating + 1) %
 			3) as RepeatMode;
@@ -526,6 +564,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 依次切换播放模式：随机 → 列表循环 → 单曲循环（与随机互斥） */
 	toggleMode(): void {
 		if (this.state.isShuffled) {
 			this.toggleShuffle();
@@ -539,11 +578,13 @@ class MusicPlayerStore {
 		this.toggleRepeat();
 	}
 
+	/** 展开或收起歌单列表 */
 	togglePlaylist(): void {
 		this.state.showPlaylist = !this.state.showPlaylist;
 		this.broadcastState();
 	}
 
+	/** 展开或收起播放面板；首次打开时补齐懒初始化 */
 	toggleExpanded(): void {
 		// 播放器是懒初始化的（避免首屏加载歌单与音频流），
 		// 用户主动打开面板时立即补齐初始化
@@ -560,6 +601,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 收起或显示播放器小球，隐藏时一并关闭面板与歌单 */
 	toggleHidden(): void {
 		this.state.isHidden = !this.state.isHidden;
 		// 保持与原先 usePlayerState.toggleHiddenUI 一致的联动行为：
@@ -571,10 +613,12 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 歌单多于一首时才允许切歌 */
 	canSkip(): boolean {
 		return this.state.playlist.length > 1;
 	}
 
+	/** 按百分比设置播放进度，供进度条拖拽使用 */
 	setProgress(percent: number): void {
 		if (!this.audio) {
 			return;
@@ -585,6 +629,7 @@ class MusicPlayerStore {
 		this.broadcastState();
 	}
 
+	/** 向所有订阅者广播状态，并在 window 上派发事件供非 Svelte 脚本感知 */
 	private broadcastState(): void {
 		const snapshot = this.createSnapshot();
 
@@ -602,6 +647,7 @@ class MusicPlayerStore {
 		);
 	}
 
+	/** 销毁播放器：解绑交互监听、停止并释放 Audio，允许之后重新初始化 */
 	destroy(): void {
 		if (this.unregisterInteraction) {
 			this.unregisterInteraction();
@@ -615,4 +661,5 @@ class MusicPlayerStore {
 	}
 }
 
+/** 全局唯一实例，组件通过导入它共享同一份播放状态 */
 export const musicPlayerStore = new MusicPlayerStore();

@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * 主题切换按钮组件：在浅色 / 深色模式之间循环切换。
+	 * 仅负责 UI 与本地主题写入，不参与页面其它逻辑；被页头等全局区域复用。
+	 */
 	import { DARK_MODE, DEFAULT_THEME, LIGHT_MODE } from "@constants/constants";
 	import Icon from "@iconify/svelte";
 	import { getStoredTheme, setTheme } from "@utils/setting-utils";
@@ -10,10 +14,12 @@
 	let mode: LIGHT_DARK_MODE = $state(DEFAULT_THEME);
 	let isChanging = false;
 
+	// localStorage 只能在客户端访问，挂载后读取已保存的主题初始化状态
 	onMount(() => {
 		mode = getStoredTheme();
 	});
 
+	/** 切换到指定主题并持久化，内部做节流避免快速连点导致状态抖动 */
 	function switchScheme(newMode: LIGHT_DARK_MODE) {
 		// 防止连续快速点击
 		if (isChanging) {
@@ -30,6 +36,7 @@
 		}, 50);
 	}
 
+	/** 按预设顺序循环到下一个主题（浅色 ↔ 深色） */
 	function toggleScheme() {
 		if (isChanging) {
 			return;

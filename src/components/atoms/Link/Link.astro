@@ -1,4 +1,6 @@
 ---
+// 链接组件：统一站内/外链的样式变体与安全属性，_blank 时自动补全 noopener noreferrer。
+// 供正文、卡片等处复用，避免各处手写 rel 导致的安全疏漏。
 interface Props {
 	href?: string;
 	target?: "_blank" | "_self" | "_parent" | "_top";

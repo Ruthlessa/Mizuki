@@ -1,4 +1,6 @@
 ---
+// 分页导航条：根据 Astro 的 Page 对象计算可见页码窗口并渲染上一页/下一页。
+// 用于列表页与归档页；当页码超出窗口时用省略号占位。
 import type { Page } from "astro";
 import { Icon } from "astro-icon/components";
 
@@ -60,6 +62,7 @@ if (r < page.lastPage) {
 	pages.push(page.lastPage);
 }
 
+/** 生成分页页码对应的站点路径，第一页固定在根路径 */
 const getPageUrl = (p: number) => {
 	if (p === 1) {
 		return "/";

@@ -1,4 +1,5 @@
 ---
+// 悬浮目录：渲染悬浮按钮与面板，并在客户端脚本中生成目录、跟踪滚动高亮。
 import type { MarkdownHeading } from "astro";
 
 import { Icon } from "astro-icon/components";
@@ -209,6 +210,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		state: FloatingTOCState;
 		navbarOffset = 80;
 
+		/** 收集面板相关 DOM 引用并立即完成初始化。 */
 		constructor() {
 			this.state = {
 				btn: document.getElementById("floating-toc-btn"),
@@ -222,6 +224,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			this.init();
 		}
 
+		/** 绑定滚动节流、事件与目录生成，作为组件启动入口。 */
 		init() {
 			const handleScroll = throttle(() => {
 				this.updateActiveHeading();
@@ -235,6 +238,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			this.observeContent();
 		}
 
+		/** 监听正文 DOM 变化（如解密后注入内容）并自动重建目录。 */
 		observeContent() {
 			const contentWrapper = document.getElementById("post-container");
 			if (contentWrapper) {
@@ -248,6 +252,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			}
 		}
 
+		/** 按滚动位置刷新高亮项，面板打开时顺带把高亮项滚入视野。 */
 		updateActiveHeading() {
 			const { content, headings } = this.state;
 			if (!content || headings.length === 0) return;
@@ -280,6 +285,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			});
 		}
 
+		/** 根据正文标题生成目录 HTML；无标题时隐藏按钮并标记 no-toc。 */
 		generateTOC() {
 			const container = document.getElementById("post-container");
 			const { wrapper, btn } = this.state;
@@ -342,6 +348,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			this.updateActiveHeading();
 		}
 
+		/** 注册按钮、点击外部关闭、链接跳转与 Esc 关闭等交互。 */
 		bindEvents() {
 			const { btn, content, wrapper } = this.state;
 
@@ -375,10 +382,12 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			});
 		}
 
+		/** 在打开与关闭之间切换面板。 */
 		toggle() {
 			this.state.isOpen ? this.close() : this.open();
 		}
 
+		/** 展开面板并同步按钮/容器的激活样式。 */
 		open() {
 			this.state.isOpen = true;
 			this.state.panel?.classList.add("show");
@@ -386,6 +395,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			this.state.wrapper?.classList.add("active");
 		}
 
+		/** 收起面板并移除激活样式。 */
 		close() {
 			this.state.isOpen = false;
 			this.state.panel?.classList.remove("show");
@@ -393,6 +403,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 			this.state.wrapper?.classList.remove("active");
 		}
 
+		/** 页面切换后重新抓取 DOM 引用并重建目录，避免引用失效。 */
 		reinit() {
 			if (this.state.observer) {
 				this.state.observer.disconnect();
@@ -411,6 +422,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		}
 	}
 
+	/** 全局入口：供内联 onclick 直接切换悬浮目录面板显示。 */
 	window.toggleFloatingTOC = function () {
 		const panel = document.getElementById("floating-toc-panel");
 		const btn = document.getElementById("floating-toc-btn");
@@ -428,6 +440,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 
 	let floatingTOCInstance: FloatingTOC | null = null;
 
+	/** 首次创建实例，之后页面切换只做重建，避免重复注册全局监听。 */
 	function initFloatingTOC() {
 		if (floatingTOCInstance) {
 			floatingTOCInstance.reinit();

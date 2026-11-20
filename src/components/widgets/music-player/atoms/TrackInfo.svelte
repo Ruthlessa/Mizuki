@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 曲目信息（atom）：按 mini/expanded 展示标题、作者，并可选显示当前时间/总时长。
 	import Key from "../../../../i18n/i18nKey";
 	import { i18n } from "../../../../i18n/translation";
 	import type { Song } from "../types";
@@ -19,6 +20,7 @@
 		size = "mini",
 	}: Props = $props();
 
+	/** 把秒数格式化为 m:ss，非法值回退为 0:00。 */
 	function formatTime(seconds: number): string {
 		if (!Number.isFinite(seconds) || seconds < 0) {
 			return "0:00";
@@ -28,6 +30,7 @@
 		return `${mins}:${secs.toString().padStart(2, "0")}`;
 	}
 
+	/** 补全静态资源路径（相对路径统一加根前缀）。 */
 	function getAssetPath(path: string): string {
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;

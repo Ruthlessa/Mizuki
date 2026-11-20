@@ -1,6 +1,12 @@
+/**
+ * remark-directive 转 hast 插件
+ * 把 directive 语法（:name[content]{attrs} / ::name 等）解析出的节点，通过 h() 计算成
+ * hName/hProperties，交给 rehype 阶段渲染为真实元素。
+ */
 import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 
+/** 返回 transformer：为所有 directive 节点补齐 hast 的标签名与属性 */
 export function parseDirectiveNode() {
 	return (tree, { _data }) => {
 		visit(tree, (node) => {

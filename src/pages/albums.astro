@@ -1,4 +1,5 @@
 ---
+// 相册列表页：扫描相册目录后生成卡片网格与标签筛选，功能关闭时重定向 404。
 import { FilterTabs } from "@components/atoms/filter-tabs";
 import { AlbumCard } from "@components/features/albums";
 import { PageHeader } from "@components/features/page-header";
@@ -9,6 +10,7 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { scanAlbums } from "../utils/album-scanner";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.albums) {
 	return Astro.redirect("/404/");
 }

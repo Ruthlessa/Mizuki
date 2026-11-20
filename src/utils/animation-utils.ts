@@ -15,6 +15,7 @@ export class AnimationManager {
 	private isAnimating = false;
 	private animationQueue: (() => void)[] = [];
 
+	/** 获取全局单例，保证整个页面只存在一个动画调度器 */
 	static getInstance(): AnimationManager {
 		if (!AnimationManager.instance) {
 			AnimationManager.instance = new AnimationManager();
@@ -114,6 +115,7 @@ export class AnimationManager {
 		const animatedElements = document.querySelectorAll(".onload-animation");
 		animatedElements.forEach((element, index) => {
 			const htmlElement = element as HTMLElement;
+			// 优先沿用元素上已声明的延迟，缺失时按列表顺序递增，形成错峰入场
 			const delay =
 				Number.parseInt(htmlElement.style.animationDelay, 10) ||
 				index * 50;
@@ -188,6 +190,7 @@ export class AnimationManager {
 	 * 添加动画到队列
 	 */
 	queueAnimation(callback: () => void): void {
+		// 页面切换动画期间先排队，等进入动画结束后再统一执行，避免动画互相打断
 		if (this.isAnimating) {
 			this.animationQueue.push(callback);
 		} else {

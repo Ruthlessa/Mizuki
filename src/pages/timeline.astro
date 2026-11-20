@@ -1,4 +1,5 @@
 ---
+// 时间线页：展示教育/工作/项目/成就等经历，并按类型提供筛选标签。
 import { FilterTabs } from "@components/atoms/filter-tabs";
 import { TimelineCard } from "@components/features/timeline";
 import { PageHeader } from "@components/features/page-header";
@@ -9,12 +10,14 @@ import { timelineData } from "../data/timeline";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
+// 功能页关闭时直接重定向，避免暴露空页面
 if (!siteConfig.featurePages.timeline) {
 	return Astro.redirect("/404/");
 }
 
 const types = ["education", "work", "project", "achievement"] as const;
 
+/** 按经历类型返回对应的图标名，未知类型回退为通用图标 */
 const getTypeIcon = (type: string) => {
 	switch (type) {
 		case "education":
@@ -30,6 +33,7 @@ const getTypeIcon = (type: string) => {
 	}
 };
 
+/** 按经历类型返回国际化后的中文名称 */
 const getTypeText = (type: string) => {
 	switch (type) {
 		case "education":

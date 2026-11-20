@@ -1,3 +1,7 @@
+/**
+ * 国际化文案键枚举：所有语言包必须实现同一组键，
+ * 组件通过 I18nKey.xxx 引用，避免字符串硬编码。
+ */
 enum I18nKey {
 	home = "home",
 	about = "about",

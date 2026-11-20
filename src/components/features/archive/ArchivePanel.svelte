@@ -1,4 +1,5 @@
 <script lang="ts">
+	/** 归档面板：按年份分组展示文章，并支持从 URL 参数读取标签/分类筛选条件。 */
 	import I18nKey from "@i18n/i18nKey";
 	import { i18n } from "@i18n/translation";
 	import { onMount } from "svelte";
@@ -27,10 +28,12 @@
 	let initialCategories: string[] = $state([]);
 	let uncategorized: string | null = $state(null);
 
+	/** 兼容字符串与 Date 两种日期输入，统一转为 Date 对象。 */
 	function getDate(date: Date | string): Date {
 		return typeof date === "string" ? new Date(date) : date;
 	}
 
+	/** 格式化为 MM-DD，用于归档条目左侧的日期显示。 */
 	function formatDate(date: Date | string) {
 		const d = getDate(date);
 		const month = (d.getMonth() + 1).toString().padStart(2, "0");
@@ -38,10 +41,12 @@
 		return `${month}-${day}`;
 	}
 
+	/** 把标签数组拼接为 `#tag1 #tag2` 形式的展示文本。 */
 	function formatTag(tagList: string[]) {
 		return tagList.map((t) => `#${t}`).join(" ");
 	}
 
+	/** 应用标签/分类/未分类筛选，按发布时间倒序分组到年份。 */
 	function processPosts() {
 		let filteredPosts: Post[] = sortedPosts;
 

@@ -1,14 +1,22 @@
+/**
+ * GitHub Alert 语法兼容插件
+ * 把 GitHub 风格的引用块 `> [!NOTE]`（TIP/IMPORTANT/WARNING/CAUTION）改写为 remark-directive 的
+ * containerDirective 节点，交由 admonition 组件统一渲染。
+ */
 import { visit } from "unist-util-visit";
 
+// 匹配单独成行的 [!TYPE] 声明
 const GITHUB_ALERT_DECLARATION_REGEX = /^\s*\[\!(?<type>\w+)\]\s*$/;
 const GITHUB_ALERT_TYPES = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
 
+/** 解析一行文本是否为合法的 GitHub Alert 声明，返回大写类型或 null */
 function parseGithubAlertDeclaration(text) {
 	const match = text.match(GITHUB_ALERT_DECLARATION_REGEX);
 	const type = match?.groups?.type?.toUpperCase();
 	return GITHUB_ALERT_TYPES.includes(type) ? type : null;
 }
 
+/** 返回 remark transformer，把满足条件的第一段引用块替换为 directive 节点 */
 export function remarkFixGithubAdmonitions() {
 	return (tree) => {
 		visit(tree, "blockquote", (node, index, parent) => {
@@ -26,6 +34,7 @@ export function remarkFixGithubAdmonitions() {
 				return;
 			}
 
+			// 只允许声明独占引用块的首行，因此取第一行判断
 			const possibleTypeDeclaration =
 				firstParagraphChild.value.split("\n")[0];
 			if (!possibleTypeDeclaration) {
@@ -50,6 +59,7 @@ export function remarkFixGithubAdmonitions() {
 				return;
 			}
 
+			// 声明行之后若还有正文（同一段落内换行），需要保留为 directive 的内容
 			const textNodeChildren =
 				firstParagraphChild.value.split("\n").length > 1
 					? [

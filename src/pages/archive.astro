@@ -1,4 +1,5 @@
 ---
+// 归档页：汇总全部文章并交给 ArchivePanel（Svelte）做分组与展示。
 import ArchivePanel from "@components/features/archive/ArchivePanel.svelte";
 import CategoryBar from "@components/features/posts/CategoryBar.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -12,6 +13,7 @@ const sortedPostsList = await getSortedPostsList();
 
 const showCategoryBar = siteConfig.postListLayout.categoryBar?.enable ?? false;
 
+// 归档面板要求 category 为 undefined 而非 null，这里统一做一次转换
 const posts = sortedPostsList.map((post) => ({
 	...post,
 	data: {

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 侧栏进度条：展示播放进度，点击定位播放时间，Enter/空格跳到中点。
 	interface Props {
 		currentTime: number;
 		duration: number;
@@ -13,6 +14,7 @@
 			: 0,
 	);
 
+	/** 按点击位置换算目标时间并回调 onSeek；时长无效或元素缺失时忽略。 */
 	function handleClick(event: MouseEvent) {
 		const el = event.currentTarget as HTMLElement | null;
 		if (!el || duration <= 0) {
@@ -25,6 +27,7 @@
 		onSeek(time);
 	}
 
+	/** 键盘操作时跳到进度中点，提供基础可访问性。 */
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();

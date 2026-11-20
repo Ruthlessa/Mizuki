@@ -1,3 +1,9 @@
+/**
+ * 追番数据加载工具
+ * 支持三种数据源：本地 anime.ts 数组、bilibili-data.json、bangumi-data.json，
+ * 并把字段不完整的原始条目规范化为 AnimeItem（缺省评分 0、总集数 12 等）。
+ * 通过 import.meta.glob 读取 JSON，以兼容 Cloudflare Workers 等无 fs 的运行时。
+ */
 import localAnimeList from "../data/anime";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
@@ -50,6 +56,7 @@ export type AnimeSourceConfig =
 			emptyDescription?: string;
 	  };
 
+/** 读取指定数据源并做字段归一化；读取失败或无数据时返回空数组 */
 export function loadAnimeData(source: "bilibili" | "bangumi"): AnimeItem[] {
 	try {
 		let rawData: RawAnimeItem[] = [];
@@ -86,6 +93,7 @@ export function loadAnimeData(source: "bilibili" | "bangumi"): AnimeItem[] {
 	}
 }
 
+/** 返回全部可选数据源配置，含空状态文案（供页面在无数据时提示） */
 export function getAnimeSourceConfigs(): Record<string, AnimeSourceConfig> {
 	return {
 		local: {
@@ -107,6 +115,7 @@ export function getAnimeSourceConfigs(): Record<string, AnimeSourceConfig> {
 	};
 }
 
+/** 按当前模式取出追番列表与对应配置；开发环境可按 fetchOnDev 决定是否跳过加载 */
 export function getAnimeList(
 	mode: string,
 	sourceConfigs: Record<string, AnimeSourceConfig>,
@@ -120,6 +129,7 @@ export function getAnimeList(
 		} else if (currentConfig.type === "json") {
 			const isDev = import.meta.env.DEV;
 			const shouldFetchOnDev = currentConfig.fetchOnDev ?? false;
+			// 开发环境默认不加载大体积 JSON，避免拖慢本地启动，可通过 fetchOnDev 开启
 			const skipLoad = isDev && !shouldFetchOnDev;
 
 			if (skipLoad) {
@@ -143,6 +153,7 @@ export function getAnimeList(
 	return { animeList, currentConfig };
 }
 
+/** 返回观看状态到文案、配色类名、图标的映射表 */
 export function getStatusMap(): Record<
 	string,
 	{ text: string; class: string; icon: string }

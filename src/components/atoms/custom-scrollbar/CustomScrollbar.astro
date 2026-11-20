@@ -1,4 +1,6 @@
 ---
+// 自定义滚动条容器：隐藏系统滚动条，改为在悬停/滚动时显示主题化轨道与滑块。
+// 脚本按 data-orientation 计算滑块尺寸与位置，并跟随暗色模式联动配色。
 export interface Props {
 	children: any;
 	orientation?: "horizontal" | "vertical";
@@ -175,6 +177,7 @@ const {
 		el.appendChild(thumb);
 
 		// 更新滚动条位置和尺寸的函数
+		/** 依据当前滚动比例重算滑块长度与偏移，内容未溢出时保持不动 */
 		function updateScrollbar() {
 			if (el.dataset.orientation === "horizontal") {
 				const scrollWidth = el.scrollWidth;
@@ -214,18 +217,21 @@ const {
 		}
 
 		// 显示滚动条的函数
+		/** 悬停或按下时淡入轨道与滑块 */
 		function showScrollbar() {
 			track.style.opacity = "1";
 			thumb.style.opacity = "1";
 		}
 
 		// 隐藏滚动条的函数
+		/** 移出容器或松开鼠标时淡出轨道与滑块 */
 		function hideScrollbar() {
 			track.style.opacity = "0";
 			thumb.style.opacity = "0";
 		}
 
 		// 夜间模式适配
+		/** 根据根节点 dark 类切换轨道/滑块配色，由 MutationObserver 在主题变更时回调 */
 		function updateTheme() {
 			if (document.documentElement.classList.contains("dark")) {
 				track.style.background = "#374151"; // 夜间模式轨道色

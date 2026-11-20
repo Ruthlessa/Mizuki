@@ -1,3 +1,8 @@
+/**
+ * 文章内容聚合工具
+ * 提供给首页、归档、标签页、分类页与文章详情页使用：统一处理草稿过滤、排序、上下篇、标签/分类统计与相关推荐。
+ * 排序规则：置顶优先 → 置顶内按 priority 升序 → 其余按发布时间倒序。
+ */
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { initPostIdMap } from "@utils/permalink-utils";
@@ -5,6 +10,7 @@ import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 // // Retrieve posts and sort them by publication date
+/** 拉取全部文章并完成排序（生产环境过滤草稿，开发环境保留草稿以便预览） */
 async function getRawSortedPosts() {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
@@ -42,6 +48,7 @@ async function getRawSortedPosts() {
 	return sorted;
 }
 
+/** 在排序结果上补充 prev/next 文章信息，供文章详情页的上下篇导航使用 */
 export async function getSortedPosts() {
 	const sorted = await getRawSortedPosts();
 
@@ -61,6 +68,7 @@ export interface PostForList {
 	data: CollectionEntry<"posts">["data"];
 	url?: string; // 预计算的文章 URL
 }
+/** 获取列表页使用的精简文章数据（只保留 id/data 并预计算 URL），避免把正文传给客户端 */
 export async function getSortedPostsList(): Promise<PostForList[]> {
 	const sortedFullPosts = await getRawSortedPosts();
 
@@ -81,6 +89,7 @@ export interface Tag {
 	count: number;
 }
 
+/** 统计所有标签及其文章数量，并按名称不区分大小写排序 */
 export async function getTagList(): Promise<Tag[]> {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
@@ -110,6 +119,7 @@ export interface Category {
 	url: string;
 }
 
+/** 统计所有分类及其文章数量，未填写分类的文章归入「未分类」 */
 export async function getCategoryList(): Promise<Category[]> {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;

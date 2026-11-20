@@ -10,6 +10,7 @@
 
 	const { icon, class: className = "" }: Props = $props();
 
+	// 约束：仅支持 iconSetMap 中登记的本地图标集，未登记集合会静默降级为占位符，且必须在构建期可解析对应包。
 	const [collection, name] = icon.includes(":")
 		? icon.split(":")
 		: ["mdi", icon];
@@ -27,6 +28,7 @@
 	const packageName = iconSetMap[collection];
 	let svgContent = "";
 
+	/** 动态导入本地图标集的 JSON，按名称取出 SVG 内容；失败时仅告警并保留占位符 */
 	async function loadIcon() {
 		if (!packageName) {
 			return;

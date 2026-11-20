@@ -1,3 +1,4 @@
+/** 日历纯逻辑 hooks：日期计算、网格生成、文章索引与当前文章识别，供 Calendar.svelte 复用。 */
 /**
  * useCalendar - Custom hooks for Calendar component
  */

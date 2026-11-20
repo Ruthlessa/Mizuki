@@ -1,4 +1,6 @@
 ---
+// 侧栏音乐小部件外壳：生成唯一 id 套用 WidgetLayout，并以 client:only 挂载 Svelte 客户端。
+// 这样可避免播放器在 SSR 阶段触达 window/audio 相关 API。
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import WidgetLayout from "../common/WidgetLayout.astro";

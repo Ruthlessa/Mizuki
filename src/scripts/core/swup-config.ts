@@ -9,6 +9,7 @@ export const BANNER_HEIGHT_EXTEND = 30;
 export const BANNER_HEIGHT_HOME = BANNER_HEIGHT + BANNER_HEIGHT_EXTEND;
 
 // 选择器配置
+/** 集中维护 Swup 用到的 DOM 选择器，避免各处硬编码导致失配 */
 export const SWUP_SELECTORS = {
 	// 内容容器
 	contentContainer: "#content-wrapper",
@@ -53,6 +54,7 @@ export interface TransitionConfig {
 }
 
 // 过渡动画默认配置 - 灵感来自 Firefly 主题的快速流畅体验
+// 时长较短（120ms）以获得「即时响应」的观感
 export const TRANSITION_CONFIG: TransitionConfig = {
 	duration: 120,
 	easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -192,6 +194,7 @@ export interface FancyboxConfig {
 }
 
 // 默认 Fancybox 配置
+/** 生成默认的 Fancybox 配置（每次返回新对象，避免调用方修改共享常量） */
 export const getDefaultFancyboxConfig = (): FancyboxConfig => ({
 	Thumbs: { autoStart: true, showOnStart: "yes" },
 	Toolbar: {

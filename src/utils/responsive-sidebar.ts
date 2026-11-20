@@ -45,6 +45,7 @@ function getSidebarDisplayProperty(
 	const width = window.innerWidth;
 	const deviceType = getDeviceType(width, config.breakpoints);
 
+	// 只有「该设备允许显示」且「该设备确实有组件」时才真正展示
 	let show = false;
 	if (deviceType === "mobile") {
 		show = config.showConfig.mobile && config.hasComponents.mobile;
@@ -98,6 +99,7 @@ export function initSidebarManager(config: SidebarDisplayConfig): void {
 	updateDisplay();
 
 	// 监听窗口大小变化
+	/** 窗口尺寸变化时重新计算并写入侧边栏显示变量 */
 	const resizeHandler = (): void => updateDisplay();
 	const resizeKey = `${config.managerKey}ResizeHandler`;
 	win[resizeKey] = resizeHandler;

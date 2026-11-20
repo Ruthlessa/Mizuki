@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 侧栏播放列表单项：展示封面/标题/作者，当前播放项显示动态图标并高亮。
 	import Icon from "@iconify/svelte";
 
 	import type { Song } from "../../music-player/types";
@@ -12,6 +13,7 @@
 
 	const { song, isCurrent, isPlaying, onclick }: Props = $props();
 
+	/** 补全封面资源路径：绝对 URL 或已带斜杠的路径原样返回。 */
 	function getAssetPath(path: string): string {
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;

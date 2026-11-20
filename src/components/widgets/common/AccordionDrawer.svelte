@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 手风琴抽屉：通过 grid-template-rows 过渡实现内容展开/收起动画，展开状态由 show 控制。
 	interface Props {
 		show: boolean;
 		class?: string;

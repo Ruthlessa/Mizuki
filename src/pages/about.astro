@@ -1,4 +1,5 @@
 ---
+// 关于页：从 content 的 spec 集合读取 about 文档并渲染，缺少内容时构建报错。
 import { PageHeader } from "@components/features/page-header";
 import Markdown from "@components/misc/Markdown.astro";
 import { getEntry, render } from "astro:content";
@@ -7,6 +8,7 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
+// 读取 about 内容条目；未提供时直接中断构建以便尽早发现缺失
 const aboutPost = await getEntry("spec", "about");
 
 if (!aboutPost) {

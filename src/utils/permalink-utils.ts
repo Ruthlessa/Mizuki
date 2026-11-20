@@ -1,3 +1,8 @@
+/**
+ * 文章永久链接（permalink）工具
+ * 负责按站点 permalink 模板生成文章 slug、维护「文章序号」缓存，供文章路由页与列表页复用。
+ * 序号缓存需先调用 initPostIdMap 初始化；未初始化时 getPostNumericId 会告警并返回 0。
+ */
 import type { CollectionEntry } from "astro:content";
 
 import { permalinkConfig } from "../config";

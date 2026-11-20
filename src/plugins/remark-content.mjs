@@ -1,6 +1,12 @@
+/**
+ * 文章摘要与字数统计插件
+ * 解析 Markdown AST 后把 excerpt / minutes / words 写入 frontmatter：
+ * 摘要优先取 `<!-- more -->` 之前的内容，否则取第一个非空段落；字数对 CJK 与英文分别统计。
+ */
 import getReadingTime from "reading-time";
 import { visit } from "unist-util-visit";
 
+/** 返回 remark transformer，计算摘要与阅读时长并挂到 data.astro.frontmatter */
 export function remarkContent() {
 	return (tree, { data }) => {
 		// --- 安全性检查：确保 data.astro 存在 ---
@@ -67,6 +73,7 @@ export function remarkContent() {
 			/[\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u3000-\u303f\uff00-\uffef]/g;
 
 		const cjkMatches = fullText.match(cjkPattern);
+		// match 在对 CJK 字符计数时为 null，需要兜底为 0
 		const cjkCount = cjkMatches ? cjkMatches.length : 0;
 
 		// 将 CJK 字符替换为空格，避免粘连，然后计算非 CJK (英文/数字) 单词数
@@ -80,6 +87,7 @@ export function remarkContent() {
 
 		// --- 注入数据到 Frontmatter ---
 		data.astro.frontmatter.excerpt = excerpt;
+		// 至少显示 1 分钟，避免极短文章出现「0 分钟」的观感
 		data.astro.frontmatter.minutes = Math.max(1, Math.round(minutes));
 		data.astro.frontmatter.words = totalWords;
 	};

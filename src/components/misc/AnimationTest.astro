@@ -1,4 +1,6 @@
 ---
+// 动画测试组件：页面上放一组按钮，手动触发滑入/滑出过渡以验证动画效果。
+// 仅供开发调试，不在正式页面中引用；逻辑在下方内联脚本中通过全局函数暴露。
 // 动画测试组件
 ---
 
@@ -60,6 +62,7 @@
 
 <script is:inline>
 	// 动画测试函数
+	/** 重置为滑入初始态并强制重排，随后添加激活类触发过渡 */
 	function testSlideIn() {
 		const content = document.getElementById("test-content");
 		if (!content) {
@@ -74,6 +77,7 @@
 		}, 50);
 	}
 
+	/** 切换到滑出状态并延迟添加离开类，确保过渡能从头播放 */
 	function testSlideOut() {
 		const content = document.getElementById("test-content");
 		if (!content) {
@@ -87,6 +91,7 @@
 		}, 50);
 	}
 
+	/** 把测试区域恢复到初始可见状态，便于重复测试 */
 	function resetAnimation() {
 		const content = document.getElementById("test-content");
 		if (!content) {

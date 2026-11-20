@@ -1,4 +1,6 @@
 ---
+// 打字机文字组件：渲染色块容器并通过客户端脚本逐字打字/删除循环展示文案，常用于首页副标题等位置。
+// 多语言或轮播文案由父组件以数组传入；动画参数通过 data-* 传递，避免内联脚本注入。
 export interface Props {
 	text: string | string[];
 	speed?: number;
@@ -25,6 +27,7 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 	data-pause-time={pauseTime}></span>
 
 <script>
+	/** 单个打字机实例：负责读取 data-* 配置并驱动文字逐字显示与回删循环 */
 	class TypewriterEffect {
 		private element: HTMLElement;
 		private texts: string[];
@@ -36,6 +39,7 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 		private isDeleting = false;
 		private timeoutId: number | null = null;
 
+		/** 解析目标元素的文本与速度配置，并决定立即打字还是随机静态展示 */
 		constructor(element: HTMLElement) {
 			this.element = element;
 			const textData = element.dataset.text || "";
@@ -60,6 +64,7 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 			}
 		}
 
+		/** 判断元素是否显式配置了打字机参数，用于区分静态展示模式 */
 		private isTypewriterEnabled(): boolean {
 			// 检查是否有打字机相关的数据属性
 			return (
@@ -69,11 +74,13 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 			);
 		}
 
+		/** 在未启用动画时从候选文案中随机挑一条直接渲染 */
 		private showRandomText() {
 			const randomIndex = Math.floor(Math.random() * this.texts.length);
 			this.element.textContent = this.texts[randomIndex];
 		}
 
+		/** 启动打字循环，空文案时直接跳过以免产生空转定时器 */
 		private start() {
 			if (this.texts.length === 0) {
 				return;
@@ -81,10 +88,12 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 			this.type();
 		}
 
+		/** 取当前待展示的文案，索引越界时回退为空串 */
 		private getCurrentText(): string {
 			return this.texts[this.currentTextIndex] || "";
 		}
 
+		/** 单步动画：根据删除/打字状态推进一个字符，并用 setTimeout 递归驱动下一帧 */
 		private type() {
 			const currentText = this.getCurrentText();
 
@@ -140,6 +149,7 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 			}
 		}
 
+		/** 销毁实例时清理挂起的定时器，防止组件卸载后仍在修改 DOM */
 		public destroy() {
 			if (this.timeoutId) {
 				clearTimeout(this.timeoutId);

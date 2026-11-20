@@ -1,4 +1,6 @@
 ---
+// 回到顶部悬浮按钮：滚动超过 200px 后显示，点击平滑滚回页面顶部。
+// 由 FloatingControls 渲染，使用全局管理器避免重复绑定滚动监听。
 import FloatingButton from "@components/common/FloatingButton.astro";
 ---
 
@@ -11,17 +13,21 @@ import FloatingButton from "@components/common/FloatingButton.astro";
 />
 
 <script is:raw is:inline>
+	/** 平滑滚动到页面顶部 */
 	function backToTop() {
 		window.scroll({ top: 0, behavior: "smooth" });
 	}
 
 	if (typeof window.BackToTopManager === "undefined") {
+		/** 回到顶部按钮的滚动监听管理器，全局只创建一次以避免重复绑定 */
 		window.BackToTopManager = class BackToTopManager {
+			/** 缓存按钮元素并立即初始化滚动监听 */
 			constructor() {
 				this.button = document.getElementById("back-to-top-btn");
 				this.init();
 			}
 
+			/** 按钮存在时才绑定滚动监听 */
 			init() {
 				if (!this.button) {
 					return;
@@ -29,7 +35,9 @@ import FloatingButton from "@components/common/FloatingButton.astro";
 				this.setupScrollListener();
 			}
 
+			/** 以 passive 方式监听滚动，按阈值切换按钮显隐 */
 			setupScrollListener() {
+				/** 根据当前滚动距离更新按钮可见性 */
 				const updateVisibility = () => {
 					const scrollTop =
 						window.pageYOffset ||

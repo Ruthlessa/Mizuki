@@ -40,6 +40,7 @@ const clarityEnable =
 		// 标记脚本是否已加载
 		window.analyticsLoaded = window.analyticsLoaded || false;
 
+		/** 注入 GTM 与可选的 Clarity 脚本，保证只执行一次 */
 		function loadAnalytics() {
 			if (window.analyticsLoaded) {
 				return;
@@ -87,6 +88,7 @@ const clarityEnable =
 		];
 		let loaded = false;
 
+		/** 首次用户交互时移除全部监听并触发加载 */
 		function onInteraction() {
 			if (loaded) {
 				return;

@@ -1,4 +1,6 @@
 ---
+// 图片组件：统一封装本地图片（经 astro:assets 优化）与远程图片的渲染，并提供占位遮罩层。
+// 本地图片通过 import.meta.glob 动态解析，故 src 路径必须真实存在于源码中，否则仅打印错误占位。
 interface Props {
 	id?: string;
 	src: string;
@@ -66,6 +68,7 @@ const isBilibiliImage = !isLocal && src.includes("hdslb.com");
 const referrerPolicy = !isLocal && isBilibiliImage ? "no-referrer" : undefined;
 
 // 简单的路径规范化函数，替代 path.normalize
+/** 归一化相对路径中的 ./ 与 ../ 片段，保证与 import.meta.glob 的键格式一致 */
 function normalizePath(path: string): string {
 	// 将反斜杠替换为正斜杠
 	path = path.replace(/\\/g, "/");

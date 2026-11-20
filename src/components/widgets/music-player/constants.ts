@@ -1,3 +1,5 @@
+// 音乐播放器常量：本地歌单、默认歌曲、音量存储键与 Meting API 默认参数。
+// 供 hooks 与 UI 组件共享，修改本地歌单需同步维护 cover/url 资源路径。
 import type { Song } from "./types";
 
 export const STORAGE_KEY_VOLUME = "music-player-volume";

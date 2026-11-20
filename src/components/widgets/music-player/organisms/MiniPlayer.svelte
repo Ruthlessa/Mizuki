@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 迷你播放器（organism）：无独立逻辑，负责卡片外壳与进入/退出动画，内容委托 TrackDisplay。
 	import TrackDisplay from "../molecules/TrackDisplay.svelte";
 	import type { Song } from "../types";
 

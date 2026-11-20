@@ -1,3 +1,9 @@
+/**
+ * 文章海报/封面图解析工具
+ * 在构建期把 frontmatter 中的图片路径解析成可直接渲染的 src：本地图片走 import.meta.glob 拿哈希后的地址，远程图片转成 base64 内联。
+ * 之所以内联远程图，是为了让 OG 图/海报在离线或防盗链场景下仍可用。
+ */
+/** 解析文章图片路径，返回最终可用的图片地址；解析失败时原样返回 */
 export async function processPosterImage(
 	imagePath: string | undefined,
 	filePath: string | undefined,
@@ -6,6 +12,7 @@ export async function processPosterImage(
 		return "";
 	}
 
+	// 不以 /、http(s)、data: 开头的视为相对于文章所在目录的本地图片
 	const isLocal = !(
 		imagePath.startsWith("/") ||
 		imagePath.startsWith("http") ||
@@ -49,11 +56,13 @@ export async function processPosterImage(
 }
 
 // 简单的路径规范化函数，替代 path.normalize
+/** 规范化相对路径：统一分隔符并消解 . 与 ..，保证能与 glob 的 key 匹配 */
 function normalizePath(path: string): string {
 	// 将反斜杠替换为正斜杠
 	path = path.replace(/\\/g, "/");
 
 	// 处理 ../ 和 ./
+	// 遇到 .. 时弹出上一级目录，从而在纯字符串层面完成路径消解
 	const parts = path.split("/");
 	const result: string[] = [];
 

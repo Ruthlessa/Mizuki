@@ -1,4 +1,6 @@
 ---
+// 首页文章列表分页路由（/page/2 等），由 Astro 的 paginate 自动展开为多页。
+// 数据来源于 getSortedPosts，渲染 PostPage 与分页控件。
 import Pagination from "@components/control/Pagination.astro";
 import CategoryBar from "@components/features/posts/CategoryBar.astro";
 import PostPage from "@components/features/posts/PostPage.astro";
@@ -12,6 +14,7 @@ import { initPostIdMap } from "../utils/permalink-utils";
 
 const showCategoryBar = siteConfig.postListLayout.categoryBar?.enable ?? false;
 
+/** 构建时生成静态分页路径，并把全部文章按 PAGE_SIZE 切分 */
 export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();
 	// 初始化文章 ID 映射（用于 permalink 功能）
@@ -20,6 +23,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 // https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
 
+// 当前分页数据由 getStaticPaths 注入，len 仅用于错开动画延迟
 const { page } = Astro.props;
 
 const len = page.data.length;

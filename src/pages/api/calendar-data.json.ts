@@ -1,5 +1,9 @@
+/**
+ * 日历数据 JSON 接口：按 YYYY-MM-DD 输出每篇文章的发布日期，供日历组件着色。
+ */
 import { getSortedPosts } from "../../utils/content-utils";
 
+/** 输出文章发布日期清单，日期统一格式化为本地时区的 YYYY-MM-DD */
 export async function GET() {
 	const posts = await getSortedPosts();
 

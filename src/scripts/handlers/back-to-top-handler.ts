@@ -22,6 +22,7 @@ export class BackToTopHandler {
 	private bannerEnabled: boolean;
 	private scrollHandler: () => void;
 
+	/** 保存 banner 开关，并预先生成节流后的滚动回调，避免每次滚动重复创建 */
 	constructor(bannerEnabled: boolean) {
 		this.bannerEnabled = bannerEnabled;
 		this.scrollHandler = ScrollHandler.throttle(

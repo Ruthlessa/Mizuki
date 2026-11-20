@@ -39,6 +39,7 @@ function initPageLayout(pageType) {
 	});
 
 	// 监听页面导航事件
+	// 延迟 100ms 是为了等 Swup/Astro 完成 DOM 替换后再操作布局
 	document.addEventListener("astro:page-load", () => {
 		setTimeout(() => {
 			const currentLayout =
@@ -108,6 +109,7 @@ function showRightSidebar() {
 }
 
 // 页面加载完成后初始化
+/** 页面入口：读取页面类型并按当前布局偏好完成首次同步 */
 function initialize() {
 	const pageType =
 		document.documentElement.getAttribute("data-page-type") || "projects";

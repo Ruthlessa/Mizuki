@@ -53,6 +53,7 @@ export function buildComponentProps(
 	const props: Record<string, unknown> = {
 		class: componentClass,
 		style: componentStyle,
+		// customProps 放在最后，允许配置项覆盖默认的 class/style
 		...component.customProps,
 	};
 
@@ -77,6 +78,7 @@ export function getDeviceType(
 	width: number,
 	breakpoints: { mobile: number; tablet: number },
 ): "mobile" | "tablet" | "desktop" {
+	// 断点比较使用「小于」：宽度恰好等于断点时归入更宽的设备档位
 	if (width < breakpoints.mobile) {
 		return "mobile";
 	}

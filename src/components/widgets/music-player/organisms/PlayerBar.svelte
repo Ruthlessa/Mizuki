@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 展开态播放器（organism）：组合曲目信息、进度条、播放控制与音量控制，本身无状态。
 	import Icon from "@iconify/svelte";
 	import type { Action } from "svelte/action";
 

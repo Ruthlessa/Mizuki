@@ -37,6 +37,7 @@ import { permalinkConfig } from "@/config";
 import { profileConfig, siteConfig } from "../config";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 
+/** 收集所有启用 permalink 的文章，并映射为其对应的根级路径 */
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
 
@@ -74,6 +75,7 @@ export async function getStaticPaths() {
 	return paths;
 }
 
+// 由 getStaticPaths 注入的文章条目，渲染正文并准备加密/加密提示
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 

@@ -247,6 +247,7 @@ const favicons: Favicon[] =
 	// 自动缩放逻辑 (Moved from MainGridLayout to here for earlier execution)
 	(function () {
 		if (pageScaling && pageScaling.enable) {
+			/** 按视口宽度与设备类型缩放根字号，触屏/竖屏下恢复默认以避免布局错乱 */
 			function adjustPageScale() {
 				const isTouch =
 					(window.matchMedia &&

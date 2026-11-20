@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 音量图标按钮（atom）：按静音与音量档位切换图标，点击回调切换静音。
 	import Icon from "@iconify/svelte";
 
 	interface Props {

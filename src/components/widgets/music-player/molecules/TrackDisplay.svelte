@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 曲目展示（molecule）：按 mini/expanded 两种尺寸组合封面、曲目信息与操作按钮。
 	import Icon from "@iconify/svelte";
 
 	import Key from "../../../../i18n/i18nKey";

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// 进度条（atom）：纯展示，按 currentTime/duration 计算宽度，交互回调由父级传入。
 	import Key from "../../../../i18n/i18nKey";
 	import { i18n } from "../../../../i18n/translation";
 

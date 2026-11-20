@@ -1,4 +1,6 @@
 ---
+// Twikoo 评论组件：懒加载本地 twikoo 脚本并初始化评论框，评论按当前路由 path 归属。
+// 与 Giscus 采用相同策略：视口内才加载、swup 切页后重挂、卸载时清理观察者。
 import { commentConfig } from "@/config";
 
 interface Props {
@@ -26,6 +28,7 @@ const config = {
 		let observer = null;
 		let twikooLoaded = false;
 
+		/** 读取当前路由路径并去掉末尾斜杠，保证同一文章评论归属一致 */
 		function getCurrentPath() {
 			const pathname = window.location.pathname;
 			return pathname.endsWith("/") && pathname.length > 1
@@ -33,6 +36,7 @@ const config = {
 				: pathname;
 		}
 
+		/** 以构建期配置为基础，用当前实际路径覆盖 path，适配无刷新导航 */
 		function createTwikooConfig() {
 			return {
 				...config,
@@ -41,6 +45,7 @@ const config = {
 			};
 		}
 
+		/** 按需注入滚动保护脚本，并用标记元素避免重复加载 */
 		async function loadScrollProtection() {
 			return new Promise((resolve, reject) => {
 				if (document.getElementById("scroll-protection-loaded")) {
@@ -60,6 +65,7 @@ const config = {
 			});
 		}
 
+		/** 加载 twikoo 主脚本，已加载或已注入过则直接返回，避免重复请求 */
 		async function loadTwikooScript() {
 			if (
 				twikooLoaded ||
@@ -82,6 +88,7 @@ const config = {
 			});
 		}
 
+		/** 确保脚本就绪后清空容器并初始化评论实例，异常统一捕获避免影响页面 */
 		async function initTwikoo() {
 			const commentEl = document.getElementById("tcomment");
 			if (!commentEl) {
@@ -104,6 +111,7 @@ const config = {
 			}
 		}
 
+		/** 页面卸载时断开观察者并解绑 swup 钩子，防止内存泄漏 */
 		function cleanup() {
 			if (observer) {
 				observer.disconnect();
@@ -114,6 +122,7 @@ const config = {
 			}
 		}
 
+		/** 用 IntersectionObserver 监听容器进入视口后再初始化评论，减少首屏开销 */
 		function setupLazyLoad() {
 			const container = document.getElementById(TWIKOO_CONTAINER_ID);
 			if (!container) {
@@ -134,6 +143,7 @@ const config = {
 			observer.observe(container);
 		}
 
+		/** 注册 swup 页面切换钩子，等待新内容替换后重新挂载懒加载 */
 		function setupSwupHooks() {
 			if (window.swup?.hooks) {
 				window.swup.hooks.on("content:replace", () => {
