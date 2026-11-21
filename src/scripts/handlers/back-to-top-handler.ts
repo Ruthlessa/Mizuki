@@ -21,6 +21,8 @@ export class BackToTopHandler {
 	private navbar: HTMLElement | null = null;
 	private bannerEnabled: boolean;
 	private scrollHandler: () => void;
+	/** 提前保存绑定后的 resize 回调，destroy 时才能用同一引用解绑 */
+	private resizeHandler: () => void;
 
 	/** 保存 banner 开关，并预先生成节流后的滚动回调，避免每次滚动重复创建 */
 	constructor(bannerEnabled: boolean) {
@@ -29,6 +31,7 @@ export class BackToTopHandler {
 			this.handleScroll.bind(this),
 			SCROLL_CONFIG.throttleInterval,
 		);
+		this.resizeHandler = this.handleResize.bind(this);
 	}
 
 	/**
@@ -60,7 +63,7 @@ export class BackToTopHandler {
 		window.addEventListener("scroll", this.scrollHandler, {
 			passive: true,
 		});
-		window.addEventListener("resize", this.handleResize.bind(this), {
+		window.addEventListener("resize", this.resizeHandler, {
 			passive: true,
 		});
 	}
@@ -185,7 +188,7 @@ export class BackToTopHandler {
 	 */
 	destroy(): void {
 		window.removeEventListener("scroll", this.scrollHandler);
-		window.removeEventListener("resize", this.handleResize.bind(this));
+		window.removeEventListener("resize", this.resizeHandler);
 		this.backToTopBtn = null;
 		this.toc = null;
 		this.navbar = null;

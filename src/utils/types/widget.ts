@@ -1,6 +1,6 @@
 /**
  * 侧边栏 Widget 相关类型定义
- * 供 widget-manager、widget-renderer、responsive-sidebar 等模块共享，只包含类型无运行时代码。
+ * 供 widget-manager、widget-renderer 等模块共享，只包含类型无运行时代码。
  */
 import type { MarkdownHeading } from "astro";
 
