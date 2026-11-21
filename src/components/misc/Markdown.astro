@@ -111,9 +111,8 @@ const className = Astro.props.class;
 					textArea.select();
 
 					try {
-						// @ts-ignore
-						// const successful = document.execCommand('copy');
-						const successful = true; // document.execCommand is deprecated
+						// 降级方案：旧内核没有 Clipboard API，只能依赖 execCommand
+						const successful = document.execCommand("copy");
 						if (!successful) {
 							throw new Error("execCommand 返回 false");
 						}

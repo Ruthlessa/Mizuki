@@ -129,7 +129,7 @@ export function calculateGridLayout(
 	}
 
 	const gridCols = `
-		${mobileShowSidebar ? "grid-cols-1" : "grid-cols-1"}
+		grid-cols-1
 		${tabletAnySidebar ? "md:grid-cols-[17.5rem_1fr]" : "md:grid-cols-1"}
 		${desktopGridCols}
 	`
